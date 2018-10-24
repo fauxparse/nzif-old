@@ -1,0 +1,20 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+  - .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - '.git/**/*'
+    - 'bin/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+
+Metrics/LineLength:
+  Max: 100
+  AllowURI: true
+  IgnoredPatterns:
+    - '\A\s*#'
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
