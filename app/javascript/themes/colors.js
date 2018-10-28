@@ -1,8 +1,21 @@
-export default {
+import Color from 'color'
+
+const PALETTE = {
   tomato: '#ef4136',
   mandarin: '#f7941d',
   grape: '#594093',
   plum: '#ee2a7b',
   mint: '#0da193',
   apple: '#62bb46',
+  white: '#ffffff',
+}
+
+const BRAND = {
+  accent: PALETTE.tomato,
+  outline: Color(PALETTE.tomato).alpha(0.25).rgb().string(),
+}
+
+export default {
+  ...PALETTE,
+  ...BRAND,
 }

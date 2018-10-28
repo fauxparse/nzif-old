@@ -4,10 +4,12 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "babel-preset-react": "^6.24.1",
+    "color": "^3.1.0",
     "eslint": "^5.7.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "mo-js": "^0.288.2",
     "prop-types": "^15.6.2",
     "rails-erb-loader": "^5.5.0",
     "react": "^16.6.0",
@@ -15,9 +17,17 @@
     "styled-components": "^4.0.2"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.11",
+    "@storybook/addon-links": "^3.4.11",
+    "@storybook/addons": "^3.4.11",
+    "@storybook/react": "^3.4.11",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0",
     "webpack-dev-server": "2.11.2"
   },
   "scripts": {
-    "eslint": "eslint -c .eslintrc.json app/javascript"
+    "eslint": "eslint -c .eslintrc.json app/javascript",
+    "storybook": "RAILS_ENV=development start-storybook -p 6006 -c .storybook -s app/assets webpack-dev-server",
+    "build-storybook": "build-storybook"
   }
 }
