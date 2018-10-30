@@ -5,6 +5,7 @@ RSpec.describe FestivalsController, type: :request do
 
   describe 'GET /' do
     before { get root_path }
+
     it { is_expected.to be_successful }
   end
 end
