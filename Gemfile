@@ -34,6 +34,11 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Compiles an SVG sprite sheet
 gem 'scavenger', github: 'fauxparse/scavenger', branch: 'ignore_meta_files'
 
+# GraphQL
+gem 'goldiloader'
+gem 'graphql'
+gem 'graphql-batch'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -56,4 +61,6 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'graphiql-rails'
 end

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const LogoContainer = styled.div`
@@ -12,12 +13,20 @@ const LogoContainer = styled.div`
   }
 `
 
-export default class Logo extends React.PureComponent {
+class Logo extends React.PureComponent {
   render() {
+    const { year } = this.props
+
     return (
       <LogoContainer>
-        <a href="/">NZIF</a>
+        <a href="/">NZIF {year}</a>
       </LogoContainer>
     )
   }
 }
+
+Logo.propTypes = {
+  year: PropTypes.number
+}
+
+export default Logo

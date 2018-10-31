@@ -90,6 +90,16 @@ GEM
     ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    goldiloader (2.1.2)
+      activerecord (>= 4.2, < 5.3)
+      activesupport (>= 4.2, < 5.3)
+    graphiql-rails (1.4.11)
+      railties
+      sprockets-rails
+    graphql (1.8.11)
+    graphql-batch (0.3.10)
+      graphql (>= 0.8, < 2)
+      promise.rb (~> 0.7.2)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -136,6 +146,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.1.3)
     powerpack (0.1.2)
+    promise.rb (0.7.4)
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
@@ -259,6 +270,10 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   factory_bot_rails
+  goldiloader
+  graphiql-rails
+  graphql
+  graphql-batch
   haml-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

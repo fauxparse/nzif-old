@@ -10,6 +10,9 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
 
+Airbnb/ContinuationSlash:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 100
   AllowURI: true
