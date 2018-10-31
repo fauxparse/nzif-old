@@ -1,13 +1,12 @@
-/* global module */
+/* eslint-disable react/display-name */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
-import { storiesOf } from '@storybook/react'
 import flatMap from 'lodash/flatMap'
 import chroma from 'chroma-js'
 import Clipboard from 'clipboard'
-import Ripple from '../components/ripple'
+import Ripple from '../../components/ripple'
 
 const contrasting = color =>
   chroma.contrast(color, 'white') >= 4.5 ? 'white' : 'black'
@@ -89,7 +88,4 @@ Palette.propTypes = {
 
 const ThemedPalette = withTheme(Palette)
 
-storiesOf('Theme', module)
-  .add('Colors', () => (
-    <ThemedPalette />
-  ))
+export default () => <ThemedPalette />

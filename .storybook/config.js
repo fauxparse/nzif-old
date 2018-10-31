@@ -3,8 +3,7 @@ import { configure, addDecorator } from '@storybook/react'
 import { ThemeProvider } from 'styled-components'
 import Theme, { GlobalStyle } from '../app/javascript/themes'
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../app/javascript/stories', true, /.stories.js$/)
+const req = require.context('../app/javascript/stories', true, /(\.stories|index)\.js$/)
 function loadStories() {
   req.keys().forEach(filename => req(filename))
 }

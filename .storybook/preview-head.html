@@ -8,3 +8,20 @@
     font-style: normal;
   }
 </style>
+<script>
+(function() {
+  function requestListener () {
+    document.body.insertAdjacentHTML('afterbegin', this.responseText);
+    document.body.children[0].style.display = 'none';
+  }
+
+  function requestSprite() {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', requestListener);
+    oReq.open('GET', '/images/icons.svg');
+    oReq.send();
+  }
+
+  requestSprite();
+})();
+</script>

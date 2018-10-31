@@ -7,6 +7,7 @@
     "babel-loader": "^8.0.4",
     "bezier-easing": "^2.1.0",
     "chroma-js": "^1.4.0",
+    "classnames": "^2.2.6",
     "clipboard": "^2.0.1",
     "eslint": "^5.7.0",
     "eslint-loader": "^2.1.1",

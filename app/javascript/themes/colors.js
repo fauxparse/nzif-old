@@ -100,7 +100,7 @@ const palette = CURVES.reduce(
   {}
 )
 
-const accent = palette.tomato[500]
+const accent = palette.tomato[400]
 
 const brand = {
   accent,
