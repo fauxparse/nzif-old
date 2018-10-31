@@ -4,7 +4,9 @@ class Festival < ApplicationRecord
 
   scope :by_year, -> (year) { where('extract(year from start_date) = ?', year) }
 
+  delegate :year, to: :start_date, allow_nil: true
+
   def to_param
-    start_date.year.to_s
+    year&.to_s
   end
 end
