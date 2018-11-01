@@ -10,8 +10,19 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
 
+Airbnb/ClassOrModuleDeclaredInWrongFile:
+  Exclude:
+    - 'app/graphql/**/*'
+
+Airbnb/ModuleMethodInWrongFile:
+  Exclude:
+    - 'app/graphql/**/*'
+
 Airbnb/ContinuationSlash:
   Enabled: false
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
 
 Metrics/LineLength:
   Max: 100

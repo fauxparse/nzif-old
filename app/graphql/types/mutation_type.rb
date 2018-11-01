@@ -1,9 +1,9 @@
 module Types
   class MutationType < Types::BaseObject
-    # TODO: remove me
-    field :test_field, String, null: false, description: 'An example field added by the generator'
-    def test_field
-      'Hello World'
+    private
+
+    def festival_by_year(year)
+      Festival.by_year(year).first!
     end
   end
 end

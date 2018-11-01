@@ -14,9 +14,11 @@ class GraphqlController < ApplicationController
       operation_name: operation_name
     )
     render json: result
+  rescue ActiveRecord::RecordInvalid => e
+    handle_validation_error(e)
   rescue => e
     raise e unless Rails.env.development?
-    handle_error_in_development e
+    handle_error_in_development(e)
   end
 
   private
@@ -37,6 +39,11 @@ class GraphqlController < ApplicationController
     else
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
+  end
+
+  def handle_validation_error(e)
+    errors = e.record.errors.keys.map { |key| [key, e.record.errors.full_messages_for(key)] }.to_h
+    render json: { error: errors, data: {} }, status: :unprocessable_entity
   end
 
   def handle_error_in_development(e)

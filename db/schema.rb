@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_022004) do
+ActiveRecord::Schema.define(version: 2018_11_01_004133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.bigint "festival_id"
+    t.string "type"
+    t.string "name"
+    t.string "slug"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["festival_id", "type", "slug"], name: "index_activities_on_festival_id_and_type_and_slug"
+    t.index ["festival_id"], name: "index_activities_on_festival_id"
+  end
 
   create_table "festivals", force: :cascade do |t|
     t.date "start_date"
@@ -21,4 +33,5 @@ ActiveRecord::Schema.define(version: 2018_10_31_022004) do
     t.index "date_part('year'::text, start_date)", name: "festivals_by_year", unique: true
   end
 
+  add_foreign_key "activities", "festivals", on_delete: :cascade
 end

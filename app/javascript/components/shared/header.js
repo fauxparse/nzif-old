@@ -24,7 +24,7 @@ const invert = (theme) => {
 const currentFestival = gql`
   {
     festival {
-      startDate
+      year
     }
   }
 `
