@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import SkeletonText from './skeleton_text'
 
 const LogoContainer = styled.div`
   font-family: ${props => props.theme.fonts.branding};
@@ -15,18 +16,23 @@ const LogoContainer = styled.div`
 
 class Logo extends React.PureComponent {
   render() {
-    const { year } = this.props
+    const { year, loading } = this.props
 
     return (
       <LogoContainer>
-        <a href="/">NZIF {year}</a>
+        <a href="/">
+          <SkeletonText loading={loading}>
+            NZIF {year}
+          </SkeletonText>
+        </a>
       </LogoContainer>
     )
   }
 }
 
 Logo.propTypes = {
-  year: PropTypes.number
+  year: PropTypes.number,
+  loading: PropTypes.bool,
 }
 
 export default Logo

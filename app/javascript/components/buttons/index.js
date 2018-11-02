@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { ThemeProvider } from 'styled-components'
-import Ripple from '../ripple'
+import Ripple from '../shared/ripple'
 import ButtonText from './text'
 import ButtonIcon from './icon'
 

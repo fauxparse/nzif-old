@@ -33,10 +33,10 @@ export default class Header extends React.Component {
   render() {
     return (
       <Query query={currentFestival}>
-        {({ data: { festival } }) => (
+        {({ loading, data: { festival } }) => (
           <ThemeProvider theme={invert}>
             <HeaderContainer>
-              <Logo year={festival && festival.year} />
+              <Logo year={festival && festival.year} loading={loading} />
             </HeaderContainer>
           </ThemeProvider>
         )}

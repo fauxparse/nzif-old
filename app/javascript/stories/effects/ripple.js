@@ -2,7 +2,7 @@
 
 import React from 'react'
 import styled from 'styled-components'
-import Ripple from '../../components/ripple'
+import Ripple from '../../components/shared/ripple'
 import { color } from '../knobs'
 
 const RippleContainer = styled(Ripple)`

@@ -6,7 +6,7 @@ import styled, { withTheme } from 'styled-components'
 import flatMap from 'lodash/flatMap'
 import chroma from 'chroma-js'
 import Clipboard from 'clipboard'
-import Ripple from '../../components/ripple'
+import Ripple from '../../components/shared/ripple'
 
 const contrasting = color =>
   chroma.contrast(color, 'white') >= 4.5 ? 'white' : 'black'
