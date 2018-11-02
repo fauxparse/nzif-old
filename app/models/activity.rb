@@ -7,6 +7,8 @@ class Activity < ApplicationRecord
     -> (activity) { unscope(:where).associated_with(activity) },
     class_name: 'Activity'
 
+  sluggable scope: %i(festival_id type)
+
   scope :of_type, -> (type) { where(type: type) }
 
   def self.to_param
