@@ -12,17 +12,5 @@ module Types
         Festival.last!
       end
     end
-
-    field :workshop, ActivityType, null: false do
-      argument :year, Integer, required: true
-      argument :slug, String, required: true
-    end
-
-    def workshop(year:, slug:)
-      Workshop.
-        joins(:festival).
-        merge(Festival.by_year(year)).
-        find_by(slug: slug)
-    end
   end
 end

@@ -12,7 +12,7 @@ class Activity < ApplicationRecord
   scope :of_type, -> (type) { where(type: type) }
 
   def self.to_param
-    name.demodulize.underscore.pluralize
+    name.demodulize.pluralize.underscore.dasherize
   end
 
   def self.associated_with(activity)

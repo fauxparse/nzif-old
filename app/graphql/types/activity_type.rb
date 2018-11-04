@@ -1,7 +1,6 @@
 module Types
   class ActivityType < Types::BaseObject
-    include Rails.application.routes.url_helpers
-
+    field :id, ID, null: false
     field :name, String, null: false
     field :type, ActivityTypeType, null: false
     field :slug, String, null: false
@@ -11,7 +10,7 @@ module Types
     field :associated, [ActivityType], null: false
 
     def url
-      polymorphic_url(object, only_path: true)
+      "/#{object.festival.year}/#{object.class.to_param}/#{object.slug}"
     end
   end
 end

@@ -1,9 +1,9 @@
 module Types
   class FestivalType < Types::BaseObject
-    field :year, Integer, null: false, description: 'Festival year'
-    field :start_date, Types::Date, null: false, description: 'Festival start date'
-    field :end_date, Types::Date, null: false, description: 'Festival end date'
-    field :activities, [ActivityType], null: false, description: 'Festival activities' do
+    field :year, Integer, null: false
+    field :start_date, Types::Date, null: false
+    field :end_date, Types::Date, null: false
+    field :activities, [ActivityType], null: false do
       argument :type, ActivityTypeType, 'Restrict activities by type', required: false
     end
 

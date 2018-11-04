@@ -1,46 +1,76 @@
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { NavLink, withRouter } from 'react-router-dom'
 import Logo from './logo'
+import FullWidth from '../../styles/full_width'
+import Invert from '../../styles/invert'
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled(FullWidth)`
   background: ${props => props.theme.colors.background};
   color: ${props => props.theme.colors.text};
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 2.5em;
+  display: flex;
+  align-items: stretch;
+
+  @media (min-width: ${props => props.theme.layout.medium}) {
+    height: 3.5em;
+  }
 `
 
-const invert = (theme) => {
-  const { text, background, colors } = theme.colors
-  return {
-    ...theme,
-    colors: {
-      ...colors,
-      text: background,
-      background: text,
-    },
-  }
-}
+const HeaderLink = styled(NavLink)`
+  align-items: center;
+  color: ${props => props.theme.colors.text};
+  display: flex;
+  opacity: 0.75;
+  padding: 0 0.5em;
+  position: relative;
+  text-decoration: none;
+  transition: ${props => props.theme.transition('color')};
 
-const currentFestival = gql`
-  {
-    festival {
-      year
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 4px solid ${props => props.theme.colors.accent};
+    transform: scaleX(0);
+    transition: transform 0.15s cubic-bezier(0.5, -0.5, 0.5, 1);
+  }
+
+  &:hover,
+  &:focus,
+  &.active {
+    outline: none;
+    opacity: 1;
+
+    &::after {
+      transform: scaleX(1);
+      transition: transform 0.15s cubic-bezier(0.5, 2, 0.75, 1);
     }
   }
 `
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   render() {
+    const { match } = this.props
     return (
-      <Query query={currentFestival}>
-        {({ loading, data: { festival } }) => (
-          <ThemeProvider theme={invert}>
-            <HeaderContainer>
-              <Logo year={festival && festival.year} loading={loading} />
-            </HeaderContainer>
-          </ThemeProvider>
-        )}
-      </Query>
+      <Invert>
+        <HeaderContainer as="header">
+          <Logo />
+          <HeaderLink to={`${match.url}/workshops`}>Workshops</HeaderLink>
+          <HeaderLink to={`${match.url}/shows`}>Shows</HeaderLink>
+        </HeaderContainer>
+      </Invert>
     )
   }
 }
+
+Header.propTypes = {
+  match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+}
+
+export default withRouter(Header)

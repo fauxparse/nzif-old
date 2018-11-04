@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 import colors from './colors'
 import fonts from './fonts'
+import gradients from './gradients'
 import layout from './layout'
 import transition from './transition'
 
@@ -21,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 export default {
   colors,
   fonts,
+  gradients,
   layout,
   transition,
 }
