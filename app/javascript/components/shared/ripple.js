@@ -34,7 +34,7 @@ export default class Ripple extends React.Component {
       easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
       onComplete: () => shape.el.remove(),
     })
-    shape.play()
+    setTimeout(() => shape.play())
   }
 
   mouseDown = (e) => {

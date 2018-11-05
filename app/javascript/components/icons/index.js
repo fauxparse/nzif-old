@@ -18,17 +18,23 @@ class Icon extends React.PureComponent {
   render() {
     const { name, className } = this.props
 
-    return (
-      <Svg className={className}>
-        <use xlinkHref={`#icon-${name}`} />
-      </Svg>
-    )
+    if (name) {
+      return (
+        <Svg className={className}>
+          <use xlinkHref={`#icon-${name}`} />
+        </Svg>
+      )
+    } else {
+      return null
+    }
   }
 }
 
 Icon.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.oneOf(ICONS).isRequired,
+  name: PropTypes.oneOf(ICONS),
 }
+
+Icon.ICONS = ICONS
 
 export default Icon
