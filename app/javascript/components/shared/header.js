@@ -33,10 +33,12 @@ const HeaderLink = styled(NavLink)`
   &::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-bottom: 4px solid ${props => props.theme.colors.accent};
+    left: 50%;
+    bottom: 50%;
+    margin: 0 -0.75em -1em;
+    width: 1.5em;
+    height: 0.25em;
+    background: ${props => props.theme.colors.accent};
     transform: scaleX(0);
     transition: transform 0.15s cubic-bezier(0.5, -0.5, 0.5, 1);
   }
