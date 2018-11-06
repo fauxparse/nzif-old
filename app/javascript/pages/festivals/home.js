@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import Background from '../../components/shared/background'
 import FullWidth from '../../styles/full_width'
 import BrandedText from '../../styles/branded_text'
 import Date from '../../styles/date'
@@ -25,11 +26,11 @@ export const HOMEPAGE_QUERY = gql`
 `
 
 const HeroSection = styled(FullWidth)`
-  background: ${props => props.theme.gradients.primary};
   color: white;
 
   h1 {
-    font-size: ${props => props.theme.fonts.scale(6)};
+    font-size: ${props => props.theme.fonts.scale(10)};
+    text-shadow: 0 0 0.25em rgba(0, 0, 0, 0.15);
     margin: 0;
   }
 
@@ -47,7 +48,7 @@ const Home = ({ match }) => {
     <Query query={HOMEPAGE_QUERY} variables={{ year }}>
       {({ loading, data: { festival } }) => !loading && (
         <Fragment>
-          <HeroSection>
+          <HeroSection as={Background}>
             <BrandedText as="h1">NZIF {festival.year}</BrandedText>
             <h2><Date date={[festival.startDate, festival.endDate]} /></h2>
           </HeroSection>
