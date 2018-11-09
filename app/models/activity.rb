@@ -20,5 +20,5 @@ class Activity < ApplicationRecord
   end
 end
 
-require_dependency 'app/models/show'
-require_dependency 'app/models/workshop'
+require_dependency 'show'
+require_dependency 'workshop'

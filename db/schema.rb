@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_01_004133) do
+ActiveRecord::Schema.define(version: 2018_11_09_021448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,5 +33,23 @@ ActiveRecord::Schema.define(version: 2018_11_01_004133) do
     t.index "date_part('year'::text, start_date)", name: "festivals_by_year", unique: true
   end
 
+  create_table "identities", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "type"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((email)::text)", name: "index_users_on_lowercase_email", unique: true
+  end
+
   add_foreign_key "activities", "festivals", on_delete: :cascade
+  add_foreign_key "identities", "users", on_delete: :cascade
 end
