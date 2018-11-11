@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
 
-  post "/graphql", to: "graphql#execute"
+  post '/graphql', to: 'graphql#execute', as: :graphql
 
   # Activity.subclasses.each do |type|
   #   resolve(type.name) do |activity, options|
@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  get '*path' => 'festivals#show'
+  get '*path' => 'festivals#show', constraints: { format: :html }
   root to: 'festivals#show'
 end
