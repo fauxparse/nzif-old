@@ -8,10 +8,12 @@ import Activity from './activity'
 
 export const ACTIVITIES_QUERY = gql`
   query Activities($year: Int!, $type: ActivityType) {
-    activities(year: $year, type: $type) {
-      id
-      name
-      url
+    festival(year: $year) {
+      activities(type: $type) {
+        id
+        name
+        url
+      }
     }
   }
 `
@@ -31,7 +33,7 @@ const Activities = ({ match }) => {
       {({ loading, data }) =>
         loading ? null : (
           <ActivitiesContainer>
-            {data.activities.map(activity => (
+            {data.festival.activities.map(activity => (
               <Activity key={activity.id} activity={activity} />
             ))}
           </ActivitiesContainer>
