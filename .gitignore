@@ -13,6 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 .cache/*
+/coverage
 
 # Ignore uploaded files in development
 /storage/*

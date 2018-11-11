@@ -6,6 +6,7 @@ RSpec.describe ExecuteGraphql, type: :interactor do
       ExecuteGraphql.call(
         schema: schema,
         query: query,
+        variables: variables,
         environment: environment,
         operation_name: operation_name
       )
@@ -32,6 +33,20 @@ RSpec.describe ExecuteGraphql, type: :interactor do
       end
 
       it { is_expected.to be_a_success }
+
+      context 'with bad variables' do
+        let(:variables) { '123' }
+
+        it 'raises an exception' do
+          expect { result }.to raise_error(ArgumentError)
+        end
+      end
+
+      context 'with controller params as variables' do
+        let(:variables) { ActionController::Parameters.new }
+
+        it { is_expected.to be_a_success }
+      end
     end
 
     context 'for a non-existent record' do

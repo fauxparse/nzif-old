@@ -7,7 +7,7 @@ class GraphqlController < ApplicationController
       operation_name: params[:operationName],
       controller: self
     )
-    render json: result.result, status: forward_status(result.status)
+    render json: result.response, status: forward_status(result.status)
   end
 
   private

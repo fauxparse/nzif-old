@@ -84,6 +84,7 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     diff-lcs (1.3)
+    docile (1.3.1)
     erubi (1.7.1)
     erubis (2.7.0)
     factory_bot (4.8.2)
@@ -128,6 +129,7 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    json (2.1.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -244,6 +246,11 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     sexp_processor (4.10.0)
+    simplecov (0.16.1)
+      docile (~> 1.1)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -304,6 +311,7 @@ DEPENDENCIES
   rubocop-airbnb
   sass-rails (~> 5.0)
   scavenger!
+  simplecov
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)

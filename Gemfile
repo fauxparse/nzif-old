@@ -73,3 +73,7 @@ group :development do
 
   gem 'pry-rails'
 end
+
+group :test do
+  gem 'simplecov', require: false
+end
