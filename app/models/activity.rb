@@ -9,6 +9,8 @@ class Activity < ApplicationRecord
 
   sluggable scope: %i(festival_id type)
 
+  validate :not_a_vanilla_activity
+
   scope :of_type, -> (type) { where(type: type) }
 
   def self.to_param
@@ -17,6 +19,12 @@ class Activity < ApplicationRecord
 
   def self.associated_with(activity)
     where(slug: activity.slug, festival_id: activity.festival_id).where.not(type: activity.type)
+  end
+
+  private
+
+  def not_a_vanilla_activity
+    errors.add(:type, 'must not be a vanilla Activity') if self.class == Activity
   end
 end
 

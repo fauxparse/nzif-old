@@ -7,9 +7,10 @@ module Types
     end
 
     def create_activity(year:, type:, attributes:)
-      festival_by_year(year).
-        activities.
-        create!(attributes.to_h.merge(type: type))
+      CreateActivity.call(
+        festival: festival_by_year(year),
+        attributes: attributes.to_h.merge(type: type)
+      ).activity
     end
   end
 end

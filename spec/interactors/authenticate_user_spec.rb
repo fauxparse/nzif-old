@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe AuthenticateUser, type: :interactor do
   describe '.call' do

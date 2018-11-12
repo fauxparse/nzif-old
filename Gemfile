@@ -76,4 +76,6 @@ end
 
 group :test do
   gem 'simplecov', require: false
+  gem 'stub_env', require: false
+  gem 'timecop', require: false
 end

@@ -3,11 +3,11 @@ module Types
     description 'A type of activity'
 
     def self.coerce_input(input_value, _context)
-      input_value.camelize
+      input_value.presence&.camelize
     end
 
     def self.coerce_result(ruby_value, _context)
-      ruby_value.demodulize.underscore
+      ruby_value.presence&.demodulize&.underscore
     end
   end
 end

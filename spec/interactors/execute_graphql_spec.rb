@@ -1,6 +1,9 @@
 require 'spec_helper'
+require 'support/pretend_environment'
 
 RSpec.describe ExecuteGraphql, type: :interactor do
+  extend PretendEnvironment
+
   describe '.call' do
     subject(:result) do
       ExecuteGraphql.call(
@@ -14,6 +17,7 @@ RSpec.describe ExecuteGraphql, type: :interactor do
 
     let(:query) { '[query]' }
     let(:variables) { {} }
+    let(:parsed_variables) { variables }
     let(:graphql_result) { '[result]' }
     let(:schema) { double(:schema) }
     let(:environment) { double(:environment) }
@@ -25,7 +29,7 @@ RSpec.describe ExecuteGraphql, type: :interactor do
           to receive(:execute).
           with(
             query,
-            variables: variables,
+            variables: parsed_variables,
             context: a_hash_including(environment: environment),
             operation_name: operation_name
           ).
@@ -44,6 +48,20 @@ RSpec.describe ExecuteGraphql, type: :interactor do
 
       context 'with controller params as variables' do
         let(:variables) { ActionController::Parameters.new }
+
+        it { is_expected.to be_a_success }
+      end
+
+      context 'with an empty string as variables' do
+        let(:variables) { '' }
+        let(:parsed_variables) { {} }
+
+        it { is_expected.to be_a_success }
+      end
+
+      context 'with nil variables' do
+        let(:variables) { nil }
+        let(:parsed_variables) { {} }
 
         it { is_expected.to be_a_success }
       end
@@ -126,6 +144,15 @@ RSpec.describe ExecuteGraphql, type: :interactor do
 
       it 'raises the exception' do
         expect { result }.to raise_error(GraphQL::ExecutionError, '[message]')
+      end
+
+      context 'in development' do
+        pretend_environment(:development)
+
+        it 'returns the exception' do
+          expect { result }.not_to raise_error
+          expect(result.response.dig(:errors, 0, :detail, :backtrace)).to be_present
+        end
       end
     end
   end
