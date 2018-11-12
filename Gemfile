@@ -57,6 +57,11 @@ group :development, :test do
 
   gem 'rubocop'
   gem 'rubocop-airbnb'
+
+  gem 'growl', require: false
+  gem 'guard', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-rubocop', require: false
 end
 
 group :development do
