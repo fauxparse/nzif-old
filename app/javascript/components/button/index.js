@@ -71,4 +71,4 @@ Button.Text = Text
 Button.Icon = Icon
 Button.MODIFIERS = MODIFIERS
 
-export default Button
+export default styled(Button)``

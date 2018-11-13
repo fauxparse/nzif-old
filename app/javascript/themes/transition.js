@@ -4,5 +4,15 @@ export const EASING = {
   accelerate: 'cubic-bezier(0.4, 0.0, 1, 1)',
 }
 
-export default (property = 'all', duration = '300ms', easing = EASING.standard, delay = '0s') =>
-  `${property} ${duration} ${easing} ${delay}`
+export const DURATION = {
+  standard: 300,
+  half: 150,
+}
+
+export default (
+  property = 'all',
+  duration = DURATION.standard,
+  easing = EASING.standard,
+  delay = '0s'
+) =>
+  `${property} ${duration}ms ${easing} ${delay}`

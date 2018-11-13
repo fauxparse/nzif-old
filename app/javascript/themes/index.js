@@ -9,6 +9,7 @@ import transition from './transition'
 export const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   body {

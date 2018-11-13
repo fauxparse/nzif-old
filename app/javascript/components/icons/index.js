@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import ICONS from './all'
 
 const Svg = styled.svg`
+  display: inline-block;
   font-size: 1.5em;
   width: 1em;
   height: 1em;
@@ -16,12 +17,12 @@ const Svg = styled.svg`
 
 class Icon extends React.PureComponent {
   render() {
-    const { name, className } = this.props
+    const { children, name, className, ...props } = this.props
 
-    if (name) {
+    if (children || name) {
       return (
-        <Svg className={className}>
-          <use xlinkHref={`#icon-${name}`} />
+        <Svg className={className} {...props}>
+          {children || <use xlinkHref={`#icon-${name}`} />}
         </Svg>
       )
     } else {
@@ -37,4 +38,4 @@ Icon.propTypes = {
 
 Icon.ICONS = ICONS
 
-export default Icon
+export default styled(Icon)``
