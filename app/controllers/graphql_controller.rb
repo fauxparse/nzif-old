@@ -13,7 +13,7 @@ class GraphqlController < ApplicationController
   private
 
   def graphql_params
-    @graphql_params ||= params.permit(:query, :operationName, variables: {})
+    @graphql_params ||= params.require(:graphql).permit(:query, :operationName, variables: {})
   end
 
   def forward_status(status)

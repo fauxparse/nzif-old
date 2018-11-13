@@ -24,7 +24,7 @@ RSpec.describe GraphqlController, type: :request do
         and_return(graphql_response)
 
       post graphql_path,
-        params: { query: query, variables: variables, operationName: operation_name }
+        params: { graphql: { query: query, variables: variables, operationName: operation_name } }
     end
 
     context 'with a successful response' do
