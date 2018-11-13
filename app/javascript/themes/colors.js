@@ -71,12 +71,12 @@ const CURVES = [
     name: 'grey',
     hue_start: 235,
     hue_end: 235,
-    sat_start: 8,
-    sat_end: 12,
+    sat_start: 5,
+    sat_end: 20,
     sat_rate: 100,
-    sat_curve: 'easeInQuad',
-    lum_start: 98,
-    lum_end: 9,
+    sat_curve: 'easeOutQuad',
+    lum_start: 99,
+    lum_end: 18,
     lum_curve: 'easeInOutQuad',
   }
 ]

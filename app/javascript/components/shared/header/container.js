@@ -15,6 +15,7 @@ export default styled(FullWidth)`
   padding-top: 0;
   position: relative;
   z-index: 100;
+  -webkit-font-smoothing: antialiased;
 
   &::before {
     content: '';
