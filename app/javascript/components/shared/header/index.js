@@ -18,6 +18,12 @@ class Header extends React.Component {
     this.setState({ menuOpen: !this.state.menuOpen })
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.state.menuOpen && (prevProps.location !== this.props.location)) {
+      this.setState({ menuOpen: false });
+    }
+  }
+
   render() {
     const { match } = this.props
     const { menuOpen } = this.state
@@ -41,6 +47,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export default withRouter(Header)
