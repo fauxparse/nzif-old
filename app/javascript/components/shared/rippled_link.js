@@ -18,7 +18,7 @@ const RippledLink = styled(RefForwardingLink)`
   justify-content: flex-start;
   padding: 0 1rem;
   text-decoration: none;
-  transition: ${props => props.theme.transition()};
+  transition: ${props => props.theme.transition('background-color')};
 `
 
 export default styled(({ children, ...props }) => (

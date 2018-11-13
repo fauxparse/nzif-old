@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import chroma from 'chroma-js'
 import classNames from 'classnames'
-import Button from '../button'
-import Icon from '../icons'
-import { DURATION } from '../../themes/transition'
+import Button from '../../button'
+import Icon from '../../icons'
+import { DURATION } from '../../../themes/transition'
 
 const MenuButton = styled(Button)`
   appearance: none;

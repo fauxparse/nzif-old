@@ -5,8 +5,8 @@ import chroma from 'chroma-js'
 import { Link } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
-import Avatar from './avatar'
-import Icon from '../icons'
+import Avatar from '../avatar'
+import Icon from '../../icons'
 
 const CurrentUserName = styled.span``
 
