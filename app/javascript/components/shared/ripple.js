@@ -17,35 +17,42 @@ const RippleContainer = styled.div`
 `
 
 export default class Ripple extends React.Component {
-  ripple = (e) => {
-    const size = Math.max(this.el.offsetWidth, this.el.offsetHeight)
-    const shape = new mojs.Shape({
-      parent: this.el,
-      shape: 'circle',
-      fill: 'currentColor',
-      opacity: { 0.15: 0 },
-      left: e.clientX - this.el.offsetLeft,
-      top: e.clientY - this.el.offsetTop,
-      radius: size,
-      scale: { 0: 1 },
-      isShowEnd: false,
-      isForce3d: true,
-      duration: Math.max(500, 20 * Math.sqrt(size)),
-      easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
-      onComplete: () => shape.el.remove(),
-    })
-    setTimeout(() => shape.play())
+  ripple = (x, y) => {
+    if (!this.playing) {
+      const size = Math.max(this.el.offsetWidth, this.el.offsetHeight)
+      const shape = new mojs.Shape({
+        parent: this.el,
+        shape: 'circle',
+        fill: 'currentColor',
+        opacity: { 0.15: 0 },
+        left: x - this.el.offsetLeft,
+        top: y - this.el.offsetTop,
+        radius: size,
+        scale: { 0: 1 },
+        isShowEnd: false,
+        isForce3d: true,
+        duration: Math.max(500, 20 * Math.sqrt(size)),
+        easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
+        onComplete: () => {
+          shape.el.remove()
+          this.playing = false;
+        },
+      })
+      shape.play()
+      this.playing = true
+    }
   }
 
   mouseDown = (e) => {
-    this.ripple(e)
+    this.ripple(e.clientX, e.clientY)
     if (this.props.onMouseDown) {
       this.props.onMouseDown(e)
     }
   }
 
   touchStart = (e) => {
-    this.ripple(e)
+    const touch = e.touches[0]
+    this.ripple(touch.clientX, touch.clientY)
     if (this.props.onTouchStart) {
       this.props.onTouchStart(e)
     }
