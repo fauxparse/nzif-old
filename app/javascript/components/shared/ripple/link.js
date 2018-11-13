@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
 import chroma from 'chroma-js'
-import Ripple from './ripple'
-import BrandedText from '../../styles/branded_text'
+import Ripple from './container'
 
 const RefForwardingLink = React.forwardRef(({ children, ...props }, ref) => (
   <NavLink {...props} innerRef={ref}>

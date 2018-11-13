@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import chroma from 'chroma-js'
-import RippledLink from '../rippled_link'
+import { Link } from '../ripple'
 import BrandedText from '../../../styles/branded_text'
 
-const Logo = styled(RippledLink)`
+const Logo = styled(Link)`
   background: ${props => chroma(props.theme.colors.text).alpha(0).css()};
 
   &:hover,

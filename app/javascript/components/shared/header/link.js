@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import RippledLink from './../rippled_link'
+import { Link } from './../ripple'
 
-export default styled(RippledLink)`
+export default styled(Link)`
   align-items: center;
   color: ${props => props.theme.colors.text};
   display: flex;
