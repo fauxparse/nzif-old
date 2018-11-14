@@ -2,18 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import chroma from 'chroma-js'
-import { Link } from '../ripple'
+import Link from './link'
 import BrandedText from '../../../styles/branded_text'
 
 const Logo = styled(Link)`
-  background: ${props => chroma(props.theme.colors.text).alpha(0).css()};
-
-  &:hover,
-  &:focus {
-    background: ${props => chroma(props.theme.colors.text).alpha(0.15).css()};
-    outline: none;
-  }
-
   ${BrandedText} {
     font-size: ${props => props.theme.fonts.scale(2)};
   }

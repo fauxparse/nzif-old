@@ -8,7 +8,7 @@ import { DURATION } from '../../../themes/transition'
 
 const MenuButton = styled(Button)`
   appearance: none;
-  background: ${({ theme }) => chroma(theme.colors.text).alpha(0).css()};
+  background: rgba(0, 0, 0, 0);
   border: none;
   border-radius: 50%;
   color: ${({ theme }) => theme.colors.text};
@@ -18,7 +18,7 @@ const MenuButton = styled(Button)`
 
   &:hover,
   &:focus {
-    background: ${props => chroma(props.theme.colors.text).alpha(0.15).css()};
+    background: rgba(0, 0, 0, 0.375);
     box-shadow: none;
     outline: none;
   }
@@ -66,12 +66,12 @@ const MenuButton = styled(Button)`
   }
 `
 
-export default styled(({ open = false, ...props }) => (
-  <MenuButton aria-selected={open} {...props}>
+export default styled(React.forwardRef(({ open = false, ...props }, ref) => (
+  <MenuButton aria-selected={open} {...props} ref={ref}>
     <Icon viewBox="-12 -12 24 24">
       <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
       <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
       <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
     </Icon>
   </MenuButton>
-))``
+)))``

@@ -1,57 +1,46 @@
 import styled from 'styled-components'
-import { Link } from './../ripple'
+import chroma from 'chroma-js'
+import { Link } from '../ripple'
+import Icon from '../../icons'
 
-export default styled(Link)`
+const HeaderLink = styled(Link)`
   align-items: center;
+  background-color: rgba(0, 0, 0, 0);
   color: ${props => props.theme.colors.text};
   display: flex;
+  min-width: 1px;
   opacity: 0.75;
-  padding: 0 0.5em;
+  padding: 1em;
   position: relative;
   text-decoration: none;
-  transition: ${props => props.theme.transition('color')};
+  transition: ${({ theme }) => `${theme.transition('background-color')}, ${theme.transition('opacity')}`};
+  user-select: none;
 
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0.25em;
-    background: ${props => props.theme.colors.accent};
-    transform: scaleY(0);
-    transition: transform 0.15s cubic-bezier(0.5, -0.5, 0.5, 1);
+  &:hover,
+  &:focus,
+  &[aria-expanded="true"] {
+    background-color: rgba(0, 0, 0, 0.375);
+    outline: none;
   }
 
   &:hover,
   &:focus,
-  &.active {
-    outline: none;
+  &.active,
+  &[aria-expanded="true"] {
     opacity: 1;
-
-    &::after {
-      transform: scaleY(1);
-      transition: transform 0.15s cubic-bezier(0.5, 2, 0.75, 1);
-    }
-  }
-
-  @media (min-width: ${({ theme }) => theme.layout.medium}) {
-    &::after {
-      left: 50%;
-      top: auto;
-      bottom: 50%;
-      margin: 0 -0.75em -1em;
-      width: 1.5em;
-      height: 0.25em;
-      transform: scaleX(0);
-    }
-
-    &:hover,
-    &:focus,
-    &.active {
-      &::after {
-        transform: scaleX(1);
-      }
-    }
   }
 `
+
+HeaderLink.Text = styled.span`
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+
+HeaderLink.Icon = styled(Icon)`
+  flex: 0 0 auto;
+  margin-right: 2rem;
+`
+
+export default HeaderLink

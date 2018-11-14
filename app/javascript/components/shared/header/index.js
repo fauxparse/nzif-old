@@ -1,20 +1,41 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { NavLink, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import Logo from './logo'
 import HeaderTheme from './theme'
-import UserMenu from './user_menu'
+import CurrentUser from './current_user'
 import MenuButton from './menu_button'
-import HeaderLink from './link'
-import HeaderLinks from './links'
+import Link from './link'
+import Links from './links'
 import HeaderContainer from './container'
 
 class Header extends React.Component {
   state = { menuOpen: false }
 
-  toggleMenu = (e) => {
-    e.stopPropagation()
+  menuRef = createRef()
+  buttonRef = createRef()
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.closeMenu)
+    document.addEventListener('touchstart', this.closeMenu)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.closeMenu)
+    document.removeEventListener('touchstart', this.closeMenu)
+  }
+
+  closeMenu = e => {
+    const menu = this.menuRef.current
+    const button = this.buttonRef.current
+
+    if (this.state.menuOpen && ![menu, button].find(el => el && el.contains(e.target))) {
+      this.toggleMenu()
+    }
+  }
+
+  toggleMenu = () => {
     this.setState({ menuOpen: !this.state.menuOpen })
   }
 
@@ -27,18 +48,23 @@ class Header extends React.Component {
   render() {
     const { match } = this.props
     const { menuOpen } = this.state
-    const push = (menuOpen && this.headerLinks && this.headerLinks.clientHeight) || 0
 
     return (
       <HeaderTheme>
-        <HeaderContainer as="header" push={push}>
-          <MenuButton open={menuOpen} onClick={this.toggleMenu} />
+        <HeaderContainer as="header">
+          <MenuButton ref={this.buttonRef} open={menuOpen} onClick={this.toggleMenu} />
           <Logo />
-          <HeaderLinks aria-expanded={menuOpen} ref={el => this.headerLinks = el}>
-            <HeaderLink to={`${match.url}/workshops`}>Workshops</HeaderLink>
-            <HeaderLink to={`${match.url}/shows`}>Shows</HeaderLink>
-          </HeaderLinks>
-          <UserMenu />
+          <Links ref={this.menuRef} aria-expanded={menuOpen}>
+            <Link to={`${match.url}/workshops`}>
+              <Link.Icon name="workshop" />
+              <Link.Text>Workshops</Link.Text>
+            </Link>
+            <Link to={`${match.url}/shows`}>
+              <Link.Icon name="show" />
+              <Link.Text>Shows</Link.Text>
+            </Link>
+          </Links>
+          <CurrentUser />
         </HeaderContainer>
       </HeaderTheme>
     )

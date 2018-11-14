@@ -44,20 +44,17 @@ const StyledButton = styled.button`
   ${applyStyleModifiers(MODIFIERS)}
 `
 
-class Button extends React.PureComponent {
-  render() {
-    const { text, icon, children, primary, ...props } = this.props
-    const modifiers = [primary && 'primary', icon && !text && 'icon'].filter(identity)
+const Button = React.forwardRef(({ text, icon, children, primary, ...props }, ref) => {
+  const modifiers = [primary && 'primary', icon && !text && 'icon'].filter(identity)
 
-    return (
-      <Ripple {...props} as={StyledButton} modifiers={modifiers}>
-        {children}
-        {icon && <Icon name={icon} />}
-        {text && <Text>{text}</Text>}
-      </Ripple>
-    )
-  }
-}
+  return (
+    <Ripple {...props} as={StyledButton} ref={ref} modifiers={modifiers}>
+      {children}
+      {icon && <Icon name={icon} />}
+      {text && <Text>{text}</Text>}
+    </Ripple>
+  )
+})
 
 Button.propTypes = {
   primary: PropTypes.bool.isRequired,

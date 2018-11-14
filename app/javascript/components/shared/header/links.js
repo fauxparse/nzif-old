@@ -1,17 +1,38 @@
 import styled from 'styled-components'
-import HeaderLink from './link'
+import Menu from './menu'
+import Link from './link'
 
-export default styled.nav`
-  background: ${({theme}) => theme.colors.palette.grey[600]};
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
+export default styled(Menu)`
+  @media (min-width: ${({ theme }) => theme.layout.medium}) {
+    display: flex;
+    position: static;
+    transition: none;
 
-  ${HeaderLink} {
-    padding: 1em;
+    ${Link} {
+      &::after {
+        background: ${props => props.theme.colors.accent};
+        bottom: 50%;
+        content: '';
+        height: 0.25em;
+        left: 1em;
+        right: 1em;
+        margin-bottom: -1em;
+        position: absolute;
+        transform: scaleX(0);
+        transition: ${({ theme }) => theme.transition('transform', 100)};
+      }
+
+      &:hover,
+      &:focus,
+      &.active {
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+    }
+
+    ${Link.Icon} {
+      display: none;
+    }
   }
 `

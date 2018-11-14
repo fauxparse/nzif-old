@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import styled from 'styled-components'
 import mojs from 'mo-js'
 
@@ -16,17 +16,25 @@ const RippleContainer = styled.div`
   }
 `
 
-export default class Ripple extends React.Component {
+class Ripple extends React.Component {
+  // container = createRef()
+
+  constructor(props) {
+    super(props)
+    this.container = this.props.forwardref || createRef()
+  }
+
   ripple = (x, y) => {
     if (!this.playing) {
-      const size = Math.max(this.el.offsetWidth, this.el.offsetHeight)
+      const el = this.container.current
+      const size = Math.max(el.offsetWidth, el.offsetHeight)
       const shape = new mojs.Shape({
-        parent: this.el,
+        parent: this.container.current,
         shape: 'circle',
         fill: 'currentColor',
         opacity: { 0.15: 0 },
-        left: x - this.el.offsetLeft,
-        top: y - this.el.offsetTop,
+        left: x - el.offsetLeft,
+        top: y - el.offsetTop,
         radius: size,
         scale: { 0: 1 },
         isShowEnd: false,
@@ -60,9 +68,10 @@ export default class Ripple extends React.Component {
 
   render() {
     const { onMouseDown, onTouchStart, ...props } = this.props
+
     return (
       <RippleContainer
-        ref={el => this.el = el}
+        ref={this.container}
         onMouseDown={this.mouseDown}
         onTouchStart={this.touchStart}
         {...props}
@@ -72,3 +81,5 @@ export default class Ripple extends React.Component {
     )
   }
 }
+
+export default React.forwardRef((props, ref) => <Ripple {...props} forwardref={ref} />)

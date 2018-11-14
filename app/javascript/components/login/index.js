@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Redirect } from 'react-router-dom'
 import Button from '../button'
-import { CURRENT_USER_QUERY } from '../shared/header/user_menu'
+import { CURRENT_USER_QUERY } from '../shared/header/current_user'
 
 export const LOGIN_MUTATION = gql`
   mutation logInMutation($email: String!, $password: String!) {

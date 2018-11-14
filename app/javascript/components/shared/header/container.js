@@ -3,18 +3,19 @@ import FullWidth from '../../../styles/full_width'
 import MenuButton from './menu_button'
 import Logo from './logo'
 import HeaderLinks from './links'
-import UserMenu from './user_menu'
+import CurrentUser from './current_user'
 
 export default styled(FullWidth)`
   align-items: stretch;
-  background: ${props => props.theme.colors.background};
-  color: ${props => props.theme.colors.text};
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
   display: flex;
   height: 3.5em;
   padding-bottom: 0;
   padding-top: 0;
   position: relative;
   z-index: 100;
+  box-shadow: ${({ theme }) => theme.shadow(4)};
   -webkit-font-smoothing: antialiased;
 
   &::before {
@@ -39,7 +40,7 @@ export default styled(FullWidth)`
     padding: 1em;
   }
 
-  ${UserMenu} {
+  ${CurrentUser} {
     margin-right: -1em;
     order: 1;
   }
@@ -71,6 +72,11 @@ export default styled(FullWidth)`
       transform: none;
       transition: none;
       z-index: auto;
+
+      &[aria-expanded="true"] {
+        box-shadow: ${({ theme }) => theme.shadow(0)};
+        transform: translate3d(0, 0, 0);
+      }
     }
   }
 `
