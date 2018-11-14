@@ -10,7 +10,7 @@ import Ripple from '../ripple'
 import Avatar from '../avatar'
 import Icon from '../../icons'
 
-const CurrentUserName = styled.span``
+const CurrentUserName = styled(Link.Text)``
 
 const CurrentUserLink = styled(Link)`
   align-items: center;
@@ -106,16 +106,17 @@ class CurrentUser extends React.Component {
                   <Link.Icon name="user" />
                   <Link.Text>Profile</Link.Text>
                 </Link>
+                <UserMenu.Separator />
+                <Link to="/logout">
+                  <Link.Icon name="log-out" />
+                  <Link.Text>Log out</Link.Text>
+                </Link>
               </UserMenu>
             </Fragment>
           ) : (
-            <CurrentUserLink
-              as={HeaderLink}
-              to="/login"
-              className={this.props.className}
-            >
-              Log in
-            </CurrentUserLink>
+            <Link to="/login" className={this.props.className}>
+              <Link.Text>Log in</Link.Text>
+            </Link>
           )
         }
       </Query>
