@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import chroma from 'chroma-js'
 import Icon from '../icons'
@@ -13,7 +12,7 @@ const AvatarContainer = styled.span`
 `
 
 const Avatar = ({ name, ...props }) =>
-  <AvatarContainer {...props}>
+  <AvatarContainer title={name} {...props}>
     <Icon name="user" />
   </AvatarContainer>
 

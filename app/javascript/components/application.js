@@ -26,7 +26,7 @@ const client = new ApolloClient({
   headers: {
     'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').content,
   },
-  onError: ({ graphQLErrors, networkError, response, operation }) => {},
+  onError: () => {},
 })
 
 export default class Application extends React.Component {

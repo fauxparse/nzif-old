@@ -19,7 +19,7 @@ const TRANSITIONS = {
 }
 
 const findGroup = (key) =>
-  GROUPS.find(([name, ...patterns]) => patterns.find(pattern => pattern.test(key)))[0]
+  GROUPS.find(([_name, ...patterns]) => patterns.find(pattern => pattern.test(key)))[0]
 
 export default class RootPageTransition extends React.Component {
   state = { pageKey: '', transition: none }

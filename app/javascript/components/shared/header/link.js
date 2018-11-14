@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 import { Link } from '../ripple'
 import Icon from '../../icons'
 

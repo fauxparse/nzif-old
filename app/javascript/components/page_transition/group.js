@@ -1,11 +1,8 @@
-// https://medium.com/lalilo/dynamic-transitions-with-react-router-and-react-transition-group-69ab795815c9
-
 import React from 'react'
+import PropTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import none from './none'
 
-// the childFactory allows to change the transition of the leaving component
-// https://github.com/reactjs/react-transition-group/issues/182
 const childFactoryCreator = props => child => React.cloneElement(child, props)
 
 const PageTransition = ({ transition, duration, pageKey, children }) => (
@@ -17,6 +14,12 @@ const PageTransition = ({ transition, duration, pageKey, children }) => (
     </CSSTransition>
   </TransitionGroup>
 )
+
+PageTransition.propTypes = {
+  transition: PropTypes.string.isRequired,
+  duration: PropTypes.number.isRequired,
+  pageKey: PropTypes.string.isRequired,
+}
 
 PageTransition.defaultProps = { none }
 

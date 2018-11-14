@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 import Menu from './menu'
-import UserMenuLink from './link'
 import { minFullWidth, sidePadding } from '../../../styles/full_width'
 
 const UserMenu = styled(Menu)`

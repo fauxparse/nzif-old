@@ -31,7 +31,8 @@ const NavLink = React.forwardRef(({
       exact={exact}
       strict={strict}
       location={location}
-      children={({ location, match }) => {
+    >
+      {({ location, match }) => {
         const isActive = !!(isActiveProp ? isActiveProp(match, location) : match)
         const className = isActive ? classNames(classNameProp, activeClassName) : classNameProp
         const style = isActive ? { ...styleProp, ...activeStyle } : styleProp
@@ -47,7 +48,7 @@ const NavLink = React.forwardRef(({
           />
         )
       }}
-    />
+    </Route>
   )
 })
 

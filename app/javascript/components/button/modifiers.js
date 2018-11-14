@@ -6,7 +6,7 @@ export default {
     padding: 0.5em;
   `,
 
-  icon: ({ theme }) => `
+  icon: () => `
     border-radius: 50%;
   `
 }

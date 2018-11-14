@@ -1,6 +1,5 @@
 import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import Logo from './logo'
 import HeaderTheme from './theme'

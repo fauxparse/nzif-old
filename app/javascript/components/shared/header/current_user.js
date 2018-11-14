@@ -1,7 +1,5 @@
 import React, { Fragment, createRef } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import UserMenu from './user_menu'
@@ -90,7 +88,7 @@ class CurrentUser extends React.Component {
 
     return (
       <Query query={CURRENT_USER_QUERY}>
-        {({ data: { currentUser } = {}, loading, error }) =>
+        {({ data: { currentUser } = {}, loading }) =>
           loading ? null : currentUser ? (
             <Fragment>
               <CurrentUserLink

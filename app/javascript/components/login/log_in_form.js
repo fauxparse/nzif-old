@@ -21,7 +21,6 @@ class LogInForm extends React.Component {
 
   submit = (e, logIn) => {
     e.preventDefault()
-    const { email, password } = this.state
     this.setState({ errors: [] })
     logIn().catch(e => this.setState({ errors: e.graphQLErrors }))
   }
@@ -41,7 +40,7 @@ class LogInForm extends React.Component {
 
     return (
       <Mutation mutation={LOGIN_MUTATION} variables={{ email, password }}>
-        {(logIn, { data, loading, error, client }) => {
+        {(logIn, { data, loading, client }) => {
           if (data && data.logIn) {
             client.writeQuery({
               query: CURRENT_USER_QUERY,
@@ -78,7 +77,8 @@ class LogInForm extends React.Component {
 }
 
 LogInForm.propTypes = {
-  redirect: PropTypes.string
+  redirect: PropTypes.string,
+  className: PropTypes.string,
 }
 
 LogInForm.defaultProps = {
