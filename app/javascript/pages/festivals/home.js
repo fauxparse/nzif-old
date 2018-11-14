@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import PageContent from '../../components/page_content'
 import Background from '../../components/shared/background'
 import FullWidth from '../../styles/full_width'
 import BrandedText from '../../styles/branded_text'
@@ -45,16 +46,18 @@ const Home = ({ match }) => {
   const year = parseInt(match.params.year, 10)
 
   return (
-    <Query query={HOMEPAGE_QUERY} variables={{ year }}>
-      {({ loading, data: { festival } }) => !loading && (
-        <Fragment>
-          <HeroSection as={Background}>
-            <BrandedText as="h1">NZIF {festival.year}</BrandedText>
-            <h2><Date date={[festival.startDate, festival.endDate]} /></h2>
-          </HeroSection>
-        </Fragment>
-      )}
-    </Query>
+    <PageContent>
+      <Query query={HOMEPAGE_QUERY} variables={{ year }}>
+        {({ loading, data: { festival } }) => !loading && (
+          <Fragment>
+            <HeroSection as={Background}>
+              <BrandedText as="h1">NZIF {festival.year}</BrandedText>
+              <h2><Date date={[festival.startDate, festival.endDate]} /></h2>
+            </HeroSection>
+          </Fragment>
+        )}
+      </Query>
+    </PageContent>
   )
 }
 

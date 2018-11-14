@@ -3,12 +3,15 @@ import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import PageContent from '../../components/page_content'
 import FullWidth from '../../styles/full_width'
 import Activity from './activity'
 
 export const ACTIVITIES_QUERY = gql`
   query Activities($year: Int!, $type: ActivityType) {
     festival(year: $year) {
+      year
+
       activities(type: $type) {
         id
         name
@@ -29,17 +32,19 @@ const Activities = ({ match }) => {
   const year = parseInt(match.params.year, 10)
 
   return (
-    <Query query={ACTIVITIES_QUERY} variables={{ year, type }}>
-      {({ loading, data }) =>
-        loading ? null : (
-          <ActivitiesContainer>
-            {data.festival.activities.map(activity => (
-              <Activity key={activity.id} activity={activity} />
-            ))}
-          </ActivitiesContainer>
-        )
-      }
-    </Query>
+    <PageContent>
+      <Query query={ACTIVITIES_QUERY} variables={{ year, type }}>
+        {({ loading, data }) =>
+          loading ? null : (
+            <ActivitiesContainer>
+              {data.festival.activities.map(activity => (
+                <Activity key={activity.id} activity={activity} />
+              ))}
+            </ActivitiesContainer>
+          )
+        }
+      </Query>
+    </PageContent>
   )
 }
 
@@ -48,3 +53,5 @@ Activities.propTypes = {
 }
 
 export default Activities
+
+// export default () => <React.Fragment />

@@ -9,6 +9,7 @@ import Link from './link'
 import Ripple from '../ripple'
 import Avatar from '../avatar'
 import Icon from '../../icons'
+import { slide } from '../../page_transition'
 
 const CurrentUserName = styled(Link.Text)``
 
@@ -24,7 +25,7 @@ const CurrentUserLink = styled(Link)`
     display: none;
   }
 
-  @media (min-width: ${props => props.theme.layout.medium}) {
+  @media (min-width: ${({ theme }) => theme.layout.medium}) {
     > ${Icon} {
       display: initial;
       transition: ${({ theme }) => theme.transition('transform')};
@@ -52,7 +53,6 @@ export const CURRENT_USER_QUERY = gql`
     }
   }
 `
-
 class CurrentUser extends React.Component {
   state = { menuOpen: false }
 
@@ -73,7 +73,10 @@ class CurrentUser extends React.Component {
     const menu = this.menuRef.current
     const button = this.buttonRef.current
 
-    if (this.state.menuOpen && ![menu, button].find(el => el && el.contains(e.target))) {
+    if (
+      this.state.menuOpen &&
+      ![menu, button].find(el => el && el.contains(e.target))
+    ) {
       this.toggleMenu()
     }
   }
@@ -114,7 +117,10 @@ class CurrentUser extends React.Component {
               </UserMenu>
             </Fragment>
           ) : (
-            <Link to="/login" className={this.props.className}>
+            <Link
+              to={{ pathname: '/login', state: { transition: slide } }}
+              className={this.props.className}
+            >
               <Link.Text>Log in</Link.Text>
             </Link>
           )
