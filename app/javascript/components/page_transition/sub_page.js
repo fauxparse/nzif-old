@@ -27,11 +27,11 @@ export default class RootPageTransition extends React.Component {
   }
 
   render() {
-    const { pageKey, children } = this.props
+    const { pageKey, children, ...props } = this.props
     const { transition } = this.state
 
     return (
-      <PageTransition pageKey={pageKey} {...transition}>
+      <PageTransition pageKey={pageKey} {...transition} {...props}>
         {children}
       </PageTransition>
     )

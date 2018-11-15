@@ -6,10 +6,13 @@ const duration = 500
 export const Styles = createGlobalStyle`
   .${transitionClassName} {
     &-enter,
-    &-exit,
     &-left-enter,
+    &-right-enter {
+      position: relative;
+    }
+
+    &-exit,
     &-left-exit,
-    &-right-enter,
     &-right-exit {
       position: absolute;
       top: 0;
