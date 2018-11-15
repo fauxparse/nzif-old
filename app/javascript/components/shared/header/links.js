@@ -20,6 +20,7 @@ export default styled(Menu)`
         position: absolute;
         transform: scaleX(0);
         transition: ${({ theme }) => theme.transition('transform', 100)};
+        transition-delay: 100ms;
       }
 
       &:hover,

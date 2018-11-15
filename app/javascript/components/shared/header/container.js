@@ -36,11 +36,13 @@ export default styled(FullWidth)`
 
   ${MenuButton} {
     border-radius: 0;
+    flex: 0 0 auto;
     margin-left: -1em;
     padding: 1em;
   }
 
   ${CurrentUser} {
+    flex: 0 0 auto;
     margin-right: -1em;
     order: 1;
   }
