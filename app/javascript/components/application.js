@@ -9,6 +9,7 @@ import { RootPageTransition as PageTransition } from './page_transition'
 import Festival from '../pages/festivals'
 import LogIn from './login'
 import CurrentFestival from '../pages/festivals/current'
+import Environment from './environment'
 
 const cache = new InMemoryCache({
   dataIdFromObject: object => {
@@ -46,6 +47,7 @@ export default class Application extends React.Component {
                 </PageTransition>
               )} />
             </Router>
+            <Environment />
           </Fragment>
         </ThemeProvider>
       </ApolloProvider>

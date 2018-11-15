@@ -6,6 +6,7 @@
     %title NZIF
     = csrf_meta_tags
     = csp_meta_tag
+    = tag(:meta, name: :environment, content: Rails.env)
     = include_fonts
     = stylesheet_link_tag    'application', media: 'all'
     = svg_sprite_sheet
