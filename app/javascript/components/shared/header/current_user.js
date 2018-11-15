@@ -8,6 +8,7 @@ import Ripple from '../ripple'
 import Avatar from '../avatar'
 import Icon from '../../icons'
 import { slide } from '../../page_transition'
+import LogOutLink from './log_out'
 
 const CurrentUserName = styled(Link.Text)``
 
@@ -108,10 +109,10 @@ class CurrentUser extends React.Component {
                   <Link.Text>Profile</Link.Text>
                 </Link>
                 <UserMenu.Separator />
-                <Link to="/logout">
+                <LogOutLink>
                   <Link.Icon name="log-out" />
                   <Link.Text>Log out</Link.Text>
-                </Link>
+                </LogOutLink>
               </UserMenu>
             </Fragment>
           ) : (

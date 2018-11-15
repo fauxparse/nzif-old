@@ -8,7 +8,6 @@ import theme, { GlobalStyle } from '../themes'
 import { RootPageTransition as PageTransition } from './page_transition'
 import Festival from '../pages/festivals'
 import LogIn from './login'
-import LogOut from './logout'
 import CurrentFestival from '../pages/festivals/current'
 
 const cache = new InMemoryCache({
@@ -42,7 +41,6 @@ export default class Application extends React.Component {
                   <Switch location={location}>
                     <Route path="/:year(\d{4})" component={Festival} />
                     <Route path="/login" component={LogIn} />
-                    <Route path="/logout" component={LogOut} />
                     <Route path="/" exact component={CurrentFestival} />
                   </Switch>
                 </PageTransition>

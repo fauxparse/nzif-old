@@ -5,7 +5,9 @@ import Icon from '../../icons'
 const HeaderLink = styled(Link)`
   align-items: center;
   background-color: rgba(0, 0, 0, 0);
+  border: 0;
   color: ${props => props.theme.colors.text};
+  cursor: pointer;
   display: flex;
   min-width: 1px;
   opacity: 0.75;

@@ -16,9 +16,37 @@ const RippleContainer = styled.div`
   }
 `
 
-class Ripple extends React.Component {
-  // container = createRef()
+const trueClientPosition = (coordinates, element) => {
+  let { x, y } = coordinates
+  let el = element
+  while (el) {
+    const { x: tx, y: ty } = transformCoordinates(el)
+    x -= el.offsetLeft + tx
+    y -= el.offsetTop + ty
+    el = el.offsetParent
+  }
+  return { x, y }
+}
 
+const transformCoordinates = (element) => {
+  const style = getComputedStyle(element)
+  if (style.transform) {
+    const m = style.transform.match(/matrix(?:3d)?\(([^)]+)\)/)
+    if (m) {
+      const values = m[1].split(',').map(v => parseFloat(v.trim()))
+      values.splice(0, values.length === 16 ? 12 : 4)
+      return {
+        x: values[0],
+        y: values[1],
+        z: values[2] || 0,
+      }
+    }
+  }
+
+  return { x: 0, y: 0 }
+}
+
+class Ripple extends React.Component {
   constructor(props) {
     super(props)
     this.container = this.props.forwardref || createRef()
@@ -28,13 +56,14 @@ class Ripple extends React.Component {
     if (!this.playing) {
       const el = this.container.current
       const size = Math.max(el.offsetWidth, el.offsetHeight)
+      const { x: left, y: top } = trueClientPosition({ x, y }, el)
       const shape = new mojs.Shape({
         parent: this.container.current,
         shape: 'circle',
-        fill: 'currentColor',
         opacity: { 0.15: 0 },
-        left: x - el.offsetLeft,
-        top: y - el.offsetTop,
+        left,
+        top,
+        fill: 'currentColor',
         radius: size,
         scale: { 0: 1 },
         isShowEnd: false,

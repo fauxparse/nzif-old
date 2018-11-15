@@ -5,6 +5,7 @@ import Link from '../link'
 
 const RippledLink = styled(Link)`
   align-items: center;
+  cursor: pointer;
   display: flex;
   justify-content: flex-start;
   padding: 0 1rem;
