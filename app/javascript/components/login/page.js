@@ -46,7 +46,7 @@ const LogInPage = styled.section`
   z-index: 200;
   transform: translate3d(0, 0, 0);
 
-  form {
+  fieldset {
     position: relative;
     padding: 1em;
     width: 22em;

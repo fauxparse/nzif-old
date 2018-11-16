@@ -22,7 +22,7 @@ const TRANSITIONS = {
 const findGroup = (key) =>
   GROUPS.find(([_name, ...patterns]) => patterns.find(pattern => pattern.test(key)))[0]
 
-export default class RootPageTransition extends React.Component {
+class RootPageTransition extends React.Component {
   state = { pageKey: '', transition: none }
 
   static getDerivedStateFromProps({ pageKey }, state) {
@@ -53,3 +53,5 @@ export default class RootPageTransition extends React.Component {
     )
   }
 }
+
+export default RootPageTransition

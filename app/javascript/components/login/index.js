@@ -2,21 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { withLastLocation } from 'react-router-last-location'
-import styled from 'styled-components'
 import LogInForm from './log_in_form'
 import SignUpForm from './sign_up_form'
 import LogInPage from './page'
-
-const Center = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-`
+import PageTransition, { slideLeft } from '../page_transition'
 
 class LogIn extends React.Component {
   state = { lastLocation: '/' }
@@ -46,12 +35,14 @@ class LogIn extends React.Component {
   render() {
     return (
       <LogInPage onClose={this.close}>
-        <Center>
-          <Switch>
-            <Route path="/login" render={this.renderLogIn} />
-            <Route path="/signup" render={this.renderSignUp} />
-          </Switch>
-        </Center>
+        <Route render={({ location }) => (
+          <PageTransition pageKey={location.key} {...slideLeft} {...location.state.transition}>
+            <Switch location={location}>
+              <Route path="/login" render={this.renderLogIn} />
+              <Route path="/signup" render={this.renderSignUp} />
+            </Switch>
+          </PageTransition>
+        )} />
       </LogInPage>
     )
   }

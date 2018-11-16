@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { Label, Input } from '../form'
 import Form, { Field, SubmitButton } from './form'
 import TextLink from '../shared/text_link'
+import { slideLeft } from '../page_transition'
 import { CURRENT_USER_QUERY } from '../shared/header/current_user'
 
 export const LOG_IN_MUTATION = gql`
@@ -90,7 +91,10 @@ class LogInForm extends React.Component {
         <SubmitButton primary type="submit" text="Log in" key="submit" />
         <p>
           New here?{' '}
-          <TextLink to="signup">Create an account</TextLink>.
+          <TextLink to={{ pathname: 'signup', state: { transition: slideLeft } }}>
+            Create an account
+          </TextLink>
+          .
         </p>
       </Form>
     )

@@ -1,7 +1,7 @@
 import PageTransition from './group'
 
 export { default as none } from './none'
-export { default as slide } from './slide'
+export { default as slide, left as slideLeft, right as slideRight } from './slide'
 export { default as popOver } from './pop_over'
 export { default as fade } from './fade'
 

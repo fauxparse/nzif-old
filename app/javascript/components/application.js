@@ -30,6 +30,11 @@ const client = new ApolloClient({
   onError: () => {},
 })
 
+const getPageKey = (location) => {
+  const key = location.pathname.split('/')[1]
+  return (key === 'signup') ? 'login' : key
+}
+
 export default class Application extends React.Component {
   render() {
     return (
@@ -40,7 +45,7 @@ export default class Application extends React.Component {
             <Router>
               <LastLocationProvider>
                 <Route render={({ location }) => (
-                  <PageTransition pageKey={location.pathname.split('/')[1]}>
+                  <PageTransition pageKey={getPageKey(location)}>
                     <Switch location={location}>
                       <Route path="/:year(\d{4})" component={Festival} />
                       <Route path="/:login(login|signup)" component={LogIn} />

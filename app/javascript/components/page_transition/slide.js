@@ -9,6 +9,7 @@ export const Styles = createGlobalStyle`
     &-left-enter,
     &-right-enter {
       position: relative;
+      opacity: 0;
     }
 
     &-exit,
@@ -18,6 +19,7 @@ export const Styles = createGlobalStyle`
       top: 0;
       left: 0;
       right: 0;
+      opacity: 1;
     }
 
     &-enter,
@@ -26,8 +28,9 @@ export const Styles = createGlobalStyle`
       transform: translate3d(100%, 0, 0);
 
       &-active {
+        opacity: 1;
         transform: translate3d(0, 0, 0);
-        transition: ${({ theme }) => theme.transition('transform', duration)};
+        transition: ${({ theme }) => `${theme.transition('transform', duration)}, ${theme.transition('opacity', duration)}`};
       }
     }
 
@@ -37,8 +40,9 @@ export const Styles = createGlobalStyle`
       transform: translate3d(0, 0, 0);
 
       &-active {
+        opacity: 0;
         transform: translate3d(-100%, 0, 0);
-        transition: ${({ theme }) => theme.transition('transform', duration)};
+        transition: ${({ theme }) => `${theme.transition('transform', duration)}, ${theme.transition('opacity', duration)}`};
       }
     }
 
