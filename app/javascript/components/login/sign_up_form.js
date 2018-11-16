@@ -18,8 +18,8 @@ export const LOG_IN_MUTATION = gql`
   }
 `
 
-class LogInForm extends React.Component {
-  state = { email: '', password: '', loading: false, errors: [] }
+class SignUpForm extends React.Component {
+  state = { email: '', password: '', passwordConfirmation: '', loading: false, errors: [] }
 
   emailField = React.createRef()
 
@@ -53,22 +53,22 @@ class LogInForm extends React.Component {
   }
 
   render() {
-    const { loading, email, password, errors } = this.state
+    const { loading, email, password, passwordConfirmation, errors } = this.state
 
     return (
       <Form
-        title="Kia ora."
-        message="Please log in to continue."
+        title="Haere mai."
+        message="Let’s get you all set up."
         className={this.props.className}
         loading={loading}
         errors={errors}
         onSubmit={this.submit}
       >
         <Field>
-          <Label htmlFor="login-email">Email address</Label>
+          <Label htmlFor="signup-email">Email address</Label>
           <Input
             ref={this.emailField}
-            id="login-email"
+            id="signup-email"
             type="email"
             name="email"
             value={email}
@@ -77,27 +77,38 @@ class LogInForm extends React.Component {
           />
         </Field>
         <Field>
-          <Label htmlFor="login-password">Password</Label>
+          <Label htmlFor="signup-password">Password</Label>
           <Input
-            id="login-password"
+            id="signup-password"
             type="password"
             name="password"
             value={password}
-            autoComplete="current-password"
+            autoComplete="new-password"
             onChange={this.fieldChanged}
           />
         </Field>
-        <SubmitButton primary type="submit" text="Log in" key="submit" />
+        <Field>
+          <Label htmlFor="signup-password-confirmation">Confirm password</Label>
+          <Input
+            id="signup-password-confirmation"
+            type="password"
+            name="password-confirmation"
+            value={passwordConfirmation}
+            autoComplete="new-password"
+            onChange={this.fieldChanged}
+          />
+        </Field>
+        <SubmitButton primary type="submit" text="Create account" key="submit" />
         <p>
-          New here?{' '}
-          <TextLink to="signup">Create an account</TextLink>.
+          Already signed up?{' '}
+          <TextLink to="login">Log in here</TextLink>.
         </p>
       </Form>
     )
   }
 }
 
-LogInForm.propTypes = {
+SignUpForm.propTypes = {
   className: PropTypes.string,
   history: PropTypes.object.isRequired,
   mutate: PropTypes.func.isRequired,
@@ -107,4 +118,4 @@ LogInForm.propTypes = {
   ]),
 }
 
-export default withRouter(graphql(LOG_IN_MUTATION)(LogInForm))
+export default withRouter(graphql(LOG_IN_MUTATION)(SignUpForm))

@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { LastLocationProvider } from 'react-router-last-location'
 import { ThemeProvider } from 'styled-components'
 import theme, { GlobalStyle } from '../themes'
 import { RootPageTransition as PageTransition } from './page_transition'
@@ -37,15 +38,17 @@ export default class Application extends React.Component {
           <Fragment>
             <GlobalStyle />
             <Router>
-              <Route render={({ location }) => (
-                <PageTransition pageKey={location.pathname.split('/')[1]}>
-                  <Switch location={location}>
-                    <Route path="/:year(\d{4})" component={Festival} />
-                    <Route path="/login" component={LogIn} />
-                    <Route path="/" exact component={CurrentFestival} />
-                  </Switch>
-                </PageTransition>
-              )} />
+              <LastLocationProvider>
+                <Route render={({ location }) => (
+                  <PageTransition pageKey={location.pathname.split('/')[1]}>
+                    <Switch location={location}>
+                      <Route path="/:year(\d{4})" component={Festival} />
+                      <Route path="/:login(login|signup)" component={LogIn} />
+                      <Route path="/" exact component={CurrentFestival} />
+                    </Switch>
+                  </PageTransition>
+                )} />
+              </LastLocationProvider>
             </Router>
             <Environment />
           </Fragment>

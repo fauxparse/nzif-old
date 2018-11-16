@@ -16,8 +16,19 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: ${props => props.theme.fonts.base};
+    font-family: ${({ theme }) => theme.fonts.base};
     line-height: 1.5;
+  }
+
+  input,
+  textarea,
+  select {
+    &:-internal-autofill-previewed,
+    &:-internal-autofill-selected,
+    &:-webkit-autofill {
+      -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+      -webkit-transition-delay: 9999s;
+    }
   }
 `
 

@@ -11,7 +11,7 @@ module Types
       if result.success?
         context[:environment].current_user = result.user
       else
-        return GraphQL::ExecutionError.new('Invalid email or password')
+        return GraphQL::ExecutionError.new('Invalid email or password.')
       end
     end
   end

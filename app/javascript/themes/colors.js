@@ -100,12 +100,22 @@ const palette = CURVES.reduce(
   {}
 )
 
+const background = 'white'
 const accent = palette.tomato[400]
+const link = palette.tomato[600]
+const error = palette.tomato[700]
+const text = palette.grey[700]
+const border = chroma(text).alpha(0.25).css()
+const secondary = chroma(text).alpha(0.625).css()
 
 const brand = {
   accent,
-  background: 'white',
-  text: palette.grey[700],
+  background,
+  border,
+  error,
+  text,
+  secondary,
+  link,
   outline: chroma(accent).alpha(0.25).css(),
   ripple: palette.grey[300],
 }

@@ -24,13 +24,13 @@ const Page = styled.main`
 class Festival extends React.Component {
   page = React.createRef()
 
-  pageEnter = (node) => {
+  pageEnter = node => {
     if (node) {
       this.page.current.style.minHeight = `${node.offsetHeight}px`
     }
   }
 
-  pageEntered = (node) => {
+  pageEntered = _node => {
     this.page.current.style.height = 'auto'
   }
 
@@ -42,14 +42,24 @@ class Festival extends React.Component {
         <Header />
 
         <Page ref={this.page}>
-          <Route render={({ location }) => (
-            <PageTransition pageKey={location.pathname} onEnter={this.pageEnter} onEntered={this.pageEntered}>
-              <Switch location={location}>
-                <Route path={`${match.path}/:type(shows|workshops)`} exact component={Activities} />
-                <Route path={`${match.path}/`} exact component={Home} />
-              </Switch>
-            </PageTransition>
-          )} />
+          <Route
+            render={({ location }) => (
+              <PageTransition
+                pageKey={location.pathname}
+                onEnter={this.pageEnter}
+                onEntered={this.pageEntered}
+              >
+                <Switch location={location}>
+                  <Route
+                    path={`${match.path}/:type(shows|workshops)`}
+                    exact
+                    component={Activities}
+                  />
+                  <Route path={`${match.path}/`} exact component={Home} />
+                </Switch>
+              </PageTransition>
+            )}
+          />
         </Page>
         <Footer />
       </Container>
