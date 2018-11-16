@@ -62,9 +62,9 @@ group :development, :test do
 
   gem 'growl', require: false
   gem 'guard', require: false
+  gem 'guard-eslint', github: 'fauxparse/guard-eslint', require: false
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false
-  gem 'guard-shell', require: false
 end
 
 group :development do

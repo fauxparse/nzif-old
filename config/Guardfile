@@ -4,7 +4,7 @@
 ## Uncomment and set this to only include directories you want to watch
 # directories %w(app lib config test spec features) \
 #  .select{|d| Dir.exists?(d) ? d : UI.warning("Directory #{d} does not exist")}
-directories %w(app lib config test spec). \
+directories %w(app lib config spec). \
   select { |d| Dir.exists?(d) ? d : UI.warning("Directory #{d} does not exist") }
 
 ## Note: if you are using the `directories` clause above and you are not
@@ -67,17 +67,11 @@ guard :rspec, cmd: 'bin/rspec' do
   watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
 end
 
-guard :rubocop do
+guard :rubocop, all_on_start: false do
   watch(%r{.+\.rb$})
   watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
 end
 
-# Add files and commands to this file, like the example:
-#   watch(%r{file/path}) { `command(s)` }
-#
-guard :shell do
-  watch(%r{app/javascript/(.*)\.js$}) do |m|
-    system "yarn eslint #{m[0]}"
-    ''
-  end
+guard :eslint, command: 'yarn run eslint -c .eslintrc.json' do
+  watch(%r{.+\.jsx?$})
 end
