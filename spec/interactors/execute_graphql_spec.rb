@@ -126,7 +126,7 @@ RSpec.describe ExecuteGraphql, type: :interactor do
             message: 'Validation failed',
             status: 'UNPROCESSABLE_ENTITY',
             detail: {
-              name: ['Name can\'t be blank'],
+              name: ['Name can’t be blank'],
             }
           )
       end

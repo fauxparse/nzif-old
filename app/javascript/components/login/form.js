@@ -19,6 +19,10 @@ export const Title = styled(BrandedText)`
 
 export const Field = styled(FormField)`
   font-size: ${({ theme }) => theme.fonts.scale(1)};
+
+  p {
+    font-size: ${({ theme }) => theme.fonts.scale(-2)};
+  }
 `
 
 export const Fieldset = styled(FormFieldset)`

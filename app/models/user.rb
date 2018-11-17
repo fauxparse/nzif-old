@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :identities, dependent: :destroy, autosave: true
 
-  validates :name, presence: true
-  validates :email, email: true, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, :email, presence: true
+  validates :email, email: true, uniqueness: { case_sensitive: false }, if: :email?
   validates :identities, nested: true, on: :create
 
   def self.find_by_email(email)
