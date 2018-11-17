@@ -7,6 +7,7 @@ import {
   Tag as FormTag,
   Field as FormField,
   Fieldset as FormFieldset,
+  Error,
 } from '../form'
 
 export const Title = styled(BrandedText)`
@@ -48,7 +49,7 @@ class Form extends React.Component {
     if (loading) {
       return <p>Hold on…</p>
     } else if (errors.length) {
-      return <Form.Error>{errors[0].message}</Form.Error>
+      return <Error>{errors[0].message}</Error>
     } else {
       return <p>{message}</p>
     }
