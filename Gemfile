@@ -83,6 +83,7 @@ group :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '4.0.0.rc1'
   gem 'simplecov', require: false
   gem 'stub_env', require: false
   gem 'timecop', require: false

@@ -23,7 +23,6 @@ RSpec.describe Types::QueryType, type: :mutation do
         password: attributes_for(:password)[:password],
       }
     end
-    let(:activity) { double(:user, attributes_for(:user)) }
     let(:environment) { double(:environment) }
 
     it 'calls the AuthenticateUser service' do
