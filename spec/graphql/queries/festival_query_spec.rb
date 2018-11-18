@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Types::QueryType, type: :query do
   describe '#festival' do

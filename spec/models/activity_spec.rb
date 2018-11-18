@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
-  subject(:activity) { create(:workshop) }
+  subject(:activity) { build(:workshop) }
 
   it { is_expected.to be_valid }
 
@@ -25,5 +25,15 @@ RSpec.describe Activity, type: :model do
 
       it { is_expected.not_to end_with(/\d+/) }
     end
+  end
+
+  describe '#url' do
+    subject(:url) { activity.url }
+
+    let(:activity) { build(:workshop, name: name, festival: festival).tap(&:validate) }
+    let(:festival) { build_stubbed(:festival) }
+    let(:name) { 'Werkshop' }
+
+    it { is_expected.to eq '/2018/workshops/werkshop' }
   end
 end

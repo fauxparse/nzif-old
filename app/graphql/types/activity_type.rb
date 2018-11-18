@@ -8,9 +8,5 @@ module Types
     field :festival, FestivalType, null: false
     field :url, String, null: false
     field :associated, [ActivityType], null: false
-
-    def url
-      "/#{object.festival.year}/#{object.class.to_param}/#{object.slug}"
-    end
   end
 end

@@ -21,6 +21,10 @@ class Activity < ApplicationRecord
     where(slug: activity.slug, festival_id: activity.festival_id).where.not(type: activity.type)
   end
 
+  def url
+    "/#{festival.year}/#{self.class.to_param}/#{slug}"
+  end
+
   private
 
   def not_a_vanilla_activity
