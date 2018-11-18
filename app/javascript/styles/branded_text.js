@@ -1,7 +1,9 @@
-import styled from 'styled-components'
+import { css } from 'styled-components'
 
-export default styled.span`
+const brandedText = css`
   font-family: ${props => props.theme.fonts.branding};
   font-family: ${props => props.theme.fonts.weights.black};
   text-transform: uppercase;
 `
+
+export default brandedText

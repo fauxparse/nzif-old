@@ -7,7 +7,7 @@ const padding = 1
 export const minFullWidth = width + padding * 2
 export const sidePadding = `calc(50vw - ${`${SIZES.large / 2}rem`})`
 
-export const fullWidth = css`
+const fullWidth = css`
   padding: ${padding}rem;
 
   ${media(minFullWidth)`

@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import TextLink from '../../components/shared/text_link'
-import BrandedText from '../../styles/branded_text'
+import { brandedText } from '../../styles'
 
-const ActivityTitle = styled(BrandedText)`
+const ActivityTitle = styled(TextLink)`
+  ${brandedText}
+
   font-size: ${props => props.theme.fonts.scale(1)};
 `
 
@@ -15,7 +17,7 @@ class Activity extends React.PureComponent {
     const { name, url } = this.props.activity
     return (
       <ActivityContainer>
-        <ActivityTitle as={TextLink} to={url}>{name}</ActivityTitle>
+        <ActivityTitle to={url}>{name}</ActivityTitle>
       </ActivityContainer>
     )
   }

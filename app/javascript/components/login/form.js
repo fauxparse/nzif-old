@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import BrandedText from '../../styles/branded_text'
+import { brandedText } from '../../styles'
 import Button from '../button'
 import {
   Tag as FormTag,
@@ -10,7 +10,9 @@ import {
   Error,
 } from '../form'
 
-export const Title = styled(BrandedText)`
+export const Title = styled.h2`
+  ${brandedText}
+
   color: ${({ theme }) => theme.colors.accent};
   font-size: ${({ theme }) => theme.fonts.scale(6)};
   line-height: ${({ theme }) => theme.fonts.scale(1)};
@@ -65,7 +67,7 @@ class Form extends React.Component {
     return (
       <Container className={className} onSubmit={onSubmit} method="post">
         <Fieldset disabled={loading} aria-busy={loading}>
-          <Title as="h2">{title}</Title>
+          <Title>{title}</Title>
           {this.message()}
           {children}
         </Fieldset>

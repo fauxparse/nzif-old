@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import PageContent from '../../components/page_content'
 import Background from '../../components/shared/background'
 import { fullWidth } from '../../styles'
-import BrandedText from '../../styles/branded_text'
+import { brandedText } from '../../styles'
 import Date from '../../styles/date'
 
 export const HOMEPAGE_FRAGMENT = gql`
@@ -32,6 +32,8 @@ const HeroSection = styled.section`
   color: white;
 
   h1 {
+    ${brandedText}
+
     font-size: ${props => props.theme.fonts.scale(10)};
     text-shadow: 0 0 0.25em rgba(0, 0, 0, 0.15);
     margin: 0;
@@ -53,7 +55,7 @@ const Home = ({ match }) => {
         {({ loading, data: { festival } }) => !loading && (
           <Fragment>
             <Background as={HeroSection}>
-              <BrandedText as="h1">NZIF {festival.year}</BrandedText>
+              <h1>NZIF {festival.year}</h1>
               <h2><Date date={[festival.startDate, festival.endDate]} /></h2>
             </Background>
           </Fragment>

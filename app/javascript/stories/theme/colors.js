@@ -7,12 +7,14 @@ import flatMap from 'lodash/flatMap'
 import chroma from 'chroma-js'
 import Clipboard from 'clipboard'
 import Ripple from '../../components/shared/ripple'
-import BrandedText from '../../styles/branded_text'
+import { brandedText } from '../../styles'
 
 const contrasting = color =>
   chroma.contrast(color, 'white') >= 4.5 ? 'white' : 'black'
 
-const Header = styled(BrandedText)`
+const Header = styled.div`
+  ${brandedText}
+
   color: ${props => props.color};
   font-weight: bold;
   line-height: 2em;

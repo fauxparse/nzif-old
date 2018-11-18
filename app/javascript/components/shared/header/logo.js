@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Link from './link'
-import BrandedText from '../../../styles/branded_text'
+import { brandedText } from '../../../styles'
 
-const LogoText = styled(BrandedText)`
+const LogoText = styled(Link.Text)`
+  ${brandedText}
+
   font-size: ${props => props.theme.fonts.scale(2)};
 `
 
