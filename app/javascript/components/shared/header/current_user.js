@@ -9,6 +9,7 @@ import Avatar from '../avatar'
 import Icon from '../../icons'
 import { slide } from '../../page_transition'
 import LogOutLink from './log_out'
+import { media } from '../../../styles'
 
 const CurrentUserName = styled(Link.Text)``
 
@@ -23,7 +24,7 @@ export const CurrentUserLink = styled(Link)`
     display: none;
   }
 
-  @media (min-width: ${({ theme }) => theme.layout.medium}) {
+  ${media.medium`
     > svg {
       display: initial;
       transition: ${({ theme }) => theme.transition('transform')};
@@ -39,7 +40,7 @@ export const CurrentUserLink = styled(Link)`
       display: initial;
       padding: 0 0.5em;
     }
-  }
+  `}
 `
 
 export const CURRENT_USER_QUERY = gql`

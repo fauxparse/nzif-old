@@ -1,18 +1,19 @@
-import styled from 'styled-components'
-import layout from '../themes/layout'
+import { css } from 'styled-components'
+import media, { SIZES } from './media'
 
-const padding = parseInt(layout.padding, 10)
-const width = parseInt(layout.width, 10)
-const units = layout.width.replace(/^[\d.]+/, '')
+const width = SIZES.large
+const padding = 1
 
-export const minFullWidth = `${width + padding * 2}${units}`
-export const sidePadding = `calc(50vw - ${`${width / 2}${units}`})`;
+export const minFullWidth = width + padding * 2
+export const sidePadding = `calc(50vw - ${`${SIZES.large / 2}rem`})`
 
-export default styled.section`
-  padding: ${layout.padding};
+export const fullWidth = css`
+  padding: ${padding}rem;
 
-  @media (min-width: ${minFullWidth}) {
+  ${media(minFullWidth)`
     padding-left: ${sidePadding};
     padding-right: ${sidePadding};
-  }
+  `}
 `
+
+export default fullWidth

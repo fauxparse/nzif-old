@@ -1,7 +1,9 @@
 import styled from 'styled-components'
-import FullWidth from '../../../styles/full_width'
+import { fullWidth } from '../../../styles'
 
-const FooterContainer = styled(FullWidth)`
+const FooterContainer = styled.footer`
+  ${fullWidth}
+
   background: ${({ theme }) => theme.colors.palette.grey[500]};
   color: white;
   min-height: 6em;

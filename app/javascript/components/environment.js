@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import Icon from './icons'
+import { media } from '../styles'
 
 const Corner = styled.div`
+  display: none;
   position: fixed;
   top: -1em;
   left: -1em;
@@ -27,9 +29,9 @@ const Corner = styled.div`
     display: block;
   }
 
-  @media (max-width: 24em) {
-    display: none;
-  }
+  ${media.medium`
+    display: block;
+  `}
 `
 
 const Environment = () => {

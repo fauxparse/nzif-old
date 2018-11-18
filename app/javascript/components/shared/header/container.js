@@ -1,11 +1,14 @@
 import styled from 'styled-components'
-import FullWidth from '../../../styles/full_width'
+import { fullWidth } from '../../../styles'
+import { media } from '../../../styles'
 import MenuButton from './menu_button'
 import Logo from './logo'
 import HeaderLinks from './links'
 import { CurrentUserLink } from './current_user'
 
-export default styled(FullWidth)`
+export default styled.header`
+  ${fullWidth}
+
   align-items: stretch;
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
@@ -57,7 +60,7 @@ export default styled(FullWidth)`
     }
   }
 
-  @media (min-width: ${({ theme }) => theme.layout.medium}) {
+  ${media.medium`
     ${MenuButton} {
       display: none;
     }
@@ -80,5 +83,5 @@ export default styled(FullWidth)`
         transform: translate3d(0, 0, 0);
       }
     }
-  }
+  `}
 `

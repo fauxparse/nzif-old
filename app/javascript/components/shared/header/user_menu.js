@@ -1,15 +1,17 @@
 import styled from 'styled-components'
 import Menu from './menu'
-import { minFullWidth, sidePadding } from '../../../styles/full_width'
+import { sidePadding } from '../../../styles/full_width'
+import { media } from '../../../styles'
 
 const UserMenu = styled(Menu)`
-  @media (min-width: ${({ theme }) => theme.layout.medium}) {
+  ${media.medium`
     left: auto;
-  }
+  `}
 
-  @media (min-width: ${minFullWidth}) {
-    right: calc(${sidePadding} - ${({ theme }) => theme.layout.padding});
-  }
+  ${media.large`
+    right: ${sidePadding};
+    margin-right: -1rem;
+  `}
 `
 
 UserMenu.Separator = styled.hr`

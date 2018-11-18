@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import Menu from './menu'
 import Link from './link'
+import { media } from '../../../styles'
 
 export default styled(Menu)`
-  @media (min-width: ${({ theme }) => theme.layout.medium}) {
+  ${media.medium`
     display: flex;
     position: static;
     transition: none;
@@ -35,5 +36,5 @@ export default styled(Menu)`
     ${Link.Icon} {
       display: none;
     }
-  }
+  `}
 `

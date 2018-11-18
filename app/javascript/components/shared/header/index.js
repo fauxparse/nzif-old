@@ -50,7 +50,7 @@ class Header extends React.Component {
 
     return (
       <HeaderTheme>
-        <HeaderContainer as="header">
+        <HeaderContainer>
           <MenuButton ref={this.buttonRef} open={menuOpen} onClick={this.toggleMenu} />
           <Logo year={match.params.year} />
           <Links ref={this.menuRef} aria-expanded={menuOpen}>

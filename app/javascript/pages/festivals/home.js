@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import PageContent from '../../components/page_content'
 import Background from '../../components/shared/background'
-import FullWidth from '../../styles/full_width'
+import { fullWidth } from '../../styles'
 import BrandedText from '../../styles/branded_text'
 import Date from '../../styles/date'
 
@@ -26,7 +26,9 @@ export const HOMEPAGE_QUERY = gql`
   ${HOMEPAGE_FRAGMENT}
 `
 
-const HeroSection = styled(FullWidth)`
+const HeroSection = styled.section`
+  ${fullWidth}
+
   color: white;
 
   h1 {
