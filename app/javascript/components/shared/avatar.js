@@ -16,4 +16,4 @@ const Avatar = ({ name, ...props }) =>
     <Icon name="user" />
   </AvatarContainer>
 
-export default styled(Avatar)``
+export default Avatar

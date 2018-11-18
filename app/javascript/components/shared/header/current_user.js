@@ -4,7 +4,7 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import UserMenu from './user_menu'
 import Link from './link'
-import Ripple from '../ripple'
+import Ripple, { Link as RippleLink } from '../ripple'
 import Avatar from '../avatar'
 import Icon from '../../icons'
 import { slide } from '../../page_transition'
@@ -12,26 +12,25 @@ import LogOutLink from './log_out'
 
 const CurrentUserName = styled(Link.Text)``
 
-const CurrentUserLink = styled(Link)`
+export const CurrentUserLink = styled(Link)`
   align-items: center;
   align-self: stretch;
   display: flex;
-  padding: 0 0.5em;
   cursor: pointer;
 
   ${CurrentUserName},
-  > ${Icon} {
+  > svg {
     display: none;
   }
 
   @media (min-width: ${({ theme }) => theme.layout.medium}) {
-    > ${Icon} {
+    > svg {
       display: initial;
       transition: ${({ theme }) => theme.transition('transform')};
     }
 
     &[aria-expanded="true"] {
-      > ${Icon} {
+      > svg {
         transform: rotate(0.5turn);
       }
     }
@@ -52,6 +51,7 @@ export const CURRENT_USER_QUERY = gql`
     }
   }
 `
+
 class CurrentUser extends React.Component {
   state = { menuOpen: false }
 
@@ -116,12 +116,13 @@ class CurrentUser extends React.Component {
               </UserMenu>
             </Fragment>
           ) : (
-            <Link
+            <CurrentUserLink
+              as={RippleLink}
               to={{ pathname: '/login', state: { transition: slide } }}
               className={this.props.className}
             >
               <Link.Text>Log in</Link.Text>
-            </Link>
+            </CurrentUserLink>
           )
         }
       </Query>
@@ -129,4 +130,4 @@ class CurrentUser extends React.Component {
   }
 }
 
-export default styled(CurrentUser)``
+export default CurrentUser

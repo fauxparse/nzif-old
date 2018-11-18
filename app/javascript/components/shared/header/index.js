@@ -52,7 +52,7 @@ class Header extends React.Component {
       <HeaderTheme>
         <HeaderContainer as="header">
           <MenuButton ref={this.buttonRef} open={menuOpen} onClick={this.toggleMenu} />
-          <Logo />
+          <Logo year={match.params.year} />
           <Links ref={this.menuRef} aria-expanded={menuOpen}>
             <Link to={`${match.url}/workshops`}>
               <Link.Icon name="workshop" />

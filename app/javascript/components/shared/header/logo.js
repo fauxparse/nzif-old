@@ -1,17 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { withRouter } from 'react-router-dom'
 import Link from './link'
 import BrandedText from '../../../styles/branded_text'
 
-const Logo = styled(Link)`
-  ${BrandedText} {
-    font-size: ${props => props.theme.fonts.scale(2)};
-  }
+const LogoText = styled(BrandedText)`
+  font-size: ${props => props.theme.fonts.scale(2)};
 `
 
-export default styled(withRouter(({ match, className }) => (
-  <Logo to={match.url} className={className}>
-    <BrandedText>NZIF {match.params.year}</BrandedText>
-  </Logo>
-)))``
+const Logo = styled(Link).attrs(({ year }) => ({
+  to: `/${year}`,
+  children: <LogoText>NZIF {year}</LogoText>,
+}))``
+
+Logo.propTypes = {
+  year: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+}
+
+export default Logo

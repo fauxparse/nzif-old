@@ -38,4 +38,4 @@ Icon.propTypes = {
 
 Icon.ICONS = ICONS
 
-export default styled(Icon)``
+export default Icon

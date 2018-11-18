@@ -4,7 +4,18 @@ import Button from '../../button'
 import Icon from '../../icons'
 import { DURATION } from '../../../themes/transition'
 
-const MenuButton = styled(Button)`
+const Hamburger = () => (
+  <Icon viewBox="-12 -12 24 24">
+    <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
+    <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
+    <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
+  </Icon>
+)
+
+const MenuButton = styled(Button).attrs(({ open }) => ({
+  'aria-selected': open,
+  children: <Hamburger />,
+}))`
   appearance: none;
   background: rgba(0, 0, 0, 0);
   border: none;
@@ -64,12 +75,4 @@ const MenuButton = styled(Button)`
   }
 `
 
-export default styled(React.forwardRef(({ open = false, ...props }, ref) => (
-  <MenuButton aria-selected={open} {...props} ref={ref}>
-    <Icon viewBox="-12 -12 24 24">
-      <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
-      <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
-      <g><line x1="-9" y1="0" x2="9" y2="0" /></g>
-    </Icon>
-  </MenuButton>
-)))``
+export default MenuButton

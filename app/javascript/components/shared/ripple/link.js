@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Ripple from './container'
 import Link from '../link'
 
-const RippledLink = styled(Link)`
+const StyledLink = styled(Link)`
   align-items: center;
   cursor: pointer;
   display: flex;
@@ -12,8 +12,10 @@ const RippledLink = styled(Link)`
   text-decoration: none;
 `
 
-export default styled(({ children, ...props }) => (
-  <Ripple as={RippledLink} {...props}>
+const RippledLink = ({ children, ...props }) => (
+  <Ripple as={StyledLink} {...props}>
     {children}
   </Ripple>
-))``
+)
+
+export default RippledLink

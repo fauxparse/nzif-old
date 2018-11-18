@@ -50,10 +50,10 @@ const Home = ({ match }) => {
       <Query query={HOMEPAGE_QUERY} variables={{ year }}>
         {({ loading, data: { festival } }) => !loading && (
           <Fragment>
-            <HeroSection as={Background}>
+            <Background as={HeroSection}>
               <BrandedText as="h1">NZIF {festival.year}</BrandedText>
               <h2><Date date={[festival.startDate, festival.endDate]} /></h2>
-            </HeroSection>
+            </Background>
           </Fragment>
         )}
       </Query>

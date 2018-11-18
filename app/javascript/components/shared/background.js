@@ -64,4 +64,4 @@ class Background extends React.Component {
   }
 }
 
-export default styled(Background)``
+export default Background

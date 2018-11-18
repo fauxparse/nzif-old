@@ -3,7 +3,7 @@ import FullWidth from '../../../styles/full_width'
 import MenuButton from './menu_button'
 import Logo from './logo'
 import HeaderLinks from './links'
-import CurrentUser from './current_user'
+import { CurrentUserLink } from './current_user'
 
 export default styled(FullWidth)`
   align-items: stretch;
@@ -41,7 +41,7 @@ export default styled(FullWidth)`
     padding: 1em;
   }
 
-  ${CurrentUser} {
+  ${CurrentUserLink} {
     flex: 0 0 auto;
     margin-right: -1em;
     order: 1;

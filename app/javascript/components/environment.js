@@ -17,11 +17,13 @@ const Corner = styled.div`
     rgba(0, 0, 0, 0) 55%
   )`};
   color: white;
+  opacity: 0.875;
   pointer-events: none;
   touch-action: none;
   z-index: 1000;
+  transition: ${({ theme }) => theme.transition('opacity')};
 
-  ${Icon} {
+  svg {
     display: block;
   }
 
