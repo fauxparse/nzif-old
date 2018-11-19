@@ -1,3 +1,7 @@
-import Invert from '../../../styles/invert'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+import { invert } from '../../../styles'
 
-export default Invert
+const Theme = ({ children }) => <ThemeProvider theme={invert}>{children}</ThemeProvider>
+
+export default Theme
