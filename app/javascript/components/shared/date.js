@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import moment from '../lib/moment'
+import moment from '../../lib/moment'
 import isArray from 'lodash/isArray'
 
 export const DATE_FORMATS = {

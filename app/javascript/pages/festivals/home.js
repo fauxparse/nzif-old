@@ -7,7 +7,7 @@ import PageContent from '../../components/page_content'
 import Background from '../../components/shared/background'
 import { fullWidth } from '../../styles'
 import { brandedText } from '../../styles'
-import Date from '../../styles/date'
+import Date from '../../components/shared/date'
 
 export const HOMEPAGE_FRAGMENT = gql`
   fragment HomepageFragment on Festival {
