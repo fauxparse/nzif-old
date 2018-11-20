@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components'
+import { css } from 'styled-components'
 
-export const Styles = createGlobalStyle`
+export const styles = css`
   .none-exit {
     display: none;
   }

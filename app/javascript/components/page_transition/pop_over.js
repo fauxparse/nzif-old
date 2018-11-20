@@ -1,9 +1,9 @@
-import { createGlobalStyle } from 'styled-components'
+import { css } from 'styled-components'
 
 const transitionClassName = 'pop-over'
 const duration = 1000
 
-export const Styles = createGlobalStyle`
+export const styles = css`
   .${transitionClassName} {
     z-index: 200;
 

@@ -1,4 +1,4 @@
-import { createGlobalStyle, keyframes } from 'styled-components'
+import { css, keyframes } from 'styled-components'
 import { EASING } from '../../themes/transition'
 
 const transitionClassName = 'flip'
@@ -16,7 +16,7 @@ const flipOut = keyframes`
   100% { transform: translate3d(-100vw, 0, 0) scale(0.9); }
 `
 
-export const Styles = createGlobalStyle`
+export const styles = css`
   .${transitionClassName} {
     &-enter,
     &-exit {

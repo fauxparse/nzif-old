@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react'
 import PageTransition from './group'
-import none, { Styles as NoStyles } from './none'
-import fade, { Styles as FadeStyles } from './fade'
-import flip, { Styles as FlipStyles } from './flip'
-import popOver, { Styles as PopOverStyles } from './pop_over'
-import { Styles as SlideStyles } from './slide'
+import none from './none'
+import fade from './fade'
+import flip from './flip'
+import popOver from './pop_over'
 
 const GROUPS = [
   ['login', /^(login|signup)/],
@@ -48,11 +47,6 @@ class RootPageTransition extends React.Component {
 
     return (
       <Fragment>
-        <NoStyles />
-        <FadeStyles />
-        <FlipStyles />
-        <SlideStyles />
-        <PopOverStyles />
         <PageTransition pageKey={pageKey} {...transition}>
           {children}
         </PageTransition>

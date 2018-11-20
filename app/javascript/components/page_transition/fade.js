@@ -1,9 +1,9 @@
-import { createGlobalStyle } from 'styled-components'
+import { css } from 'styled-components'
 
 const transitionClassName = 'fade'
 const duration = 50
 
-export const Styles = createGlobalStyle`
+export const styles = css`
   .${transitionClassName} {
     &-enter,
     &-exit {

@@ -7,6 +7,8 @@ import layout from './layout'
 import shadow from './shadows'
 import transition from './transition'
 
+import { transitionStyles } from '../components/page_transition'
+
 const noYuckyHighlight = css`
   -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
   -webkit-transition-delay: 9999s;
@@ -39,6 +41,8 @@ export const GlobalStyle = createGlobalStyle`
       ${noYuckyHighlight};
     }
   }
+
+  ${transitionStyles}
 `
 
 export default {
