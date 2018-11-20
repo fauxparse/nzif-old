@@ -7,6 +7,7 @@ const childFactoryCreator = props => child => React.cloneElement(child, props)
 
 const PageTransition = ({ transition, duration, pageKey, children, ...props }) => (
   <TransitionGroup
+    {...props}
     childFactory={childFactoryCreator({ classNames: transition, timeout: duration })}
   >
     <CSSTransition key={pageKey} timeout={duration} {...props}>

@@ -1,23 +1,24 @@
 import { css, keyframes } from 'styled-components'
 import { EASING } from '../../themes/transition'
 
-const transitionClassName = 'flip'
+const transitionClassName = 'push'
 const duration = 1500
 
-const flipIn = keyframes`
+const pushIn = keyframes`
   0% { transform: translate3d(100vw, 0, 0) scale(0.9); }
   50% { transform: translate3d(0, 0, 0) scale(0.9); }
   100% { transform: translate3d(0, 0, 0) scale(1); }
 `
 
-const flipOut = keyframes`
+const pushOut = keyframes`
   0% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(0, 0, 0) scale(0.9); }
   100% { transform: translate3d(-100vw, 0, 0) scale(0.9); }
 `
 
 export const styles = css`
-  .${transitionClassName} {
+  .push,
+  .pop {
     &-enter,
     &-exit {
       position: absolute;
@@ -32,16 +33,27 @@ export const styles = css`
       transform: translate3d(100vw, 0, 0);
 
       &-active {
-  animation: ${flipIn} 1s ${EASING.standard} 0.5s forwards;
+        animation: ${pushIn} 1s ${EASING.standard} 0.5s forwards;
       }
     }
 
     &-exit {
       &-active {
-        animation: ${flipOut} 1s ${EASING.standard} forwards;
+        animation: ${pushOut} 1s ${EASING.standard} forwards;
       }
     }
   }
+
+  .pop-enter-active {
+    animation: ${pushOut} 1s ${EASING.standard} 0.5s reverse forwards;
+  }
+
+  .pop-exit-active {
+    animation: ${pushIn} 1s ${EASING.standard} reverse forwards;
+  }
 `
+
+export const push = { transition: 'push', duration: duration }
+export const pop = { transition: 'pop', duration: duration }
 
 export default { transition: transitionClassName, duration }

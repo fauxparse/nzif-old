@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
+import styled from 'styled-components'
 import PageTransition from './group'
 import none from './none'
 import fade from './fade'
-import flip from './flip'
+import { push, pop } from './push'
 import popOver from './pop_over'
 
 const GROUPS = [
@@ -13,19 +14,23 @@ const GROUPS = [
 
 const TRANSITIONS = {
   misc: {
-    admin: flip,
+    admin: push,
     login: popOver,
   },
   login: {
     misc: popOver,
   },
   admin: {
-    misc: flip,
+    misc: pop,
   },
 }
 
 const findGroup = (key) =>
   GROUPS.find(([_name, ...patterns]) => patterns.find(pattern => pattern.test(key)))[0]
+
+const TransitionContainer = styled.div`
+  background: ${({ theme }) => `linear-gradient(to bottom, ${theme.colors.grey[100]}, ${theme.colors.grey[200]})`};
+`
 
 class RootPageTransition extends React.Component {
   state = { pageKey: '', transition: none }
@@ -47,7 +52,7 @@ class RootPageTransition extends React.Component {
 
     return (
       <Fragment>
-        <PageTransition pageKey={pageKey} {...transition}>
+        <PageTransition pageKey={pageKey} {...transition} component={TransitionContainer}>
           {children}
         </PageTransition>
       </Fragment>
