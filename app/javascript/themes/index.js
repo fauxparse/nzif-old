@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${({ theme }) => theme.colors.background};
+    background: ${({ theme }) => theme.colors.grey[100]};
     color: ${({ theme }) => theme.colors.text};
     margin: 0;
     padding: 0;

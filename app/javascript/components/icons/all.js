@@ -1,4 +1,5 @@
 export default [
+  'admin',
   'chevron-down',
   'close',
   'development',

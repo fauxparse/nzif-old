@@ -12,6 +12,7 @@ export { default as CurrentFestival } from './current'
 
 const Container = styled.div`
   align-items: stretch;
+  background: ${({ theme }) => theme.colors.background};
   display: flex;
   flex-direction: column;
   min-height: 100vh;
