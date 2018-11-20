@@ -5,8 +5,9 @@ import none from './none'
 
 const childFactoryCreator = props => child => React.cloneElement(child, props)
 
-const PageTransition = ({ transition, duration, pageKey, children, ...props }) => (
+const PageTransition = ({ transition, duration, pageKey, component, children, ...props }) => (
   <TransitionGroup
+    component={component}
     childFactory={childFactoryCreator({ classNames: transition, timeout: duration })}
   >
     <CSSTransition key={pageKey} timeout={duration} {...props}>
@@ -21,6 +22,9 @@ PageTransition.propTypes = {
   pageKey: PropTypes.string.isRequired,
 }
 
-PageTransition.defaultProps = { none }
+PageTransition.defaultProps = {
+  ...none,
+  component: 'div',
+}
 
 export default PageTransition
