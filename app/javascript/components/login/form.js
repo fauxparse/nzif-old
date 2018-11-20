@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { brandedText } from '../../styles'
+import { text } from '../../styles'
 import Button from '../button'
 import {
   Tag as FormTag,
@@ -11,7 +11,7 @@ import {
 } from '../form'
 
 export const Title = styled.h2`
-  ${brandedText}
+  ${text.branded}
 
   color: ${({ theme }) => theme.colors.accent};
   font-size: ${({ theme }) => theme.fonts.scale(6)};

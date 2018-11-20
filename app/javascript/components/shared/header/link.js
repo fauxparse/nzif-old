@@ -6,7 +6,7 @@ const HeaderLink = styled(Link)`
   align-items: center;
   background-color: rgba(0, 0, 0, 0);
   border: 0;
-  color: ${props => props.theme.colors.text};
+  color: ${props => props.theme.colors.foreground};
   cursor: pointer;
   display: flex;
   min-width: 1px;

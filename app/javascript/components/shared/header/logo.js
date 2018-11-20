@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Link from './link'
-import { brandedText } from '../../../styles'
+import { text } from '../../../styles'
 
 const LogoText = styled(Link.Text)`
-  ${brandedText}
+  ${text.branded}
 
   font-size: ${props => props.theme.fonts.scale(2)};
 `

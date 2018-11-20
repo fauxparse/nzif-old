@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import TextLink from '../../components/shared/text_link'
-import { brandedText } from '../../styles'
+import { text } from '../../styles'
 
 const ActivityTitle = styled(TextLink)`
-  ${brandedText}
+  ${text.branded}
 
   font-size: ${props => props.theme.fonts.scale(1)};
 `

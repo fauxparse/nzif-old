@@ -100,19 +100,28 @@ const palette = CURVES.reduce(
   {}
 )
 
-const background = 'white'
+const alpha = {
+  primary: 0.875,
+  secondary: 0.625,
+  disabled: 0.375,
+  border: 0.25,
+}
+
+const background = '#ffffff'
+const foreground = palette.grey[700]
 const accent = palette.tomato[400]
 const link = palette.tomato[600]
 const error = palette.tomato[700]
-const text = palette.grey[700]
-const border = chroma(text).alpha(0.25).css()
-const secondary = chroma(text).alpha(0.625).css()
+const text = chroma(foreground).alpha(alpha.primary).css()
+const secondary = chroma(text).alpha(alpha.secondary).css()
+const border = chroma(text).alpha(alpha.border).css()
 
 const brand = {
   accent,
   background,
   border,
   error,
+  foreground,
   text,
   secondary,
   link,
@@ -121,6 +130,8 @@ const brand = {
 }
 
 export default {
+  alpha,
   palette,
+  ...palette,
   ...brand,
 }

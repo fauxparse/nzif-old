@@ -1,13 +1,12 @@
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 
 const Input = styled.input`
   appearance: none;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid ${({ theme }) => chroma(theme.colors.text).alpha(0.25).css()};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: none;
-  color: ${({ theme }) => theme.colors.text};
+  color: inherit;
   display: block;
   font: inherit;
   line-height: 1.5em;

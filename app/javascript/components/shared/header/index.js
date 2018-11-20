@@ -2,7 +2,7 @@ import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import Logo from './logo'
-import HeaderTheme from './theme'
+import Theme from './theme'
 import CurrentUser from './current_user'
 import MenuButton from './menu_button'
 import Link from './link'
@@ -49,7 +49,7 @@ class Header extends React.Component {
     const { menuOpen } = this.state
 
     return (
-      <HeaderTheme>
+      <Theme>
         <HeaderContainer>
           <MenuButton ref={this.buttonRef} open={menuOpen} onClick={this.toggleMenu} />
           <Logo year={match.params.year} />
@@ -65,7 +65,7 @@ class Header extends React.Component {
           </Links>
           <CurrentUser />
         </HeaderContainer>
-      </HeaderTheme>
+      </Theme>
     )
   }
 }

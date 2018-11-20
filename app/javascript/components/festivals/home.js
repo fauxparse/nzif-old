@@ -5,8 +5,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import PageContent from '../../components/page_content'
 import Background from '../../components/shared/background'
-import { fullWidth } from '../../styles'
-import { brandedText } from '../../styles'
+import { fullWidth, text } from '../../styles'
 import Date from '../../components/shared/date'
 
 export const HOMEPAGE_FRAGMENT = gql`
@@ -32,7 +31,7 @@ const HeroSection = styled.section`
   color: white;
 
   h1 {
-    ${brandedText}
+    ${text.branded}
 
     font-size: ${props => props.theme.fonts.scale(10)};
     text-shadow: 0 0 0.25em rgba(0, 0, 0, 0.15);
