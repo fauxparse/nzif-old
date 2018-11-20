@@ -21,6 +21,7 @@ const Container = styled.div`
 const Page = styled.main`
   flex: 1 0 auto;
   position: relative;
+  overflow-x: hidden;
 `
 
 class Festival extends React.Component {
