@@ -105,6 +105,10 @@ class CurrentUser extends React.Component {
                 <Icon name="chevron-down" />
               </CurrentUserLink>
               <UserMenu aria-expanded={menuOpen} ref={this.menuRef}>
+                <Link to="/admin">
+                  <Link.Icon name="admin" />
+                  <Link.Text>Festival admin</Link.Text>
+                </Link>
                 <Link to="/profile">
                   <Link.Icon name="user" />
                   <Link.Text>Profile</Link.Text>
