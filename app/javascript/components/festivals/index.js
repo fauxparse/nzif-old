@@ -8,6 +8,8 @@ import Footer from '../../components/shared/footer'
 import Activities from '../activities'
 import Home from './home'
 
+export { default as CurrentFestival } from './current'
+
 const Container = styled.div`
   align-items: stretch;
   display: flex;

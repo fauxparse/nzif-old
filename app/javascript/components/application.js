@@ -7,9 +7,8 @@ import { LastLocationProvider } from 'react-router-last-location'
 import { ThemeProvider } from 'styled-components'
 import theme, { GlobalStyle } from '../themes'
 import { RootPageTransition as PageTransition } from './page_transition'
-import Festival from '../pages/festivals'
+import Festival, { CurrentFestival } from './festivals'
 import LogIn from './login'
-import CurrentFestival from '../pages/festivals/current'
 import Environment from './environment'
 
 const cache = new InMemoryCache({
