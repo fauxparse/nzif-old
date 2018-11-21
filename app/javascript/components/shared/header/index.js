@@ -9,6 +9,8 @@ import Link from './link'
 import Links from './links'
 import HeaderContainer from './container'
 
+export { Link }
+
 class Header extends React.Component {
   state = { menuOpen: false }
 
@@ -45,7 +47,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { match } = this.props
+    const { match, children } = this.props
     const { menuOpen } = this.state
 
     return (
@@ -54,14 +56,7 @@ class Header extends React.Component {
           <MenuButton ref={this.buttonRef} open={menuOpen} onClick={this.toggleMenu} />
           <Logo year={match.params.year} />
           <Links ref={this.menuRef} aria-expanded={menuOpen}>
-            <Link to={`${match.url}/workshops`}>
-              <Link.Icon name="workshop" />
-              <Link.Text>Workshops</Link.Text>
-            </Link>
-            <Link to={`${match.url}/shows`}>
-              <Link.Icon name="show" />
-              <Link.Text>Shows</Link.Text>
-            </Link>
+            {children}
           </Links>
           <CurrentUser />
         </HeaderContainer>

@@ -1,5 +1,7 @@
 import React, { Fragment, createRef } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import UserMenu from './user_menu'
@@ -129,7 +131,8 @@ class CurrentUser extends React.Component {
 
   render() {
     const { menuOpen, notificationCount } = this.state
-    const { data: { currentUser } = {}, loading, ...props } = this.props
+    const { data: { currentUser } = {}, loading, match, ...props } = this.props
+    const { params: { year } } = match
 
     return loading ? null : currentUser ? (
       <Fragment>
@@ -148,7 +151,7 @@ class CurrentUser extends React.Component {
           <Icon name="chevron-down" />
         </CurrentUserLink>
         <UserMenu aria-expanded={menuOpen} ref={this.menuRef}>
-          <Link to="/admin">
+          <Link to={`/admin${year ? `/${year}` : ''}`}>
             <Link.Icon name="admin" />
             <Link.Text>Festival admin</Link.Text>
           </Link>
@@ -175,4 +178,8 @@ class CurrentUser extends React.Component {
   }
 }
 
-export default graphql(CURRENT_USER_QUERY)(CurrentUser)
+CurrentUser.propTypes = {
+  match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+}
+
+export default withRouter(graphql(CURRENT_USER_QUERY)(CurrentUser))

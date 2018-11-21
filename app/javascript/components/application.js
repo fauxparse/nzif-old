@@ -28,7 +28,7 @@ export default class Application extends React.Component {
                 <Route render={({ location }) => (
                   <PageTransition pageKey={getPageKey(location)}>
                     <Switch location={location}>
-                      <Route path="/admin" component={Admin} />
+                      <Route path="/admin/:year(\d{4})" component={Admin} />
                       <Route path="/:year(\d{4})" component={Festival} />
                       <Route path="/:login(login|signup)" component={LogIn} />
                       <Route path="/" exact component={CurrentFestival} />
