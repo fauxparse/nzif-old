@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
 
+  mount ActionCable.server => '/subscriptions'
+
   post '/graphql', to: 'graphql#execute', as: :graphql
 
   # Activity.subclasses.each do |type|
