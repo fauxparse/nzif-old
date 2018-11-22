@@ -1,7 +1,8 @@
-import React, { Fragment, createRef } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import gql from 'graphql-tag'
+import Menu from '../menu'
 import withCurrentUser from '../../../lib/with_current_user'
 import UserLink, { StyledLink } from './current_user_link'
 import UserMenu from './user_menu'
@@ -18,21 +19,15 @@ export const NOTIFICATION_SUBSCRIPTION = gql`
 `
 
 class CurrentUser extends React.Component {
-  state = { menuOpen: false, notificationCount: 0 }
-
-  menuRef = createRef()
-  buttonRef = createRef()
+  state = {}
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.closeMenu)
-    document.addEventListener('touchstart', this.closeMenu)
-
     this.props.data.subscribeToMore({
       document: NOTIFICATION_SUBSCRIPTION,
       updateQuery: (previous, { subscriptionData }) => {
         if (subscriptionData.data) {
-          const { notificationCount } = this.state
-          this.setState({ notificationCount: notificationCount + 1 })
+          const { notificationsCount = 0 } = this.state
+          this.setState({ notificationsCount: notificationsCount + 1 })
         }
 
         return previous
@@ -40,58 +35,50 @@ class CurrentUser extends React.Component {
     })
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.closeMenu)
-    document.removeEventListener('touchstart', this.closeMenu)
-  }
-
-  closeMenu = e => {
-    const menu = this.menuRef.current
-    const button = this.buttonRef.current
-
-    if (
-      this.state.menuOpen &&
-      ![menu, button].find(el => el && el.contains(e.target))
-    ) {
-      this.toggleMenu()
+  componentDidUpdate() {
+    const { data } = this.props
+    if (data && this.state.notificationsCount === undefined) {
+      const { notificationsCount } = data.currentUser
+      this.setState({ notificationsCount })
     }
   }
 
-  toggleMenu = () => {
-    this.setState({ menuOpen: !this.state.menuOpen })
-  }
-
   render() {
-    const { menuOpen, notificationCount } = this.state
+    const { notificationsCount = 0 } = this.state
     const { currentUser, match, data, ...props } = this.props
     const { params: { year } } = match
 
     return currentUser ? (
-      <Fragment>
-        <UserLink
-          {...props}
-          user={currentUser}
-          notificationCount={notificationCount}
-          ref={this.buttonRef}
-          aria-expanded={menuOpen}
-          onClick={this.toggleMenu}
-        />
-        <UserMenu aria-expanded={menuOpen} ref={this.menuRef}>
-          <Link to={`/admin${year ? `/${year}` : ''}`}>
-            <Link.Icon name="admin" />
-            <Link.Text>Festival admin</Link.Text>
-          </Link>
-          <Link to="/profile">
-            <Link.Icon name="user" />
-            <Link.Text>Profile</Link.Text>
-          </Link>
-          <UserMenu.Separator />
-          <LogOutLink>
-            <Link.Icon name="log-out" />
-            <Link.Text>Log out</Link.Text>
-          </LogOutLink>
-        </UserMenu>
-      </Fragment>
+      <Menu
+        component={Fragment}
+        renderButton={({ ref, open, toggle }) => (
+          <UserLink
+            {...props}
+            user={currentUser}
+            notificationCount={notificationsCount}
+            ref={ref}
+            aria-expanded={open}
+            onClick={toggle}
+          />
+        )}
+        renderContent={({ ref, open }) => (
+          <UserMenu aria-expanded={open} ref={ref}>
+            <Link to={`/admin${year ? `/${year}` : ''}`}>
+              <Link.Icon name="admin" />
+              <Link.Text>Festival admin</Link.Text>
+            </Link>
+            <Link to="/profile">
+              <Link.Icon name="user" />
+              <Link.Text>Profile</Link.Text>
+            </Link>
+            <UserMenu.Separator />
+            <LogOutLink>
+              <Link.Icon name="log-out" />
+              <Link.Text>Log out</Link.Text>
+            </LogOutLink>
+          </UserMenu>
+        )}
+      />
     ) : (
       <StyledLink as={RippleLink} to="/login" className={this.props.className}>
         <Link.Text>Log in</Link.Text>

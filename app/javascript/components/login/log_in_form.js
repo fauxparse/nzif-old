@@ -15,6 +15,7 @@ export const LOG_IN_MUTATION = gql`
       id
       name
       email
+      notificationsCount
     }
   }
 `

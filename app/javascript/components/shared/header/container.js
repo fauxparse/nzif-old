@@ -37,6 +37,7 @@ export default styled.header`
   }
 
   ${MenuButton} {
+    order: -1;
     border-radius: 0;
     flex: 0 0 auto;
     margin-left: -1em;
