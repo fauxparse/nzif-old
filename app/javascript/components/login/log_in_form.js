@@ -7,7 +7,7 @@ import { Label, Input } from '../form'
 import Form, { Field, SubmitButton } from './form'
 import TextLink from '../shared/text_link'
 import { slideLeft } from '../page_transition'
-import { CURRENT_USER_QUERY } from '../shared/header/current_user'
+import { CURRENT_USER_QUERY } from '../../queries'
 
 export const LOG_IN_MUTATION = gql`
   mutation logInMutation($email: String!, $password: String!) {

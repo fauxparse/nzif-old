@@ -35,14 +35,18 @@ class LogIn extends React.Component {
   render() {
     return (
       <LogInPage onClose={this.close}>
-        <Route render={({ location }) => (
-          <PageTransition pageKey={location.key} {...slideLeft} {...location.state.transition}>
-            <Switch location={location}>
-              <Route path="/login" render={this.renderLogIn} />
-              <Route path="/signup" render={this.renderSignUp} />
-            </Switch>
-          </PageTransition>
-        )} />
+        <Route render={({ location }) => {
+          const { state: transition = {} } = location
+
+          return (
+            <PageTransition pageKey={location.key} {...slideLeft} {...transition}>
+              <Switch location={location}>
+                <Route path="/login" render={this.renderLogIn} />
+                <Route path="/signup" render={this.renderSignUp} />
+              </Switch>
+            </PageTransition>
+          )
+        }} />
       </LogInPage>
     )
   }

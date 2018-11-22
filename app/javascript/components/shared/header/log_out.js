@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import Link from './link'
 import Ripple from '../ripple'
-import { CURRENT_USER_QUERY } from './current_user'
+import { CURRENT_USER_QUERY } from '../../../queries'
 
 const LOG_OUT_MUTATION = gql`
   mutation {

@@ -7,7 +7,7 @@ import { Label, Input, Error } from '../form'
 import Form, { Field, SubmitButton } from './form'
 import TextLink from '../shared/text_link'
 import { slideRight } from '../page_transition'
-import { CURRENT_USER_QUERY } from '../shared/header/current_user'
+import { CURRENT_USER_QUERY } from '../../queries'
 
 export const SIGN_UP_MUTATION = gql`
   mutation signUpMutation(

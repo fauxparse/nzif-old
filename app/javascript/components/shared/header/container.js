@@ -4,7 +4,6 @@ import { media } from '../../../styles'
 import MenuButton from './menu_button'
 import Logo from './logo'
 import HeaderLinks from './links'
-import { CurrentUserLink } from './current_user'
 
 export default styled.header`
   ${fullWidth}
@@ -42,12 +41,6 @@ export default styled.header`
     flex: 0 0 auto;
     margin-left: -1em;
     padding: 1em;
-  }
-
-  ${CurrentUserLink} {
-    flex: 0 0 auto;
-    margin-right: -1em;
-    order: 1;
   }
 
   ${HeaderLinks} {
