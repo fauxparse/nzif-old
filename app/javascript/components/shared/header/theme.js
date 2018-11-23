@@ -17,6 +17,7 @@ const headerTheme = (theme) => {
       secondary: white.alpha(colors.alpha.secondary).css(),
       disabled: white.alpha(colors.alpha.disabled).css(),
       border: black.alpha(1 - colors.alpha.border).css(),
+      hoverBackground: black.alpha(colors.alpha.hover).css(),
     },
   }
 }

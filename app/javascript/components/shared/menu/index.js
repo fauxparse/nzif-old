@@ -1,6 +1,10 @@
 import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import Button from './button'
+import Content from './content'
+import Item, { StyledIcon as Icon, StyledText as Text } from './item'
+import Separator from './separator'
 
 class Menu extends React.Component {
   state = { open: false }
@@ -80,5 +84,12 @@ Menu.propTypes = {
 Menu.defaultProps = {
   component: 'div',
 }
+
+Menu.Button = Button
+Menu.Content = Content
+Menu.Item = Item
+Menu.Icon = Icon
+Menu.Text = Text
+Menu.Separator = Separator
 
 export default withRouter(Menu)

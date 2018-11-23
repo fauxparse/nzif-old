@@ -44,16 +44,6 @@ export default styled.header`
     padding: 1em;
   }
 
-  ${HeaderLinks} {
-    transform: translate3d(0, 0, 0);
-    transition: ${({ theme }) => theme.transition('transform')};
-    z-index: -2;
-
-    &[aria-expanded="true"] {
-      transform: translate3d(0, 100%, 0);
-    }
-  }
-
   ${media.medium`
     ${MenuButton} {
       display: none;

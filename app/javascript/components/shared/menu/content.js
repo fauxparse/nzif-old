@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 import chroma from 'chroma-js'
-import Link from './link'
 
-const Menu = styled.nav`
+const Content = styled.nav`
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   min-width: 16em;
+  padding: 0.5em 0;
   background: ${({ theme }) => chroma(theme.colors.background).alpha(0.875).css()};
   z-index: -2;
   box-shadow: ${({ theme }) => theme.shadow(0)};
@@ -17,10 +17,6 @@ const Menu = styled.nav`
     box-shadow: ${({ theme }) => theme.shadow(8)};
     transform: translate3d(0, 100%, 0);
   }
-
-  ${Link} {
-    opacity: 1;
-  }
 `
 
-export default Menu
+export default Content

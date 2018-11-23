@@ -1,15 +1,15 @@
 import styled from 'styled-components'
-import Menu from './menu'
-import Link from './link'
+import Menu from '../menu'
 import { media } from '../../../styles'
 
-export default styled(Menu)`
+export default styled(Menu.Content)`
   ${media.medium`
     display: flex;
+    padding: 0;
     position: static;
     transition: none;
 
-    ${Link} {
+    ${Menu.Item.Styled} {
       &::after {
         background: ${props => props.theme.colors.accent};
         bottom: 50%;
@@ -33,7 +33,7 @@ export default styled(Menu)`
       }
     }
 
-    ${Link.Icon} {
+    ${Menu.Icon} {
       display: none;
     }
   `}

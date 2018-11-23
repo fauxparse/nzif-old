@@ -1,23 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import HeaderContainer, { Link } from '../shared/header'
+import Header from '../shared/header'
+import Menu from '../shared/menu'
 
-const Header = ({ match }) => (
-  <HeaderContainer>
-    <Link to={`${match.url}/workshops`}>
-      <Link.Icon name="workshop" />
-      <Link.Text>Workshops</Link.Text>
-    </Link>
-    <Link to={`${match.url}/shows`}>
-      <Link.Icon name="show" />
-      <Link.Text>Shows</Link.Text>
-    </Link>
-  </HeaderContainer>
+const FestivalHeader = ({ match }) => (
+  <Header>
+    <Menu.Item icon="workshop" text="Workshops" to={`${match.url}/workshops`} />
+    <Menu.Item icon="show" text="Shows" to={`${match.url}/shows`} />
+  </Header>
 )
 
-Header.propTypes = {
+FestivalHeader.propTypes = {
   match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
 }
 
-export default withRouter(Header)
+export default withRouter(FestivalHeader)

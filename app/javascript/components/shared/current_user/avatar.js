@@ -5,7 +5,7 @@ import mojs from 'mo-js'
 import Avatar from '../avatar'
 import colors from '../../../themes/colors'
 
-const StyledAvatar = styled(Avatar)`
+export const StyledAvatar = styled(Avatar)`
   position: relative;
 
   &::after {
@@ -26,11 +26,12 @@ const StyledAvatar = styled(Avatar)`
     transform: scale(0);
   }
 `
+
 class AvatarWithNotifications extends React.Component {
   avatar = React.createRef()
 
   componentDidUpdate(prevProps) {
-    if (this.props.notificationCount > prevProps.notificationCount) {
+    if (this.props.notificationsCount > prevProps.notificationsCount) {
       this.burst.play()
     }
   }
@@ -61,13 +62,13 @@ class AvatarWithNotifications extends React.Component {
   }
 
   render() {
-    const { user, notificationCount } = this.props
+    const { user, notificationsCount } = this.props
 
     return (
       <StyledAvatar
         ref={this.avatar}
         name={user.name}
-        data-notification-count={notificationCount}
+        data-notification-count={notificationsCount}
       />
     )
   }
@@ -75,11 +76,11 @@ class AvatarWithNotifications extends React.Component {
 
 AvatarWithNotifications.propTypes = {
   user: PropTypes.shape({ name: PropTypes.string.isRequired }).isRequired,
-  notificationCount: PropTypes.number
+  notificationsCount: PropTypes.number
 }
 
 AvatarWithNotifications.defaultProps = {
-  notificationCount: 0
+  notificationsCount: 0
 }
 
 export default AvatarWithNotifications

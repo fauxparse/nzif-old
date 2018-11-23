@@ -37,7 +37,8 @@
     }],
     "no-unused-vars": ["warn", {
       "ignoreRestSiblings": true,
-      "argsIgnorePattern": "^_"
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^React$"
     }],
     "react/prop-types": [2, { "ignore": ["children"] }]
   }

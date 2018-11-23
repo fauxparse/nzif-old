@@ -104,6 +104,7 @@ const alpha = {
   primary: 0.875,
   secondary: 0.625,
   disabled: 0.375,
+  hover: 0.375,
   border: 0.25,
 }
 
@@ -115,6 +116,7 @@ const error = palette.tomato[700]
 const text = chroma(foreground).alpha(alpha.primary).css()
 const secondary = chroma(text).alpha(alpha.secondary).css()
 const border = chroma(text).alpha(alpha.border).css()
+const hoverBackground = chroma(accent).alpha(alpha.hover).css()
 
 const brand = {
   accent,
@@ -122,6 +124,7 @@ const brand = {
   border,
   error,
   foreground,
+  hoverBackground,
   text,
   secondary,
   link,

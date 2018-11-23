@@ -1,16 +1,16 @@
 import styled from 'styled-components'
+import chroma from 'chroma-js'
 import { Link } from '../ripple'
 import Icon from '../../icons'
 
 const HeaderLink = styled(Link)`
   align-items: center;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css()};
   border: 0;
   color: ${props => props.theme.colors.foreground};
   cursor: pointer;
   display: flex;
   min-width: 1px;
-  opacity: 0.75;
   padding: 1em;
   position: relative;
   text-decoration: none;
@@ -20,15 +20,8 @@ const HeaderLink = styled(Link)`
   &:hover,
   &:focus,
   &[aria-expanded="true"] {
-    background-color: rgba(0, 0, 0, 0.375);
+    background-color: ${({ theme }) => theme.colors.hoverBackground};
     outline: none;
-  }
-
-  &:hover,
-  &:focus,
-  &.active,
-  &[aria-expanded="true"] {
-    opacity: 1;
   }
 `
 

@@ -19,7 +19,6 @@ const MenuButton = styled(Button).attrs(({ open }) => ({
   appearance: none;
   background: rgba(0, 0, 0, 0);
   border: none;
-  border-radius: 50%;
   color: ${({ theme }) => theme.colors.text};
   font: inherit;
   padding: 0.5em;
