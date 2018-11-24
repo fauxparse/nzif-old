@@ -8,8 +8,8 @@ const User = ({ data, loading, ...props }) => {
   if (loading) {
     return <Fragment />
   } else if (data && data.currentUser) {
-    const { currentUser, subscribeToMore } = data
-    return <UserMenu user={currentUser} subscribeToMore={subscribeToMore} {...props} />
+    const { currentUser } = data
+    return <UserMenu user={currentUser} {...props} />
   } else {
     return <LogIn {...props} />
   }

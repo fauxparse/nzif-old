@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
+import { CURRENT_USER_QUERY } from '../../../queries'
 import { sidePadding } from '../../../styles/full_width'
 import { media } from '../../../styles'
 import Menu from '../menu'
@@ -21,8 +23,8 @@ const MenuContent = styled(Menu.Content)`
 `
 
 export const NOTIFICATION_SUBSCRIPTION = gql`
-  subscription userNotifications {
-    notification {
+  subscription userNotifications($userId: ID!) {
+    notification(userId: $userId) {
       message
     }
   }
@@ -34,11 +36,12 @@ class UserMenu extends React.Component {
   }
 
   componentDidMount() {
-    const { notificationsCount } = this.props.user
-    this.setState({ notificationsCount })
+    const { user, data: { subscribeToMore } } = this.props
+    const { notificationsCount, id: userId } = user
 
-    this.props.subscribeToMore({
+    const unsubscribe = subscribeToMore({
       document: NOTIFICATION_SUBSCRIPTION,
+      variables: { userId },
       updateQuery: (previous, { subscriptionData }) => {
         if (subscriptionData.data) {
           const { notificationsCount = 0 } = this.state
@@ -48,6 +51,15 @@ class UserMenu extends React.Component {
         return previous
       }
     })
+
+    this.setState({ notificationsCount, unsubscribe })
+  }
+
+  componentWillUnmount() {
+    const { unsubscribe } = this.state
+    if (unsubscribe) {
+      unsubscribe()
+    }
   }
 
   render() {
@@ -92,7 +104,9 @@ UserMenu.propTypes = {
     name: PropTypes.string.isRequired,
     notificationsCount: PropTypes.number.isRequired
   }),
-  subscribeToMore: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    subscribeToMore: PropTypes.func.isRequired,
+  }),
   match: PropTypes.shape({
     params: PropTypes.shape({
       year: PropTypes.string.isRequired
@@ -100,4 +114,4 @@ UserMenu.propTypes = {
   }).isRequired
 }
 
-export default withRouter(UserMenu)
+export default withRouter(graphql(CURRENT_USER_QUERY)(UserMenu))
