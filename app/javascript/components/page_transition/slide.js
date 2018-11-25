@@ -1,4 +1,5 @@
 import { css } from 'styled-components'
+import { transition } from '../../styles'
 
 const transitionClassName = 'slide'
 const duration = 500
@@ -30,7 +31,7 @@ export const styles = css`
       &-active {
         opacity: 1;
         transform: translate3d(0, 0, 0);
-        transition: ${({ theme }) => `${theme.transition('transform', duration)}, ${theme.transition('opacity', duration)}`};
+        transition: ${transition('transform', 'opacity', { duration })};
       }
     }
 
@@ -42,7 +43,7 @@ export const styles = css`
       &-active {
         opacity: 0;
         transform: translate3d(-100%, 0, 0);
-        transition: ${({ theme }) => `${theme.transition('transform', duration)}, ${theme.transition('opacity', duration)}`};
+        transition: ${transition('transform', 'opacity', { duration })};
       }
     }
 

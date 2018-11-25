@@ -1,5 +1,5 @@
 import { css, keyframes } from 'styled-components'
-import { EASING } from '../../themes/transition'
+import { EASING } from '../../styles/transition'
 
 const transitionClassName = 'push'
 const duration = 1500

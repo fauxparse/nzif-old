@@ -7,7 +7,7 @@ import { Label, Input, Error } from '../form'
 import Form, { Field, SubmitButton } from './form'
 import TextLink from '../shared/text_link'
 import { slideRight } from '../page_transition'
-import { CURRENT_USER_QUERY } from '../shared/header/current_user'
+import { CURRENT_USER_QUERY } from '../../queries'
 
 export const SIGN_UP_MUTATION = gql`
   mutation signUpMutation(
@@ -25,6 +25,7 @@ export const SIGN_UP_MUTATION = gql`
       id
       name
       email
+      notificationsCount
     }
   }
 `
@@ -148,7 +149,7 @@ class SignUpForm extends React.Component {
         <SubmitButton primary type="submit" text="Create account" key="submit" />
         <p>
           Already signed up?{' '}
-          <TextLink to={{ pathname: 'login', state: { transition: slideRight } }}>
+          <TextLink replace to={{ pathname: 'login', state: { transition: slideRight } }}>
             Log in here
           </TextLink>
           .

@@ -10,13 +10,18 @@ const LogoText = styled(Link.Text)`
   font-size: ${props => props.theme.fonts.scale(2)};
 `
 
-const Logo = styled(Link).attrs(({ year }) => ({
-  to: `/${year}`,
+const Logo = styled(Link).attrs(({ root, year }) => ({
+  to: root,
   children: <LogoText>NZIF {year}</LogoText>,
 }))``
 
 Logo.propTypes = {
+  root: PropTypes.string,
   year: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+}
+
+Logo.defaultProps = {
+  root: '/',
 }
 
 export default Logo

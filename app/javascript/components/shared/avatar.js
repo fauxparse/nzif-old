@@ -11,9 +11,10 @@ const AvatarContainer = styled.span`
   width: 2.5em;
 `
 
-const Avatar = ({ name, ...props }) =>
-  <AvatarContainer title={name} {...props}>
+const Avatar = React.forwardRef(({ name, ...props }, ref) =>
+  <AvatarContainer ref={ref} title={name} {...props}>
     <Icon name="user" />
   </AvatarContainer>
+)
 
 export default Avatar

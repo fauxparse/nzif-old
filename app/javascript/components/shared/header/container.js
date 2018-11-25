@@ -4,7 +4,6 @@ import { media } from '../../../styles'
 import MenuButton from './menu_button'
 import Logo from './logo'
 import HeaderLinks from './links'
-import { CurrentUserLink } from './current_user'
 
 export default styled.header`
   ${fullWidth}
@@ -38,26 +37,11 @@ export default styled.header`
   }
 
   ${MenuButton} {
+    order: -1;
     border-radius: 0;
     flex: 0 0 auto;
     margin-left: -1em;
     padding: 1em;
-  }
-
-  ${CurrentUserLink} {
-    flex: 0 0 auto;
-    margin-right: -1em;
-    order: 1;
-  }
-
-  ${HeaderLinks} {
-    transform: translate3d(0, 0, 0);
-    transition: ${({ theme }) => theme.transition('transform')};
-    z-index: -2;
-
-    &[aria-expanded="true"] {
-      transform: translate3d(0, 100%, 0);
-    }
   }
 
   ${media.medium`

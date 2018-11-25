@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import transition, { DURATION } from '../../../styles/transition'
 import Button from '../../button'
 import Icon from '../../icons'
-import { DURATION } from '../../../themes/transition'
 
 const Hamburger = () => (
   <Icon viewBox="-12 -12 24 24">
@@ -19,11 +19,10 @@ const MenuButton = styled(Button).attrs(({ open }) => ({
   appearance: none;
   background: rgba(0, 0, 0, 0);
   border: none;
-  border-radius: 50%;
   color: ${({ theme }) => theme.colors.text};
   font: inherit;
   padding: 0.5em;
-  transition: ${({ theme }) => theme.transition()};
+  transition: ${transition('all')};
 
   &:hover,
   &:focus {
@@ -34,8 +33,7 @@ const MenuButton = styled(Button).attrs(({ open }) => ({
 
   g, line {
     transform-origin: 0 0;
-    transition: ${({theme}) => theme.transition('transform', DURATION.half)};
-    transition-delay: ${DURATION.half}ms;
+    transition: ${transition('transform', { duration: 'half', delay: 'half' })};
   }
 
   &:not([aria-selected="true"]) line {

@@ -1,5 +1,6 @@
 import Button from '../button'
 import styled from 'styled-components'
+import { transition } from '../../styles'
 
 const CloseButton = styled(Button)`
   position: absolute;
@@ -8,7 +9,7 @@ const CloseButton = styled(Button)`
   color: ${({ theme }) => theme.colors.text};
   border-color: transparent;
   opacity: 0.625;
-  transition: ${({ theme }) => theme.transition()};
+  transition: ${transition('all')};
 
   &:hover,
   &:focus,

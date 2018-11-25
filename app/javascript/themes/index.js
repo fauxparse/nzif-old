@@ -5,7 +5,6 @@ import fonts from './fonts'
 import gradients from './gradients'
 import layout from './layout'
 import shadow from './shadows'
-import transition from './transition'
 
 import { transitionStyles } from '../components/page_transition'
 
@@ -51,5 +50,4 @@ export default {
   gradients,
   layout,
   shadow,
-  transition,
 }

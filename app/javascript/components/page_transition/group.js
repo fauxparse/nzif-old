@@ -19,7 +19,7 @@ const PageTransition = ({ transition, duration, pageKey, component, children, ..
 PageTransition.propTypes = {
   transition: PropTypes.string.isRequired,
   duration: PropTypes.number.isRequired,
-  pageKey: PropTypes.string.isRequired,
+  pageKey: PropTypes.string.isRequired
 }
 
 PageTransition.defaultProps = {

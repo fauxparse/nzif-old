@@ -36,6 +36,6 @@ Icon.propTypes = {
   name: PropTypes.oneOf(ICONS),
 }
 
-Icon.ICONS = ICONS
+export { ICONS }
 
 export default Icon

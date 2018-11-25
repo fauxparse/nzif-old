@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import CloseButton from './close_button'
-import { DURATION, EASING } from '../../themes/transition'
+import { transition } from '../../styles'
 
 const zoomIn = keyframes`
   0% { transform: scale(0); opacity: 0; }
@@ -70,14 +70,14 @@ const LogInPage = styled.section`
     ${CloseButton} {
       opacity: 0.625;
       transform: scale(1);
-      transition: ${({ theme }) => theme.transition()};
+      transition: ${transition('all')};
       transition-delay: 300ms;
     }
 
     fieldset > * {
       transform: translateY(0);
       opacity: 1;
-      transition: ${({ theme }) => `${theme.transition('opacity')}, ${theme.transition('transform', DURATION.standard, EASING.decelerate)}`};
+      transition: ${transition('opacity')}, ${transition('transform', { duration: 'standard', easing: 'decelerate' })};
       transition-delay: 300ms;
 
       &:nth-child(1) { transition-delay: 300ms; }
@@ -87,6 +87,7 @@ const LogInPage = styled.section`
       &:nth-child(5) { transition-delay: 500ms; }
       &:nth-child(6) { transition-delay: 550ms; }
       &:nth-child(7) { transition-delay: 600ms; }
+      &:nth-child(8) { transition-delay: 650ms; }
     }
   }
 
@@ -111,7 +112,7 @@ const LogInPage = styled.section`
     fieldset > * {
       transform: translateY(10vh);
       opacity: 0;
-      transition: ${({ theme }) => `${theme.transition('opacity')}, ${theme.transition('transform', DURATION.standard, EASING.accelerate)}`};
+      transition: ${transition('opacity')}, ${transition('transform', { duration: 'standard', easing: 'accelerate' })};
 
       &:nth-last-child(1) { transition-delay: 0ms; }
       &:nth-last-child(2) { transition-delay: 50ms; }
@@ -120,6 +121,7 @@ const LogInPage = styled.section`
       &:nth-last-child(5) { transition-delay: 200ms; }
       &:nth-last-child(6) { transition-delay: 250ms; }
       &:nth-last-child(7) { transition-delay: 300ms; }
+      &:nth-last-child(8) { transition-delay: 350ms; }
     }
   }
 `

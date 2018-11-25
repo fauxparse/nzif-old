@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { applyStyleModifiers } from 'styled-components-modifiers'
+import { transition } from '../../styles'
+import Ripple from '../shared/ripple'
 import MODIFIERS from './modifiers'
 import Text from './text'
 import Icon from './icon'
-import Ripple from '../shared/ripple'
 import identity from 'lodash/identity'
 
 const StyledButton = styled.button`
@@ -22,7 +23,7 @@ const StyledButton = styled.button`
   outline: none;
   padding: calc(0.5em - 1px);
   position: relative;
-  transition: ${({ theme }) => theme.transition()};
+  transition: ${transition('all')};
 
   &:focus {
     box-shadow: 0 0 0 .25em ${({ theme }) => theme.colors.outline};

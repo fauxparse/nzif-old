@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Link from './link'
 import Ripple from '../ripple'
-import { CURRENT_USER_QUERY } from './current_user'
+import { CURRENT_USER_QUERY } from '../../../queries'
 
 const LOG_OUT_MUTATION = gql`
   mutation {
@@ -13,17 +12,17 @@ const LOG_OUT_MUTATION = gql`
 `
 
 class LogOutLink extends React.Component {
-  logOut = async () => {
-    await this.props.mutate()
+  logOut = () => {
+    this.props.mutate()
   }
 
   render() {
-    const { children } = this.props
+    const { children, ...props } = this.props
 
     return (
-      <Link as={Ripple} onClick={this.logOut}>
+      <Ripple {...props} onClick={this.logOut}>
         {children}
-      </Link>
+      </Ripple>
     )
   }
 }
@@ -39,6 +38,6 @@ export default graphql(LOG_OUT_MUTATION, {
       proxy.writeQuery({
         query: CURRENT_USER_QUERY,
         data: { currentUser: null }
-      })
+      }),
   }
 })(LogOutLink)
