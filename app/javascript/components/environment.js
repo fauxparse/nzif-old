@@ -23,7 +23,6 @@ const Corner = styled.div`
   pointer-events: none;
   touch-action: none;
   z-index: 1000;
-  transition: ${({ theme }) => theme.transition('opacity')};
 
   svg {
     display: block;

@@ -1,4 +1,5 @@
 import { css } from 'styled-components'
+import { transition } from '../../styles'
 
 const transitionClassName = 'fade'
 const duration = 50
@@ -18,7 +19,7 @@ export const styles = css`
 
       &-active {
         opacity: 1;
-        transition: ${({ theme }) => theme.transition('opacity', duration)};
+        transition: ${transition('opacity', { duration })};
       }
     }
 
@@ -27,7 +28,7 @@ export const styles = css`
 
       &-active {
         opacity: 0;
-        transition: ${({ theme }) => theme.transition('opacity', duration)};
+        transition: ${transition('opacity', { duration })};
       }
     }
   }

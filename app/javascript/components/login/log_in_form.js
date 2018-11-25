@@ -92,7 +92,7 @@ class LogInForm extends React.Component {
         <SubmitButton primary type="submit" text="Log in" key="submit" />
         <p>
           New here?{' '}
-          <TextLink to={{ pathname: 'signup', state: { transition: slideLeft } }}>
+          <TextLink replace to={{ pathname: 'signup', state: { transition: slideLeft } }}>
             Create an account
           </TextLink>
           .

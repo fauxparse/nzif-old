@@ -36,7 +36,7 @@ class LogIn extends React.Component {
     return (
       <LogInPage onClose={this.close}>
         <Route render={({ location }) => {
-          const { state: transition = {} } = location
+          const { state: { transition = {} } = {} } = location
 
           return (
             <PageTransition pageKey={location.key} {...slideLeft} {...transition}>

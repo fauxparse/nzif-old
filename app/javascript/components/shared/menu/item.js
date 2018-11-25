@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import chroma from 'chroma-js'
-import { Link } from '../ripple'
+import { transition } from '../../../styles'
 import Icon, { ICONS } from '../../icons'
+import { Link } from '../ripple'
 
 export const StyledItem = styled.div`
   align-items: center;
@@ -12,7 +13,7 @@ export const StyledItem = styled.div`
   cursor: pointer;
   display: flex;
   padding: 0.5em 1em;
-  transition: ${({ theme }) => theme.transition('background-color')};
+  transition: ${transition('background-color')};
 
   :hover,
   :focus,

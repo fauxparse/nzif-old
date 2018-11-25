@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import chroma from 'chroma-js'
+import { transition } from '../../../styles'
 import { Link } from '../ripple'
 
 const LogIn = styled(Link).attrs({
@@ -11,7 +12,7 @@ const LogIn = styled(Link).attrs({
   color: inherit;
   margin-right: -1em;
   order: 1;
-  transition: ${({ theme }) => `${theme.transition('background-color')}, ${theme.transition('opacity')}`};
+  transition: ${transition('background-color')};
 
   :hover,
   :focus,

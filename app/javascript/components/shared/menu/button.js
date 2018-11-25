@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import chroma from 'chroma-js'
-import Ripple from '../ripple'
+import { transition } from '../../../styles'
 import Icon from '../../icons'
+import Ripple from '../ripple'
 
 const Chevron = styled(Icon).attrs({ name: 'chevron-down' })`
   flex: 0 0 auto;
@@ -18,7 +19,7 @@ const StyledButton = styled(Ripple).attrs(({ open }) => ({
   cursor: pointer;
   display: flex;
   padding: 0.5em 1em;
-  transition: ${({ theme }) => theme.transition('background-color')};
+  transition: ${transition('background-color')};
 
   :hover,
   :focus,
@@ -27,7 +28,7 @@ const StyledButton = styled(Ripple).attrs(({ open }) => ({
   }
 
   > ${Chevron} {
-    transition: ${({ theme }) => theme.transition('transform')};
+    transition: ${transition('transform')};
     transform: rotate(${({ open }) => open * 180}deg);
   }
 `

@@ -149,7 +149,7 @@ class SignUpForm extends React.Component {
         <SubmitButton primary type="submit" text="Create account" key="submit" />
         <p>
           Already signed up?{' '}
-          <TextLink to={{ pathname: 'login', state: { transition: slideRight } }}>
+          <TextLink replace to={{ pathname: 'login', state: { transition: slideRight } }}>
             Log in here
           </TextLink>
           .

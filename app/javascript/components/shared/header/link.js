@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import chroma from 'chroma-js'
-import { Link } from '../ripple'
+import { transition } from '../../../styles'
 import Icon from '../../icons'
+import { Link } from '../ripple'
 
 const HeaderLink = styled(Link)`
   align-items: center;
@@ -14,7 +15,7 @@ const HeaderLink = styled(Link)`
   padding: 1em;
   position: relative;
   text-decoration: none;
-  transition: ${({ theme }) => `${theme.transition('background-color')}, ${theme.transition('opacity')}`};
+  transition: ${transition('background-color')};
   user-select: none;
 
   &:hover,

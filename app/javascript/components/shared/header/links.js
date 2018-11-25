@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Menu from '../menu'
-import { media } from '../../../styles'
+import { media, transition } from '../../../styles'
 
 export default styled(Menu.Content)`
   ${media.medium`
@@ -20,7 +20,7 @@ export default styled(Menu.Content)`
         margin-bottom: -1em;
         position: absolute;
         transform: scaleX(0);
-        transition: ${({ theme }) => theme.transition('transform', 100)};
+        transition: ${transition('transform', { duration: 'fast' })};
         transition-delay: 100ms;
       }
 

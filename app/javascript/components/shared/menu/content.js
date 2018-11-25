@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import chroma from 'chroma-js'
+import { transition } from '../../../styles'
 
 const Content = styled.nav`
   position: absolute;
@@ -11,7 +12,7 @@ const Content = styled.nav`
   background: ${({ theme }) => chroma(theme.colors.background).alpha(0.875).css()};
   z-index: -2;
   box-shadow: ${({ theme }) => theme.shadow(0)};
-  transition: ${({ theme }) => `${theme.transition('transform')}, ${theme.transition('box-shadow')}`}
+  transition: ${transition('transform', 'box-shadow')};
 
   &[aria-expanded="true"] {
     box-shadow: ${({ theme }) => theme.shadow(8)};

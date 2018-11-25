@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import mojs from 'mo-js'
-import Avatar from '../avatar'
 import colors from '../../../themes/colors'
+import { transition } from '../../../styles'
+import Avatar from '../avatar'
 
 export const StyledAvatar = styled(Avatar)`
   position: relative;
@@ -19,7 +20,7 @@ export const StyledAvatar = styled(Avatar)`
     background: ${({ theme }) => theme.colors.accent};
     box-shadow: 0 0 0 0.125em ${({ theme }) => theme.colors.background};
     transform: scale(1);
-    transition: ${({ theme }) => theme.transition('transform')};
+    transition: ${transition('transform')};
   }
 
   &[data-notification-count="0"]::after {
