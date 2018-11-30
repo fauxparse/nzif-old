@@ -1,5 +1,5 @@
 import { css, createGlobalStyle } from 'styled-components'
-
+import { media } from '../styles'
 import colors from './colors'
 import fonts from './fonts'
 import gradients from './gradients'
@@ -26,6 +26,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: ${({ theme }) => theme.fonts.base};
     line-height: 1.5;
+    overflow-x: hidden;
   }
 
   input,
