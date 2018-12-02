@@ -1,5 +1,4 @@
 import { css, createGlobalStyle } from 'styled-components'
-import { media } from '../styles'
 import colors from './colors'
 import fonts from './fonts'
 import gradients from './gradients'

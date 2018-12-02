@@ -1,11 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const StyledDashboard = styled.section`
+`
 
 class Dashboard extends React.Component {
   render() {
     return (
-      <section>
+      <StyledDashboard>
         <h2>Dashboard</h2>
-      </section>
+      </StyledDashboard>
     )
   }
 }
