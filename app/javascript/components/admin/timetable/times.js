@@ -1,18 +1,17 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { transition } from '../../../styles'
+import Context from './context'
 
 const Time = styled.span`
   display: block;
   line-height: 1rem;
-  padding-top: 2rem;
   padding-right: 1em;
   font-size: ${({ theme }) => theme.fonts.scale(-1)};
   color: ${({ theme }) => theme.colors.secondary};
   text-align: right;
   white-space: nowrap;
-  transition: ${transition('opacity', { duration: 'fast' })};
+  transition: ${transition('opacity', { duration: 100 })};
 
   &:first-of-type,
   &[aria-hidden="true"] {
@@ -20,29 +19,25 @@ const Time = styled.span`
   }
 `
 
-const StyledTimes = styled.aside`
+const StyledTimes = styled.aside`${({ scale, granularity }) => css`
   flex: 0 0 4.5em;
-  padding-top: 1em;
+  padding-top: 2em;
   align-self: stretch;
-`
+
+  ${Time} {
+    padding-top: ${scale * granularity - 1}rem;
+  }
+`}`
 
 class Times extends React.Component {
-  static propTypes = {
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-  }
-
-  static defaultProps = {
-    start: 9,
-    end: 27,
-  }
+  static contextType = Context
 
   container = React.createRef()
 
   componentDidMount() {
     this.intersectionObserver = new IntersectionObserver(this.observe, {
       threshold: [0, 1],
-      rootMargin: '-56px 0px 0px 0px',
+      rootMargin: '-88px 0px 0px 0px',
     })
     Array.from(this.container.current.querySelectorAll('span'))
       .forEach(el => this.intersectionObserver.observe(el))
@@ -56,10 +51,10 @@ class Times extends React.Component {
   }
 
   render() {
-    const { start, end, ...props } = this.props
+    const { start, end, scale, granularity } = this.context
 
     return (
-      <StyledTimes ref={this.container} {...props}>
+      <StyledTimes ref={this.container} scale={scale} granularity={granularity} {...this.props}>
         {Array(end - start).fill(0).map((_, i) => i + start).map(hour => (
           <Time key={hour}>{(hour - 1) % 12 + 1} {(hour % 24) < 12 ? 'AM' : 'PM'}</Time>
         ))}

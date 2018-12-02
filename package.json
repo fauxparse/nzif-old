@@ -26,6 +26,7 @@
     "lodash": "^4.17.11",
     "lyft-coloralgorithm": "https://github.com/lyft/coloralgorithm.git#soffes/fix-package",
     "mo-js": "^0.288.2",
+    "moment-range": "^4.0.1",
     "moment-timezone": "^0.5.23",
     "prop-types": "^15.6.2",
     "rails-erb-loader": "^5.5.0",
