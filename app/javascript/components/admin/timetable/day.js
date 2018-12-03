@@ -70,18 +70,29 @@ const StyledList = styled(List)`${({ theme }) => css`
 
 class Day extends React.Component {
   static propTypes = {
-    onSelect: PropTypes.func.isRequired
+    onResize: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
   }
 
   static contextType = Context
 
   selected = (start, end) => {
+    const [startTime, endTime] = this.rowsToTimes(start, end)
+    this.props.onSelect(startTime, endTime)
+  }
+
+  resized = (id, start, end) => {
+    const [startTime, endTime] = this.rowsToTimes(start, end)
+    this.props.onResize(id, startTime, endTime)
+  }
+
+  rowsToTimes = (start, end) => {
     const { date } = this.props
     const { granularity, start: hour } = this.context
     const step = 60 / granularity
     const startTime = date.clone().set('hour', hour).add(start * step, 'minutes')
     const endTime = startTime.clone().add((end - start + 1) * step, 'minutes')
-    this.props.onSelect(startTime, endTime)
+    return [startTime, endTime]
   }
 
   times() {
@@ -94,7 +105,7 @@ class Day extends React.Component {
   }
 
   render() {
-    const { date, sessions, ...props } = this.props
+    const { date, sessions, onResize, onSelect, ...props } = this.props
     const { start, granularity } = this.context
     const dayStart = date.clone().startOf('day').set('hour', start)
     const minutesPerSlot = 60 / granularity
@@ -106,7 +117,12 @@ class Day extends React.Component {
           <small>{date.format('D MMMM')}</small>
         </StyledHeader>
         <StyledTimes />
-        <StyledList data-day={date.format('YYYY-MM-DD')} data-start={dayStart.format()} onSelect={this.selected}>
+        <StyledList
+          data-day={date.format('YYYY-MM-DD')}
+          data-start={dayStart.format()}
+          onSelect={this.selected}
+          onResize={this.resized}
+        >
           {sessions.map(session => (
             <Block.Placed
               key={session.id}

@@ -97,6 +97,15 @@ class Timetable extends React.Component {
     }
   }
 
+  resize = (id, _startTime, endTime) => {
+    const { sessions } = this.state
+    const session = sessions[id]
+    if (session) {
+      session.end = endTime.clone()
+      this.setState({ sessions })
+    }
+  }
+
   add = (start, end) => {
     const sessions = { ...this.state.sessions }
     const session = { id: Date.now(), start, end }
@@ -134,6 +143,7 @@ class Timetable extends React.Component {
                         date={day}
                         id={day.format('dddd').toLowerCase()}
                         sessions={this.sessions(day)}
+                        onResize={this.resize}
                         onSelect={this.add}
                       />
                     ))}

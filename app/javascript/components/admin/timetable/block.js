@@ -10,6 +10,16 @@ const Block = styled.div`${({ theme }) => css`
 
 Block.Placed = styled(Block)`${({ 'data-start': start, 'data-height': height }) => css`
   grid-row: ${start + 1} / span ${height};
+
+  ::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.5em;
+    cursor: ns-resize;
+  }
 `}`
 
 export default Block
