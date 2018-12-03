@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import moment from '../../../lib/moment'
 import { media } from '../../../styles'
 import Context from './context'
 import Times from './times'
 import List from './list'
+import Block from './block'
 
 const StyledDay = styled.section`
   flex: 1 0 100vw;
@@ -66,20 +68,21 @@ const StyledList = styled(List)`${({ theme }) => css`
   `}
 `}`
 
-const Block = styled.div`${({ theme }) => css`
-  background: ${theme.colors.plum[300]};
-  border: 1px solid ${theme.colors.plum[500]};
-  margin: 1px;
-  border-radius: 0.25em;
-  position: relative;
-`}`
-
-const Placed = styled(Block)`${({ 'data-start': start, 'data-height': height }) => css`
-  grid-row: ${start + 1} / span ${height};
-`}`
-
 class Day extends React.Component {
+  static propTypes = {
+    onSelect: PropTypes.func.isRequired
+  }
+
   static contextType = Context
+
+  selected = (start, end) => {
+    const { date } = this.props
+    const { granularity, start: hour } = this.context
+    const step = 60 / granularity
+    const startTime = date.clone().set('hour', hour).add(start * step, 'minutes')
+    const endTime = startTime.clone().add((end - start + 1) * step, 'minutes')
+    this.props.onSelect(startTime, endTime)
+  }
 
   times() {
     const { date } = this.props
@@ -103,9 +106,9 @@ class Day extends React.Component {
           <small>{date.format('D MMMM')}</small>
         </StyledHeader>
         <StyledTimes />
-        <StyledList data-day={date.format('YYYY-MM-DD')} data-start={dayStart.format()}>
+        <StyledList data-day={date.format('YYYY-MM-DD')} data-start={dayStart.format()} onSelect={this.selected}>
           {sessions.map(session => (
-            <Placed
+            <Block.Placed
               key={session.id}
               draggable
               data-start={session.start.diff(dayStart, 'minutes') / minutesPerSlot}

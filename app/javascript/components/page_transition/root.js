@@ -18,9 +18,11 @@ const TRANSITIONS = {
     login: popOver,
   },
   login: {
+    admin: popOver,
     misc: popOver,
   },
   admin: {
+    login: popOver,
     misc: pop,
   },
 }

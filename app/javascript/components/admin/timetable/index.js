@@ -97,6 +97,13 @@ class Timetable extends React.Component {
     }
   }
 
+  add = (start, end) => {
+    const sessions = { ...this.state.sessions }
+    const session = { id: Date.now(), start, end }
+    sessions[session.id] = session
+    this.setState({ sessions })
+  }
+
   sessions = (day) => {
     return Object.values(this.state.sessions)
       .filter(session => session.start.isSame(day, 'day'))
@@ -127,6 +134,7 @@ class Timetable extends React.Component {
                         date={day}
                         id={day.format('dddd').toLowerCase()}
                         sessions={this.sessions(day)}
+                        onSelect={this.add}
                       />
                     ))}
                   </StyledTimetable>
