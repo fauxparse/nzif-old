@@ -7,6 +7,7 @@ import moment from '../../../lib/moment'
 import { media } from '../../../styles'
 import Context, { DEFAULT_CONTEXT } from './context'
 import Day from './day'
+import DragDrop from './drag_drop'
 import Times from './times'
 
 const TIMETABLE_QUERY = gql`
@@ -62,7 +63,44 @@ class Timetable extends React.Component {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({ year: PropTypes.string.isRequired }).isRequired
-    }).isRequired,
+    }).isRequired
+  }
+
+  state = {
+    sessions: {
+      1: {
+        id: 1,
+        start: moment('2018-10-20T10:00:00.000+1300'),
+        end: moment('2018-10-20T13:00:00.000+1300'),
+      },
+      2: {
+        id: 2,
+        start: moment('2018-10-20T10:00:00.000+1300'),
+        end: moment('2018-10-20T17:00:00.000+1300'),
+      },
+      3: {
+        id: 3,
+        start: moment('2018-10-20T14:00:00.000+1300'),
+        end: moment('2018-10-20T17:00:00.000+1300'),
+      },
+    },
+  }
+
+  move = (id, startTime) => {
+    const { sessions } = this.state
+    const session = sessions[id]
+    if (session) {
+      const length = session.end.diff(session.start, 'minutes')
+      session.start = startTime
+      session.end = startTime.clone().add(length, 'minutes')
+      this.setState({ sessions })
+    }
+  }
+
+  sessions = (day) => {
+    return Object.values(this.state.sessions)
+      .filter(session => session.start.isSame(day, 'day'))
+      .sort((a, b) => (a.start.valueOf() - b.start.valueOf()) || a.id - b.id)
   }
 
   render() {
@@ -80,12 +118,19 @@ class Timetable extends React.Component {
             const days = Array.from(moment.range(startDate, endDate).by('day'))
             return (
               <Context.Provider value={DEFAULT_CONTEXT}>
-                <StyledTimetable>
-                  <StyledTimes />
-                  {days.map(day => (
-                    <StyledDay key={day.valueOf()} date={day} />
-                  ))}
-                </StyledTimetable>
+                <DragDrop onMove={this.move}>
+                  <StyledTimetable>
+                    <StyledTimes />
+                    {days.map(day => (
+                      <StyledDay
+                        key={day.valueOf()}
+                        date={day}
+                        id={day.format('dddd').toLowerCase()}
+                        sessions={this.sessions(day)}
+                      />
+                    ))}
+                  </StyledTimetable>
+                </DragDrop>
               </Context.Provider>
             )
           }
