@@ -86,7 +86,7 @@ class Timetable extends React.Component {
     },
   }
 
-  move = (id, startTime) => {
+  move = ({ id, startTime }) => {
     const { sessions } = this.state
     const session = sessions[id]
     if (session) {
@@ -97,16 +97,16 @@ class Timetable extends React.Component {
     }
   }
 
-  resize = (id, _startTime, endTime) => {
+  resize = ({ id, endTime }) => {
     const { sessions } = this.state
     const session = sessions[id]
     if (session) {
-      session.end = endTime.clone()
+      session.end = endTime
       this.setState({ sessions })
     }
   }
 
-  add = (start, end) => {
+  add = ({ startTime: start, endTime: end }) => {
     const sessions = { ...this.state.sessions }
     const session = { id: Date.now(), start, end }
     sessions[session.id] = session
@@ -132,22 +132,25 @@ class Timetable extends React.Component {
             const startDate = moment(data.festival.startDate)
             const endDate = moment(data.festival.endDate)
             const days = Array.from(moment.range(startDate, endDate).by('day'))
+
             return (
               <Context.Provider value={DEFAULT_CONTEXT}>
-                <DragDrop onMove={this.move}>
-                  <StyledTimetable>
-                    <StyledTimes />
-                    {days.map(day => (
-                      <StyledDay
-                        key={day.valueOf()}
-                        date={day}
-                        id={day.format('dddd').toLowerCase()}
-                        sessions={this.sessions(day)}
-                        onResize={this.resize}
-                        onSelect={this.add}
-                      />
-                    ))}
-                  </StyledTimetable>
+                <DragDrop onSelect={this.add} onMove={this.move} onResize={this.resize}>
+                  {({ selection, selectedId, ...props }) => (
+                    <StyledTimetable {...props}>
+                      <StyledTimes />
+                      {days.map(day => (
+                        <StyledDay
+                          key={day.valueOf()}
+                          date={day}
+                          id={day.format('dddd').toLowerCase()}
+                          sessions={this.sessions(day)}
+                          selection={selection && selection.startTime.isSame(day, 'day') && selection}
+                          selectedId={selectedId}
+                        />
+                      ))}
+                    </StyledTimetable>
+                  )}
                 </DragDrop>
               </Context.Provider>
             )

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { transition } from '../../../styles'
 
 const Block = styled.div`${({ theme }) => css`
   background: ${theme.colors.plum[300]};
@@ -6,6 +7,13 @@ const Block = styled.div`${({ theme }) => css`
   margin: 1px;
   border-radius: 0.25em;
   position: relative;
+  box-shadow: ${theme.shadow(0)};
+  transition: ${transition('box-shadow', 'background-color')};
+
+  &[aria-grabbed] {
+    box-shadow: ${theme.shadow(8)};
+    background-color: ${theme.colors.plum[400]};
+  }
 `}`
 
 Block.Placed = styled(Block)`${({ 'data-start': start, 'data-height': height }) => css`

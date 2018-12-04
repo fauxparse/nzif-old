@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import MomentPropTypes from 'react-moment-proptypes'
 import styled, { css } from 'styled-components'
-import moment from '../../../lib/moment'
 import { media } from '../../../styles'
 import Context from './context'
 import Times from './times'
 import List from './list'
 import Block from './block'
 
-const StyledDay = styled.section`
+const StyledDay = styled.div`
   flex: 1 0 100vw;
   scroll-snap-align: start;
   display: grid;
@@ -68,44 +68,30 @@ const StyledList = styled(List)`${({ theme }) => css`
   `}
 `}`
 
+const Selection = styled(Block.Placed)`
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+`
+
 class Day extends React.Component {
   static propTypes = {
-    onResize: PropTypes.func.isRequired,
-    onSelect: PropTypes.func.isRequired,
+    date: MomentPropTypes.momentObj.isRequired,
+    selection: PropTypes.shape({
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired,
+    }),
+    sessions: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      start: MomentPropTypes.momentObj.isRequired,
+      end: MomentPropTypes.momentObj.isRequired,
+    }).isRequired).isRequired,
+    selectedId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }
 
   static contextType = Context
 
-  selected = (start, end) => {
-    const [startTime, endTime] = this.rowsToTimes(start, end)
-    this.props.onSelect(startTime, endTime)
-  }
-
-  resized = (id, start, end) => {
-    const [startTime, endTime] = this.rowsToTimes(start, end)
-    this.props.onResize(id, startTime, endTime)
-  }
-
-  rowsToTimes = (start, end) => {
-    const { date } = this.props
-    const { granularity, start: hour } = this.context
-    const step = 60 / granularity
-    const startTime = date.clone().set('hour', hour).add(start * step, 'minutes')
-    const endTime = startTime.clone().add((end - start + 1) * step, 'minutes')
-    return [startTime, endTime]
-  }
-
-  times() {
-    const { date } = this.props
-    const { start, end, granularity } = this.context
-    const startTime = date.clone().set('hour', start)
-    const endTime = startTime.clone().add(end - start, 'hours')
-    const range = moment.range(startTime, endTime)
-    return Array.from(range.by('hour', { step: 1 / granularity, excludeEnd: true }))
-  }
-
   render() {
-    const { date, sessions, onResize, onSelect, ...props } = this.props
+    const { date, sessions, selection, selectedId, ...props } = this.props
     const { start, granularity } = this.context
     const dayStart = date.clone().startOf('day').set('hour', start)
     const minutesPerSlot = 60 / granularity
@@ -120,8 +106,6 @@ class Day extends React.Component {
         <StyledList
           data-day={date.format('YYYY-MM-DD')}
           data-start={dayStart.format()}
-          onSelect={this.selected}
-          onResize={this.resized}
         >
           {sessions.map(session => (
             <Block.Placed
@@ -130,8 +114,15 @@ class Day extends React.Component {
               data-start={session.start.diff(dayStart, 'minutes') / minutesPerSlot}
               data-height={session.end.diff(session.start, 'minutes') / minutesPerSlot}
               data-id={session.id}
+              aria-grabbed={session.id == selectedId || null}
             />
           ))}
+          {selection && (
+            <Selection
+              data-start={selection.start}
+              data-height={selection.end - selection.start + 1}
+            />
+          )}
         </StyledList>
       </StyledDay>
     )
