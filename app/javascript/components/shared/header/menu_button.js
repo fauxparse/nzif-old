@@ -13,7 +13,7 @@ const Hamburger = () => (
 )
 
 const MenuButton = styled(Button).attrs(({ open }) => ({
-  'aria-selected': open,
+  'aria-selected': open || undefined,
   children: <Hamburger />,
 }))`
   appearance: none;
@@ -36,7 +36,7 @@ const MenuButton = styled(Button).attrs(({ open }) => ({
     transition: ${transition('transform', { duration: 'half', delay: 'half' })};
   }
 
-  &:not([aria-selected="true"]) line {
+  &:not([aria-selected]) line {
     transition-delay: 0ms;
   }
 
@@ -53,7 +53,7 @@ const MenuButton = styled(Button).attrs(({ open }) => ({
     transform: translate3d(0, 6px, 0);
   }
 
-  &[aria-selected="true"] {
+  &[aria-selected] {
     g {
       transform: translate3d(0, 0, 0);
       transition-delay: 0ms;
