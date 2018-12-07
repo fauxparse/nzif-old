@@ -1,8 +1,10 @@
-module Types
-  class MutationType
-    field :log_out, Boolean, null: false, description: 'Log out'
+module Mutations
+  class LogOut < BaseMutation
+    description 'Log out'
+    payload_type Boolean
+    null false
 
-    def log_out
+    def resolve
       context[:environment].current_user = nil
       true
     end

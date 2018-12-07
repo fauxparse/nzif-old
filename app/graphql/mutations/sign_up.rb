@@ -1,13 +1,15 @@
-module Types
-  class MutationType
-    field :sign_up, UserType, null: true, description: 'Sign up as a new user' do
-      argument :name, String, required: true
-      argument :email, String, required: true
-      argument :password, String, required: true
-      argument :password_confirmation, String, required: true
-    end
+module Mutations
+  class SignUp < BaseMutation
+    description 'Sign up as a new user'
+    payload_type Types::UserType
+    null true
 
-    def sign_up(name:, email:, password:, password_confirmation:)
+    argument :name, String, required: true
+    argument :email, String, required: true
+    argument :password, String, required: true
+    argument :password_confirmation, String, required: true
+
+    def resolve(name:, email:, password:, password_confirmation:)
       result = CreateUser.call(
         name: name,
         email: email,

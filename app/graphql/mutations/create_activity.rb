@@ -1,13 +1,15 @@
-module Types
-  class MutationType
-    field :create_activity, ActivityType, null: false, description: 'Create an activity' do
-      argument :year, Integer, required: true
-      argument :type, ActivityTypeType, required: true
-      argument :attributes, ActivityAttributes, required: true
-    end
+module Mutations
+  class CreateActivity < BaseMutation
+    description 'Create an activity'
+    payload_type Types::ActivityType
+    null false
 
-    def create_activity(year:, type:, attributes:)
-      CreateActivity.call(
+    argument :year, Integer, required: true
+    argument :type, Types::ActivityTypeType, required: true
+    argument :attributes, Types::ActivityAttributes, required: true
+
+    def resolve(year:, type:, attributes:)
+      ::CreateActivity.call(
         festival: festival_by_year(year),
         attributes: attributes.to_h.merge(type: type)
       ).activity

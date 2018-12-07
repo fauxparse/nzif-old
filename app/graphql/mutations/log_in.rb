@@ -1,11 +1,13 @@
-module Types
-  class MutationType
-    field :log_in, UserType, null: true, description: 'Log in with a password' do
-      argument :email, String, required: true
-      argument :password, String, required: true
-    end
+module Mutations
+  class LogIn < BaseMutation
+    description 'Log in with a password'
+    payload_type Types::UserType
+    null true
 
-    def log_in(email:, password:)
+    argument :email, String, required: true
+    argument :password, String, required: true
+
+    def resolve(email:, password:)
       result = AuthenticateUser.call(email: email, password: password)
 
       if result.success?
