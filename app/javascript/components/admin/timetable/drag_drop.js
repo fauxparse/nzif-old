@@ -28,6 +28,7 @@ class DragDrop extends React.Component {
           .on('move', this.resize)
           .on('start', this.start)
           .on('resize', onResize)
+          .on('cancel', this.cancelResizing)
           .on('stop', this.stopResizing)
           .on('stop', this.stop)
           .start(event)
@@ -67,17 +68,18 @@ class DragDrop extends React.Component {
   }
 
   stopResizing = () => {
-    const { resizing } = this.state
-    if (resizing) {
-      resizing.session.style.removeProperty('grid-row-end')
-    }
     this.setState({ resizing: undefined })
+  }
+
+  cancelResizing = () => {
+    const { session } = this.state.resizing
+    session.style.removeProperty('grid-row-end')
   }
 
   select = (selection) => {
     const { selection: old } = this.state
-    const { startTime, endTime } = selection
-    if (!old || !startTime.isSame(old.startTime) || !endTime.isSame(old.endTime)) {
+    const { startsAt, endsAt } = selection
+    if (!old || !startsAt.isSame(old.startsAt) || !endsAt.isSame(old.endsAt)) {
       this.setState({ selection })
     }
   }

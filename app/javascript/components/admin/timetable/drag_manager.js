@@ -18,7 +18,7 @@ class DragManager {
   }
 
   rowToTime = row =>
-    this.startTime.clone().add(row * 60 / this.context.granularity, 'minutes')
+    this.startsAt.clone().add(row * 60 / this.context.granularity, 'minutes')
 
   cancel = (event) => {
     if (event.which == 27) {
@@ -53,15 +53,15 @@ export class Move extends DragManager {
   }
 
   selection = () => {
-    const startTime = this.rowToTime(this.row)
-    const endTime = this.rowToTime(this.row + this.height)
+    const startsAt = this.rowToTime(this.row)
+    const endsAt = this.rowToTime(this.row + this.height)
 
     return {
       id: this.id,
       start: this.row,
       end: this.row + this.height,
-      startTime,
-      endTime,
+      startsAt,
+      endsAt,
     }
   }
 
@@ -77,6 +77,7 @@ export class Move extends DragManager {
     this.y = clientY
     this.offsetY = offsetY
 
+    this.session.setAttribute('aria-grabbed', true)
     this.container.addEventListener('drag', this.move)
     this.container.addEventListener('dragover', this.over)
     this.container.addEventListener('drop', this.drop)
@@ -133,6 +134,7 @@ export class Move extends DragManager {
   }
 
   unbind = () => {
+    this.session.removeAttribute('aria-grabbed')
     this.container.removeEventListener('drag', this.move)
     this.container.removeEventListener('dragover', this.over)
     this.container.removeEventListener('drop', this.drop)
@@ -156,7 +158,7 @@ export class Resize extends DragManager {
     this.list = session.closest('[data-day]')
     this.rows = (end - start) * granularity
     this.rowHeight = this.list.offsetHeight / this.rows
-    this.startTime = moment(this.list.dataset.day).set('hour', start)
+    this.startsAt = moment(this.list.dataset.day).set('hour', start)
     this.startRow = parseInt(session.dataset.start, 10)
   }
 
@@ -182,8 +184,8 @@ export class Resize extends DragManager {
       session: this.session,
       start,
       end,
-      startTime: this.rowToTime(start),
-      endTime: this.rowToTime(end + 1),
+      startsAt: this.rowToTime(start),
+      endsAt: this.rowToTime(end + 1),
     }
   }
 
@@ -216,7 +218,7 @@ export class Select extends DragManager {
     this.list = list
     this.rows = (end - start) * granularity
     this.rowHeight = list.offsetHeight / this.rows
-    this.startTime = moment(list.dataset.day).set('hour', start)
+    this.startsAt = moment(list.dataset.day).set('hour', start)
   }
 
   selection = () => {
@@ -224,8 +226,8 @@ export class Select extends DragManager {
     return {
       start,
       end,
-      startTime: this.rowToTime(start),
-      endTime: this.rowToTime(end + 1),
+      startsAt: this.rowToTime(start),
+      endsAt: this.rowToTime(end + 1),
     }
   }
 

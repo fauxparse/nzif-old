@@ -7,4 +7,6 @@ export const DEFAULT_CONTEXT = {
   end: 27,        // finish at 3am
 }
 
+DEFAULT_CONTEXT.minutesPerSlot = 60 / DEFAULT_CONTEXT.granularity
+
 export default createContext(DEFAULT_CONTEXT)

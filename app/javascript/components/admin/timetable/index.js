@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
-import { Query } from 'react-apollo'
+import { graphql, compose, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
+import groupBy from 'lodash/groupBy'
 import moment from '../../../lib/moment'
 import { media } from '../../../styles'
 import Context, { DEFAULT_CONTEXT } from './context'
@@ -13,8 +14,44 @@ import Times from './times'
 const TIMETABLE_QUERY = gql`
   query Timetable($year: Int!) {
     festival(year: $year) {
+      year
       startDate
       endDate
+
+      activities {
+        id
+        name
+        type
+      }
+    }
+
+    sessions(year: $year) {
+      id
+      startsAt
+      endsAt
+      activityId
+    }
+  }
+`
+
+const CREATE_SESSION_MUTATION = gql`
+  mutation CreateSession($activityId: ID!, $startsAt: Time!, $endsAt: Time!) {
+    createSession(activityId: $activityId, startsAt: $startsAt, endsAt: $endsAt) {
+      id
+      activityId
+      startsAt
+      endsAt
+    }
+  }
+`
+
+const UPDATE_SESSION_MUTATION = gql`
+  mutation UpdateSession($id: ID!, $startsAt: Time!, $endsAt: Time!) {
+    updateSession(id: $id, startsAt: $startsAt, endsAt: $endsAt) {
+      id
+      activityId
+      startsAt
+      endsAt
     }
   }
 `
@@ -66,99 +103,115 @@ class Timetable extends React.Component {
     }).isRequired
   }
 
-  state = {
-    sessions: {
-      1: {
-        id: 1,
-        start: moment('2018-10-20T10:00:00.000+1300'),
-        end: moment('2018-10-20T13:00:00.000+1300'),
-      },
-      2: {
-        id: 2,
-        start: moment('2018-10-20T10:00:00.000+1300'),
-        end: moment('2018-10-20T17:00:00.000+1300'),
-      },
-      3: {
-        id: 3,
-        start: moment('2018-10-20T14:00:00.000+1300'),
-        end: moment('2018-10-20T17:00:00.000+1300'),
-      },
-    },
-  }
-
-  move = ({ id, startTime }) => {
-    const { sessions } = this.state
-    const session = sessions[id]
-    if (session) {
-      const length = session.end.diff(session.start, 'minutes')
-      session.start = startTime
-      session.end = startTime.clone().add(length, 'minutes')
-      this.setState({ sessions })
+  add = ({ startsAt, endsAt }) => {
+    const activityId = this.props.data.festival.activities[0].id
+    const variables = {
+      activityId,
+      startsAt: startsAt.toISOString(),
+      endsAt: endsAt.toISOString(),
     }
+
+    this.props.client.mutate({
+      mutation: CREATE_SESSION_MUTATION,
+      variables,
+      errorPolicy: 'all',
+      optimisticReponse: {
+        id: -1,
+        ...variables,
+      },
+      update: this.updateCachedSessions((sessions, { createSession }) =>
+        [...sessions, createSession]
+      ),
+    })
   }
 
-  resize = ({ id, endTime }) => {
-    const { sessions } = this.state
-    const session = sessions[id]
-    if (session) {
-      session.end = endTime
-      this.setState({ sessions })
+  update = ({ id, startsAt, endsAt }) => {
+    const variables = {
+      id,
+      startsAt: startsAt.toISOString(),
+      endsAt: endsAt.toISOString(),
     }
+
+    this.props.client.mutate({
+      mutation: UPDATE_SESSION_MUTATION,
+      variables,
+      errorPolicy: 'all',
+      optimisticReponse: variables,
+      update: this.updateCachedSessions((sessions, { updateSession }) =>
+        sessions.map(session => session.id === updateSession.id ? {
+          ...session,
+          ...updateSession,
+        } : session)
+      ),
+    })
   }
 
-  add = ({ startTime: start, endTime: end }) => {
-    const sessions = { ...this.state.sessions }
-    const session = { id: Date.now(), start, end }
-    sessions[session.id] = session
-    this.setState({ sessions })
+  updateCachedSessions = callback => (cache, { data }) => {
+    const year = parseInt(this.props.match.params.year, 10)
+    const { sessions, ...rest } = cache.readQuery({
+      query: TIMETABLE_QUERY,
+      variables: { year },
+    })
+
+    const newSessions = callback(sessions, data)
+
+    cache.writeQuery({
+      query: TIMETABLE_QUERY,
+      variables: { year },
+      data: { sessions: newSessions, ...rest },
+    })
   }
 
-  sessions = (day) => {
-    return Object.values(this.state.sessions)
-      .filter(session => session.start.isSame(day, 'day'))
-      .sort((a, b) => (a.start.valueOf() - b.start.valueOf()) || a.id - b.id)
+  extractSessions = (sessionData) => {
+    const sessions = sessionData
+      .map(s => ({ ...s, startsAt: moment(s.startsAt), endsAt: moment(s.endsAt) }))
+      .sort((a, b) => (a.startsAt.valueOf() - b.startsAt.valueOf()) || a.id - b.id)
+    return groupBy(sessions, session => session.startsAt.dayOfYear())
   }
 
   render() {
-    const { match } = this.props
-    const year = parseInt(match.params.year, 10)
+    const { loading, error, festival, sessions: sessionData } = this.props.data
 
-    return (
-      <Query query={TIMETABLE_QUERY} variables={{ year }}>
-        {({ loading, data, error }) => {
-          if (loading || error) {
-            return <Fragment />
-          } else {
-            const startDate = moment(data.festival.startDate)
-            const endDate = moment(data.festival.endDate)
-            const days = Array.from(moment.range(startDate, endDate).by('day'))
+    if (loading || error) {
+      return <Fragment />
+    } else {
+      const { start } = DEFAULT_CONTEXT
+      const startDate = moment(festival.startDate)
+      const endDate = moment(festival.endDate)
+      const days = Array.from(moment.range(startDate, endDate).by('day'))
+        .map(t => t.set('hour', start))
+      const sessions = this.extractSessions(sessionData)
 
-            return (
-              <Context.Provider value={DEFAULT_CONTEXT}>
-                <DragDrop onSelect={this.add} onMove={this.move} onResize={this.resize}>
-                  {({ selection, selectedId, ...props }) => (
-                    <StyledTimetable {...props}>
-                      <StyledTimes />
-                      {days.map(day => (
-                        <StyledDay
-                          key={day.valueOf()}
-                          date={day}
-                          id={day.format('dddd').toLowerCase()}
-                          sessions={this.sessions(day)}
-                          selection={selection && selection.startTime.isSame(day, 'day') && selection}
-                          selectedId={selectedId}
-                        />
-                      ))}
-                    </StyledTimetable>
-                  )}
-                </DragDrop>
-              </Context.Provider>
-            )
-          }
-        }}
-      </Query>
-    )
+      return (
+        <Context.Provider value={DEFAULT_CONTEXT}>
+          <DragDrop onSelect={this.add} onMove={this.update} onResize={this.update}>
+            {({ selection, selectedId, ...props }) => (
+              <StyledTimetable {...props}>
+                <StyledTimes />
+                {days.map(day => (
+                  <StyledDay
+                    key={day.valueOf()}
+                    date={day}
+                    id={day.format('dddd').toLowerCase()}
+                    sessions={sessions[day.dayOfYear()] || []}
+                    selection={selection}
+                    selectedId={selectedId}
+                  />
+                ))}
+              </StyledTimetable>
+            )}
+          </DragDrop>
+        </Context.Provider>
+      )
+    }
   }
 }
 
-export default Timetable
+export default compose(
+  withApollo,
+  graphql(TIMETABLE_QUERY, {
+    options: props => ({
+      variables: { year: parseInt(props.match.params.year, 10) },
+    }),
+  })
+)(Timetable)

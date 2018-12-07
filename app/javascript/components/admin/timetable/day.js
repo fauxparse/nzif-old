@@ -82,19 +82,29 @@ class Day extends React.Component {
     }),
     sessions: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-      start: MomentPropTypes.momentObj.isRequired,
-      end: MomentPropTypes.momentObj.isRequired,
+      startsAt: MomentPropTypes.momentObj.isRequired,
+      endsAt: MomentPropTypes.momentObj.isRequired,
     }).isRequired).isRequired,
     selectedId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }
 
   static contextType = Context
 
+  renderSelection() {
+    const { selection: { startsAt, endsAt } = {}, date } = this.props
+
+    if (startsAt && startsAt.isSame(date, 'day')) {
+      const { minutesPerSlot } = this.context
+      const row = Math.floor(startsAt.diff(date, 'minutes') / minutesPerSlot)
+      const height = Math.floor(endsAt.diff(startsAt, 'minutes') / minutesPerSlot)
+
+      return <Selection data-start={row} data-height={height} />
+    }
+  }
+
   render() {
     const { date, sessions, selection, selectedId, ...props } = this.props
-    const { start, granularity } = this.context
-    const dayStart = date.clone().startOf('day').set('hour', start)
-    const minutesPerSlot = 60 / granularity
+    const { minutesPerSlot } = this.context
 
     return (
       <StyledDay {...props}>
@@ -105,24 +115,18 @@ class Day extends React.Component {
         <StyledTimes />
         <StyledList
           data-day={date.format('YYYY-MM-DD')}
-          data-start={dayStart.format()}
+          data-start={date.format()}
         >
           {sessions.map(session => (
             <Block.Placed
               key={session.id}
               draggable
-              data-start={session.start.diff(dayStart, 'minutes') / minutesPerSlot}
-              data-height={session.end.diff(session.start, 'minutes') / minutesPerSlot}
+              data-start={session.startsAt.diff(date, 'minutes') / minutesPerSlot}
+              data-height={session.endsAt.diff(session.startsAt, 'minutes') / minutesPerSlot}
               data-id={session.id}
-              aria-grabbed={session.id == selectedId || null}
             />
           ))}
-          {selection && (
-            <Selection
-              data-start={selection.start}
-              data-height={selection.end - selection.start + 1}
-            />
-          )}
+          {this.renderSelection()}
         </StyledList>
       </StyledDay>
     )
