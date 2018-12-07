@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :workshop do
+  factory :workshop, aliases: %i(activity) do
     festival
     name 'A workshop'
     description 'We learn all the things'

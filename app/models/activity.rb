@@ -2,7 +2,7 @@ class Activity < ApplicationRecord
   include Sluggable
 
   belongs_to :festival
-
+  has_many :sessions
   has_many :associated,
     -> (activity) { unscope(:where).associated_with(activity) },
     class_name: 'Activity'

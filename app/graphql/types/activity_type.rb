@@ -8,5 +8,6 @@ module Types
     field :festival, FestivalType, null: false
     field :url, String, null: false
     field :associated, [ActivityType], null: false
+    field :sessions, [SessionType], null: false
   end
 end

@@ -1,7 +1,7 @@
 class DateValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     OPERATORS.keys.each do |operator|
-      compare_dates(record, attribute, value, operator) if options.include?(operator)
+      compare_dates(record, attribute, value.to_date, operator) if options.include?(operator)
     end
   end
 

@@ -3,6 +3,7 @@ class CreateActivity
 
   def call
     activity.save!
+    context.activity = activity
   end
 
   def activity
