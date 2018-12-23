@@ -45,12 +45,12 @@ class DragDrop extends React.Component {
     }
   }
 
-  start = ({ id: selectedId }) => {
-    this.setState({ selectedId })
+  start = (selection) => {
+    this.setState({ selection })
   }
 
   stop = () => {
-    this.setState({ selectedId: undefined })
+    this.setState({ selection: undefined })
   }
 
   dragStart = (event) => {
@@ -61,18 +61,18 @@ class DragDrop extends React.Component {
       .start(event)
   }
 
-  resize = (resizing) => {
-    const { session, start, end } = resizing
+  resize = (selection) => {
+    const { session, start, end } = selection
     session.style.setProperty('grid-row-end', `span ${end - start + 1}`)
-    this.setState({ resizing })
+    this.setState({ selection })
   }
 
   stopResizing = () => {
-    this.setState({ resizing: undefined })
+    this.setState({ selection: undefined })
   }
 
   cancelResizing = () => {
-    const { session } = this.state.resizing
+    const { session } = this.state.selection
     session.style.removeProperty('grid-row-end')
   }
 
@@ -89,12 +89,11 @@ class DragDrop extends React.Component {
   }
 
   render() {
-    const { selection, selectedId } = this.state
+    const { selection } = this.state
     const { children } = this.props
 
     return children({
       selection,
-      selectedId,
       onMouseDown: this.mouseDown,
       onDragStart: this.dragStart,
     })

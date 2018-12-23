@@ -1,15 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import { graphql, compose, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import groupBy from 'lodash/groupBy'
 import moment from '../../../lib/moment'
-import { media } from '../../../styles'
 import Context, { DEFAULT_CONTEXT } from './context'
-import Day from './day'
 import DragDrop from './drag_drop'
-import Times from './times'
+import Grid from './grid'
 
 const TIMETABLE_QUERY = gql`
   query Timetable($year: Int!) {
@@ -54,46 +51,6 @@ const UPDATE_SESSION_MUTATION = gql`
       endsAt
     }
   }
-`
-
-const StyledTimetable = styled.section`
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  height: calc(100vh - 3.5rem);
-  overflow: auto;
-  scroll-snap-type: x mandatory;
-
-  ${media.medium`
-    scroll-padding: 0 0 0 4.5em;
-  `}
-`
-
-const StyledTimes = styled(Times)`${({ theme }) => css`
-  display: none;
-
-  ${media.medium`
-    display: block;
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    background: ${theme.colors.background}
-  `}
-`}`
-
-const StyledDay = styled(Day)`
-  ${media.medium`
-    flex-basis: calc((100vw - 4.5rem) / 3);
-    grid-template-columns: auto;
-  `}
-
-  ${media.large`
-    flex-basis: calc((100vw - 4.5rem) / 6);
-  `}
-
-  ${media.huge`
-    flex-basis: calc((100vw - 4.5rem) / 8);
-  `}
 `
 
 class Timetable extends React.Component {
@@ -185,20 +142,12 @@ class Timetable extends React.Component {
       return (
         <Context.Provider value={DEFAULT_CONTEXT}>
           <DragDrop onSelect={this.add} onMove={this.update} onResize={this.update}>
-            {({ selection, selectedId, ...props }) => (
-              <StyledTimetable {...props}>
-                <StyledTimes />
-                {days.map(day => (
-                  <StyledDay
-                    key={day.valueOf()}
-                    date={day}
-                    id={day.format('dddd').toLowerCase()}
-                    sessions={sessions[day.dayOfYear()] || []}
-                    selection={selection}
-                    selectedId={selectedId}
-                  />
-                ))}
-              </StyledTimetable>
+            {props => (
+              <Grid
+                days={days}
+                sessions={sessions}
+                {...props}
+              />
             )}
           </DragDrop>
         </Context.Provider>

@@ -77,8 +77,9 @@ class Day extends React.Component {
   static propTypes = {
     date: MomentPropTypes.momentObj.isRequired,
     selection: PropTypes.shape({
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      startsAt: MomentPropTypes.momentObj.isRequired,
+      endsAt: MomentPropTypes.momentObj.isRequired,
     }),
     sessions: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
@@ -91,9 +92,9 @@ class Day extends React.Component {
   static contextType = Context
 
   renderSelection() {
-    const { selection: { startsAt, endsAt } = {}, date } = this.props
+    const { selection: { id, startsAt, endsAt } = {}, date } = this.props
 
-    if (startsAt && startsAt.isSame(date, 'day')) {
+    if (!id && startsAt && startsAt.isSame(date, 'day')) {
       const { minutesPerSlot } = this.context
       const row = Math.floor(startsAt.diff(date, 'minutes') / minutesPerSlot)
       const height = Math.floor(endsAt.diff(startsAt, 'minutes') / minutesPerSlot)
@@ -103,7 +104,7 @@ class Day extends React.Component {
   }
 
   render() {
-    const { date, sessions, selection, selectedId, ...props } = this.props
+    const { date, sessions, selection, ...props } = this.props
     const { minutesPerSlot } = this.context
 
     return (
