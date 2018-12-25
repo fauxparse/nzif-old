@@ -44,6 +44,7 @@ gem 'graphql-batch'
 # Sluggable models
 gem 'auto_strip_attributes'
 gem 'stringex'
+gem 'hashid-rails'
 
 # Service objects
 gem 'interactor-rails'

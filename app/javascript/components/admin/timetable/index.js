@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 import { graphql, compose, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import groupBy from 'lodash/groupBy'
+import { withRouter } from 'react-router'
 import moment from '../../../lib/moment'
+import { Modal } from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
 import Grid from './grid'
+import NewSessionDialog from './new'
 
 const TIMETABLE_QUERY = gql`
   query Timetable($year: Int!) {
@@ -60,27 +63,35 @@ class Timetable extends React.Component {
     }).isRequired
   }
 
-  add = ({ startsAt, endsAt }) => {
-    const activityId = this.props.data.festival.activities[0].id
-    const variables = {
-      activityId,
-      startsAt: startsAt.toISOString(),
-      endsAt: endsAt.toISOString(),
-    }
-
-    this.props.client.mutate({
-      mutation: CREATE_SESSION_MUTATION,
-      variables,
-      errorPolicy: 'all',
-      optimisticReponse: {
-        id: -1,
-        ...variables,
-      },
-      update: this.updateCachedSessions((sessions, { createSession }) =>
-        [...sessions, createSession]
-      ),
-    })
+  state = {
+    newSession: undefined,
   }
+
+  add = ({ startsAt, endsAt }) => {
+    this.setState({ newSession: { startsAt, endsAt } })
+
+    // const activityId = this.props.data.festival.activities[0].id
+    // const variables = {
+    //   activityId,
+    //   startsAt: startsAt.toISOString(),
+    //   endsAt: endsAt.toISOString(),
+    // }
+
+    // this.props.client.mutate({
+    //   mutation: CREATE_SESSION_MUTATION,
+    //   variables,
+    //   errorPolicy: 'all',
+    //   optimisticReponse: {
+    //     id: -1,
+    //     ...variables,
+    //   },
+    //   update: this.updateCachedSessions((sessions, { createSession }) =>
+    //     [...sessions, createSession]
+    //   ),
+    // })
+  }
+
+  cancelAdd = () => this.setState({ newSession: undefined })
 
   update = ({ id, startsAt, endsAt }) => {
     const variables = {
@@ -127,7 +138,8 @@ class Timetable extends React.Component {
   }
 
   render() {
-    const { loading, error, festival, sessions: sessionData } = this.props.data
+    const { match, data } = this.props
+    const { loading, error, festival, sessions: sessionData } = data
 
     if (loading || error) {
       return <Fragment />
@@ -138,6 +150,7 @@ class Timetable extends React.Component {
       const days = Array.from(moment.range(startDate, endDate).by('day'))
         .map(t => t.set('hour', start))
       const sessions = this.extractSessions(sessionData)
+      const { newSession } = this.state
 
       return (
         <Context.Provider value={DEFAULT_CONTEXT}>
@@ -150,6 +163,12 @@ class Timetable extends React.Component {
               />
             )}
           </DragDrop>
+          <Modal
+            isOpen={!!newSession}
+            onRequestClose={this.cancelAdd}
+          >
+            <NewSessionDialog onCancel={this.cancelAdd} />
+          </Modal>
         </Context.Provider>
       )
     }
@@ -157,6 +176,7 @@ class Timetable extends React.Component {
 }
 
 export default compose(
+  withRouter,
   withApollo,
   graphql(TIMETABLE_QUERY, {
     options: props => ({

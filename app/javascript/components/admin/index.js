@@ -35,7 +35,7 @@ const Admin = ({ match }) => (
         render={({ location }) => (
           <PageTransition component={Page} pageKey={location.pathname}>
             <Switch location={location}>
-              <Route path={`${match.path}/timetable`} exact component={Timetable} />
+              <Route path={`${match.path}/timetable`} component={Timetable} />
               <Route path={`${match.path}/`} exact component={Dashboard} />
             </Switch>
           </PageTransition>

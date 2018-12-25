@@ -1,4 +1,6 @@
 class Session < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :activity
 
   validates :starts_at, :ends_at,

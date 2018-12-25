@@ -121,6 +121,7 @@ const hoverBackground = chroma(accent).alpha(alpha.hover).css()
 const brand = {
   accent,
   background,
+  modalBackground: background,
   border,
   error,
   foreground,
@@ -130,6 +131,7 @@ const brand = {
   link,
   outline: chroma(accent).alpha(0.25).css(),
   ripple: palette.grey[300],
+  scrim: chroma('#000000').alpha(0.625).css(),
 }
 
 export default {

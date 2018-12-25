@@ -144,6 +144,10 @@ GEM
       haml (>= 4.0.6, < 6.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hashid-rails (1.2.1)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+    hashids (1.0.4)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -351,6 +355,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   haml-rails
+  hashid-rails
   interactor-rails
   jbuilder (~> 2.5)
   jwt
