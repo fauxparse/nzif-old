@@ -115,6 +115,7 @@ const link = palette.tomato[600]
 const error = palette.tomato[700]
 const text = chroma(foreground).alpha(alpha.primary).css()
 const secondary = chroma(text).alpha(alpha.secondary).css()
+const disabled = chroma(text).alpha(alpha.disabled).css()
 const border = chroma(text).alpha(alpha.border).css()
 const hoverBackground = chroma(accent).alpha(alpha.hover).css()
 
@@ -128,6 +129,7 @@ const brand = {
   hoverBackground,
   text,
   secondary,
+  disabled,
   link,
   outline: chroma(accent).alpha(0.25).css(),
   ripple: palette.grey[300],

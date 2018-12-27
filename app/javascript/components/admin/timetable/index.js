@@ -1,15 +1,14 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
 import { graphql, compose, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import groupBy from 'lodash/groupBy'
-import { withRouter } from 'react-router'
 import moment from '../../../lib/moment'
 import { Modal } from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
 import Grid from './grid'
 import NewSessionDialog from './new'
+import Styles from './styles'
 
 const TIMETABLE_QUERY = gql`
   query Timetable($year: Int!) {
@@ -34,16 +33,16 @@ const TIMETABLE_QUERY = gql`
   }
 `
 
-const CREATE_SESSION_MUTATION = gql`
-  mutation CreateSession($activityId: ID!, $startsAt: Time!, $endsAt: Time!) {
-    createSession(activityId: $activityId, startsAt: $startsAt, endsAt: $endsAt) {
-      id
-      activityId
-      startsAt
-      endsAt
-    }
-  }
-`
+// const CREATE_SESSION_MUTATION = gql`
+//   mutation CreateSession($activityId: ID!, $startsAt: Time!, $endsAt: Time!) {
+//     createSession(activityId: $activityId, startsAt: $startsAt, endsAt: $endsAt) {
+//       id
+//       activityId
+//       startsAt
+//       endsAt
+//     }
+//   }
+// `
 
 const UPDATE_SESSION_MUTATION = gql`
   mutation UpdateSession($id: ID!, $startsAt: Time!, $endsAt: Time!) {
@@ -57,18 +56,12 @@ const UPDATE_SESSION_MUTATION = gql`
 `
 
 class Timetable extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({ year: PropTypes.string.isRequired }).isRequired
-    }).isRequired
-  }
-
   state = {
     newSession: undefined,
   }
 
   add = ({ startsAt, endsAt }) => {
-    this.setState({ newSession: { startsAt, endsAt } })
+    this.setState({ newSession: { startsAt, endsAt, id: 1000000 } })
 
     // const activityId = this.props.data.festival.activities[0].id
     // const variables = {
@@ -131,14 +124,16 @@ class Timetable extends React.Component {
   }
 
   extractSessions = (sessionData) => {
-    const sessions = sessionData
+    const { newSession } = this.state
+    const sessions = [...sessionData, newSession]
+      .filter(Boolean)
       .map(s => ({ ...s, startsAt: moment(s.startsAt), endsAt: moment(s.endsAt) }))
       .sort((a, b) => (a.startsAt.valueOf() - b.startsAt.valueOf()) || a.id - b.id)
     return groupBy(sessions, session => session.startsAt.dayOfYear())
   }
 
   render() {
-    const { match, data } = this.props
+    const { data } = this.props
     const { loading, error, festival, sessions: sessionData } = data
 
     if (loading || error) {
@@ -166,9 +161,16 @@ class Timetable extends React.Component {
           <Modal
             isOpen={!!newSession}
             onRequestClose={this.cancelAdd}
+            className="new-session"
           >
-            <NewSessionDialog onCancel={this.cancelAdd} />
+            <NewSessionDialog
+              {...newSession}
+              activities={festival.activities}
+              onSubmit={() => {}}
+              onCancel={this.cancelAdd}
+            />
           </Modal>
+          <Styles/>
         </Context.Provider>
       )
     }
@@ -176,7 +178,6 @@ class Timetable extends React.Component {
 }
 
 export default compose(
-  withRouter,
   withApollo,
   graphql(TIMETABLE_QUERY, {
     options: props => ({

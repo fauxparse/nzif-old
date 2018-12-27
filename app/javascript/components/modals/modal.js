@@ -8,12 +8,12 @@ import { DURATION } from '../../styles/transition'
 const elementClassName = (blocks, element, modifier) =>
   classNames(
     blocks
-      .filter(x => x)
+      .filter(Boolean)
       .map(block => `${block}${element ? `__${element}` : ''}${ modifier ? `--${modifier}` : ''}`)
   )
 
 const modalClassNames = (classNames, element) => {
-  const blocks = classNames.filter(x => x)
+  const blocks = classNames.filter(Boolean)
   return {
     base: elementClassName(blocks, element),
     afterOpen: elementClassName(blocks, element, 'opening'),
@@ -22,6 +22,20 @@ const modalClassNames = (classNames, element) => {
 }
 
 class Modal extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    theme: PropTypes.shape({
+      colors: PropTypes.shape({
+        foreground: PropTypes.string.isRequired,
+        modalBackground: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }
+
+  static defaultProps = {
+    className: undefined,
+  }
+
   render() {
     const { className, theme, children, ...props } = this.props
 
