@@ -7,6 +7,7 @@ import Context from './context'
 import Times from './times'
 import List from './list'
 import Block from './block'
+import Session from './session'
 
 const StyledDay = styled.div`
   flex: 1 0 100vw;
@@ -17,10 +18,6 @@ const StyledDay = styled.div`
 
   ${media.medium`
     grid-template-columns: auto;
-  `}
-
-  ${media.large`
-    flex-basis: 12rem;
   `}
 `
 
@@ -105,7 +102,6 @@ class Day extends React.Component {
 
   render() {
     const { date, sessions, selection, ...props } = this.props
-    const { minutesPerSlot } = this.context
 
     return (
       <StyledDay {...props}>
@@ -119,12 +115,9 @@ class Day extends React.Component {
           data-start={date.format()}
         >
           {sessions.map(session => (
-            <Block.Placed
+            <Session
               key={session.id}
-              draggable
-              data-start={session.startsAt.diff(date, 'minutes') / minutesPerSlot}
-              data-height={session.endsAt.diff(session.startsAt, 'minutes') / minutesPerSlot}
-              data-id={session.id}
+              {...session}
             />
           ))}
           {this.renderSelection()}

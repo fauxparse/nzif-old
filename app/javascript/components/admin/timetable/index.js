@@ -1,59 +1,19 @@
 import React, { Fragment } from 'react'
+import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
-import gql from 'graphql-tag'
 import groupBy from 'lodash/groupBy'
 import moment from '../../../lib/moment'
+import {
+  TIMETABLE_QUERY,
+  CREATE_SESSION_MUTATION,
+  UPDATE_SESSION_MUTATION,
+} from '../../../queries'
 import { Modal } from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
 import Grid from './grid'
 import NewSessionDialog from './new'
 import Styles from './styles'
-
-const TIMETABLE_QUERY = gql`
-  query Timetable($year: Int!) {
-    festival(year: $year) {
-      year
-      startDate
-      endDate
-
-      activities {
-        id
-        name
-        type
-      }
-    }
-
-    sessions(year: $year) {
-      id
-      startsAt
-      endsAt
-      activityId
-    }
-  }
-`
-
-// const CREATE_SESSION_MUTATION = gql`
-//   mutation CreateSession($activityId: ID!, $startsAt: Time!, $endsAt: Time!) {
-//     createSession(activityId: $activityId, startsAt: $startsAt, endsAt: $endsAt) {
-//       id
-//       activityId
-//       startsAt
-//       endsAt
-//     }
-//   }
-// `
-
-const UPDATE_SESSION_MUTATION = gql`
-  mutation UpdateSession($id: ID!, $startsAt: Time!, $endsAt: Time!) {
-    updateSession(id: $id, startsAt: $startsAt, endsAt: $endsAt) {
-      id
-      activityId
-      startsAt
-      endsAt
-    }
-  }
-`
 
 class Timetable extends React.Component {
   state = {
@@ -62,26 +22,29 @@ class Timetable extends React.Component {
 
   add = ({ startsAt, endsAt }) => {
     this.setState({ newSession: { startsAt, endsAt, id: 1000000 } })
+  }
 
-    // const activityId = this.props.data.festival.activities[0].id
-    // const variables = {
-    //   activityId,
-    //   startsAt: startsAt.toISOString(),
-    //   endsAt: endsAt.toISOString(),
-    // }
+  create = ({ startsAt, endsAt, activity }) => {
+    const variables = {
+      activityId: activity.id,
+      startsAt: startsAt.toISOString(),
+      endsAt: endsAt.toISOString(),
+    }
 
-    // this.props.client.mutate({
-    //   mutation: CREATE_SESSION_MUTATION,
-    //   variables,
-    //   errorPolicy: 'all',
-    //   optimisticReponse: {
-    //     id: -1,
-    //     ...variables,
-    //   },
-    //   update: this.updateCachedSessions((sessions, { createSession }) =>
-    //     [...sessions, createSession]
-    //   ),
-    // })
+    this.setState({ newSession: undefined })
+
+    this.props.client.mutate({
+      mutation: CREATE_SESSION_MUTATION,
+      variables,
+      errorPolicy: 'all',
+      optimisticReponse: {
+        id: -1,
+        ...variables,
+      },
+      update: this.updateCachedSessions((sessions, { createSession }) =>
+        [...sessions, createSession]
+      ),
+    })
   }
 
   cancelAdd = () => this.setState({ newSession: undefined })
@@ -127,14 +90,21 @@ class Timetable extends React.Component {
     const { newSession } = this.state
     const sessions = [...sessionData, newSession]
       .filter(Boolean)
-      .map(s => ({ ...s, startsAt: moment(s.startsAt), endsAt: moment(s.endsAt) }))
+      .map(session => ({
+        ...session,
+        startsAt: moment(session.startsAt),
+        endsAt: moment(session.endsAt),
+        activity: this.activity(session.activityId) || {},
+      }))
       .sort((a, b) => (a.startsAt.valueOf() - b.startsAt.valueOf()) || a.id - b.id)
     return groupBy(sessions, session => session.startsAt.dayOfYear())
   }
 
+  activity = id => this.props.data.festival.activities.find(activity => activity.id === id)
+
   render() {
     const { data } = this.props
-    const { loading, error, festival, sessions: sessionData } = data
+    const { loading, error, festival, activityTypes, sessions: sessionData } = data
 
     if (loading || error) {
       return <Fragment />
@@ -165,8 +135,10 @@ class Timetable extends React.Component {
           >
             <NewSessionDialog
               {...newSession}
+              types={activityTypes}
               activities={festival.activities}
-              onSubmit={() => {}}
+              activityTypes={activityTypes}
+              onSubmit={this.create}
               onCancel={this.cancelAdd}
             />
           </Modal>
@@ -178,6 +150,7 @@ class Timetable extends React.Component {
 }
 
 export default compose(
+  withRouter,
   withApollo,
   graphql(TIMETABLE_QUERY, {
     options: props => ({

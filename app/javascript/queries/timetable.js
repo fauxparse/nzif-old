@@ -1,0 +1,26 @@
+import gql from 'graphql-tag'
+
+export default gql`
+  query Timetable($year: Int!) {
+    festival(year: $year) {
+      year
+      startDate
+      endDate
+
+      activities {
+        id
+        name
+        type
+      }
+    }
+
+    sessions(year: $year) {
+      id
+      startsAt
+      endsAt
+      activityId
+    }
+
+    activityTypes
+  }
+`

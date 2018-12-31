@@ -10,6 +10,7 @@ export { Highlight } from './menu_item'
 const KEYS = {
   UP: 38,
   DOWN: 40,
+  ENTER: 13,
 }
 
 const search = (value, options) => {
@@ -33,13 +34,12 @@ class Autocomplete extends Component {
     options: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string.isRequired,
-        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-          .isRequired,
         value: PropTypes.any.isRequired
       }).isRequired
     ).isRequired,
     menuItemComponent: PropTypes.func,
     placeholder: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -73,6 +73,11 @@ class Autocomplete extends Component {
         e.stopPropagation()
         this.move(e.which === KEYS.UP ? -1 : 1)
         break
+      case KEYS.ENTER:
+        e.preventDefault()
+        e.stopPropagation()
+        this.confirm()
+        break
       default:
         break
     }
@@ -85,6 +90,20 @@ class Autocomplete extends Component {
         (oldIndex + matches.length + direction) % matches.length
       this.setState({ selectedIndex, selected: matches[selectedIndex] })
     }
+  }
+
+  confirm = (item = undefined) => {
+    const selectedItem = item || this.state.selected
+    if (selectedItem) {
+      this.props.onChange(selectedItem)
+    }
+  }
+
+  clicked = (e) => {
+    const target = e.target.closest('li')
+    const index = Array.from(target.parentNode.children).indexOf(target)
+    const selected = this.state.matches[index]
+    this.confirm(selected)
   }
 
   render() {
@@ -107,6 +126,7 @@ class Autocomplete extends Component {
               selectedIndex={selectedIndex}
               selectedText={value}
               menuItemComponent={menuItemComponent}
+              onClick={this.clicked}
             />
           ) : (
             <Empty>(No matches)</Empty>

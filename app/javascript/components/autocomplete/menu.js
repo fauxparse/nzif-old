@@ -13,12 +13,12 @@ class Menu extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string.isRequired,
-      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
       value: PropTypes.any.isRequired,
     }).isRequired).isRequired,
     selectedIndex: PropTypes.number.isRequired,
     selectedText: PropTypes.string.isRequired,
     menuItemComponent: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -31,15 +31,17 @@ class Menu extends Component {
       selectedIndex,
       selectedText,
       menuItemComponent: MenuItemComponent,
+      onClick,
     } = this.props
 
     return (
       <StyledMenu>
         {options.map((option, i) => (
           <MenuItemComponent
-            key={option.id}
+            key={JSON.stringify(option.value)}
             selected={selectedIndex === i}
             selectedText={selectedText}
+            onClick={onClick}
             {...option}
           />
         ))}

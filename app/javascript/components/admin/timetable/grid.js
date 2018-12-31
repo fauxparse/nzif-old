@@ -34,6 +34,8 @@ const StyledTimes = styled(Times)`${({ theme }) => css`
 const StyledDay = styled(Day)`
   ${media.medium`
     flex-basis: calc((100vw - 4.5rem) / 3);
+    flex-grow: 0;
+    flex-shrink: 0;
     grid-template-columns: auto;
   `}
 
