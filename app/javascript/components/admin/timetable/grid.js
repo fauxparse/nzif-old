@@ -49,7 +49,7 @@ const StyledDay = styled(Day)`
   `}
 `
 
-const Grid = ({ days, sessions, selection, selectedId, ...props }) => {
+const Grid = ({ days, sessions, selection, selectedId, onSessionClick, ...props }) => {
   return (
     <StyledGrid {...props}>
       <StyledTimes />
@@ -60,6 +60,7 @@ const Grid = ({ days, sessions, selection, selectedId, ...props }) => {
           id={day.format('dddd').toLowerCase()}
           sessions={sessions[day.dayOfYear()] || []}
           selection={selection}
+          onSessionClick={onSessionClick}
         />
       ))}
     </StyledGrid>
@@ -77,6 +78,7 @@ Grid.propTypes = {
     startsAt: MomentPropTypes.momentObj.isRequired,
     endsAt: MomentPropTypes.momentObj.isRequired,
   }),
+  onSessionClick: PropTypes.func.isRequired,
 }
 
 Grid.defaultProps = {

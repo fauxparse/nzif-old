@@ -74,17 +74,14 @@ const Selection = styled(Block.Placed)`
 class Day extends React.Component {
   static propTypes = {
     date: MomentPropTypes.momentObj.isRequired,
-    selection: PropTypes.shape({
-      id: CommonProps.id,
-      startsAt: MomentPropTypes.momentObj.isRequired,
-      endsAt: MomentPropTypes.momentObj.isRequired,
-    }),
-    sessions: PropTypes.arrayOf(PropTypes.shape({
-      id: CommonProps.id,
-      startsAt: MomentPropTypes.momentObj.isRequired,
-      endsAt: MomentPropTypes.momentObj.isRequired,
-    }).isRequired).isRequired,
+    selection: CommonProps.session,
+    sessions: PropTypes.arrayOf(CommonProps.session.isRequired).isRequired,
     selectedId: CommonProps.id,
+    onSessionClick: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    selection: undefined,
   }
 
   static contextType = Context
@@ -102,7 +99,7 @@ class Day extends React.Component {
   }
 
   render() {
-    const { date, sessions, selection, ...props } = this.props
+    const { date, sessions, selection, onSessionClick, ...props } = this.props
 
     return (
       <StyledDay {...props}>
@@ -118,7 +115,8 @@ class Day extends React.Component {
           {sessions.map(session => (
             <Session
               key={session.id}
-              {...session}
+              session={session}
+              onClick={onSessionClick}
             />
           ))}
           {this.renderSelection()}

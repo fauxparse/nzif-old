@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import styled, { css } from 'styled-components'
 import CommonProps from '../../../lib/proptypes'
@@ -29,33 +30,45 @@ const StyledSession = styled(Block.Placed)`${({ theme }) => css`
 
 const startOf = (time, startHour) => time.clone().startOf('day').hour(startHour)
 
-const Session = ({ id, activity, startsAt, endsAt }) => (
-  <Context.Consumer>
-    {({ start, minutesPerSlot }) => (
-      <StyledSession
-        draggable
-        title={activity ? activity.name : undefined}
-        data-id={id}
-        data-type={activity && activity.type || 'workshop'}
-        data-start={startsAt.diff(startOf(startsAt, start), 'minutes') / minutesPerSlot}
-        data-height={endsAt.diff(startsAt, 'minutes') / minutesPerSlot}
-      >
-        {activity && <Activity>{activity.name}</Activity>}
-      </StyledSession>
-    )}
-  </Context.Consumer>
-)
+class Session extends Component {
+  static propTypes = {
+    session: CommonProps.session.isRequired,
+    onClick: PropTypes.func.isRequired,
+  }
 
-Session.propTypes = {
-  id: CommonProps.id,
-  activity: CommonProps.activity,
-  startsAt: MomentPropTypes.momentObj.isRequired,
-  endsAt: MomentPropTypes.momentObj.isRequired,
+  static defaultProps = {
+    id: null,
+    activity: null,
+  }
+
+  clicked = () => {
+    const { session, onClick } = this.props
+    onClick(session)
+  }
+
+  render() {
+    const { session, onClick } = this.props
+    const { id, activity, startsAt, endsAt } = session
+
+    return (
+      <Context.Consumer>
+        {({ start, minutesPerSlot }) => (
+          <StyledSession
+            draggable
+            title={activity ? activity.name : undefined}
+            data-id={id}
+            data-type={activity && activity.type || 'workshop'}
+            data-start={startsAt.diff(startOf(startsAt, start), 'minutes') / minutesPerSlot}
+            data-height={endsAt.diff(startsAt, 'minutes') / minutesPerSlot}
+            onClick={this.clicked}
+          >
+            {activity && <Activity>{activity.name}</Activity>}
+          </StyledSession>
+        )}
+      </Context.Consumer>
+    )
+  }
 }
 
-Session.defaultProps = {
-  id: null,
-  activity: null,
-}
 
 export default Session

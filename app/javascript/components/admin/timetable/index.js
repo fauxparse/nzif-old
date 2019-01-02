@@ -18,6 +18,7 @@ import Styles from './styles'
 class Timetable extends React.Component {
   state = {
     newSession: undefined,
+    selected: undefined,
   }
 
   add = ({ startsAt, endsAt }) => {
@@ -100,6 +101,8 @@ class Timetable extends React.Component {
     return groupBy(sessions, session => session.startsAt.dayOfYear())
   }
 
+  selectSession = selected => this.setState({ selected })
+
   activity = id => this.props.data.festival.activities.find(activity => activity.id === id)
 
   render() {
@@ -124,6 +127,7 @@ class Timetable extends React.Component {
               <Grid
                 days={days}
                 sessions={sessions}
+                onSessionClick={this.selectSession}
                 {...props}
               />
             )}
