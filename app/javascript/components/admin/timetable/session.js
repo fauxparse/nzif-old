@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import styled, { css } from 'styled-components'
+import CommonProps from '../../../lib/proptypes'
 import Block from './block'
 import Context from './context'
 
@@ -34,27 +34,28 @@ const Session = ({ id, activity, startsAt, endsAt }) => (
     {({ start, minutesPerSlot }) => (
       <StyledSession
         draggable
-        title={activity.name}
+        title={activity ? activity.name : undefined}
         data-id={id}
-        data-type={activity.type || 'workshop'}
+        data-type={activity && activity.type || 'workshop'}
         data-start={startsAt.diff(startOf(startsAt, start), 'minutes') / minutesPerSlot}
         data-height={endsAt.diff(startsAt, 'minutes') / minutesPerSlot}
       >
-        <Activity>{activity.name}</Activity>
+        {activity && <Activity>{activity.name}</Activity>}
       </StyledSession>
     )}
   </Context.Consumer>
 )
 
 Session.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  activity: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    type: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
+  id: CommonProps.id,
+  activity: CommonProps.activity,
   startsAt: MomentPropTypes.momentObj.isRequired,
   endsAt: MomentPropTypes.momentObj.isRequired,
+}
+
+Session.defaultProps = {
+  id: null,
+  activity: null,
 }
 
 export default Session

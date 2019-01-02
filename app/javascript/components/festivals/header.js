@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router-dom'
 import Header from '../shared/header'
 import Menu from '../shared/menu'
@@ -12,7 +12,7 @@ const FestivalHeader = ({ match }) => (
 )
 
 FestivalHeader.propTypes = {
-  match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
 }
 
 export default withRouter(FestivalHeader)

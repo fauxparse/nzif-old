@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import styled, { css } from 'styled-components'
+import CommonProps from '../../../lib/proptypes'
 import { media } from '../../../styles'
 import Day from './day'
 import Times from './times'
@@ -68,7 +69,7 @@ const Grid = ({ days, sessions, selection, selectedId, ...props }) => {
 Grid.propTypes = {
   days: PropTypes.arrayOf(MomentPropTypes.momentObj.isRequired).isRequired,
   sessions: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]),
+    id: CommonProps.id,
     startsAt: MomentPropTypes.momentObj.isRequired,
     endsAt: MomentPropTypes.momentObj.isRequired,
   }).isRequired).isRequired).isRequired,

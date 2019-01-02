@@ -1,5 +1,6 @@
 import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router-dom'
 import Button from './button'
 import Content from './content'
@@ -76,9 +77,7 @@ Menu.propTypes = {
     PropTypes.func.isRequired,
     PropTypes.symbol.isRequired,
   ]),
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
 }
 
 Menu.defaultProps = {

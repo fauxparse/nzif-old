@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import CommonProps from '../../lib/proptypes'
 import TextLink from '../../components/shared/text_link'
 import { text } from '../../styles'
 
@@ -24,10 +24,7 @@ class Activity extends React.PureComponent {
 }
 
 Activity.propTypes = {
-  activity: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
+  activity: CommonProps.activity.isRequired,
 }
 
 export default Activity

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import styled, { css } from 'styled-components'
 import { compose, withApollo } from 'react-apollo'
@@ -72,9 +73,7 @@ class NewSession extends React.Component {
     activityTypes: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     startsAt: MomentPropTypes.momentObj,
     endsAt: MomentPropTypes.momentObj,
-    match: PropTypes.shape({
-      params: PropTypes.shape({ year: PropTypes.string.isRequired }).isRequired
-    }).isRequired,
+    match: ReactRouterPropTypes.match.isRequired,
     client: PropTypes.any.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,

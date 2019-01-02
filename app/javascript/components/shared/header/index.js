@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router-dom'
 import Menu from '../menu'
 import CurrentUser from '../current_user'
@@ -39,8 +39,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  match: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
-  location: PropTypes.object.isRequired
+  match: ReactRouterPropTypes.match.isRequired,
+  location: ReactRouterPropTypes.location.isRequired
 }
 
 export default withRouter(Header)

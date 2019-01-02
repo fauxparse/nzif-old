@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import styled, { css } from 'styled-components'
+import CommonProps from '../../../lib/proptypes'
 import { media } from '../../../styles'
 import Context from './context'
 import Times from './times'
@@ -74,16 +75,16 @@ class Day extends React.Component {
   static propTypes = {
     date: MomentPropTypes.momentObj.isRequired,
     selection: PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      id: CommonProps.id,
       startsAt: MomentPropTypes.momentObj.isRequired,
       endsAt: MomentPropTypes.momentObj.isRequired,
     }),
     sessions: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      id: CommonProps.id,
       startsAt: MomentPropTypes.momentObj.isRequired,
       endsAt: MomentPropTypes.momentObj.isRequired,
     }).isRequired).isRequired,
-    selectedId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    selectedId: CommonProps.id,
   }
 
   static contextType = Context

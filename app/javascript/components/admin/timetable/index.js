@@ -21,7 +21,7 @@ class Timetable extends React.Component {
   }
 
   add = ({ startsAt, endsAt }) => {
-    this.setState({ newSession: { startsAt, endsAt, id: 1000000 } })
+    this.setState({ newSession: { startsAt, endsAt, id: null } })
   }
 
   create = ({ startsAt, endsAt, activity }) => {
@@ -94,7 +94,7 @@ class Timetable extends React.Component {
         ...session,
         startsAt: moment(session.startsAt),
         endsAt: moment(session.endsAt),
-        activity: this.activity(session.activityId) || {},
+        activity: this.activity(session.activityId),
       }))
       .sort((a, b) => (a.startsAt.valueOf() - b.startsAt.valueOf()) || a.id - b.id)
     return groupBy(sessions, session => session.startsAt.dayOfYear())

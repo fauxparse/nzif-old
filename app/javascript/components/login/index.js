@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { withLastLocation } from 'react-router-last-location'
 import LogInForm from './log_in_form'
@@ -53,8 +53,8 @@ class LogIn extends React.Component {
 }
 
 LogIn.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  lastLocation: PropTypes.shape({ pathname: PropTypes.string }),
+  history: ReactRouterPropTypes.history.isRequired,
+  lastLocation: ReactRouterPropTypes.location,
 }
 
 LogIn.defaultProps = {

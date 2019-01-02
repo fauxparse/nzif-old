@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
@@ -46,7 +46,7 @@ const Admin = ({ match }) => (
 )
 
 Admin.propTypes = {
-  match: PropTypes.shape({ path: PropTypes.string.isRequired }).isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
 }
 
 export default Admin

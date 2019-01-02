@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
@@ -107,11 +108,7 @@ UserMenu.propTypes = {
   data: PropTypes.shape({
     subscribeToMore: PropTypes.func.isRequired,
   }),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      year: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired
+  match: ReactRouterPropTypes.match.isRequired,
 }
 
 export default withRouter(graphql(CURRENT_USER_QUERY)(UserMenu))
