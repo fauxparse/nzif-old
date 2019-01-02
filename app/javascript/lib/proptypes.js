@@ -6,6 +6,10 @@ export const id = PropTypes.oneOfType([
   PropTypes.string.isRequired,
 ])
 
+export const ref = PropTypes.shape({
+  current: PropTypes.instanceOf(Element),
+})
+
 export const activityType = PropTypes.oneOf([
   'workshop',
   'show',
@@ -29,5 +33,6 @@ export default {
   activity,
   activityType,
   id,
+  ref,
   session,
 }

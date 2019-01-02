@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import MomentPropTypes from 'react-moment-proptypes'
 import styled, { css } from 'styled-components'
 import CommonProps from '../../../lib/proptypes'
 import Block from './block'
@@ -47,7 +46,7 @@ class Session extends Component {
   }
 
   render() {
-    const { session, onClick } = this.props
+    const { session } = this.props
     const { id, activity, startsAt, endsAt } = session
 
     return (

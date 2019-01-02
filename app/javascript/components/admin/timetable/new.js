@@ -65,7 +65,11 @@ MenuItem.propTypes = {
   value: PropTypes.shape({ type: PropTypes.string.isRequired }).isRequired,
 }
 
-const StyledNewSession = styled.section``
+const StyledNewSession = styled.section`
+  ul {
+    margin: 0.5em 0;
+  }
+`
 
 class NewSession extends React.Component {
   static propTypes = {

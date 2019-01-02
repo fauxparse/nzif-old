@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, createRef } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import deburr from 'lodash/deburr'
@@ -11,6 +11,7 @@ const KEYS = {
   UP: 38,
   DOWN: 40,
   ENTER: 13,
+  TAB: 9,
 }
 
 const search = (value, options) => {
@@ -51,6 +52,18 @@ class Autocomplete extends Component {
     matches: []
   }
 
+  menuRef = createRef()
+
+  componentDidUpdate(_, prevState) {
+    const menu = this.menuRef.current
+    const { selectedIndex } = this.state
+
+    if (menu && selectedIndex !== prevState.selectedIndex) {
+      const item = menu.querySelectorAll('li')[selectedIndex]
+      item && item.scrollIntoView({ block: 'nearest' })
+    }
+  }
+
   inputChanged = (e) => {
     const { target: { value } } = e
     const { search, options } = this.props
@@ -66,6 +79,9 @@ class Autocomplete extends Component {
   }
 
   inputKeyDown = e => {
+    const { target } = e
+    const { selectionStart, selectionEnd } = target
+
     switch (e.which) {
       case KEYS.UP:
       case KEYS.DOWN:
@@ -77,6 +93,14 @@ class Autocomplete extends Component {
         e.preventDefault()
         e.stopPropagation()
         this.confirm()
+        break
+      case KEYS.TAB:
+        if (selectionStart < selectionEnd) {
+          e.preventDefault()
+          e.stopPropagation()
+          target.setSelectionRange(selectionEnd, selectionEnd)
+          this.inputChanged(e)
+        }
         break
       default:
         break
@@ -126,6 +150,7 @@ class Autocomplete extends Component {
               selectedIndex={selectedIndex}
               selectedText={value}
               menuItemComponent={menuItemComponent}
+              ref={this.menuRef}
               onClick={this.clicked}
             />
           ) : (
