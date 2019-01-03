@@ -65,7 +65,7 @@ group :development, :test do
 
   gem 'growl', require: false
   gem 'guard', require: false
-  gem 'guard-eslint', github: 'fauxparse/guard-eslint', require: false
+  gem 'guard-eslint', github: 'fauxparse/guard-eslint', branch: 'check-empty-paths'
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false
 end

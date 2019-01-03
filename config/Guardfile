@@ -72,6 +72,6 @@ guard :rubocop, all_on_start: false do
   watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
 end
 
-guard :eslint, command: 'yarn run eslint -c .eslintrc.json' do
-  watch(%r{.+\.jsx?$})
+guard :eslint, default_paths: %w(app/javascript/**/*.js), formatter: 'codeframe' do
+  watch(%r{^app/javascript/.+\.(js)$})
 end
