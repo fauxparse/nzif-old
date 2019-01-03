@@ -7,12 +7,14 @@ import {
   TIMETABLE_QUERY,
   CREATE_SESSION_MUTATION,
   UPDATE_SESSION_MUTATION,
+  DELETE_SESSION_MUTATION,
 } from '../../../queries'
 import { Modal } from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
 import Grid from './grid'
-import NewSessionDialog from './new'
+import NewSession from './new'
+import SessionDetails from './session_details'
 import Styles from './styles'
 
 class Timetable extends React.Component {
@@ -71,6 +73,20 @@ class Timetable extends React.Component {
     })
   }
 
+  delete = ({ id }) => {
+    const variables = { id }
+
+    this.props.client.mutate({
+      mutation: DELETE_SESSION_MUTATION,
+      variables,
+      errorPolicy: 'all',
+      optimisticReponse: true,
+      update: this.updateCachedSessions((sessions) =>
+        sessions.filter(session => session.id !== id)
+      ),
+    })
+  }
+
   updateCachedSessions = callback => (cache, { data }) => {
     const year = parseInt(this.props.match.params.year, 10)
     const { sessions, ...rest } = cache.readQuery({
@@ -103,6 +119,12 @@ class Timetable extends React.Component {
 
   selectSession = selected => this.setState({ selected })
 
+  deselect = () => this.selectSession(undefined)
+
+  duplicate = (session) => {
+    this.create(session)
+  }
+
   activity = id => this.props.data.festival.activities.find(activity => activity.id === id)
 
   render() {
@@ -118,7 +140,7 @@ class Timetable extends React.Component {
       const days = Array.from(moment.range(startDate, endDate).by('day'))
         .map(t => t.set('hour', start))
       const sessions = this.extractSessions(sessionData)
-      const { newSession } = this.state
+      const { selected, newSession } = this.state
 
       return (
         <Context.Provider value={DEFAULT_CONTEXT}>
@@ -137,13 +159,24 @@ class Timetable extends React.Component {
             onRequestClose={this.cancelAdd}
             className="new-session"
           >
-            <NewSessionDialog
+            <NewSession
               {...newSession}
               types={activityTypes}
               activities={festival.activities}
               activityTypes={activityTypes}
               onSubmit={this.create}
               onCancel={this.cancelAdd}
+            />
+          </Modal>
+          <Modal
+            isOpen={!!selected}
+            onRequestClose={this.deselect}
+          >
+            <SessionDetails
+              session={selected}
+              onDelete={this.delete}
+              onDuplicate={this.duplicate}
+              onClose={this.deselect}
             />
           </Modal>
           <Styles/>

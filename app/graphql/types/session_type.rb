@@ -5,5 +5,9 @@ module Types
     field :activity, Types::ActivityType, null: false
     field :starts_at, Types::Time, null: false
     field :ends_at, Types::Time, null: false
+
+    def id
+      object.to_param
+    end
   end
 end

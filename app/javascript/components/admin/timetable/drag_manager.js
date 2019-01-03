@@ -171,6 +171,7 @@ export class Resize extends DragManager {
     window.addEventListener('mousemove', this.move)
     window.addEventListener('mouseup', this.stop)
     window.addEventListener('keydown', this.cancel)
+    window.addEventListener('click', this.click, { capture: true })
 
     this.publish('start', this.selection())
   }
@@ -196,17 +197,27 @@ export class Resize extends DragManager {
     this.publish('move', this.selection())
   }
 
-  stop = () => {
+  stop = (e) => {
     if (this.active) {
       this.publish('resize', this.selection())
-      this.active = false
     }
 
-    window.removeEventListener('mousemove', this.move)
-    window.removeEventListener('mouseup', this.stop)
-    window.removeEventListener('keydown', this.cancel)
+    setTimeout(() => {
+      window.removeEventListener('mousemove', this.move)
+      window.removeEventListener('mouseup', this.stop)
+      window.removeEventListener('keydown', this.cancel)
+      window.removeEventListener('click', this.click)
+      this.active = false
+    })
 
     this.publish('stop')
+  }
+
+  click = (e) => {
+    if (this.active) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
   }
 }
 

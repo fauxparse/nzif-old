@@ -10,3 +10,9 @@ en:
         on_or_before: 'must be on or before %{date}'
         on_or_after: 'must be on or after %{date}'
         on: 'must be %{date}'
+      time:
+        before: 'must be before %{time}'
+        after: 'must be after %{time}'
+        at_or_before: 'must be at or before %{time}'
+        at_or_after: 'must be at or after %{time}'
+        at: 'must be %{time}'

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { applyStyleModifiers } from 'styled-components-modifiers'
 import { transition } from '../../styles'
 import Ripple from '../shared/ripple'
@@ -9,13 +9,13 @@ import Text from './text'
 import Icon from './icon'
 import identity from 'lodash/identity'
 
-const StyledButton = styled.button`
+const StyledButton = styled.button`${({ theme }) => css`
   align-items: center;
   appearance: none;
   background: none;
   border: 1px solid currentColor;
-  border-radius: ${({ theme }) => theme.layout.borderRadius};
-  color: ${({ theme }) => theme.colors.accent};
+  border-radius: ${theme.layout.borderRadius};
+  color: ${theme.colors.accent};
   cursor: pointer;
   display: flex;
   font: inherit;
@@ -26,7 +26,7 @@ const StyledButton = styled.button`
   transition: ${transition('all')};
 
   &:focus {
-    box-shadow: 0 0 0 .25em ${({ theme }) => theme.colors.outline};
+    box-shadow: 0 0 0 .25em ${theme.colors.outline};
   }
 
   &:disabled {
@@ -44,7 +44,7 @@ const StyledButton = styled.button`
   }
 
   ${applyStyleModifiers(MODIFIERS)}
-`
+`}`
 
 const Button = React.forwardRef(({ text, icon, children, primary, ...props }, ref) => {
   const modifiers = [primary && 'primary', icon && !text && 'icon'].filter(identity)

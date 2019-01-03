@@ -13,19 +13,19 @@ const noYuckyHighlight = css`
   -webkit-transition-delay: 9999s;
 `
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`${({ theme }) => css`
   *, *::before, *::after {
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   body {
-    background-color: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
+    background-color: ${theme.colors.background};
+    color: ${theme.colors.text};
     margin: 0;
     padding: 0;
-    font-family: ${({ theme }) => theme.fonts.base};
-    line-height: 1.5;
+    font-family: ${theme.fonts.base};
+    line-height: ${theme.fonts.lineHeight};
     overflow-x: hidden;
   }
 
@@ -45,7 +45,7 @@ export const GlobalStyle = createGlobalStyle`
   ${transitionStyles}
 
   ${modalStyles}
-`
+`}`
 
 export default {
   colors,
