@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
@@ -9,6 +9,7 @@ import {
   UPDATE_SESSION_MUTATION,
   DELETE_SESSION_MUTATION,
 } from '../../../queries'
+import Loader from '../../shared/loader'
 import { Modal } from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
@@ -17,7 +18,7 @@ import NewSession from './new'
 import SessionDetails from './session_details'
 import Styles from './styles'
 
-class Timetable extends React.Component {
+class Timetable extends Component {
   state = {
     newSession: undefined,
     selected: undefined,
@@ -128,11 +129,11 @@ class Timetable extends React.Component {
   activity = id => this.props.data.festival.activities.find(activity => activity.id === id)
 
   render() {
-    const { data } = this.props
+    const { data, history } = this.props
     const { loading, error, festival, activityTypes, sessions: sessionData } = data
 
     if (loading || error) {
-      return <Fragment />
+      return <Loader />
     } else {
       const { start } = DEFAULT_CONTEXT
       const startDate = moment(festival.startDate)
@@ -177,6 +178,7 @@ class Timetable extends React.Component {
               onDelete={this.delete}
               onDuplicate={this.duplicate}
               onClose={this.deselect}
+              onShowDetails={history.push}
             />
           </Modal>
           <Styles/>

@@ -10,6 +10,8 @@ export const ref = PropTypes.shape({
   current: PropTypes.instanceOf(Element),
 })
 
+export const className = PropTypes.any
+
 export const activityType = PropTypes.oneOf([
   'workshop',
   'show',
@@ -32,6 +34,7 @@ export const session = PropTypes.shape({
 export default {
   activity,
   activityType,
+  className,
   id,
   ref,
   session,

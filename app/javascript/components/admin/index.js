@@ -7,6 +7,7 @@ import Theme from './theme'
 import Header from './header'
 import Dashboard from './dashboard'
 import Timetable from './timetable'
+import ActivityDetails from './activities/details'
 
 const AdminLayout = styled.div`
   display: flex;
@@ -35,8 +36,9 @@ const Admin = ({ match }) => (
         render={({ location }) => (
           <PageTransition component={Page} pageKey={location.pathname}>
             <Switch location={location}>
-              <Route path={`${match.path}/timetable`} component={Timetable} />
-              <Route path={`${match.path}/`} exact component={Dashboard} />
+              <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
+              <Route path={`${match.path}/activities`} component={Timetable} />
+              <Route path={`${match.path}/`} component={Dashboard} />
             </Switch>
           </PageTransition>
         )}

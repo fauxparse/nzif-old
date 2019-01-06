@@ -11,6 +11,7 @@ export default gql`
         id
         name
         type
+        url
       }
     }
 
