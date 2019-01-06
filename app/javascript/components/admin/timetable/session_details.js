@@ -36,13 +36,6 @@ const Actions = styled(({ session, onDelete, onDuplicate, onClose, ...props }) =
   }
 `}`
 
-const Title = styled(({ session: { activity, startsAt, endsAt }, ...props }) => (
-  <div {...props}>
-  </div>
-))`${({ theme }) => css`
-  margin: 0.5rem 0;
-`}`
-
 class SessionDetails extends Component {
   static propTypes = {
     session: CommonProps.session,
@@ -78,9 +71,11 @@ class SessionDetails extends Component {
     onClose()
   }
 
-  url = () => (
-    this.state.session.activity.url.replace(/^\/(\d+)/, (_, year) => `/admin/${year}/activities`)
-  )
+  url = () => {
+    const { session } = this.state
+    return session.activity.url.replace(/^\/(\d+)/, (_, year) => `/admin/${year}/activities`) +
+      `/${session.id}`
+  }
 
   render() {
     const {

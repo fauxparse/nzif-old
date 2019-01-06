@@ -28,13 +28,15 @@ const Page = styled.main`
   position: relative;
 `
 
+const getPageKey = path => path.split('/').slice(0, 6).join('/')
+
 const Admin = ({ match }) => (
   <Theme>
     <AdminLayout>
       <Header />
       <Route
         render={({ location }) => (
-          <PageTransition component={Page} pageKey={location.pathname}>
+          <PageTransition component={Page} pageKey={getPageKey(location.pathname)}>
             <Switch location={location}>
               <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
               <Route path={`${match.path}/activities`} component={Timetable} />

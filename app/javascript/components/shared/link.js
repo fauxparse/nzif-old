@@ -1,11 +1,30 @@
 // A copy/paste of the standard NavLink that cares about refs
 
-import React from 'react'
+import React, { Component } from 'react'
 import { Link, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 Link.propTypes.innerRef = PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object])
+
+class LinkWithCallbacks extends Component {
+  componentDidUpdate(prevProps) {
+    const { isActive, onActivate, onDeactivate } = this.props
+
+    if (isActive && !prevProps.isActive && onActivate) {
+      onActivate()
+    }
+
+    if (!isActive && prevProps.isActive && onDeactivate) {
+      onDeactivate()
+    }
+  }
+
+  render() {
+    const { isActive, onActivate, onDeactivate, ...props } = this.props
+    return <Link {...props} />
+  }
+}
 
 const NavLink = React.forwardRef(({
   'aria-current': ariaCurrent = 'page',
@@ -38,7 +57,8 @@ const NavLink = React.forwardRef(({
         const style = isActive ? { ...styleProp, ...activeStyle } : styleProp
 
         return (
-          <Link
+          <LinkWithCallbacks
+            isActive={isActive}
             aria-current={(isActive && ariaCurrent) || null}
             className={className}
             style={style}
@@ -72,6 +92,8 @@ NavLink.propTypes = {
   strict: Route.propTypes.strict,
   style: PropTypes.object,
   to: Link.propTypes.to,
+  onActivate: PropTypes.func,
+  onDeactivate: PropTypes.func,
 }
 
 export default NavLink
