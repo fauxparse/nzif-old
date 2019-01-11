@@ -42,7 +42,7 @@ const StyledHeader = styled.header`${({ theme }) => css`
 
   small {
     display: block;
-    font-size: ${theme.fonts.scale(-1)};
+    font-size: ${theme.fonts.size(-1)};
     color: ${theme.colors.secondary};
   }
 `}`

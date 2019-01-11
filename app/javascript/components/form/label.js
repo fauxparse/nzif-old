@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Label = styled.label`
   display: block;
-  font-size: ${({ theme }) => theme.fonts.scale(-1)};
+  font-size: ${({ theme }) => theme.fonts.size(-1)};
   color: ${({ theme }) => theme.colors.secondary};
 `
 

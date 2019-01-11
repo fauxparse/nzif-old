@@ -7,7 +7,7 @@ import { text } from '../../styles'
 const ActivityTitle = styled(TextLink)`
   ${text.branded}
 
-  font-size: ${props => props.theme.fonts.scale(1)};
+  font-size: ${props => props.theme.fonts.size(1)};
 `
 
 const ActivityContainer = styled.article``

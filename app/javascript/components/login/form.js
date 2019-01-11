@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { text } from '../../styles'
 import Button from '../button'
 import {
@@ -10,22 +10,22 @@ import {
   Error,
 } from '../form'
 
-export const Title = styled.h2`
+export const Title = styled.h2`${({ theme }) => css`
   ${text.branded}
 
-  color: ${({ theme }) => theme.colors.accent};
-  font-size: ${({ theme }) => theme.fonts.scale(6)};
-  line-height: ${({ theme }) => theme.fonts.scale(1)};
+  color: ${theme.colors.accent};
+  font-size: ${theme.fonts.size(7)};
+  line-height: ${theme.fonts.lineHeight.tight};
   margin: 0 0 0.25em;
-`
+`}`
 
-export const Field = styled(FormField)`
-  font-size: ${({ theme }) => theme.fonts.scale(1)};
+export const Field = styled(FormField)`${({ theme }) => css`
+  font-size: ${theme.fonts.size(1)};
 
   p {
-    font-size: ${({ theme }) => theme.fonts.scale(-2)};
+    font-size: ${theme.fonts.size(-1)};
   }
-`
+`}`
 
 export const Fieldset = styled(FormFieldset)`
   > p {

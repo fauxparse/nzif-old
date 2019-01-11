@@ -14,7 +14,7 @@ const themeBlock = (type, base) => css`
 `
 
 const Activity = styled.div`${({ theme }) => css`
-  font-size: ${theme.fonts.scale(-1)};
+  font-size: ${theme.fonts.size(-1)};
   padding: 0 0.5em;
   overflow: hidden;
   text-overflow: ellipsis;

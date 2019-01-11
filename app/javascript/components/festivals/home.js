@@ -33,14 +33,14 @@ const HeroSection = styled.section`
   h1 {
     ${text.branded}
 
-    font-size: ${props => props.theme.fonts.scale(10)};
+    font-size: ${props => props.theme.fonts.size(9)};
     text-shadow: 0 0 0.25em rgba(0, 0, 0, 0.15);
     margin: 0;
   }
 
   h2 {
     margin: 0;
-    font-size: ${props => props.theme.fonts.scale(3)};
+    font-size: ${props => props.theme.fonts.size(3)};
     font-weight: ${props => props.theme.fonts.weights.normal};
   }
 `

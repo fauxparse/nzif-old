@@ -7,7 +7,7 @@ import { text } from '../../../styles'
 const LogoText = styled(Link.Text)`
   ${text.branded}
 
-  font-size: ${props => props.theme.fonts.scale(2)};
+  font-size: ${props => props.theme.fonts.size(3)};
 `
 
 const Logo = styled(Link).attrs(({ root, year }) => ({

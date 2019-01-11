@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 export const StyledMenuItem = styled.li`${({ theme }) => css`
   padding: 0.5rem 1rem;
-  font-size: ${theme.fonts.scale(1)};
+  font-size: ${theme.fonts.size(1)};
 
   &[aria-selected] {
     background: ${theme.colors.accent};

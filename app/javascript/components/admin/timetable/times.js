@@ -3,12 +3,12 @@ import styled, { css } from 'styled-components'
 import { transition } from '../../../styles'
 import Context from './context'
 
-const Time = styled.span`
+const Time = styled.span`${({ theme }) => css`
   display: block;
-  line-height: 1rem;
+  line-height: ${theme.fonts.size(0)};
   padding-right: 1em;
-  font-size: ${({ theme }) => theme.fonts.scale(-1)};
-  color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${theme.fonts.size(-1)};
+  color: ${theme.colors.secondary};
   text-align: right;
   white-space: nowrap;
   transition: ${transition('opacity', { duration: 100 })};
@@ -17,7 +17,7 @@ const Time = styled.span`
   &[aria-hidden="true"] {
     opacity: 0;
   }
-`
+`}`
 
 const StyledTimes = styled.aside`${({ scale, granularity }) => css`
   flex: 0 0 4.5em;

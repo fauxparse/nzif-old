@@ -11,7 +11,7 @@ const StyledInput = styled.input`${({ theme }) => css`
   outline: none;
   border: 0;
   font-family: inherit;
-  font-size: ${theme.fonts.scale(4)};
+  font-size: ${theme.fonts.size(4)};
   padding: 0.5rem 1rem 0.75rem;
 
   &[data-autocompleting] {

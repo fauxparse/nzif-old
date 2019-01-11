@@ -124,12 +124,12 @@ export default styled(SessionDetails)`${({ theme }) => css`
   }
 
   ${ActivityIcon} {
-    margin: calc((${theme.fonts.scale(3)} / 1.5 * ${theme.fonts.lineHeight} - 1em) / 2) 0.5rem;
+    margin: calc((${theme.fonts.size(4)} * ${theme.fonts.lineHeight} - 1em) / 2) 0.5rem;
   }
 
   h3 {
     color: ${theme.colors.text};
-    font-size: ${theme.fonts.scale(3)};
+    font-size: ${theme.fonts.size(4)};
     font-weight: normal;
     margin: 0;
   }

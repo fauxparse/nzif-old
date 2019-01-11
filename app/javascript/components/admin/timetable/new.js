@@ -25,12 +25,13 @@ const StyledDetails = styled.div`
 `
 
 const StyledDescription = styled.span`${({ theme }) => css`
+  font-size: ${theme.fonts.size(-1)};
   color: ${theme.colors.secondary};
 `}`
 
 const StyledHighlight = styled(Highlight)`${({ theme }) => css`
-  font-size: ${theme.fonts.scale(1)};
-  line-height: 1.5rem;
+  font-size: ${theme.fonts.size(1)};
+  line-height: ${theme.fonts.lineHeight}rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
