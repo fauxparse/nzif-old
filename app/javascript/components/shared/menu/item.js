@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 import { transition } from '../../../styles'
 import Icon, { ICONS } from '../../icons'
 import { Link } from '../ripple'
 
 export const StyledItem = styled.div`
   align-items: center;
-  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css('hsl')};
+  background-color: ${({ theme }) => theme.colors.hoverBackground.alpha(0)};
   color: inherit;
   cursor: pointer;
   display: flex;

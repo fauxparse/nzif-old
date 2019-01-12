@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 import Icon from '../icons'
 
 const AvatarContainer = styled.span`
-  background: ${({ theme }) => chroma(theme.colors.text).alpha(0.15).css('hsl')};
+  background: ${({ theme }) => theme.colors.text.alpha(0.15)};
   border-radius: 50%;
   height: 2.5em;
   padding: 0.5em;

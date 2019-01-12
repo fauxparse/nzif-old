@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 import { transition } from '../../../styles'
 
 const Content = styled.nav`
@@ -9,7 +8,7 @@ const Content = styled.nav`
   bottom: 0;
   min-width: 16em;
   padding: 0.5em 0;
-  background: ${({ theme }) => chroma(theme.colors.background).alpha(0.875).css('hsl')};
+  background: ${({ theme }) => theme.colors.background.alpha(0.875)};
   z-index: -2;
   box-shadow: ${({ theme }) => theme.shadow(0)};
   transition: ${transition('transform', 'box-shadow')};

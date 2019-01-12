@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
+import { Color } from './palette'
 
 export const id = PropTypes.oneOfType([
   PropTypes.number.isRequired,
@@ -11,6 +12,8 @@ export const ref = PropTypes.shape({
 })
 
 export const className = PropTypes.any
+
+export const color = PropTypes.instanceOf(Color)
 
 export const activityType = PropTypes.oneOf([
   'workshop',
@@ -35,6 +38,7 @@ export default {
   activity,
   activityType,
   className,
+  color,
   id,
   ref,
   session,

@@ -31,7 +31,7 @@ const findGroup = (key) =>
   GROUPS.find(([_name, ...patterns]) => patterns.find(pattern => pattern.test(key)))[0]
 
 const TransitionContainer = styled.div`
-  background: ${({ theme }) => `linear-gradient(to bottom, ${theme.colors.grey(100)}, ${theme.colors.grey(200)})`};
+  background: ${({ theme }) => `linear-gradient(to bottom, ${theme.colors.grey(300)}, ${theme.colors.grey(600)})`};
 `
 
 class RootPageTransition extends React.Component {

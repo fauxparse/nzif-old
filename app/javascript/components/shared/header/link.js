@@ -1,12 +1,11 @@
 import styled from 'styled-components'
-import chroma from 'chroma-js'
 import { transition } from '../../../styles'
 import Icon from '../../icons'
 import { Link } from '../ripple'
 
 const HeaderLink = styled(Link)`
   align-items: center;
-  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css('hsl')};
+  background-color: ${({ theme }) => theme.colors.hoverBackground.alpha(0)};
   border: 0;
   color: ${props => props.theme.colors.foreground};
   cursor: pointer;

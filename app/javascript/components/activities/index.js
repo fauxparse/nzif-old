@@ -14,6 +14,7 @@ export const ACTIVITIES_QUERY = gql`
 
       activities(type: $type) {
         id
+        type
         name
         url
       }

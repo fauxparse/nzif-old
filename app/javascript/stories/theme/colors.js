@@ -10,7 +10,7 @@ import Ripple from '../../components/shared/ripple'
 import { text } from '../../styles'
 
 const contrasting = color =>
-  chroma.contrast(color, 'white') >= 4.5 ? 'white' : 'black'
+  chroma.contrast(color.toString(), 'white') >= 4.5 ? 'white' : 'black'
 
 const Header = styled.div`
   ${text.branded}
@@ -56,20 +56,19 @@ const PaletteContainer = styled.div`
 class Palette extends React.PureComponent {
   render() {
     const { palette } = this.props.theme.colors
-    const names = Object.keys(palette)
-    const rows = 9
+    const names = palette.names()
+    const shades = palette.shades()
 
     return (
       <PaletteContainer
         columns={names.length}
-        rows={rows}
+        rows={shades.length}
         ref={el => el && new Clipboard(el.querySelectorAll('[data-clipboard-text]'))}
       >
         {flatMap(names, name => [
           <Header key={name} color={palette[name](500)}>{name}</Header>,
-          ...new Array(rows).fill(0).map((_, i) => {
-            const key = (i + 1) * 100
-            const css = palette[name](key)
+          ...shades.map(key => {
+            const css = palette[name](key).toString()
 
             return(
               <Chip

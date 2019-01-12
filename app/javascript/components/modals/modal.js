@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactModal from 'react-modal'
 import classNames from 'classnames'
 import { withTheme } from 'styled-components'
+import CommonProps from '../../lib/proptypes'
 import { DURATION } from '../../styles/transition'
 
 const elementClassName = (blocks, element, modifier) =>
@@ -26,8 +27,8 @@ class Modal extends React.Component {
     className: PropTypes.string,
     theme: PropTypes.shape({
       colors: PropTypes.shape({
-        foreground: PropTypes.string.isRequired,
-        modalBackground: PropTypes.string.isRequired,
+        foreground: CommonProps.color.isRequired,
+        modalBackground: CommonProps.color.isRequired,
       }).isRequired,
     }).isRequired,
   }

@@ -1,23 +1,22 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import chroma from 'chroma-js'
 
 const headerTheme = (theme) => {
   const { colors } = theme
-  const white = chroma('#ffffff')
-  const black = chroma('#000000')
+  const black = colors.black()
+  const white = colors.white()
 
   return {
     ...theme,
     colors: {
       ...colors,
-      foreground: white.css(),
+      foreground: white,
       background: colors.grey(900),
       text: white.alpha(colors.alpha.primary),
-      secondary: white.alpha(colors.alpha.secondary).css(),
-      disabled: white.alpha(colors.alpha.disabled).css(),
-      border: black.alpha(1 - colors.alpha.border).css(),
-      hoverBackground: black.alpha(colors.alpha.hover).css(),
+      secondary: white.alpha(colors.alpha.secondary),
+      disabled: white.alpha(colors.alpha.disabled),
+      border: black.alpha(1 - colors.alpha.border),
+      hoverBackground: black.alpha(colors.alpha.hover),
     },
   }
 }
