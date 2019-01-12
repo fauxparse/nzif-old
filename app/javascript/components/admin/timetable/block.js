@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components'
 import { transition } from '../../../styles'
 
 const Block = styled.div`${({ theme }) => css`
-  background: ${theme.colors.plum[300]};
-  border: 1px solid ${theme.colors.plum[500]};
+  background: ${theme.colors.plum(300)};
+  border: 1px solid ${theme.colors.plum(500)};
   margin: 1px;
   min-width: 1px;
   border-radius: 0.25em;
@@ -13,7 +13,7 @@ const Block = styled.div`${({ theme }) => css`
 
   &[aria-grabbed] {
     box-shadow: ${theme.shadow(8)};
-    background-color: ${theme.colors.plum[400]};
+    background-color: ${theme.colors.plum(500)};
   }
 `}`
 

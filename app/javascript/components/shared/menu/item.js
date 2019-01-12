@@ -8,7 +8,7 @@ import { Link } from '../ripple'
 
 export const StyledItem = styled.div`
   align-items: center;
-  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css()};
+  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css('hsl')};
   color: inherit;
   cursor: pointer;
   display: flex;

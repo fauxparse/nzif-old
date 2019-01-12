@@ -12,7 +12,7 @@ const headerTheme = (theme) => {
     colors: {
       ...colors,
       foreground: white.css(),
-      background: colors.grey[700],
+      background: colors.grey(900),
       text: white.alpha(colors.alpha.primary),
       secondary: white.alpha(colors.alpha.secondary).css(),
       disabled: white.alpha(colors.alpha.disabled).css(),

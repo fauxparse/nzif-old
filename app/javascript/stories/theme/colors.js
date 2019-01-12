@@ -57,24 +57,31 @@ class Palette extends React.PureComponent {
   render() {
     const { palette } = this.props.theme.colors
     const names = Object.keys(palette)
+    const rows = 9
+
     return (
       <PaletteContainer
         columns={names.length}
-        rows={Object.keys(palette[names[0]]).length}
+        rows={rows}
         ref={el => el && new Clipboard(el.querySelectorAll('[data-clipboard-text]'))}
       >
         {flatMap(names, name => [
-          <Header key={name} color={palette[name][500]}>{name}</Header>,
-          ...Object.keys(palette[name]).sort().map(key => (
-            <Chip
-              key={`${name}-${key}`}
-              color={palette[name][key]}
-              data-clipboard-text={palette[name][key]}
-            >
-              <b>{palette[name][key]}</b>
-              <small>{key}</small>
-            </Chip>
-          ))
+          <Header key={name} color={palette[name](500)}>{name}</Header>,
+          ...new Array(rows).fill(0).map((_, i) => {
+            const key = (i + 1) * 100
+            const css = palette[name](key)
+
+            return(
+              <Chip
+                key={`${name}-${key}`}
+                color={css}
+                data-clipboard-text={css}
+              >
+                <b>{css}</b>
+                <small>{key}</small>
+              </Chip>
+            )
+          })
         ])}
       </PaletteContainer>
     )

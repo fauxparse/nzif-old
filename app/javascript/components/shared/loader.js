@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css, keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import colors from '../../themes/colors'
 
 const offset = 201
@@ -23,12 +23,12 @@ const dash = keyframes`
 `
 
 const rainbow = keyframes`
-  0% { stroke: ${colors.tomato[500]}; }
-  17% { stroke: ${colors.mandarin[500]}; }
-  33% { stroke: ${colors.apple[500]}; }
-  50% { stroke: ${colors.mint[500]}; }
-  67% { stroke: ${colors.grape[500]}; }
-  83% { stroke: ${colors.plum[500]}; }
+  0% { stroke: ${colors.tomato()}; }
+  17% { stroke: ${colors.mandarin()}; }
+  33% { stroke: ${colors.apple()}; }
+  50% { stroke: ${colors.mint()}; }
+  67% { stroke: ${colors.grape()}; }
+  83% { stroke: ${colors.plum()}; }
 `
 
 const StyledLoader = styled.div`

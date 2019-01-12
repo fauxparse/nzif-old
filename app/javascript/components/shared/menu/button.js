@@ -15,7 +15,7 @@ const StyledButton = styled(Ripple).attrs(({ open }) => ({
   'aria-expanded': open,
 }))`
   align-items: center;
-  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css()};
+  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css('hsl')};
   cursor: pointer;
   display: flex;
   padding: 0.5em 1em;

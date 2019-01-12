@@ -4,7 +4,7 @@ import chroma from 'chroma-js'
 import { transition } from '../../styles'
 
 export default styled(Link)`
-  background-color: ${props => chroma(props.theme.colors.accent).alpha(0).css()};
+  background-color: ${props => chroma(props.theme.colors.accent).alpha(0).css('hsl')};
   border-radius: ${props => props.theme.layout.borderRadius};
   color: ${props => props.theme.colors.link};
   margin: 0 -0.25em;
@@ -15,6 +15,6 @@ export default styled(Link)`
   &:hover,
   &:focus {
     outline: none;
-    background-color: ${props => chroma(props.theme.colors.accent).alpha(0.15).css()};
+    background-color: ${props => chroma(props.theme.colors.accent).alpha(0.15).css('hsl')};
   }
 `

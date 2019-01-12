@@ -9,7 +9,7 @@ const Content = styled.nav`
   bottom: 0;
   min-width: 16em;
   padding: 0.5em 0;
-  background: ${({ theme }) => chroma(theme.colors.background).alpha(0.875).css()};
+  background: ${({ theme }) => chroma(theme.colors.background).alpha(0.875).css('hsl')};
   z-index: -2;
   box-shadow: ${({ theme }) => theme.shadow(0)};
   transition: ${transition('transform', 'box-shadow')};

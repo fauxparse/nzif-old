@@ -13,8 +13,8 @@ const Corner = styled.div`
   padding: 1.5em;
   background: ${({ theme }) => `linear-gradient(
     to right bottom,
-    ${theme.colors.plum[500]} 10%,
-    ${theme.colors.grape[500]} 50%,
+    ${theme.colors.plum(500)} 10%,
+    ${theme.colors.grape(800)} 50%,
     rgba(0, 0, 0, 0.15) 50%,
     rgba(0, 0, 0, 0) 55%
   )`};

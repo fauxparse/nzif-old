@@ -10,8 +10,8 @@ const iconOptions = () => icons.reduce(
 export const icon = (label = 'Icon', defaultValue = icons[0]) =>
   select(label, iconOptions(), defaultValue)
 
-const colorOptions = (value = 400) => Object.keys(colors.palette).reduce(
-  (options, name) => ({ ...options, [name]: colors.palette[name][value] }),
+const colorOptions = (value = 500) => Object.keys(colors.palette).reduce(
+  (options, name) => ({ ...options, [name]: colors.palette[name](value) }),
   { '(none)': null }
 )
 

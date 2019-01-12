@@ -4,7 +4,7 @@ import { invert } from '../../../styles'
 import merge from 'lodash/merge'
 
 const footerTheme = theme =>
-  merge(invert(theme), { colors: { background: theme.colors.grey[500] } })
+  merge(invert(theme), { colors: { background: theme.colors.grey(500) } })
 
 const Theme = ({ children }) => <ThemeProvider theme={footerTheme}>{children}</ThemeProvider>
 

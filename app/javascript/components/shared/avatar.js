@@ -4,7 +4,7 @@ import chroma from 'chroma-js'
 import Icon from '../icons'
 
 const AvatarContainer = styled.span`
-  background: ${({ theme }) => chroma(theme.colors.text).alpha(0.15).css()};
+  background: ${({ theme }) => chroma(theme.colors.text).alpha(0.15).css('hsl')};
   border-radius: 50%;
   height: 2.5em;
   padding: 0.5em;

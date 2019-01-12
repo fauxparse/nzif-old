@@ -7,9 +7,9 @@ import Context from './context'
 
 const themeBlock = (type, base) => css`
   &[data-type="${type}"] {
-    background: linear-gradient(to bottom, ${base[200]}, ${base[300]});
-    border-color: ${base[500]};
-    color: ${base[700]};
+    background: linear-gradient(to bottom, ${base(300)}, ${base(400)});
+    border-color: ${base(600)};
+    color: ${base(900)};
   }
 `
 

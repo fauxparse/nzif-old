@@ -8,8 +8,8 @@ const adminTheme = theme =>
     invert(theme),
     {
       colors: {
-        background: theme.colors.grey[600],
-        modalBackground: theme.colors.grey[700],
+        background: theme.colors.grey(800),
+        modalBackground: theme.colors.grey(900),
       }
     }
   )

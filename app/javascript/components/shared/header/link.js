@@ -6,7 +6,7 @@ import { Link } from '../ripple'
 
 const HeaderLink = styled(Link)`
   align-items: center;
-  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css()};
+  background-color: ${({ theme }) => chroma(theme.colors.hoverBackground).alpha(0).css('hsl')};
   border: 0;
   color: ${props => props.theme.colors.foreground};
   cursor: pointer;
