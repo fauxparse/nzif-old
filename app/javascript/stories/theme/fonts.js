@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, withTheme } from 'styled-components'
-import fonts, { BASE_SIZE } from '../../themes/fonts'
+import { BASE_SIZE } from '../../themes/fonts'
 
 const FontContainer = styled.div`
   padding: 2em;

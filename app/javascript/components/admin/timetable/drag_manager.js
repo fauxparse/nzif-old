@@ -197,7 +197,7 @@ export class Resize extends DragManager {
     this.publish('move', this.selection())
   }
 
-  stop = (e) => {
+  stop = () => {
     if (this.active) {
       this.publish('resize', this.selection())
     }

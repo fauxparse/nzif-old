@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import { graphql, compose } from 'react-apollo'
 import sortBy from 'lodash/sortBy'
@@ -10,13 +10,14 @@ import {
   ACTIVITY_QUERY,
 } from '../../../queries'
 import CommonProps from '../../../lib/proptypes'
+import moment from '../../../lib/moment'
 import { fullWidth } from '../../../styles'
 import Loader from '../../shared/loader'
 import { Tab, TabBar } from '../../shared/tabs'
 
-const StyledActivityDetails = styled.section`${({ theme }) => css`
+const StyledActivityDetails = styled.section`
   ${fullWidth}
-`}`
+`
 
 class ActivityDetails extends Component {
   static propTypes = {

@@ -59,7 +59,6 @@ export class TabBar extends Component {
 
   updateHighlight = throttle((animate = false) => {
     const container = this.container.current
-    const highlight = this.highlight.current
     const { selectedIndex } = this.state
     const currentTab = container.children[selectedIndex]
     const barWidth = container.offsetWidth
