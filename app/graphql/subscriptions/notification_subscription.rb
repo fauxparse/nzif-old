@@ -1,6 +1,6 @@
 module Types
   class SubscriptionType
-    field :notification, Types::NotificationType, null: true do
+    field :notification, Types::Notification, null: true do
       description 'A notification was received from the server'
       argument :user_id, ID, required: true
     end

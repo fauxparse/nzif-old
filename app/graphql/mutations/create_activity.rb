@@ -1,11 +1,11 @@
 module Mutations
   class CreateActivity < BaseMutation
     description 'Create an activity'
-    payload_type Types::ActivityType
+    payload_type Types::Activity
     null false
 
     argument :year, Integer, required: true
-    argument :type, Types::ActivityTypeType, required: true
+    argument :type, Types::ActivityType, required: true
     argument :attributes, Types::ActivityAttributes, required: true
 
     def resolve(year:, type:, attributes:)

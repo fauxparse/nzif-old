@@ -1,7 +1,7 @@
 module Mutations
   class CreateSession < BaseMutation
     description 'Create a session'
-    payload_type Types::SessionType
+    payload_type Types::Session
     null false
 
     argument :activity_id, ID, required: true
@@ -10,7 +10,7 @@ module Mutations
 
     def resolve(activity_id:, starts_at:, ends_at:)
       ::CreateSession.call(
-        activity: Activity.find(activity_id),
+        activity: ::Activity.find(activity_id),
         starts_at: starts_at,
         ends_at: ends_at
       ).session

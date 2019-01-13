@@ -1,13 +1,14 @@
 module Types
-  class ActivityType < Types::BaseObject
-    field :id, ID, null: false
-    field :name, String, null: false
-    field :type, ActivityTypeType, null: false
-    field :slug, String, null: false
-    field :description, String, null: true
-    field :festival, FestivalType, null: false
-    field :url, String, null: false
-    field :associated, [ActivityType], null: false
-    field :sessions, [SessionType], null: false
+  class ActivityType < BaseScalar
+    description 'A type of activity'
+    graphql_name 'ActivityType'
+
+    def self.coerce_input(input_value, _context)
+      input_value.presence&.camelize
+    end
+
+    def self.coerce_result(ruby_value, _context)
+      ruby_value.presence&.demodulize&.underscore
+    end
   end
 end

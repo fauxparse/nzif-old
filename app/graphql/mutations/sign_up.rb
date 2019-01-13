@@ -1,7 +1,7 @@
 module Mutations
   class SignUp < BaseMutation
     description 'Sign up as a new user'
-    payload_type Types::UserType
+    payload_type Types::User
     null true
 
     argument :name, String, required: true

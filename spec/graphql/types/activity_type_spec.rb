@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Types::ActivityTypeType do
+RSpec.describe Types::ActivityType do
   describe '.coerce_input' do
-    subject(:result) { Types::ActivityTypeType.coerce_input(input, {}) }
+    subject(:result) { Types::ActivityType.coerce_input(input, {}) }
 
     context 'given a valid type' do
       let(:input) { 'workshop' }
@@ -18,7 +18,7 @@ RSpec.describe Types::ActivityTypeType do
   end
 
   describe '.coerce_result' do
-    subject(:result) { Types::ActivityTypeType.coerce_result(ruby_value, {}) }
+    subject(:result) { Types::ActivityType.coerce_result(ruby_value, {}) }
 
     context 'given a valid type' do
       let(:ruby_value) { 'Workshop' }

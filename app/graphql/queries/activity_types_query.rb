@@ -1,6 +1,6 @@
 module Types
   class QueryType
-    field :activity_types, [ActivityTypeType], null: false do
+    field :activity_types, [ActivityType], null: false do
       description 'Get the list of available activity types'
     end
 

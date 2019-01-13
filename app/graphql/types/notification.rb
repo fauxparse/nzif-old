@@ -1,5 +1,5 @@
 module Types
-  class NotificationType < Types::BaseObject
+  class Notification < Types::BaseObject
     field :message, String, null: false
   end
 end

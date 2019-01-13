@@ -1,14 +1,14 @@
 module Types
   class QueryType
-    field :activity, ActivityType, null: false do
+    field :activity, Activity, null: false do
       description 'Get an activity by URL parameters'
       argument :year, Integer, required: true
-      argument :type, ActivityTypeType, required: true
+      argument :type, ActivityType, required: true
       argument :slug, String, required: true
     end
 
     def activity(year:, type:, slug:)
-      Festival.
+      ::Festival.
         by_year(year).
         first!.
         activities.

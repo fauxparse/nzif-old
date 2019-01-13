@@ -1,7 +1,7 @@
 module Mutations
   class LogIn < BaseMutation
     description 'Log in with a password'
-    payload_type Types::UserType
+    payload_type Types::User
     null true
 
     argument :email, String, required: true
