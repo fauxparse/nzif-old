@@ -24,7 +24,7 @@ RSpec.describe Mutations::CreateActivity, type: :mutation do
     }
   end
   let(:attributes) { { name: 'My Workshop' } }
-  let(:activity) { double(:workshop, name: 'My Workshop', slug: 'my-workshop') }
+  let(:activity) { create(:workshop, name: 'My Workshop', festival: festival) }
 
   it 'calls the CreateActivity service' do
     expect(CreateActivity).

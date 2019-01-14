@@ -3,13 +3,13 @@ module Types
     field :year, Integer, null: false
     field :start_date, Types::Date, null: false
     field :end_date, Types::Date, null: false
-    field :activities, [Activity], null: false do
+    field :activities, [Types::Activity], null: false do
       argument :type, ActivityType, 'Restrict activities by type', required: false
       argument :slug, String, 'Restrict activities by slug', required: false
     end
 
     def activities(type: nil, slug: nil)
-      scope = object.activities
+      scope = object.activities.order(:id)
       scope = scope.of_type(type) if type.present?
       scope = scope.where(slug: slug) if slug.present?
       scope
