@@ -16,3 +16,4 @@ en:
         at_or_before: 'must be at or before %{time}'
         at_or_after: 'must be at or after %{time}'
         at: 'must be %{time}'
+      invalid_level: 'cannot include ‘%{level}’'
