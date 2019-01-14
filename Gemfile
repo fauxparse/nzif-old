@@ -82,7 +82,7 @@ group :development do
 
   gem 'graphiql-rails'
 
-  gem 'pry-rails'
+  gem 'pry-rails', '~> 0.3.9'
 end
 
 group :test do
