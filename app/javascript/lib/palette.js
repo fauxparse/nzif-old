@@ -6,10 +6,6 @@ export class Color {
     this._alpha = alpha
   }
 
-  get shade() {
-    return this._shade
-  }
-
   get hue() {
     return this.values.hue
   }
@@ -30,8 +26,16 @@ export class Color {
   }
 
   alpha(alpha) {
-    const { palette, name, shade } = this
+    const { palette, name, _shade: shade } = this
     return new Color(palette, name, shade, alpha)
+  }
+
+  shade(shade) {
+    return this.palette.color(this.name, shade, this._alpha)
+  }
+
+  invert() {
+    return this.shade(1000 - this._shade);
   }
 
   toString() {

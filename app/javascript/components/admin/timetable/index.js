@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
@@ -9,6 +10,7 @@ import {
   UPDATE_SESSION_MUTATION,
   DELETE_SESSION_MUTATION,
 } from '../../../queries'
+import { media } from '../../../styles'
 import Loader from '../../shared/loader'
 import { Modal } from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
@@ -17,6 +19,19 @@ import Grid from './grid'
 import NewSession from './new'
 import SessionDetails from './session_details'
 import Styles from './styles'
+
+const Container = styled.section`
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  height: calc(100vh - 3.5rem);
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+
+  ${media.medium`
+    scroll-padding: 0 0 0 4.5em;
+  `}
+`
 
 class Timetable extends Component {
   state = {
@@ -128,7 +143,7 @@ class Timetable extends Component {
 
   activity = id => this.props.data.festival.activities.find(activity => activity.id === id)
 
-  render() {
+  renderContent() {
     const { data, history } = this.props
     const { loading, error, festival, activityTypes, sessions: sessionData } = data
 
@@ -185,6 +200,16 @@ class Timetable extends Component {
         </Context.Provider>
       )
     }
+  }
+
+  render() {
+    const { className } = this.props
+
+    return (
+      <Container className={className}>
+        {this.renderContent()}
+      </Container>
+    )
   }
 }
 

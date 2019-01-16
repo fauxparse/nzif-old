@@ -98,6 +98,7 @@ const secondary = palette.grey(900, alpha.secondary)
 const disabled = palette.grey(900, alpha.disabled)
 const border = palette.grey(900, alpha.border)
 const hoverBackground = palette.tomato(500, alpha.hover)
+const panelBackground = palette.grey(100)
 
 const brand = {
   accent,
@@ -107,6 +108,7 @@ const brand = {
   error,
   foreground,
   hoverBackground,
+  panelBackground,
   text,
   secondary,
   disabled,
@@ -114,6 +116,10 @@ const brand = {
   outline: palette.tomato(500, 0.25),
   ripple: palette.grey(300),
   scrim: palette.grey(900, 0.625),
+  beginner: palette.mint(),
+  intermediate: palette.grape(),
+  advanced: palette.plum(),
+  icon: palette.grey(400),
 }
 
 export default {

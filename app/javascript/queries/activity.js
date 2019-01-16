@@ -6,7 +6,12 @@ export default gql`
       id
       name
       type
+      slug
       url
+
+      ...on Workshop {
+        levels
+      }
 
       sessions {
         id

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import ICONS from './all'
 
 const Svg = styled.svg`
+  color: ${({ theme }) => theme.colors.icon};
   display: inline-block;
   font-size: 1.5em;
   width: 1em;
