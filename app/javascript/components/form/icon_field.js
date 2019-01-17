@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Transition } from 'react-transition-group'
 import Icon, { ICONS } from '../icons'
 import Loader from '../shared/loader'
+import Tooltip from '../shared/tooltip'
 import transition, { DURATION } from '../../styles/transition'
 
 const Contents = styled.div`
@@ -17,7 +18,6 @@ const FieldLoader = styled(Loader)`
   margin: -1.5rem;
   width: 3rem;
   height: 3rem;
-
   transition: ${transition('opacity')};
 
   svg {
@@ -31,8 +31,6 @@ const FieldLoader = styled(Loader)`
 `
 
 const FieldIcon = styled(Icon)`
-  flex: 0 0 auto;
-  margin: 0.5rem 1rem 0.5rem -2.5rem;
 `
 
 const Container = styled.label`
@@ -40,6 +38,14 @@ const Container = styled.label`
   align-items: flex-start;
   margin: 0 0 1.5rem;
   position: relative;
+
+  [data-tooltipped] {
+    flex: 0 0 auto;
+    margin: 0rem 0.5rem 0rem -3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+  }
 `
 
 const transitionStyles = {
@@ -51,12 +57,14 @@ const transitionStyles = {
 
 const IconField = ({ label, loading, icon, children, ...props }) => (
   <Container aria-label={label} {...props}>
-    <FieldIcon name={icon} />
-    <Transition in={loading} timeout={DURATION.standard} appear>
-      {state => (
-        <FieldLoader style={transitionStyles[state]} />
-      )}
-    </Transition>
+    <Tooltip title={label} style={{ display: 'block' }} animateFill={false} arrow={true}>
+      <FieldIcon name={icon} />
+      <Transition in={loading} timeout={DURATION.standard} appear>
+        {state => (
+          <FieldLoader style={transitionStyles[state]} />
+        )}
+      </Transition>
+    </Tooltip>
     <Contents>
       {children}
     </Contents>

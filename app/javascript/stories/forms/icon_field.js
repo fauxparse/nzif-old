@@ -2,7 +2,7 @@
 
 import React from 'react'
 import styled from 'styled-components'
-import { withKnobs, boolean, text } from '@storybook/addon-knobs'
+import { boolean } from '@storybook/addon-knobs'
 import { fullWidth } from '../../styles'
 import { IconField, Input } from '../../components/form'
 import { icon } from '../knobs'

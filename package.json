@@ -42,6 +42,7 @@
     "react-router-last-location": "^1.1.0",
     "react-router-prop-types": "^1.0.4",
     "react-textarea-autosize": "^7.1.0",
+    "react-tippy": "^1.2.3",
     "react-transition-group": "^2.5.0",
     "stickyfilljs": "^2.1.0",
     "styled-components": "^4.0.3",

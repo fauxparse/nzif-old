@@ -7,6 +7,7 @@ import shadow from './shadows'
 
 import { transitionStyles } from '../components/page_transition'
 import { modalStyles } from '../components/modals'
+import { tooltipStyles } from '../components/shared/tooltip'
 
 const noYuckyHighlight = css`
   -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
@@ -45,6 +46,8 @@ export const GlobalStyle = createGlobalStyle`${({ theme }) => css`
   ${transitionStyles}
 
   ${modalStyles}
+
+  ${tooltipStyles}
 `}`
 
 export default {
