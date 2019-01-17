@@ -6,7 +6,6 @@ import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { CURRENT_USER_QUERY } from '../../../queries'
-import { sidePadding } from '../../../styles/full_width'
 import { media } from '../../../styles'
 import Menu from '../menu'
 import User from './user'
@@ -15,11 +14,6 @@ import LogOutLink from './log_out'
 const MenuContent = styled(Menu.Content)`
   ${media.medium`
     left: auto;
-  `}
-
-  ${media.large`
-    right: ${sidePadding};
-    margin-right: -1rem;
   `}
 `
 

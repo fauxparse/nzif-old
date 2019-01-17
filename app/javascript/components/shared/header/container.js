@@ -6,8 +6,6 @@ import Logo from './logo'
 import HeaderLinks from './links'
 
 export default styled.header`
-  ${fullWidth}
-
   align-items: stretch;
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
@@ -40,17 +38,12 @@ export default styled.header`
     order: -1;
     border-radius: 0;
     flex: 0 0 auto;
-    margin-left: -1em;
     padding: 1em;
   }
 
   ${media.medium`
     ${MenuButton} {
       display: none;
-    }
-
-    ${Logo} {
-      margin-left: -1em;
     }
 
     ${HeaderLinks} {

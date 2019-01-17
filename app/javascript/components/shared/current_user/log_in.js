@@ -9,7 +9,6 @@ const LogIn = styled(Link).attrs({
 })`
   background: ${({ theme }) => theme.colors.hoverBackground};
   color: inherit;
-  margin-right: -1em;
   order: 1;
   transition: ${transition('background-color')};
 

@@ -8,7 +8,6 @@ const UserName = styled.span``
 
 const MenuButton = styled(Menu.Button)`
   order: 1;
-  margin-right: -1em;
   padding: 0.5em;
 
   ${UserName},
