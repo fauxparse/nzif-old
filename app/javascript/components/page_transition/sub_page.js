@@ -9,7 +9,9 @@ const isPrefix = (a, b) => b.substring(0, a.length) === a
 export default class SubPageTransition extends React.Component {
   state = { pageKey: '', transition: none }
 
-  static getDerivedStateFromProps({ pageKey, location: { state: locationState = {} } }, state) {
+  static getDerivedStateFromProps({ pageKey, location }, state) {
+    const { state: locationState = {} } = location || {}
+
     if (pageKey !== state.pageKey) {
       const oldPath = state.pageKey.replace(/\/$/, '')
       const newPath = pageKey.replace(/\/$/, '')
