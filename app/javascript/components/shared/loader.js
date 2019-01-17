@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import colors from '../../themes/colors'
 
-const offset = 201
+const offset = 202
 const duration = 1400
 
 const rotator = keyframes`
@@ -57,8 +57,8 @@ const StyledLoader = styled.div`
   }
 `
 
-const Loader = () => (
-  <StyledLoader>
+const Loader = (props) => (
+  <StyledLoader {...props}>
     <svg width="80px" height="80px" viewBox="-40 -40 80 80" xmlns="http://www.w3.org/2000/svg">
       <circle cx={0} cy={0} r={32} />
     </svg>

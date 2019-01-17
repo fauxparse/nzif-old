@@ -10,6 +10,7 @@ module Sluggable
       acts_as_url :name, sluggable_options
       auto_strip_attributes :name
       validates :name, :slug, presence: true
+      after_validation :ensure_unique_url, if: :slug?
       alias_method :to_param, :slug
 
       acts_as_url :name, sluggable_options.merge(options)

@@ -8,12 +8,14 @@ const LEVELS = ['beginner', 'intermediate', 'advanced']
 const StyledLevel = styled(Button)`${({ theme }) => css`
   font-size: ${theme.fonts.size(-1)};
   text-transform: capitalize;
-  line-height: 1.5rem;
+  line-height: 1rem;
   padding: 0.5rem 1rem;
+  margin: 0.25rem 0;
   border: 0;
+  border-radius: 1rem;
 
   &:not(:last-child) {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
   }
 
   ${LEVELS.map(level => css`

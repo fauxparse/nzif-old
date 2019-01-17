@@ -1,14 +1,13 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query Activity($year: Int!, $type: ActivityType!, $slug: String!) {
-    activity(year: $year, type: $type, slug: $slug) {
+  mutation UpdateActivity($id: ID!, $attributes: ActivityAttributes!) {
+    updateActivity(id: $id, attributes: $attributes) {
       id
       name
       type
       slug
       url
-      description
 
       ...on Workshop {
         levels

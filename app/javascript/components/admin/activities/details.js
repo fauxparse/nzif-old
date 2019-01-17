@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import styled from 'styled-components'
+import { generatePath } from 'react-router'
 import { Switch, Route, withRouter } from 'react-router-dom'
-import { graphql, compose } from 'react-apollo'
+import { graphql, compose, withApollo } from 'react-apollo'
 import sortBy from 'lodash/sortBy'
 import pluralize, { singular } from 'pluralize'
 import {
   ACTIVITY_QUERY,
+  UPDATE_ACTIVITY_MUTATION,
 } from '../../../queries'
 import CommonProps from '../../../lib/proptypes'
 import moment from '../../../lib/moment'
@@ -16,6 +18,7 @@ import Loader from '../../shared/loader'
 import { Tab, TabBar } from '../../shared/tabs'
 import TextLink from '../../shared/text_link'
 import Breadcrumbs from '../../shared/breadcrumbs'
+import noTransition from '../../page_transition/none'
 import Name from './name'
 import Slug from './slug'
 import Overview from './overview'
@@ -40,7 +43,10 @@ class ActivityDetails extends Component {
     activity: undefined,
   }
 
-  state = {}
+  state = {
+    slugLoading: false,
+    saving: false,
+  }
 
   componentDidUpdate(prevProps) {
     const { data: { activity } } = this.props
@@ -60,15 +66,38 @@ class ActivityDetails extends Component {
   }
 
   nameChanged = (e) => {
-    const { activity } = this.state
-    const name = e.target.value.replace(/[\r\n]/g, '')
-    this.setState({ activity: { ...activity, name } })
+    const name = e.target.value
+    if (name !== this.props.data.activity.name) {
+      this.updateActivity({ name })
+    }
   }
 
   slugChanged = (e) => {
-    const { activity } = this.state
     const slug = e.target.value
-    this.setState({ activity: { ...activity, slug } })
+    if (slug !== this.props.data.activity.slug) {
+      this.setState({ slugLoading: true })
+      this.updateActivity({ slug })
+        .then(({ data: { updateActivity } }) => {
+          const { history, match: { path } } = this.props
+          const [_, year, type, slug] = updateActivity.url.split('/')
+          history.replace(generatePath(path, { year, type, slug }), { transition: noTransition })
+          this.setState({ slugLoading: false })
+        })
+    }
+  }
+
+  updateActivity = (attributes) => {
+    const { activity } = this.props.data
+    const { id } = activity
+    const variables = { id, attributes }
+
+    this.setState({ saving: true })
+
+    return this.props.client.mutate({
+      mutation: UPDATE_ACTIVITY_MUTATION,
+      variables,
+      errorPolicy: 'all',
+    }).then(() => this.setState({ saving: false }))
   }
 
   renderContent() {
@@ -77,7 +106,7 @@ class ActivityDetails extends Component {
     if (data.loading || !this.state.activity) {
       return <Loader />
     } else {
-      const { activity } = this.state
+      const { activity, slugLoading, saving } = this.state
       const { sessions } = activity
       const { year } = match.params
 
@@ -86,10 +115,14 @@ class ActivityDetails extends Component {
           <Breadcrumbs back={`/admin/${year}/activities`}>
             <TextLink to={`/admin/${year}/activities`}>{pluralize(activity.type)}</TextLink>
           </Breadcrumbs>
-          <Name value={activity.name} onChange={this.nameChanged} />
+          <Name
+            value={activity.name}
+            onChange={this.nameChanged}
+          />
           <Slug
             root={`${window.location.origin}/${year}/${pluralize(activity.type)}`}
             value={activity.slug}
+            loading={slugLoading}
             onChange={this.slugChanged}
           />
           <TabBar>
@@ -103,7 +136,9 @@ class ActivityDetails extends Component {
             ))}
           </TabBar>
           <Switch location={location}>
-            <Route exact path={match.url} render={() => <Overview activity={activity} />} />
+            <Route exact path={match.url} render={() => (
+              <Overview activity={activity} saving={saving} onChange={this.updateActivity} />
+            )} />
           </Switch>
         </>
       )
@@ -123,6 +158,7 @@ class ActivityDetails extends Component {
 
 export default compose(
   withRouter,
+  withApollo,
   graphql(ACTIVITY_QUERY, {
     options: ({ match }) => {
       const { year, type, slug } = match.params

@@ -36,4 +36,17 @@ RSpec.describe Activity, type: :model do
 
     it { is_expected.to eq '/2018/workshops/werkshop' }
   end
+
+  describe '#slug=' do
+    let(:another) { create(:workshop, festival: activity.festival) }
+
+    before do
+      activity.save!
+      activity.update!(slug: another.slug)
+    end
+
+    it 'does not duplicate slugs' do
+      expect(activity.slug).not_to eq another.slug
+    end
+  end
 end

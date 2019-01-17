@@ -36,7 +36,11 @@ const Admin = ({ match }) => (
       <Header />
       <Route
         render={({ location }) => (
-          <PageTransition component={Page} pageKey={getPageKey(location.pathname)}>
+          <PageTransition
+            component={Page}
+            location={location}
+            pageKey={getPageKey(location.pathname)}
+          >
             <Switch location={location}>
               <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
               <Route path={`${match.path}/activities`} component={Timetable} />

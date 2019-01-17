@@ -6,19 +6,21 @@ import fade from './fade'
 
 const isPrefix = (a, b) => b.substring(0, a.length) === a
 
-export default class RootPageTransition extends React.Component {
+export default class SubPageTransition extends React.Component {
   state = { pageKey: '', transition: none }
 
-  static getDerivedStateFromProps({ pageKey }, state) {
+  static getDerivedStateFromProps({ pageKey, location: { state: locationState = {} } }, state) {
     if (pageKey !== state.pageKey) {
       const oldPath = state.pageKey.replace(/\/$/, '')
       const newPath = pageKey.replace(/\/$/, '')
 
-      const transition = isPrefix(oldPath, newPath)
-        ? left
-        : isPrefix(newPath, oldPath)
-          ? right
-          : fade
+      const transition =
+        locationState.transition ||
+        (isPrefix(oldPath, newPath)
+          ? left
+          : isPrefix(newPath, oldPath)
+            ? right
+            : fade)
 
       return { pageKey, transition }
     }

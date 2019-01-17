@@ -38,8 +38,8 @@
     "no-unused-vars": ["warn", {
       "ignoreRestSiblings": true,
       "argsIgnorePattern": "^_",
-      "varsIgnorePattern": "^React$"
+      "varsIgnorePattern": "^(React$|_)"
     }],
-    "react/prop-types": [2, { "ignore": ["children"] }]
+    "react/prop-types": [2, { "ignore": ["children", "history", "match", "client"] }]
   }
 }
