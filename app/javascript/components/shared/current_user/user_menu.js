@@ -78,11 +78,13 @@ class UserMenu extends React.Component {
         )}
         renderContent={({ ref, open }) => (
           <MenuContent ref={ref} aria-expanded={open}>
-            <Menu.Item
-              icon="admin"
-              text="Festival admin"
-              to={`/admin${year ? `/${year}` : ''}`}
-            />
+            {user.roles.indexOf('admin') > -1 && (
+              <Menu.Item
+                icon="admin"
+                text="Festival admin"
+                to={`/admin${year ? `/${year}` : ''}`}
+              />
+            )}
             <Menu.Item icon="user" text="Profile" to="/profile" />
             <Menu.Separator />
             <Menu.Item as={LogOutLink} icon="log-out" text="Log out" />
