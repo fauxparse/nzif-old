@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe CreateActivity, type: :interactor do
-  subject(:result) { CreateActivity.call(festival: festival, attributes: attributes) }
+  subject(:result) do
+    CreateActivity.call(current_user: user, festival: festival, attributes: attributes)
+  end
 
   let(:festival) { FactoryBot.create(:festival) }
+  let(:user) { create(:admin) }
 
   describe '.call' do
     context 'with valid attributes' do

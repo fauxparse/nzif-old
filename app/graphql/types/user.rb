@@ -4,6 +4,7 @@ module Types
     field :name, String, null: false
     field :email, String, null: false
     field :notifications_count, Integer, null: false
+    field :roles, [UserRole], null: false
 
     def notifications_count
       0

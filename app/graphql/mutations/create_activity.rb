@@ -10,6 +10,7 @@ module Mutations
 
     def resolve(year:, type:, attributes:)
       ::CreateActivity.call(
+        current_user: current_user,
         festival: festival_by_year(year),
         attributes: attributes.to_h.merge(type: type)
       ).activity

@@ -1,7 +1,7 @@
-class CreateSession
-  include Interactor
-
+class CreateSession < Interaction
   def call
+    access_denied! unless can? :create, session
+
     session.save!
   end
 

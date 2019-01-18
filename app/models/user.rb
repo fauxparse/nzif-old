@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Authorisable
+
   has_many :identities, dependent: :destroy, autosave: true
 
   validates :name, :email, presence: true

@@ -9,5 +9,9 @@ FactoryBot.define do
         user.identities.build(attributes_for(:password))
       end
     end
+
+    factory :admin do
+      roles %w(admin)
+    end
   end
 end

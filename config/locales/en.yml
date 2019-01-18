@@ -17,3 +17,4 @@ en:
         at_or_after: 'must be at or after %{time}'
         at: 'must be %{time}'
       invalid_level: 'cannot include ‘%{level}’'
+      invalid_role: 'cannot include ‘%{role}’'

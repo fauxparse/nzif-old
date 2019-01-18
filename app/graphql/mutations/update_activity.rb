@@ -9,6 +9,7 @@ module Mutations
 
     def resolve(id:, attributes:)
       ::UpdateActivity.call(
+        current_user: current_user,
         activity: ::Activity.find(id),
         attributes: attributes.to_h
       ).activity

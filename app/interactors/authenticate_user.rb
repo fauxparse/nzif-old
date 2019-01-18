@@ -1,6 +1,4 @@
-class AuthenticateUser
-  include Interactor
-
+class AuthenticateUser < Interaction
   def call
     if authenticated?
       context.user = user

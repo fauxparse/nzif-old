@@ -49,6 +49,9 @@ gem 'hashid-rails'
 # Service objects
 gem 'interactor-rails'
 
+# Authorization
+gem 'access-granted'
+
 gem 'jwt'
 
 group :development, :test do

@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe UpdateActivity, type: :interactor do
-  subject(:result) { UpdateActivity.call(activity: activity, attributes: attributes) }
+  subject(:result) do
+    UpdateActivity.call(current_user: user, activity: activity, attributes: attributes)
+  end
 
+  let(:user) { create(:admin) }
   let(:activity) { create(:workshop) }
 
   describe '.call' do
@@ -13,6 +16,14 @@ RSpec.describe UpdateActivity, type: :interactor do
 
       it 'changes the activity name' do
         expect { result }.to change { activity.reload.name }.to 'Updated'
+      end
+
+      context 'with insufficient permissions' do
+        let(:user) { create(:user) }
+
+        it 'denies access' do
+          expect { result }.to raise_error Interaction::AccessDenied
+        end
       end
     end
 

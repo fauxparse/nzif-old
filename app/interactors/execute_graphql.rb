@@ -1,6 +1,4 @@
-class ExecuteGraphql
-  include Interactor
-
+class ExecuteGraphql < Interaction
   def call
     context.response = response
     context.status = :ok

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Mutations::UpdateSession, type: :mutation do
   subject(:result) do
-    execute_query(query, variables: variables)
+    execute_query(query, variables: variables, as: user)
   end
 
   let(:session) { create(:session) }
@@ -25,6 +25,7 @@ RSpec.describe Mutations::UpdateSession, type: :mutation do
       endsAt: ends_at.iso8601,
     }
   end
+  let(:user) { create(:admin) }
 
   context 'with valid attributes' do
     let(:updated_session) do
@@ -34,7 +35,7 @@ RSpec.describe Mutations::UpdateSession, type: :mutation do
     it 'calls the UpdateSession service' do
       expect(UpdateSession).
         to receive(:call).
-        with(session: session, starts_at: starts_at, ends_at: ends_at).
+        with(current_user: user, session: session, starts_at: starts_at, ends_at: ends_at).
         and_return(Interactor::Context.build(session: updated_session))
       expect(result.dig(:data, :update_session, :starts_at)).to eq starts_at.iso8601
     end

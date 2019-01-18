@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe UpdateSession, type: :interactor do
   subject(:result) do
-    UpdateSession.call(session: session, starts_at: starts_at, ends_at: ends_at)
+    UpdateSession.call(current_user: user, session: session, starts_at: starts_at, ends_at: ends_at)
   end
 
   let(:session) { FactoryBot.create(:session) }
   let(:starts_at) { session.starts_at + 1.hour }
   let(:ends_at) { session.ends_at }
+  let(:user) { create(:admin) }
 
   describe '.call' do
     context 'with valid attributes' do

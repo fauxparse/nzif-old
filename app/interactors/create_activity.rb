@@ -1,7 +1,7 @@
-class CreateActivity
-  include Interactor
-
+class CreateActivity < Interaction
   def call
+    access_denied! unless can? :create, activity
+
     activity.save!
     context.activity = activity
   end

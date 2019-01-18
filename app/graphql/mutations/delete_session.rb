@@ -7,7 +7,10 @@ module Mutations
     argument :id, ID, required: true
 
     def resolve(id:)
-      ::DeleteSession.call(session: Session.find(id)).success?
+      ::DeleteSession.call(
+        current_user: current_user,
+        session: Session.find(id)
+      ).success?
     rescue ActiveRecord::RecordNotFound
       false
     end

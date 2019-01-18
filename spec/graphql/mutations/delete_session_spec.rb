@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Mutations::DeleteSession, type: :mutation do
   subject(:result) do
-    execute_query(query, variables: variables)
+    execute_query(query, variables: variables, as: user)
   end
 
   let(:query) do
@@ -18,6 +18,7 @@ RSpec.describe Mutations::DeleteSession, type: :mutation do
     }
   end
   let(:session) { double(:session, id: 123) }
+  let(:user) { create(:admin) }
 
   context 'when the session exists' do
     before do
@@ -27,7 +28,7 @@ RSpec.describe Mutations::DeleteSession, type: :mutation do
     it 'calls the DeleteSession service and returns true' do
       expect(DeleteSession).
         to receive(:call).
-        with(session: session).
+        with(current_user: user, session: session).
         and_return(Interactor::Context.build)
       expect(result.dig(:data, :delete_session)).to be true
     end

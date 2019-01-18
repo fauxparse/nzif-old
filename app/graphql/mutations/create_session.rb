@@ -10,6 +10,7 @@ module Mutations
 
     def resolve(activity_id:, starts_at:, ends_at:)
       ::CreateSession.call(
+        current_user: current_user,
         activity: ::Activity.find(activity_id),
         starts_at: starts_at,
         ends_at: ends_at

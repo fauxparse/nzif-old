@@ -1,7 +1,7 @@
-class UpdateActivity
-  include Interactor
-
+class UpdateActivity < Interaction
   def call
+    access_denied! unless can? :update, activity
+
     activity.update!(attributes)
   end
 

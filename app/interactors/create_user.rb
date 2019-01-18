@@ -1,6 +1,4 @@
-class CreateUser
-  include Interactor
-
+class CreateUser < Interaction
   def call
     user.save!
     context.user = user
