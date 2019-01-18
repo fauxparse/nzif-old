@@ -3,6 +3,12 @@ import { graphql } from 'react-apollo'
 import { CURRENT_USER_QUERY } from '../../../queries'
 import UserMenu from './user_menu'
 import LogIn from './log_in'
+import { CurrentUserContext, CurrentUserProvider } from './context'
+
+export {
+  CurrentUserContext,
+  CurrentUserProvider,
+}
 
 const User = ({ data, loading, ...props }) => {
   if (loading) {

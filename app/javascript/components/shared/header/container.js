@@ -1,8 +1,6 @@
 import styled from 'styled-components'
-import { fullWidth } from '../../../styles'
 import { media } from '../../../styles'
 import MenuButton from './menu_button'
-import Logo from './logo'
 import HeaderLinks from './links'
 
 export default styled.header`
