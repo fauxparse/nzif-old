@@ -11,6 +11,7 @@ module Types
     field :url, String, null: false
     field :associated, [Types::Activity], null: false
     field :sessions, [Session], null: false
+    field :image, ActivityImage, null: true
 
     def resolve_type(object, context)
       case object
@@ -19,6 +20,10 @@ module Types
       else
         raise "Unexpected object: #{object.inspect}"
       end
+    end
+
+    def image
+      object.image.attached? ? object.image : nil
     end
   end
 end

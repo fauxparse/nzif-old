@@ -13,6 +13,7 @@ module Types
         first!.
         activities.
         of_type(type).
+        with_attached_image.
         find_by!(slug: slug)
     end
   end

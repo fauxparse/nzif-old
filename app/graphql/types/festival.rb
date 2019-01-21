@@ -9,7 +9,7 @@ module Types
     end
 
     def activities(type: nil, slug: nil)
-      scope = object.activities.order(:id)
+      scope = object.activities.with_attached_image.order(:id)
       scope = scope.of_type(type) if type.present?
       scope = scope.where(slug: slug) if slug.present?
       scope

@@ -6,6 +6,7 @@ class Activity < ApplicationRecord
   has_many :associated,
     -> (activity) { unscope(:where).associated_with(activity) },
     class_name: 'Activity'
+  has_one_attached :image
 
   sluggable scope: %i(festival_id type)
 

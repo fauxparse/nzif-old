@@ -57,7 +57,7 @@ const transitionStyles = {
 
 const IconField = ({ label, loading, icon, children, ...props }) => (
   <Container aria-label={label} {...props}>
-    <Tooltip title={label} style={{ display: 'block' }} animateFill={false} arrow={true}>
+    <Tooltip title={label}>
       <FieldIcon name={icon} />
       <Transition in={loading} timeout={DURATION.standard} appear>
         {state => (

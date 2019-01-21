@@ -6,6 +6,7 @@ import CommonProps from '../../../lib/proptypes'
 import { IconField, Textarea } from '../../form'
 import Button from '../../button'
 import Levels from './levels'
+import ImageUpload from './image_upload'
 
 const OverviewSection = styled.section`
   padding: 1.5rem 0;
@@ -25,7 +26,15 @@ class Overview extends Component {
   state = {
     description: this.props.activity.description,
     levels: this.props.activity.levels,
+    existingImage: this.props.activity.image,
     changed: false,
+  }
+
+  componentDidUpdate(prevProps) {
+    const { activity = {} } = this.props
+    if (activity !== prevProps.activity) {
+      this.setState({ existingImage: activity.image })
+    }
   }
 
   levelClicked = (e) => {
@@ -42,11 +51,19 @@ class Overview extends Component {
 
   descriptionChanged = (e) => this.setState({ description: e.target.value, changed: true })
 
+  imageChanged = (image) => {
+    this.setState({ image, changed: true })
+    if (!image) {
+      this.setState({ existingImage: null })
+    }
+  }
+
   save = () => {
     this.props.onChange(
       pick(this.state, [
         'description',
         this.props.activity.levels && 'levels',
+        this.state.hasOwnProperty('image') && 'image',
       ].filter(Boolean))
     )
     this.setState({ changed: false })
@@ -54,7 +71,7 @@ class Overview extends Component {
 
   render() {
     const { saving } = this.props
-    const { description, levels, changed } = this.state
+    const { description, levels, existingImage, changed } = this.state
 
     return (
       <OverviewSection>
@@ -63,8 +80,9 @@ class Overview extends Component {
             <Levels levels={levels} onClick={this.levelClicked} />
           </IconField>
         )}
+        <ImageUpload image={existingImage} onChange={this.imageChanged} />
         <IconField icon="text" label="Description">
-          <Textarea value={description} minRows={5} onChange={this.descriptionChanged} />
+          <Textarea value={description || ''} minRows={5} onChange={this.descriptionChanged} />
         </IconField>
         <Button
           primary

@@ -6,6 +6,7 @@ export default [
   'close',
   'copy',
   'development',
+  'image',
   'levels',
   'link',
   'log-out',

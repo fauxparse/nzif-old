@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { applyStyleModifiers } from 'styled-components-modifiers'
@@ -9,7 +9,7 @@ import Text from './text'
 import Icon from './icon'
 import identity from 'lodash/identity'
 
-const StyledButton = styled.button`${({ theme }) => css`
+export const StyledButton = styled.button`${({ theme }) => css`
   align-items: center;
   appearance: none;
   background: none;
@@ -46,11 +46,11 @@ const StyledButton = styled.button`${({ theme }) => css`
   ${applyStyleModifiers(MODIFIERS)}
 `}`
 
-const Button = React.forwardRef(({ text, icon, children, primary, ...props }, ref) => {
+const Button = forwardRef(({ as = StyledButton, text, icon, children, primary, ...props }, ref) => {
   const modifiers = [primary && 'primary', icon && !text && 'icon'].filter(identity)
 
   return (
-    <Ripple {...props} as={StyledButton} ref={ref} modifiers={modifiers}>
+    <Ripple {...props} as={as} ref={ref} modifiers={modifiers}>
       {children}
       {icon && <Icon name={icon} />}
       {text && <Text>{text}</Text>}
