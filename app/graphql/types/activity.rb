@@ -10,7 +10,7 @@ module Types
     field :festival, Types::Festival, null: false
     field :url, String, null: false
     field :associated, [Types::Activity], null: false
-    field :sessions, [Session], null: false
+    field :sessions, [Types::Session], null: false
 
     def resolve_type(object, context)
       case object

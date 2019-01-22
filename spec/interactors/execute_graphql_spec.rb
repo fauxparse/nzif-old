@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'support/pretend_environment'
 
 RSpec.describe ExecuteGraphql, type: :interactor do

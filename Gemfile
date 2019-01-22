@@ -71,6 +71,8 @@ group :development, :test do
   gem 'guard-eslint', github: 'fauxparse/guard-eslint', branch: 'check-empty-paths'
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false
+
+  gem 'parallel_tests'
 end
 
 group :development do
