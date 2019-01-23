@@ -6,7 +6,7 @@ import CommonProps from '../../../lib/proptypes'
 import { IconField, Textarea } from '../../form'
 import Button from '../../button'
 import Levels from './levels'
-import ImageUpload from './image_upload'
+import { ImageUpload } from '../../form'
 
 const OverviewSection = styled.section`
   padding: 1.5rem 0;

@@ -11,7 +11,7 @@ const Svg = styled.svg`
   height: 1em;
   fill: none;
   stroke: currentColor;
-  stroke-width: 0.083333333em;
+  stroke-width: 2px;
   stroke-linecap: round;
   stroke-linejoin: round;
 `

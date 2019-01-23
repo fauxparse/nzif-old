@@ -126,9 +126,7 @@ class ActivityDetails extends Component {
             onChange={this.slugChanged}
           />
           <TabBar>
-            <Tab to={match.url}>
-              <span>Overview</span>
-            </Tab>
+            <Tab to={match.url}><span>Details</span></Tab>
             {sessions.map(session => (
               <Tab to={`${match.url}/${session.id}`} key={session.id}>
                 <span>{session.startsAt.format('ddd h:mm A')}</span>
