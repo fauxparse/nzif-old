@@ -13,7 +13,7 @@ const adminTheme = theme =>
         text: theme.colors.grey(100),
         secondary: theme.colors.grey(400),
         disabled: theme.colors.grey(600),
-        modalBackground: theme.colors.grey(900),
+        modalBackground: theme.colors.grey(800),
         outline: theme.colors.outline.alpha(0.625),
         panelBackground: theme.colors.grey(900),
         icon: theme.colors.grey(600),
