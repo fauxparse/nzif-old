@@ -7,6 +7,19 @@ import { media } from '../../../styles'
 import Day from './day'
 import Times from './times'
 
+const StyledGrid = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  height: calc(100vh - 3.5rem);
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+
+  ${media.medium`
+    scroll-padding: 0 0 0 4.5em;
+  `}
+`
+
 const StyledTimes = styled(Times)`${({ theme }) => css`
   display: none;
 
@@ -36,9 +49,9 @@ const StyledDay = styled(Day)`
   `}
 `
 
-const Grid = ({ days, sessions, selection, onSessionClick }) => {
+const Grid = ({ days, sessions, selection, selectedId, onSessionClick, ...props }) => {
   return (
-    <>
+    <StyledGrid {...props}>
       <StyledTimes />
       {days.map(day => (
         <StyledDay
@@ -50,7 +63,7 @@ const Grid = ({ days, sessions, selection, onSessionClick }) => {
           onSessionClick={onSessionClick}
         />
       ))}
-    </>
+    </StyledGrid>
   )
 }
 

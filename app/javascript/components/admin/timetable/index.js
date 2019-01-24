@@ -23,14 +23,9 @@ import Styles from './styles'
 const Container = styled.section`
   flex: 1;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
+  justify-content: stretch;
   height: calc(100vh - 3.5rem);
-  overflow: auto;
-  scroll-snap-type: x mandatory;
-
-  ${media.medium`
-    scroll-padding: 0 0 0 4.5em;
-  `}
 `
 
 class Timetable extends Component {
