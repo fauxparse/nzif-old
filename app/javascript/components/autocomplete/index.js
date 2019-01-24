@@ -23,12 +23,6 @@ const search = (value, options) => {
   }
 }
 
-const Empty = styled.div`${({ theme }) => css`
-  text-align: center;
-  color: ${theme.colors.secondary};
-  padding: 1rem;
-`}`
-
 class Autocomplete extends Component {
   static propTypes = {
     search: PropTypes.func,
@@ -38,13 +32,16 @@ class Autocomplete extends Component {
         value: PropTypes.any.isRequired
       }).isRequired
     ).isRequired,
-    menuItemComponent: PropTypes.func,
+    autoFocus: PropTypes.bool,
+    inputComponent: PropTypes.any,
+    menuItemComponent: PropTypes.any,
     placeholder: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
-    search
+    search,
+    autoFocus: true,
   }
 
   state = {
@@ -131,35 +128,39 @@ class Autocomplete extends Component {
   }
 
   render() {
-    const { menuItemComponent, placeholder } = this.props
+    const {
+      inputComponent: InputComponent = Input,
+      menuItemComponent,
+      placeholder,
+      autoFocus,
+    } = this.props
     const { value, matches, selected, selectedIndex } = this.state
 
     return (
       <Fragment>
-        <Input
-          autoFocus
+        <InputComponent
+          autoFocus={autoFocus}
           value={value}
           placeholder={(selected ? selected.label : placeholder) || ''}
           onChange={this.inputChanged}
           onKeyDown={this.inputKeyDown}
         />
         {value.length ? (
-          matches.length ? (
-            <Menu
-              options={matches}
-              selectedIndex={selectedIndex}
-              selectedText={value}
-              menuItemComponent={menuItemComponent}
-              ref={this.menuRef}
-              onClick={this.clicked}
-            />
-          ) : (
-            <Empty>(No matches)</Empty>
-          )
+          <Menu
+            options={matches}
+            selectedIndex={selectedIndex}
+            selectedText={value}
+            menuItemComponent={menuItemComponent}
+            ref={this.menuRef}
+            onClick={this.clicked}
+          />
         ) : null}
       </Fragment>
     )
   }
 }
+
+Autocomplete.Input = Input
+Autocomplete.Menu = Menu
 
 export default Autocomplete

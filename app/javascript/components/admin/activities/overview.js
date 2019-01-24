@@ -44,7 +44,12 @@ class Overview extends Component {
 
   descriptionChanged = (e) => this.setState({ description: e.target.value, changed: true })
 
-  presentersChanged = (presenters) => this.setState({ presenters, changed: true })
+  presentersChanged = (presenters) => {
+    this.setState({
+      presenters: presenters.map(p => pick(p, ['id', 'name'])),
+      changed: true
+    })
+  }
 
   save = () => {
     this.props.onChange(

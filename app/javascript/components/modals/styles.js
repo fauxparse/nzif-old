@@ -32,6 +32,19 @@ export default ({ theme }) => css`
       max-width: 30rem;
       height: auto;
     `}
+
+    &.modal--autocomplete {
+      top: 25vh;
+      transform: translate3d(-50%, 25vh, 0);
+
+      &--opening {
+        transform: translate3d(-50%, 0, 0);
+      }
+
+      &--closing {
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
   }
 
   .modal__overlay {

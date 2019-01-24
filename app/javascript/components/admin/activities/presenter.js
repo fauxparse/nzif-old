@@ -36,13 +36,10 @@ const StyledPresenter = styled.div`${({ theme }) => css`
   display: flex;
   align-items: center;
   border-radius: 1.25rem;
+  margin: 0.25rem;
   background: ${theme.colors.grey(700)};
   box-shadow: 0 0 0 0 ${theme.colors.outline.alpha(0)};
   transition: ${transition('box-shadow')};
-
-  &:not(:last-child) {
-    margin-right: 1rem;
-  }
 
   &:focus-within {
     box-shadow: 0 0 0 0.25em ${theme.colors.outline};

@@ -1,6 +1,6 @@
 import React, { Component, forwardRef } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import CommonProps from '../../lib/proptypes'
 import MenuItem from './menu_item'
 
@@ -11,6 +11,12 @@ export const StyledMenu = styled.ul`
   max-height: 20em;
   overflow-y: auto;
 `
+
+const Empty = styled.li`${({ theme }) => css`
+  text-align: center;
+  color: ${theme.colors.secondary};
+  padding: 1rem;
+`}`
 
 class Menu extends Component {
   static propTypes = {
@@ -42,15 +48,18 @@ class Menu extends Component {
 
     return (
       <StyledMenu ref={menuRef}>
-        {options.map((option, i) => (
-          <MenuItemComponent
-            key={JSON.stringify(option.value)}
-            selected={selectedIndex === i}
-            selectedText={selectedText}
-            onClick={onClick}
-            {...option}
-          />
-        ))}
+        {options.length
+          ? options.map((option, i) => (
+              <MenuItemComponent
+                key={JSON.stringify(option.value)}
+                selected={selectedIndex === i}
+                selectedText={selectedText}
+                onClick={onClick}
+                {...option}
+              />
+            ))
+          : <Empty>(No matches)</Empty>
+        }
       </StyledMenu>
     )
   }

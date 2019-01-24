@@ -168,7 +168,7 @@ class Timetable extends Component {
           <Modal
             isOpen={!!newSession}
             onRequestClose={this.cancelAdd}
-            className="new-session"
+            className="modal--autocomplete"
           >
             <NewSession
               {...newSession}
