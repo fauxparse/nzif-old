@@ -20,6 +20,17 @@ export const activityType = PropTypes.oneOf([
   'show',
 ])
 
+export const role = PropTypes.oneOf([
+  'admin',
+])
+
+export const user = PropTypes.shape({
+  id: id.isRequired,
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string,
+  roles: PropTypes.arrayOf(role.isRequired),
+})
+
 export const activity = PropTypes.shape({
   id: id.isRequired,
   name: PropTypes.string.isRequired,
@@ -27,6 +38,7 @@ export const activity = PropTypes.shape({
   url: PropTypes.string,
   levels: PropTypes.arrayOf(PropTypes.string),
   description: PropTypes.string,
+  presenters: PropTypes.arrayOf(user.isRequired).isRequired,
 })
 
 export const session = PropTypes.shape({
@@ -44,4 +56,5 @@ export default {
   id,
   ref,
   session,
+  user,
 }

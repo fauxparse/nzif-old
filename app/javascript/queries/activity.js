@@ -14,6 +14,11 @@ export default gql`
         levels
       }
 
+      presenters {
+        id
+        name
+      }
+
       sessions {
         id
         startsAt

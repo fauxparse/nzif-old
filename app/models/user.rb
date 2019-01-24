@@ -2,6 +2,7 @@ class User < ApplicationRecord
   include Authorisable
 
   has_many :identities, dependent: :destroy, autosave: true
+  has_many :presenters, dependent: :destroy, autosave: true
 
   validates :name, :email, presence: true
   validates :email, email: true, uniqueness: { case_sensitive: false }, if: :email?

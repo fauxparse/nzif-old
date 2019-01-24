@@ -18,11 +18,11 @@ const Svg = styled.svg`
 
 class Icon extends React.PureComponent {
   render() {
-    const { children, name, className, ...props } = this.props
+    const { children, name, className, viewBox = '0 0 24 24', ...props } = this.props
 
     if (children || name) {
       return (
-        <Svg className={className} {...props}>
+        <Svg className={className} viewBox={viewBox} {...props}>
           {children || <use xlinkHref={`#icon-${name}`} />}
         </Svg>
       )

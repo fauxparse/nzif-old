@@ -1,6 +1,6 @@
 import Palette from '../lib/palette'
 
-const palette = new Palette({
+export const palette = new Palette({
   grey: {
     '100': [206, 28, 95],
     '200': [208, 30, 91],

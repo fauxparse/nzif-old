@@ -14,6 +14,7 @@ export const LOG_IN_MUTATION = gql`
     logIn(email: $email, password: $password) {
       id
       name
+      roles
       email
       notificationsCount
     }

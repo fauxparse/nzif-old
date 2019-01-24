@@ -5,6 +5,7 @@ import pick from 'lodash/pick'
 import CommonProps from '../../../lib/proptypes'
 import { IconField, Textarea } from '../../form'
 import Button from '../../button'
+import Presenters from './presenters'
 import Levels from './levels'
 
 const OverviewSection = styled.section`
@@ -24,7 +25,8 @@ class Overview extends Component {
 
   state = {
     description: this.props.activity.description,
-    levels: this.props.activity.levels,
+    presenters: this.props.activity.presenters.slice(0),
+    levels: this.props.activity.levels.slice(0),
     changed: false,
   }
 
@@ -42,10 +44,13 @@ class Overview extends Component {
 
   descriptionChanged = (e) => this.setState({ description: e.target.value, changed: true })
 
+  presentersChanged = (presenters) => this.setState({ presenters, changed: true })
+
   save = () => {
     this.props.onChange(
       pick(this.state, [
         'description',
+        'presenters',
         this.props.activity.levels && 'levels',
       ].filter(Boolean))
     )
@@ -53,11 +58,18 @@ class Overview extends Component {
   }
 
   render() {
-    const { saving } = this.props
-    const { description, levels, changed } = this.state
+    const { activity, saving } = this.props
+    const { description, presenters, levels, changed } = this.state
 
     return (
       <OverviewSection>
+        <IconField icon="user" label="Presenters">
+          <Presenters
+            activity={activity}
+            presenters={presenters}
+            onChange={this.presentersChanged}
+          />
+        </IconField>
         {levels && (
           <IconField icon="levels" label="Relevant experience levels">
             <Levels levels={levels} onClick={this.levelClicked} />

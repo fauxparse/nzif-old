@@ -5,6 +5,6 @@ module Types
     argument :slug, String, required: false
     argument :description, String, required: false
     argument :levels, [WorkshopLevel], required: false
-    argument :presenters, [ID], required: false
+    argument :presenters, [UserAttributes], required: false
   end
 end

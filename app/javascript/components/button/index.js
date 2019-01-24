@@ -15,6 +15,7 @@ const StyledButton = styled.button`${({ theme }) => css`
   background: none;
   border: 1px solid currentColor;
   border-radius: ${theme.layout.borderRadius};
+  box-shadow: 0 0 0 0 ${theme.colors.outline.alpha(0)};
   color: ${theme.colors.accent};
   cursor: pointer;
   display: flex;
