@@ -11,6 +11,7 @@ module Types
     field :url, String, null: false
     field :associated, [Types::Activity], null: false
     field :sessions, [Types::Session], null: false
+    field :presenters, [Types::User], null: false
 
     def resolve_type(object, context)
       case object
@@ -19,6 +20,10 @@ module Types
       else
         raise "Unexpected object: #{object.inspect}"
       end
+    end
+
+    def presenters
+      object.presenters.includes(:user).map(&:user)
     end
   end
 end

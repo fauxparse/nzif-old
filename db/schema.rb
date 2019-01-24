@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_17_225257) do
+ActiveRecord::Schema.define(version: 2019_01_23_213628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 2019_01_17_225257) do
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
+  create_table "presenters", force: :cascade do |t|
+    t.bigint "activity_id"
+    t.bigint "user_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_presenters_on_activity_id"
+    t.index ["user_id"], name: "index_presenters_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "activity_id"
     t.datetime "starts_at"
@@ -64,5 +74,7 @@ ActiveRecord::Schema.define(version: 2019_01_17_225257) do
 
   add_foreign_key "activities", "festivals", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
+  add_foreign_key "presenters", "activities"
+  add_foreign_key "presenters", "users"
   add_foreign_key "sessions", "activities", on_delete: :cascade
 end

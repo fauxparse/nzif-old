@@ -34,5 +34,45 @@ RSpec.describe UpdateActivity, type: :interactor do
         expect { result }.to raise_error ActiveRecord::RecordInvalid
       end
     end
+
+    context 'updating presenters' do
+      let!(:activity) { create(:workshop, presenters: [teacher1, teacher2]) }
+      let(:teacher1) { create(:user) }
+      let(:teacher2) { create(:user) }
+
+      context 'removing a presenter' do
+        let(:attributes) { { presenters: [teacher2.id] } }
+
+        it 'removes the presenter' do
+          expect { result }.
+            to change { activity.reload.presenters.count }.by(-1).
+            and change(Presenter, :count).by(-1)
+        end
+      end
+
+      context 'adding a presenter' do
+        let(:attributes) { { presenters: [teacher1, teacher2, teacher3].map(&:id) } }
+        let(:teacher3) { create(:user) }
+
+        it 'adds the presenter' do
+          expect { result }.
+            to change { activity.reload.presenters.count }.by(1).
+            and change(Presenter, :count).by(1)
+        end
+      end
+
+      context 'replacing a presenter' do
+        let(:attributes) { { presenters: [teacher3, teacher1].map(&:id) } }
+        let(:teacher3) { create(:user) }
+
+        it 'adds the presenter' do
+          expect { result }.
+            to change { activity.reload.presenters.map(&:user) }.
+            from([teacher1, teacher2]).
+            to([teacher3, teacher1])
+          expect(Presenter.count).to eq 2
+        end
+      end
+    end
   end
 end

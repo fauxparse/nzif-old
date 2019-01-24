@@ -2,7 +2,8 @@ class Activity < ApplicationRecord
   include Sluggable
 
   belongs_to :festival
-  has_many :sessions
+  has_many :sessions, autosave: true, dependent: :destroy
+  has_many :presenters, -> { order(position: :asc) }, autosave: true, dependent: :destroy
   has_many :associated,
     -> (activity) { unscope(:where).associated_with(activity) },
     class_name: 'Activity'
