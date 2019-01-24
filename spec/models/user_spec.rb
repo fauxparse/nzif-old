@@ -5,9 +5,13 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to be_valid }
 
-  it { is_expected.to validate_presence_of(:name) }
-
   it { is_expected.not_to be_admin }
+
+  context 'with no name' do
+    before { user.name = nil }
+
+    it { is_expected.not_to be_valid }
+  end
 
   describe '#identities' do
     context 'with errors' do

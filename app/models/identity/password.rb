@@ -3,7 +3,7 @@ class Identity
     has_secure_password
 
     def authenticate(password)
-      super && user
+      authenticate_password(password) && user
     end
   end
 end
