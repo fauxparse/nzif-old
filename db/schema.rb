@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_213628) do
+ActiveRecord::Schema.define(version: 2019_01_25_122015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,8 +80,10 @@ ActiveRecord::Schema.define(version: 2019_01_23_213628) do
     t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "venue_id"
     t.index ["activity_id"], name: "index_sessions_on_activity_id"
     t.index ["starts_at", "ends_at"], name: "index_sessions_on_starts_at_and_ends_at"
+    t.index ["venue_id"], name: "index_sessions_on_venue_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -93,9 +95,20 @@ ActiveRecord::Schema.define(version: 2019_01_23_213628) do
     t.index "lower((email)::text)", name: "index_users_on_lowercase_email", unique: true
   end
 
+  create_table "venues", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.decimal "latitude", precision: 15, scale: 10
+    t.decimal "longitude", precision: 15, scale: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["latitude", "longitude"], name: "index_venues_on_latitude_and_longitude"
+  end
+
   add_foreign_key "activities", "festivals", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "presenters", "activities"
   add_foreign_key "presenters", "users"
   add_foreign_key "sessions", "activities", on_delete: :cascade
+  add_foreign_key "sessions", "venues", on_delete: :cascade
 end

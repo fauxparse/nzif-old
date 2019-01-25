@@ -55,6 +55,10 @@ gem 'interactor-rails'
 # Authorization
 gem 'access-granted'
 
+# Venues and maps
+gem 'geocoder'
+gem 'geokit-rails'
+
 gem 'jwt'
 
 gem 'acts_as_list'

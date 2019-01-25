@@ -2,6 +2,7 @@ class Session < ApplicationRecord
   include Hashid::Rails
 
   belongs_to :activity
+  belongs_to :venue, optional: true
 
   validates :starts_at, :ends_at,
     presence: true,
