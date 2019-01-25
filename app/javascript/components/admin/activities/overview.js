@@ -25,7 +25,7 @@ class Overview extends Component {
 
   state = {
     description: this.props.activity.description,
-    presenters: this.props.activity.presenters.slice(0),
+    presenters: this.props.activity.presenters.slice(0).map(p => pick(p, ['id', 'name'])),
     levels: this.props.activity.levels.slice(0),
     changed: false,
   }
@@ -44,12 +44,7 @@ class Overview extends Component {
 
   descriptionChanged = (e) => this.setState({ description: e.target.value, changed: true })
 
-  presentersChanged = (presenters) => {
-    this.setState({
-      presenters: presenters.map(p => pick(p, ['id', 'name'])),
-      changed: true
-    })
-  }
+  presentersChanged = (presenters) => this.setState({ presenters, changed: true })
 
   save = () => {
     this.props.onChange(

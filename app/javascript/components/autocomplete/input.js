@@ -14,6 +14,10 @@ const StyledInput = styled.input`${({ theme }) => css`
   font-size: ${theme.fonts.size(4)};
   padding: 0.5rem 1rem 0.75rem;
 
+  &::placeholder {
+    color: ${theme.colors.disabled};
+  }
+
   &[data-autocompleting] {
     &::selection {
       background: transparent;
@@ -29,7 +33,7 @@ class Input extends Component {
 
   input = createRef()
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.state.completing) {
       const { value, placeholder } = this.props
       const { length } = value

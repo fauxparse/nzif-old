@@ -91,6 +91,7 @@ const alpha = {
 const background = palette.white()
 const foreground = palette.grey(900)
 const accent = palette.tomato(500)
+const highlight = palette.tomato(300)
 const link = palette.tomato(600)
 const error = palette.tomato(700)
 const text = palette.grey(900, alpha.primary)
@@ -102,6 +103,7 @@ const panelBackground = palette.grey(100)
 
 const brand = {
   accent,
+  highlight,
   background,
   modalBackground: background,
   border,

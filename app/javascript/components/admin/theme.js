@@ -17,6 +17,7 @@ const adminTheme = theme =>
         outline: theme.colors.outline.alpha(0.625),
         panelBackground: theme.colors.grey(900),
         icon: theme.colors.grey(600),
+        highlight: theme.colors.highlight.shade(800),
       }
     }
   )

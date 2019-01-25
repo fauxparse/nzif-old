@@ -7,12 +7,13 @@ import { compose, withApollo } from 'react-apollo'
 import { withRouter } from 'react-router'
 import deburr from 'lodash/deburr'
 import upperFirst from 'lodash/upperFirst'
+import Highlighter from 'react-highlight-words'
 import {
   TIMETABLE_QUERY,
   CREATE_ACTIVITY_MUTATION,
 } from '../../../queries'
 import Icon from '../../icons'
-import Autocomplete, { Highlight } from '../../autocomplete'
+import Autocomplete from '../../autocomplete'
 
 const StyledIcon = styled(Icon)`${({ theme }) => css`
   flex: 0 0 auto;
@@ -29,12 +30,19 @@ const StyledDescription = styled.span`${({ theme }) => css`
   color: ${theme.colors.secondary};
 `}`
 
-const StyledHighlight = styled(Highlight)`${({ theme }) => css`
+const StyledHighlight = styled(Highlighter)`${({ theme }) => css`
+  display: block;
   font-size: ${theme.fonts.size(1)};
   line-height: ${theme.fonts.lineHeight}rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  mark {
+    background: none;
+    color: white;
+    font-weight: bold;
+  }
 `}`
 
 const StyledMenuItem = styled.li`${({ theme }) => css`
@@ -42,10 +50,11 @@ const StyledMenuItem = styled.li`${({ theme }) => css`
   align-items: flex-start;
   justify-content: flex-start;
   padding: 0.5rem 1rem;
+  color: ${theme.colors.text.shade(100)};
 
   &[aria-selected] {
-    background: ${theme.colors.accent};
-    color: ${theme.colors.white};
+    background: ${theme.colors.highlight};
+    color: ${theme.colors.highlight.shade(100)};
   }
 `}`
 
@@ -53,7 +62,11 @@ const MenuItem = ({ label, selected, selectedText, value: { id, type }, ...props
   <StyledMenuItem aria-selected={selected || undefined} {...props}>
     <StyledIcon name={id ? type : 'add'} />
     <StyledDetails>
-      <StyledHighlight text={label} prefix={selectedText} />
+      <StyledHighlight
+        textToHighlight={label}
+        searchWords={selectedText.split(/\s+/)}
+        sanitize={deburr}
+      />
       <StyledDescription>{id ? upperFirst(type) : `New ${type}`}</StyledDescription>
     </StyledDetails>
   </StyledMenuItem>
@@ -136,9 +149,9 @@ class NewSession extends React.Component {
 
   search = (text, options) => {
     if (text) {
-      const expression = new RegExp(`^${deburr(text)}`, 'i')
+      const re = new RegExp(deburr(text).trim().split(/\s+/).map(w => `(?=.*${w})`).join(''), 'i')
       return [
-        ...options.filter(({ label }) => deburr(label).match(expression)),
+        ...options.filter(({ label }) => deburr(label).match(re)),
         ...this.newActivities(text),
       ]
     } else {

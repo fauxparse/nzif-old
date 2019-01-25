@@ -63,7 +63,7 @@ class Presenters extends Component {
         <WithPermission to="update" subject={activity}>
           <AddButton onClick={this.openDialog} />
           <Modal isOpen={adding} className="modal--autocomplete" onRequestClose={this.closeDialog}>
-            <AddPresenter onSelect={this.addPresenter} />
+            <AddPresenter presenters={presenters} onSelect={this.addPresenter} />
           </Modal>
         </WithPermission>
       </PresentersContainer>

@@ -141,7 +141,7 @@ class Autocomplete extends Component {
         <InputComponent
           autoFocus={autoFocus}
           value={value}
-          placeholder={(selected ? selected.label : placeholder) || ''}
+          placeholder={(selected ? selected.label : !value && placeholder) || ''}
           onChange={this.inputChanged}
           onKeyDown={this.inputKeyDown}
         />
