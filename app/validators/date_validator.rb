@@ -7,6 +7,7 @@ class DateValidator < ActiveModel::EachValidator
 
   private
 
+  # rubocop:disable Layout/AlignHash
   OPERATORS = {
     before:       :<,
     after:        :>,
@@ -14,6 +15,7 @@ class DateValidator < ActiveModel::EachValidator
     on_or_after:  :>=,
     on:           :==,
   }.freeze
+  # rubocop:enable Layout/AlignHash
 
   def fetch_date(record, date)
     if date.respond_to?(:call)
