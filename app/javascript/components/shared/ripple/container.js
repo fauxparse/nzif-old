@@ -18,6 +18,7 @@ const RippleContainer = styled.div`
 
 const trueClientPosition = (coordinates, element) => {
   let { x, y } = coordinates
+  y += document.documentElement.scrollTop
   let el = element
   while (el) {
     const { x: tx, y: ty } = transformCoordinates(el)

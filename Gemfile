@@ -41,6 +41,9 @@ gem 'goldiloader'
 gem 'graphql'
 gem 'graphql-batch'
 
+# Image manipulation
+gem 'mini_magick'
+
 # Sluggable models
 gem 'auto_strip_attributes'
 gem 'stringex'

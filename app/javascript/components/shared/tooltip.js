@@ -1,3 +1,4 @@
+import React from 'react'
 import { Tooltip } from 'react-tippy'
 import { css } from 'styled-components'
 import { EASING } from '../../styles/transition'
@@ -140,4 +141,7 @@ export const tooltipStyles = ({ theme }) => css`
   }
 `
 
-export default Tooltip
+const StyledTooltip = (props) =>
+  <Tooltip animateFill={false} arrow style={{ display: 'block' }} {...props} />
+
+export default StyledTooltip

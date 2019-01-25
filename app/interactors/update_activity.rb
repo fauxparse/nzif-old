@@ -2,17 +2,14 @@ class UpdateActivity < Interaction
   def call
     access_denied! unless can? :update, activity
 
-    activity.update!(attributes_to_update)
+    activity.update!(attributes_for_update)
     update_presenters if attributes.include?(:presenters)
+    activity.image.purge if deleting_image?
   end
 
   delegate :activity, :attributes, to: :context
 
   private
-
-  def attributes_to_update
-    attributes.except(:presenters)
-  end
 
   def update_presenters
     return unless old_presenter_ids != new_presenter_ids
@@ -44,5 +41,17 @@ class UpdateActivity < Interaction
   def presenter_for_user_id(id)
     activity.presenters.detect { |p| p.user_id == id } ||
       activity.presenters.build(user_id: id)
+  end
+
+  def attributes_for_update
+    if deleting_image?
+      attributes.except(:image)
+    else
+      attributes
+    end.except(:presenters)
+  end
+
+  def deleting_image?
+    attributes.include?(:image) && attributes[:image].blank?
   end
 end

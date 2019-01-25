@@ -19,6 +19,6 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  get '*path' => 'festivals#show', constraints: { format: :html }
+  get '*path' => 'festivals#show', constraints: lambda { |req| req.path.exclude?('active_storage') }
   root to: 'festivals#show'
 end

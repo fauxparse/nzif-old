@@ -12,6 +12,7 @@ module Types
     field :associated, [Types::Activity], null: false
     field :sessions, [Types::Session], null: false
     field :presenters, [Types::User], null: false
+    field :image, ActivityImage, null: true
 
     def resolve_type(object, context)
       case object
@@ -24,6 +25,10 @@ module Types
 
     def presenters
       object.presenters.includes(:user).map(&:user)
+    end
+
+    def image
+      object.image.attached? ? object.image : nil
     end
   end
 end

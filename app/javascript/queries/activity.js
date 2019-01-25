@@ -9,6 +9,11 @@ export default gql`
       slug
       url
       description
+      image {
+        name
+        thumbnail
+        full
+      }
 
       ...on Workshop {
         levels
