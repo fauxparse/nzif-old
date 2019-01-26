@@ -28,7 +28,12 @@ export default gql`
         id
         startsAt
         endsAt
+
         activity {
+          id
+        }
+
+        venue {
           id
         }
       }

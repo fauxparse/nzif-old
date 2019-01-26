@@ -7,6 +7,8 @@ import Date from '../../shared/date'
 import Time from '../../shared/time'
 import Icon from '../../icons'
 import Button from '../../button'
+import VenuePicker from '../activities/venue_picker'
+import { IconField } from '../../form'
 
 const ActivityIcon = styled(Icon)``
 
@@ -35,6 +37,8 @@ const Actions = styled(({ session, onDelete, onDuplicate, onClose, ...props }) =
     margin-left: 0.5rem;
   }
 `}`
+
+const Row = styled.div``
 
 class SessionDetails extends Component {
   static propTypes = {
@@ -77,6 +81,12 @@ class SessionDetails extends Component {
       `/${session.id}`
   }
 
+  venueChanged = (venue) => {
+    const { session: { id }, onChange } = this.props
+    const { id: venueId } = venue
+    onChange({ id, venueId })
+  }
+
   render() {
     const {
       session: _session,
@@ -98,11 +108,16 @@ class SessionDetails extends Component {
         />
         <ActivityIcon name={activity.type} />
         <h3>{activity.name}</h3>
-        <p>
+        <Row>
           <Time time={[startsAt, endsAt]} />
           {', '}
           <Date date={startsAt} />
-        </p>
+        </Row>
+        <Row>
+          <IconField icon="venue" label="Venue">
+            <VenuePicker value={session.venue} onChange={this.venueChanged} />
+          </IconField>
+        </Row>
         <Buttons>
           <Button onClick={this.showDetails}>
             {upperFirst(activity.type)} details
@@ -134,7 +149,7 @@ export default styled(SessionDetails)`${({ theme }) => css`
     margin: 0;
   }
 
-  p {
+  ${Row} {
     grid-column: 2 / 3;
     color: ${theme.colors.secondary};
     margin: 0 0 ${theme.layout.padding};

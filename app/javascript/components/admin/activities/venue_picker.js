@@ -5,9 +5,9 @@ import { VENUES_QUERY } from '../../../queries'
 
 const VenuePicker = ({ value, data: { venues = [] }, onChange }) => (
   <Select
-    options={venues.map(venue => ({ label: venue.name, value: venue }))}
-    value={value}
-    onChange={onChange}
+    options={venues.map(venue => ({ label: venue.name, value: venue.id }))}
+    value={value && value.id}
+    onChange={({ value: id }) => onChange(id && venues.find(v => v.id === id))}
     placeholder="Select a venue…"
   />
 )

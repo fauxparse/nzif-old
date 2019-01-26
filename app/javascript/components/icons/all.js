@@ -14,5 +14,6 @@ export default [
   'text',
   'trash',
   'user',
+  'venue',
   'workshop',
 ]

@@ -212,6 +212,7 @@ class Select extends Component {
   render() {
     const { value, options, placeholder, menuItemComponent: Item } = this.props
     const { open } = this.state
+    const selectedOption = value && options.find(option => this.value(option) === value)
 
     return (
       <SelectContainer role="menu" aria-expanded={open || undefined}>
@@ -221,7 +222,9 @@ class Select extends Component {
           onKeyDown={this.triggerKeyDown}
           onClick={this.toggle}
         >
-          <SelectedValue empty={!value}>{this.label(value) || placeholder}</SelectedValue>
+          <SelectedValue empty={!selectedOption}>
+            {this.label(selectedOption) || placeholder}
+          </SelectedValue>
           <Chevron />
         </SelectTrigger>
         {open && (
@@ -254,5 +257,7 @@ class Select extends Component {
     )
   }
 }
+
+Select.Container = SelectContainer
 
 export default Select

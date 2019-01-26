@@ -23,6 +23,11 @@ export default gql`
       activity {
         id
       }
+
+      venue {
+        id
+        name
+      }
     }
 
     activityTypes

@@ -1,15 +1,20 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import isArray from 'lodash/isArray'
+import moment from '../../lib/moment'
 
 export const TIME_FORMATS = {
   default: 'h:mm A',
 }
 
+const ensureTime = t => moment.isMoment(t) ? t : moment(t)
+
 const Time = ({ time, format }) => {
   return (
     <Fragment>
-      {(isArray(time) ? time : [time]).map(t => t.format(TIME_FORMATS[format])).join('–')}
+      {(isArray(time) ? time : [time])
+        .map(t => ensureTime(t).format(TIME_FORMATS[format]))
+        .join('–')}
     </Fragment>
   )
 }
