@@ -5,6 +5,7 @@ import IconField from './icon_field'
 import ImageUpload from './image'
 import Input from './input'
 import Label from './label'
+import Select from './select'
 import Tag from './form'
 import Textarea from './textarea'
 
@@ -16,6 +17,7 @@ export {
   Input,
   IconField,
   Label,
+  Select,
   Tag,
   Textarea,
 }
@@ -28,6 +30,7 @@ export default {
   ImageUpload,
   Input,
   Label,
+  Select,
   Tag,
   Textarea,
 }
