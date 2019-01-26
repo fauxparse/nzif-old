@@ -4,6 +4,7 @@ class Session < ApplicationRecord
   belongs_to :activity
   belongs_to :venue, optional: true
 
+  validates :activity, presence: true
   validates :starts_at, :ends_at,
     presence: true,
     date: {

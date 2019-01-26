@@ -10,7 +10,7 @@ RSpec.describe Mutations::CreateSession, type: :mutation do
   let(:query) do
     <<~QUERY
       mutation test($activityId: ID!, $startsAt: Time!, $endsAt: Time!) {
-        createSession(activityId: $activityId, startsAt: $startsAt, endsAt: $endsAt) {
+        createSession(attributes: { activityId: $activityId, startsAt: $startsAt, endsAt: $endsAt }) {
           startsAt
           endsAt
         }
@@ -31,7 +31,9 @@ RSpec.describe Mutations::CreateSession, type: :mutation do
   it 'calls the CreateSession service' do
     expect(CreateSession).
       to receive(:call).
-      with(a_hash_including(activity: activity, starts_at: start_time, ends_at: end_time)).
+      with(a_hash_including(
+        attributes: { activity_id: activity.id.to_s, starts_at: start_time, ends_at: end_time }
+      )).
       and_return(Interactor::Context.build(session: session))
     expect(result.dig(:data, :create_session)).to be_present
   end

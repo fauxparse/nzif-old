@@ -19,7 +19,10 @@ export default gql`
       id
       startsAt
       endsAt
-      activityId
+
+      activity {
+        id
+      }
     }
 
     activityTypes

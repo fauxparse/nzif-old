@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
+import pick from 'lodash/pick'
 import moment from '../../../lib/moment'
 import {
   TIMETABLE_QUERY,
@@ -53,7 +54,8 @@ class Timetable extends Component {
       errorPolicy: 'all',
       optimisticReponse: {
         id: -1,
-        ...variables,
+        ...pick(variables, ['startsAt', 'endsAt']),
+        activity,
       },
       update: this.updateCachedSessions((sessions, { createSession }) =>
         [...sessions, createSession]
@@ -122,7 +124,7 @@ class Timetable extends Component {
         ...session,
         startsAt: moment(session.startsAt),
         endsAt: moment(session.endsAt),
-        activity: this.activity(session.activityId),
+        activity: session.activity && this.activity(session.activity.id),
       }))
       .sort((a, b) => (a.startsAt.valueOf() - b.startsAt.valueOf()) || a.id - b.id)
     return groupBy(sessions, session => session.startsAt.dayOfYear())

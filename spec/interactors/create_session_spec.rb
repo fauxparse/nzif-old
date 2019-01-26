@@ -4,13 +4,18 @@ RSpec.describe CreateSession, type: :interactor do
   subject(:result) do
     CreateSession.call(
       current_user: user,
-      activity: activity,
-      starts_at: starts_at,
-      ends_at: ends_at
+      attributes: attributes,
     )
   end
 
-  let(:activity) { FactoryBot.create(:workshop) }
+  let(:attributes) do
+    {
+      activity: activity,
+      starts_at: starts_at,
+      ends_at: ends_at,
+    }
+  end
+  let!(:activity) { FactoryBot.create(:workshop) }
   let(:user) { create(:admin) }
 
   describe '.call' do
@@ -19,6 +24,10 @@ RSpec.describe CreateSession, type: :interactor do
 
     context 'with valid attributes' do
       it { is_expected.to be_a_success }
+
+      it 'does not create a new activity' do
+        expect { result }.not_to change(Activity, :count)
+      end
     end
 
     context 'with a bad end time' do
