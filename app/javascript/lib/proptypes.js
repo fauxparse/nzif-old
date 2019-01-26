@@ -46,6 +46,7 @@ export const session = PropTypes.shape({
   activity: PropTypes.any,
   startsAt: MomentPropTypes.momentObj.isRequired,
   endsAt: MomentPropTypes.momentObj.isRequired,
+  venueId: id,
 })
 
 export default {

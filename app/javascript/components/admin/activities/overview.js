@@ -7,7 +7,6 @@ import { IconField, Textarea } from '../../form'
 import Button from '../../button'
 import Presenters from './presenters'
 import Levels from './levels'
-import VenuePicker from './venue_picker'
 import { ImageUpload } from '../../form'
 
 const OverviewSection = styled.section`
@@ -96,9 +95,6 @@ class Overview extends Component {
         <ImageUpload image={existingImage} onChange={this.imageChanged} />
         <IconField icon="text" label="Description">
           <Textarea value={description || ''} minRows={5} onChange={this.descriptionChanged} />
-        </IconField>
-        <IconField icon="venue" label="Venue">
-          <VenuePicker value={this.state.venue} onChange={(venue) => this.setState({ venue })} />
         </IconField>
         <Button
           primary

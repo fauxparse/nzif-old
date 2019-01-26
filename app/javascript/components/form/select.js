@@ -45,7 +45,7 @@ const SelectedValue = styled.span`${({ empty, theme }) => css`
 `}`
 
 const SelectMenuItems = styled.ul`${({ theme }) => css`
-  background: ${theme.colors.background};
+  background: ${theme.colors.menuBackground};
   color: ${theme.colors.text};
   box-shadow: ${theme.shadow(8)};
   padding: 0.5rem 0;

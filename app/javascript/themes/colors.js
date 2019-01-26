@@ -106,6 +106,7 @@ const brand = {
   highlight,
   background,
   modalBackground: background,
+  menuBackground: background,
   border,
   error,
   foreground,
