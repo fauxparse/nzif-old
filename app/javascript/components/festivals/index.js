@@ -6,6 +6,7 @@ import { SubPageTransition as PageTransition } from '../../components/page_trans
 import Header from './header'
 import Footer from '../../components/shared/footer'
 import Activities from '../activities'
+import Map from '../map'
 import Home from './home'
 
 export { default as CurrentFestival } from './current'
@@ -59,6 +60,7 @@ class Festival extends React.Component {
                     exact
                     component={Activities}
                   />
+                  <Route path={`${match.path}/map`} exact component={Map} />
                   <Route path={`${match.path}/`} exact component={Home} />
                 </Switch>
               </PageTransition>
