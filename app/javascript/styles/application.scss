@@ -9,5 +9,14 @@
 
 body {
   font-size: #{$font-size-base}px;
+  margin: 0;
+  padding: 0;
+  font-family: font-family(normal);
+  line-height: line-height(normal);
+
+  @include themify {
+    background-color: themed(background);
+    color: themed(text);
+  }
 }
 

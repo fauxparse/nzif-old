@@ -1,0 +1,42 @@
+$easings: (
+  standard: cubic-bezier(0.4, 0.0, 0.2, 1),
+  decelerate: cubic-bezier(0.0, 0.0, 0.2, 1),
+  accelerate: cubic-bezier(0.4, 0.0, 1, 1),
+  bounce: cubic-bezier(0.5, 0, 0.5, 1.5)
+);
+
+$durations: (
+  standard: 300ms,
+  half: 150ms,
+  fast: 150ms
+);
+
+@function normalize-easing($easing) {
+  @if(map-has-key($easings, $easing)) {
+    @return map-get($easings, $easing);
+  } @else {
+    @return $easing;
+  }
+}
+
+@function normalize-duration($time) {
+  @if(map-has-key($durations, $time)) {
+    @return map-get($durations, $time);
+  } @else {
+    @return $time;
+  }
+}
+
+@function transition($properties: all, $duration: standard, $easing: standard, $delay: 0ms) {
+  $duration: normalize-duration($duration);
+  $easing: normalize-easing($easing);
+  $delay: normalize-duration($delay);
+
+  $transitions: ();
+  @each $property in $properties {
+    $transition: '#{$property} #{$duration} #{$easing} #{$delay}';
+    $transitions: append($transitions, unquote($transition), 'comma');
+  }
+
+  @return $transitions;
+}

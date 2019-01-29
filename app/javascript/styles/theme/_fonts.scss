@@ -1,8 +1,12 @@
-$font-family-normal: 'Work Sans', sans-serif;
-$font-family-branding: 'Brother', sans-serif;
+$system-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-weight-normal: 400;
 $font-weight-light: 300;
 $font-weight-bold: 700;
+
+$font-families: (
+  normal: 'Work Sans',
+  branding: 'Brother'
+);
 
 $font-sizes: (
   -2: 12,
@@ -36,14 +40,26 @@ $line-heights: (
   none:    1.0
 );
 
-@mixin font-size($scale: 0) {
-  font-size: #{map-get($font-sizes, $scale) / $font-size-base}rem;
+@function font-family($family: normal) {
+  @return unquote('#{map-get($font-families, $family)}, #{$system-font-stack}');
 }
 
-@mixin font-weight($weight: normal) {
-  font-weight: map-get($font-weights, $weight);
+@function font-size($scale: 0) {
+  @return unquote('#{map-get($font-sizes, $scale) / $font-size-base}rem');
 }
 
-@mixin line-height($line-height: normal) {
-  line-height: map-get($line-heights, $line-height);
+@function font-weight($weight: normal) {
+  @if(map-has-key($font-weights, $weight)) {
+    @return map-get($font-weights, $weight);
+  } @else {
+    @return $weight;
+  }
+}
+
+@function line-height($line-height: normal) {
+  @if(map-has-key($line-heights, $line-height)) {
+    @return map-get($line-heights, $line-height);
+  } @else {
+    @return $line-height;
+  }
 }

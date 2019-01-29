@@ -1,0 +1,65 @@
+$themes: (
+  light: (
+    background: white,
+    foreground: color(grey, 900),
+    accent: color(tomato, 500),
+    highlight: color(tomato, 200),
+    link: color(tomato, 600),
+    error: color(tomato, 700),
+    text: color(grey, 900, primary),
+    secondary: color(grey, 900, secondary),
+    disabled: color(grey, 900, disabled),
+    border: color(grey, 900, border),
+    hover: color(tomato, 500, hover),
+    panel: color(grey, 100),
+    outline: palette(tomato, 500, border),
+    ripple: color(grey, 300),
+    scrim: color(grey, 900, secondary),
+    beginner: color(mint, 500),
+    intermediate: color(grape, 500),
+    advanced: color(plum, 500),
+    icon: color(grey, 400)
+  ),
+  dark: (
+    background: color(grey, 800),
+    foreground: color(grey, 100),
+    accent: color(tomato, 500),
+    highlight: color(tomato, 800),
+    link: color(tomato, 400),
+    error: color(tomato, 300),
+    text: color(grey, 100, primary),
+    secondary: color(grey, 100, secondary),
+    disabled: color(grey, 100, disabled),
+    border: color(grey, 100, border),
+    hover: color(tomato, 500, hover),
+    panel: color(grey, 900),
+    outline: palette(tomato, 500, secondary),
+    ripple: color(grey, 700),
+    scrim: color(grey, 900, secondary),
+    beginner: color(mint, 500),
+    intermediate: color(grape, 500),
+    advanced: color(plum, 500),
+    icon: color(grey, 600)
+  )
+);
+
+@mixin themify($themes: $themes) {
+  @each $theme, $map in $themes {
+    [data-theme="#{$theme}"] & {
+      $theme-map: () !global;
+
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
