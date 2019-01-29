@@ -1,0 +1,49 @@
+$font-family-normal: 'Work Sans', sans-serif;
+$font-family-branding: 'Brother', sans-serif;
+$font-weight-normal: 400;
+$font-weight-light: 300;
+$font-weight-bold: 700;
+
+$font-sizes: (
+  -2: 12,
+  -1: 14,
+   0: 16,
+   1: 18,
+   2: 20,
+   3: 24,
+   4: 32,
+   5: 36,
+   6: 40,
+   7: 48,
+   8: 60,
+   9: 72
+);
+
+$font-size-base: map-get($font-sizes, 0);
+
+$font-weights: (
+  light:  300,
+  normal: 400,
+  bold:   600,
+  black:  700
+);
+
+$line-heights: (
+  loose:   2.0,
+  relaxed: 1.75,
+  normal:  1.5,
+  tight:   1.25,
+  none:    1.0
+);
+
+@mixin font-size($scale: 0) {
+  font-size: #{map-get($font-sizes, $scale) / $font-size-base}rem;
+}
+
+@mixin font-weight($weight: normal) {
+  font-weight: map-get($font-weights, $weight);
+}
+
+@mixin line-height($line-height: normal) {
+  line-height: map-get($line-heights, $line-height);
+}

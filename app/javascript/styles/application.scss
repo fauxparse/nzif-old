@@ -1,0 +1,13 @@
+@import './theme';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: hsla(0, 0, 0, 0);
+}
+
+body {
+  font-size: #{$font-size-base}px;
+}
+

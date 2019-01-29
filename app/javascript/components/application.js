@@ -12,6 +12,7 @@ import LogIn from './login'
 import Environment from './environment'
 import { CurrentUserProvider } from './shared/current_user'
 import { AdminRoute } from './authorised_route'
+import '../styles/application'
 
 const getPageKey = (location) => {
   const key = location.pathname.split('/')[1]
