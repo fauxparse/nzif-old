@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
+import mapValues from 'lodash/mapValues'
+import pick from 'lodash/pick'
 import moment from '../../../lib/moment'
 import {
   TIMETABLE_QUERY,
@@ -53,7 +55,8 @@ class Timetable extends Component {
       errorPolicy: 'all',
       optimisticReponse: {
         id: -1,
-        ...variables,
+        ...pick(variables, ['startsAt', 'endsAt']),
+        activity,
       },
       update: this.updateCachedSessions((sessions, { createSession }) =>
         [...sessions, createSession]
@@ -63,18 +66,21 @@ class Timetable extends Component {
 
   cancelAdd = () => this.setState({ newSession: undefined })
 
-  update = ({ id, startsAt, endsAt }) => {
-    const variables = {
+  resize = ({ id, startsAt, endsAt }) => {
+    this.updateSession({
       id,
       startsAt: startsAt.toISOString(),
       endsAt: endsAt.toISOString(),
-    }
+    })
+  }
+
+  updateSession = ({ id, ...attributes }) => {
+    const variables = { id, attributes }
 
     this.props.client.mutate({
       mutation: UPDATE_SESSION_MUTATION,
       variables,
       errorPolicy: 'all',
-      optimisticReponse: variables,
       update: this.updateCachedSessions((sessions, { updateSession }) =>
         sessions.map(session => session.id === updateSession.id ? {
           ...session,
@@ -91,7 +97,7 @@ class Timetable extends Component {
       mutation: DELETE_SESSION_MUTATION,
       variables,
       errorPolicy: 'all',
-      optimisticReponse: true,
+      optimisticResponse: true,
       update: this.updateCachedSessions((sessions) =>
         sessions.filter(session => session.id !== id)
       ),
@@ -114,21 +120,19 @@ class Timetable extends Component {
     })
   }
 
-  extractSessions = (sessionData) => {
-    const { newSession } = this.state
-    const sessions = [...sessionData, newSession]
+  extractSessions = (sessionData) => (
+    [...sessionData, this.state.newSession]
       .filter(Boolean)
       .map(session => ({
         ...session,
         startsAt: moment(session.startsAt),
         endsAt: moment(session.endsAt),
-        activity: this.activity(session.activityId),
+        activity: session.activity && this.activity(session.activity.id),
       }))
       .sort((a, b) => (a.startsAt.valueOf() - b.startsAt.valueOf()) || a.id - b.id)
-    return groupBy(sessions, session => session.startsAt.dayOfYear())
-  }
+  )
 
-  selectSession = selected => this.setState({ selected })
+  selectSession = (session) => this.setState({ selected: session && session.id })
 
   deselect = () => this.selectSession(undefined)
 
@@ -151,15 +155,16 @@ class Timetable extends Component {
       const days = Array.from(moment.range(startDate, endDate).by('day'))
         .map(t => t.set('hour', start))
       const sessions = this.extractSessions(sessionData)
+      const groupedSessions = groupBy(sessions, session => session.startsAt.dayOfYear())
       const { selected, newSession } = this.state
 
       return (
         <Context.Provider value={DEFAULT_CONTEXT}>
-          <DragDrop onSelect={this.add} onMove={this.update} onResize={this.update}>
+          <DragDrop onSelect={this.add} onMove={this.resize} onResize={this.resize}>
             {props => (
               <Grid
                 days={days}
-                sessions={sessions}
+                sessions={groupedSessions}
                 onSessionClick={this.selectSession}
                 {...props}
               />
@@ -184,10 +189,11 @@ class Timetable extends Component {
             onRequestClose={this.deselect}
           >
             <SessionDetails
-              session={selected}
+              session={selected && sessions.find(s => s.id === selected)}
               onDelete={this.delete}
               onDuplicate={this.duplicate}
               onClose={this.deselect}
+              onChange={this.updateSession}
               onShowDetails={history.push}
             />
           </Modal>

@@ -22,6 +22,7 @@ import noTransition from '../../page_transition/none'
 import Name from './name'
 import Slug from './slug'
 import Overview from './overview'
+import Session from './session'
 
 const StyledActivityDetails = styled.section`
   ${fullWidth}
@@ -136,6 +137,12 @@ class ActivityDetails extends Component {
           <Switch location={location}>
             <Route exact path={match.url} render={() => (
               <Overview activity={activity} saving={saving} onChange={this.updateActivity} />
+            )} />
+            <Route exact path={`${match.url}/:sessionId`} render={({ match }) => (
+              <Session
+                activity={activity}
+                session={sessions.find(session => session.id === match.params.sessionId)}
+              />
             )} />
           </Switch>
         </>

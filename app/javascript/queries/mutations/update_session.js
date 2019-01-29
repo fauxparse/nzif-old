@@ -1,12 +1,20 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  mutation UpdateSession($id: ID!, $startsAt: Time!, $endsAt: Time!) {
-    updateSession(id: $id, startsAt: $startsAt, endsAt: $endsAt) {
+  mutation UpdateSession($id: ID!, $attributes: SessionAttributes!) {
+    updateSession(id: $id, attributes: $attributes) {
       id
-      activityId
       startsAt
       endsAt
+
+      activity {
+        id
+      }
+
+      venue {
+        id
+        name
+      }
     }
   }
 `

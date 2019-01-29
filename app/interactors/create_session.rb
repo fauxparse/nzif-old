@@ -6,8 +6,8 @@ class CreateSession < Interaction
   end
 
   def session
-    context.session ||= activity.sessions.build(starts_at: starts_at, ends_at: ends_at)
+    context.session ||= Session.new(attributes)
   end
 
-  delegate :activity, :starts_at, :ends_at, to: :context
+  delegate :activity, :attributes, to: :context
 end

@@ -11,7 +11,7 @@ RSpec.describe Mutations::UpdateSession, type: :mutation do
   let(:query) do
     <<~QUERY
       mutation test($id: ID!, $startsAt: Time!, $endsAt: Time!) {
-        updateSession(id: $id, startsAt: $startsAt, endsAt: $endsAt) {
+        updateSession(id: $id, attributes: { startsAt: $startsAt, endsAt: $endsAt }) {
           startsAt
           endsAt
         }
@@ -35,7 +35,11 @@ RSpec.describe Mutations::UpdateSession, type: :mutation do
     it 'calls the UpdateSession service' do
       expect(UpdateSession).
         to receive(:call).
-        with(current_user: user, session: session, starts_at: starts_at, ends_at: ends_at).
+        with(
+          current_user: user,
+          session: session,
+          attributes: { starts_at: starts_at, ends_at: ends_at }
+        ).
         and_return(Interactor::Context.build(session: updated_session))
       expect(result.dig(:data, :update_session, :starts_at)).to eq starts_at.iso8601
     end

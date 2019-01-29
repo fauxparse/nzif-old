@@ -5,15 +5,13 @@ module Mutations
     null false
 
     argument :id, ID, required: true
-    argument :starts_at, Types::Time, required: true
-    argument :ends_at, Types::Time, required: true
+    argument :attributes, Types::SessionAttributes, required: true
 
-    def resolve(id:, starts_at:, ends_at:)
+    def resolve(id:, attributes:)
       ::UpdateSession.call(
         current_user: current_user,
         session: ::Session.find(id),
-        starts_at: starts_at,
-        ends_at: ends_at
+        attributes: attributes.to_h.symbolize_keys
       ).session
     end
   end

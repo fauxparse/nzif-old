@@ -7,6 +7,7 @@ class TimeValidator < ActiveModel::EachValidator
 
   private
 
+  # rubocop:disable Layout/AlignHash
   OPERATORS = {
     before:       :<,
     after:        :>,
@@ -14,6 +15,7 @@ class TimeValidator < ActiveModel::EachValidator
     at_or_after:  :>=,
     at:           :==,
   }.freeze
+  # rubocop:enable Layout/AlignHash
 
   def fetch_time(record, time)
     if time.respond_to?(:call)

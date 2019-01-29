@@ -75,4 +75,8 @@ export default ({ theme }) => css`
       opacity: 0;
     }
   }
+
+  .ReactModalPortal + div:not(.ReactModalPortal) > div > div {
+    z-index: 1000;
+  }
 `

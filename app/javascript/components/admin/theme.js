@@ -14,6 +14,7 @@ const adminTheme = theme =>
         secondary: theme.colors.grey(400),
         disabled: theme.colors.grey(600),
         modalBackground: theme.colors.grey(800),
+        menuBackground: theme.colors.grey(900),
         outline: theme.colors.outline.alpha(0.625),
         panelBackground: theme.colors.grey(900),
         icon: theme.colors.grey(600),
