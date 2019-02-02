@@ -1,32 +1,5 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
-
-const UploadButton = styled.div`${({ theme }) => css`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 2px dashed ${theme.colors.border};
-  border-radius: ${theme.layout.borderRadius};
-  color: ${theme.colors.secondary};
-  cursor: pointer;
-`}`
-
-const Container = styled.div`
-  position: relative;
-  width: 16rem;
-  height: 9rem;
-
-  input[type="file"] {
-    display: none;
-  }
-`
 
 class DropZone extends Component {
   static propTypes = {
@@ -96,7 +69,7 @@ class DropZone extends Component {
     if (status === 'uploading') {
       return (
         <>
-          <p>Uploading{file && ` ${file.name}`}…</p>
+          <span>Uploading{file && ` ${file.name}`}…</span>
         </>
       )
     } else if (status === 'ready') {
@@ -121,16 +94,17 @@ class DropZone extends Component {
       ...props
     } = this.props
     return (
-      <Container
+      <div
+        className="image-upload__dropzone"
         {...props}
         onDragOver={this.dragOver}
         onDragEnter={this.dragEnter}
         onDragLeave={this.dragLeave}
         onDrop={this.drop}
       >
-        <UploadButton onClick={this.choose}>
+        <div className="image-upload__button" onClick={this.choose}>
           {this.contents()}
-        </UploadButton>
+        </div>
         <input
           ref={this.fileInput}
           type="file"
@@ -138,7 +112,7 @@ class DropZone extends Component {
           onChange={this.selected}
         />
         {children}
-      </Container>
+      </div>
     )
   }
 }

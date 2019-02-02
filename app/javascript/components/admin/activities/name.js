@@ -1,16 +1,5 @@
 import React, { Component } from 'react'
-import styled, { css } from 'styled-components'
 import Textarea from 'react-textarea-autosize'
-import { Input } from '../../form'
-
-const NameInput = styled(Input)`${({ theme }) => css`
-  font-size: ${theme.fonts.size(7)};
-  line-height: ${theme.fonts.lineHeights.tight};
-  padding: 0.25em 0;
-  margin: 0 0 1.5rem;
-  font-weight: ${theme.fonts.weights.light};
-  resize: none;
-`}`
 
 class Name extends Component {
   state = {
@@ -56,8 +45,8 @@ class Name extends Component {
     const { value } = this.state
 
     return (
-      <NameInput
-        as={Textarea}
+      <Textarea
+        className="form__input activity-details__name"
         {...props}
         value={value}
         onChange={this.inputChanged}

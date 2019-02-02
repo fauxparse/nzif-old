@@ -1,0 +1,22 @@
+@import "./form";
+@import "./fieldset";
+@import "./field";
+@import "./inputs";
+@import "./image_upload";
+@import "./labels";
+@import "./error";
+
+input,
+textarea,
+select {
+  &:-internal-autofill-previewed,
+  &:-internal-autofill-selected {
+    -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+    -webkit-transition-delay: 9999s;
+  }
+
+  &:-webkit-autofill {
+    -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+    -webkit-transition-delay: 9999s;
+  }
+}

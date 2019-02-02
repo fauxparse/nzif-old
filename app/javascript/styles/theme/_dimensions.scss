@@ -7,6 +7,7 @@ $breakpoints: (
 
 $border-radius: 0.25rem;
 $padding: 1rem;
+$spacing: 1rem;
 $min-full-width: map-get($breakpoints, large) + $padding * 2;
 
 @mixin horizontal-padding($horizontal-padding) {

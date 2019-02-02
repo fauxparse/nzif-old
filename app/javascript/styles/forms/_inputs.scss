@@ -1,0 +1,158 @@
+.form__input {
+  @include themify {
+    border-bottom: 1px solid themed(border);
+
+    &:focus {
+      border-bottom-color: themed(accent);
+    }
+  }
+
+  display: block;
+  width: 100%;
+  margin: 0 0 1em;
+  padding: 0.5em 0 calc(0.5em - 1px);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: line-height(normal);
+  box-shadow: none;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.form__textarea {
+  @include themify {
+    background: themed(panel);
+
+    &:focus {
+      box-shadow: 0 0 0 .25em themed(outline);
+    }
+  }
+
+  display: block;
+  width: 100%;
+  margin: 0 0 1em;
+  padding: 0.5em 1rem;
+  border: 0;
+  border-radius: $border-radius;
+  color: inherit;
+  font: inherit;
+  line-height: line-height(normal);
+  box-shadow: none;
+  resize: none;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background: transparent;
+    opacity: 0.5;
+  }
+}
+
+.select {
+  display: inline-block;
+  position: relative;
+
+  &__chevron {
+    flex: 0 0 auto;
+    margin: 0 0 -1px 0.5rem;
+    transition: transition(transform);
+  }
+
+  &__trigger {
+    @include themify {
+      border-bottom: 1px solid themed(border);
+
+      &:focus,
+      &[aria-expanded] {
+        border-bottom-color: themed(accent);
+        outline: none;
+      }
+    }
+
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &[aria-expanded] {
+      .select__chevron {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__current-value {
+    flex: 1;
+    margin-bottom: -1px;
+    padding: 0.5rem 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &[data-empty] {
+      @include themify {
+        color: themed(secondary);
+      }
+    }
+  }
+
+  &__menu-items {
+    @include elevation-element(menu);
+    @include themify {
+      background: themed(menu-background);
+      color: themed(text);
+
+      &:empty::after {
+        color: themed(disabled);
+      }
+    }
+
+    max-height: 13.5rem;
+    margin: 0;
+    padding: 0.5rem 0;
+    border-radius: $border-radius;
+    list-style: none;
+    overflow-y: scroll;
+
+    &:empty::after {
+      display: block;
+      padding: 0.5em 0;
+      text-align: center;
+      content: "(No options)";
+    }
+  }
+
+  &__menu-item {
+    @include themify {
+      &[aria-selected] {
+        background: themed(panel);
+      }
+
+      &:hover,
+      &:focus {
+        outline: none;
+        background: themed(highlight);
+      }
+    }
+
+    display: block;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+  }
+}

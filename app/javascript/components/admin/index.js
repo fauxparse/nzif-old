@@ -2,6 +2,7 @@ import React from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
+import ThemeContext from '../../lib/theme_context'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Theme from './theme'
 import Header from './header'
@@ -32,24 +33,26 @@ const getPageKey = path => path.split('/').slice(0, 6).join('/')
 
 const Admin = ({ match }) => (
   <Theme>
-    <AdminLayout data-theme='dark'>
-      <Header />
-      <Route
-        render={({ location }) => (
-          <PageTransition
-            component={Page}
-            location={location}
-            pageKey={getPageKey(location.pathname)}
-          >
-            <Switch location={location}>
-              <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
-              <Route path={`${match.path}/activities`} component={Timetable} />
-              <Route path={`${match.path}/`} component={Dashboard} />
-            </Switch>
-          </PageTransition>
-        )}
-      />
-    </AdminLayout>
+    <ThemeContext.Provider value='dark'>
+      <AdminLayout data-theme='dark'>
+        <Header />
+        <Route
+          render={({ location }) => (
+            <PageTransition
+              component={Page}
+              location={location}
+              pageKey={getPageKey(location.pathname)}
+            >
+              <Switch location={location}>
+                <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
+                <Route path={`${match.path}/activities`} component={Timetable} />
+                <Route path={`${match.path}/`} component={Dashboard} />
+              </Switch>
+            </PageTransition>
+          )}
+        />
+      </AdminLayout>
+    </ThemeContext.Provider>
   </Theme>
 )
 

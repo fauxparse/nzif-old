@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import DropZone from './drop_zone'
 import ProgressIcon from './progress_icon'
 import Preview from './preview'
 import ClearButton from './clear_button'
-
-const ImageUploadContainer = styled.div`
-  position: relative;
-  margin: 0 0 1.5rem -2.5rem;
-  display: flex;
-  align-items: flex-start;
-`
 
 class ImageUpload extends Component {
   static propTypes = {
@@ -68,7 +60,7 @@ class ImageUpload extends Component {
           const { state = status, file = image, progress = 0 } = uploads[0] || {}
           const showPreview = state !== 'uploading' && state !== 'waiting'
           return (
-            <ImageUploadContainer>
+            <div className="image-upload">
               <ProgressIcon status={status} progress={progress} onClick={this.toggle} />
               <DropZone
                 status={state}
@@ -79,7 +71,7 @@ class ImageUpload extends Component {
                 <Preview file={showPreview ? (file || uploaded) : null} />
                 {showPreview && (file || uploaded) && <ClearButton onClick={this.clear} />}
               </DropZone>
-            </ImageUploadContainer>
+            </div>
           )
         }}
       />

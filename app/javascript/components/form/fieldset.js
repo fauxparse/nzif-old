@@ -1,13 +1,10 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 
-const Fieldset = styled.fieldset`
-  appearance: none;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-`
+const Fieldset = ({ className, children, ...props }) => (
+  <fieldset className={classNames('form__fieldset', className)} {...props}>
+    {children}
+  </fieldset>
+)
 
 export default Fieldset

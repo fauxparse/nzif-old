@@ -1,8 +1,9 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import classNames from 'classnames'
 import RelativePortal from 'react-relative-portal'
-import transition from '../../styles/transition'
+import ThemeContext from '../../lib/theme_context'
+import CommonProps from '../../lib/proptypes'
 import Icon from '../icons'
 
 const KEYS = {
@@ -15,89 +16,15 @@ const KEYS = {
   END: 35,
 }
 
-const Chevron = styled(Icon).attrs({ name: 'chevron-down' })`
-  flex: 0 0 auto;
-  margin: 0 0 -1px 0.5rem;
-  transition: ${transition('transform')};
-`
-
-const SelectTrigger = styled.div`${({ theme }) => css`
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid ${theme.colors.border};
-  cursor: pointer;
-
-  &:focus,
-  &[aria-expanded] {
-    outline: none;
-    border-bottom-color: ${theme.colors.accent};
-  }
-`}`
-
-const SelectedValue = styled.span`${({ empty, theme }) => css`
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 0.5rem 0;
-  margin-bottom: -1px;
-  color: ${empty ? theme.colors.secondary : 'inherit'};
-`}`
-
-const SelectMenuItems = styled.ul`${({ theme }) => css`
-  background: ${theme.colors.menuBackground};
-  color: ${theme.colors.text};
-  box-shadow: ${theme.shadow(8)};
-  padding: 0.5rem 0;
-  margin: 0;
-  list-style: none;
-  border-radius: ${theme.layout.borderRadius};
-  max-height: 13.5rem;
-  overflow-y: scroll;
-
-  &:empty::after {
-    content: "(No options)";
-    display: block;
-    text-align: center;
-    padding: 0.5em 0;
-    color: ${theme.colors.disabled};
-  }
-`}`
-
-export const SelectMenuItem = styled.li`${({ theme }) => css`
-  margin: 0;
-  padding: 0.5rem 1rem;
-  display: block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-
-  &[aria-selected] {
-    background: ${theme.colors.panelBackground};
-  }
-
-  &:hover,
-  &:focus {
-    outline: none;
-    background: ${theme.colors.highlight};
-  }
-`}`
-
-const SelectContainer = styled.div`${({ theme }) => css`
-  display: inline-block;
-  position: relative;
-
-  &[aria-expanded] {
-    ${Chevron} {
-      transform: rotate(180deg);
-    }
-  }
-`}`
+const SelectMenuItem = ({ className, children, ...props }) => (
+  <li className={classNames('select__menu-item', className)} {...props}>
+    {children}
+  </li>
+)
 
 class Select extends Component {
   static propTypes = {
+    className: CommonProps.className,
     value: PropTypes.any,
     options: PropTypes.array.isRequired,
     placeholder: PropTypes.string,
@@ -210,54 +137,65 @@ class Select extends Component {
   }
 
   render() {
-    const { value, options, placeholder, menuItemComponent: Item } = this.props
+    const { className, value, options, placeholder, menuItemComponent: Item } = this.props
     const { open } = this.state
     const selectedOption = value && options.find(option => this.value(option) === value)
 
     return (
-      <SelectContainer role="menu" aria-expanded={open || undefined}>
-        <SelectTrigger
+      <div
+        className={classNames('select', className)}
+        role="menu"
+      >
+        <div
+          className="select__trigger"
           ref={this.trigger}
+          role="menubutton"
           tabIndex={0}
           onKeyDown={this.triggerKeyDown}
           onClick={this.toggle}
+          aria-expanded={open || undefined}
         >
-          <SelectedValue empty={!selectedOption}>
+          <span className="select__current-value" data-empty={!selectedOption || undefined}>
             {this.label(selectedOption) || placeholder}
-          </SelectedValue>
-          <Chevron />
-        </SelectTrigger>
+          </span>
+          <Icon className="select__chevron" name="chevron-down" />
+        </div>
         {open && (
-          <RelativePortal
-            left={-16}
-            top={-48}
-            onOutClick={open ? this.hide : undefined}
-          >
-            <SelectMenuItems
-              ref={this.menu}
-              style={{ minWidth: `${this.trigger.current.offsetWidth + 32}px` }}
-            >
-              {options.map((option, index) => (
-                <Item
-                  key={this.value(option)}
-                  role="menuitemradio"
-                  tabIndex={-1}
-                  data-index={index}
-                  aria-selected={(this.value(option) === this.value(value)) || undefined}
-                  onClick={this.choose}
-                  onKeyDown={this.menuItemKeyDown}
+          <ThemeContext.Consumer>
+            {theme =>
+              <RelativePortal
+                left={-16}
+                top={-48}
+                onOutClick={open ? this.hide : undefined}
+                data-theme={theme}
+              >
+                <ul
+                  className="select__menu-items"
+                  ref={this.menu}
+                  style={{ minWidth: `${this.trigger.current.offsetWidth + 32}px` }}
                 >
-                  {this.label(option)}
-                </Item>
-              ))}
-            </SelectMenuItems>
-          </RelativePortal>
+                  {options.map((option, index) => (
+                    <li
+                      className="select__menu-item"
+                      key={this.value(option)}
+                      role="menuitemradio"
+                      tabIndex={-1}
+                      data-index={index}
+                      aria-selected={(this.value(option) === this.value(value)) || undefined}
+                      onClick={this.choose}
+                      onKeyDown={this.menuItemKeyDown}
+                    >
+                      {this.label(option)}
+                    </li>
+                  ))}
+                </ul>
+              </RelativePortal>
+            }
+          </ThemeContext.Consumer>
         )}
-      </SelectContainer>
+      </div>
     )
   }
 }
-
-Select.Container = SelectContainer
 
 export default Select

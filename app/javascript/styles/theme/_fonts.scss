@@ -68,4 +68,5 @@ $line-heights: (
 @mixin branding-font {
   font-family: font-family(branding);
   font-weight: font-weight(black);
+  text-transform: uppercase;
 }

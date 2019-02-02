@@ -1,0 +1,15 @@
+.section--activities {
+  @include constrained-width;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14.25em, 1fr));
+  grid-column-gap: $spacing;
+}
+
+.card {
+
+  &__title {
+    @include branding-font;
+    font-size: font-size(1);
+  }
+}

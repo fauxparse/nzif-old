@@ -1,0 +1,8 @@
+.form__label {
+  @include themify {
+    color: themed(secondary);
+  }
+
+  display: block;
+  font-size: font-size(-1);
+}

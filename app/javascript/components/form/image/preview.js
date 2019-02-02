@@ -1,44 +1,7 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { transition } from '../../../styles'
 
-const Container = styled.div`${({ theme }) => css`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-radius: ${theme.layout.borderRadius};
-  pointer-events: none;
-  touch-action: none;
-
-  img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: ${theme.layout.borderRadius};
-
-    &.drop-enter {
-      transform: translateY(-100%);
-      opacity: 0;
-    }
-
-    &.drop-enter-active {
-      transform: translateY(0);
-      opacity: 1;
-      transition: ${transition('transform', { easing: 'bounce' })},
-        ${transition('opacity')};
-    }
-  }
-`}`
 
 class Image extends Component {
   static propTypes = {
@@ -101,13 +64,15 @@ class Preview extends Component {
   render() {
     const { src } = this.state
     return (
-      <TransitionGroup exit={false} component={Container}>
-        {src &&
-          <CSSTransition timeout={300} classNames="drop">
-            <Image src={src} />
-          </CSSTransition>
-        }
-      </TransitionGroup>
+      <div className="image-upload__preview">
+        <TransitionGroup exit={false} component={null}>
+          {src &&
+            <CSSTransition timeout={300} classNames="drop">
+              <Image src={src} />
+            </CSSTransition>
+          }
+        </TransitionGroup>
+      </div>
     )
   }
 }

@@ -1,9 +1,10 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 
-const Label = styled.label`
-  display: block;
-  font-size: ${({ theme }) => theme.fonts.size(-1)};
-  color: ${({ theme }) => theme.colors.secondary};
-`
+const Label = ({ className, children, ...props }) => (
+  <Label className={classNames('form__label', className)} {...props}>
+    {children}
+  </Label>
+)
 
 export default Label

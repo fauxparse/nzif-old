@@ -1,5 +1,10 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 
-const Field = styled.div``
+const Field = ({ className, children, ...props }) => (
+  <div className={classNames('form__field', className)} {...props}>
+    {children}
+  </div>
+)
 
 export default Field

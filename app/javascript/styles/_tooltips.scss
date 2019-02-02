@@ -1,4 +1,5 @@
 $tooltip-background: color(grey, 700);
+$tooltip-foreground: color(grey, 200);
 
 .tippy-touch {
   cursor: pointer !important;
@@ -111,7 +112,7 @@ $tooltip-background: color(grey, 700);
   padding: 0.5em 1em;
   border-radius: $border-radius;
   background-color: $tooltip-background;
-  color: $tooltip-background;
+  color: $tooltip-foreground;
   font-size: font-size(-1);
   text-align: center;
   will-change: transform;

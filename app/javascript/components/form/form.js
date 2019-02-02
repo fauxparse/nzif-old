@@ -1,5 +1,10 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 
-export default styled.form`
-  display: block;
-`
+const Form = ({ className, children, ...props }) => (
+  <form className={classNames('form', className)} {...props}>
+    {children}
+  </form>
+)
+
+export default Form

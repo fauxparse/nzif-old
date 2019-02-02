@@ -1,0 +1,6 @@
+.form__error {
+  @include themify {
+    color: themed(error);
+  }
+}
+

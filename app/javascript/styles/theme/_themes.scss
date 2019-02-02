@@ -13,13 +13,14 @@ $themes: (
     hover: color(tomato, 500, hover),
     unhover: color(tomato, 500, 0),
     panel: color(grey, 100),
-    outline: palette(tomato, 500, border),
+    outline: color(tomato, 500, border),
     ripple: color(grey, 300),
     scrim: color(grey, 900, secondary),
     beginner: color(mint, 500),
     intermediate: color(grape, 500),
     advanced: color(plum, 500),
-    icon: color(grey, 400)
+    icon: color(grey, 400),
+    menu-background: white
   ),
   dark: (
     background: color(grey, 800),
@@ -35,13 +36,14 @@ $themes: (
     hover: color(tomato, 500, hover),
     unhover: color(tomato, 500, 0),
     panel: color(grey, 900),
-    outline: palette(tomato, 500, secondary),
+    outline: color(tomato, 500, secondary),
     ripple: color(grey, 700),
     scrim: color(grey, 900, secondary),
     beginner: color(mint, 500),
     intermediate: color(grape, 500),
     advanced: color(plum, 500),
-    icon: color(grey, 600)
+    icon: color(grey, 600),
+    menu-background: color(grey, 900)
   )
 );
 
