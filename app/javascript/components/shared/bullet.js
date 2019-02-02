@@ -1,12 +1,7 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 
-const Bullet = styled.hr`
-  width: 1.5em;
-  height: 0.25em;
-  display: block;
-  background: ${({ theme }) => theme.colors.accent};
-  border: 0;
-  margin: 1em 0;
-`
+const Bullet = ({ className, ...props }) =>
+  <hr className={classNames('bullet', className)} {...props} />
 
 export default Bullet

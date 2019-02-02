@@ -1,9 +1,8 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 
-const Separator = styled.hr`
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-width: 1px 0 0;
-  margin: 0.5em 0;
-`
+const Separator = ({ className, ...props }) => (
+  <hr className={classNames('menu__separator', className)} {...props} />
+)
 
 export default Separator

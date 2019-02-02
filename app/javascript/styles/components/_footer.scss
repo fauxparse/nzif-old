@@ -1,0 +1,6 @@
+.footer {
+  @include constrained-width;
+  min-height: 6rem;
+  background: color(grey, 600);
+  color: color(grey, 100);
+}

@@ -1,4 +1,38 @@
+$breakpoints: (
+  small: 20rem,
+  medium: 40rem,
+  large: 60rem,
+  huge: 80rem
+);
+
 $border-radius: 0.25rem;
 $padding: 1rem;
-$medium: 40rem;
-$width: 60rem;
+$min-full-width: map-get($breakpoints, large) + $padding * 2;
+
+@mixin horizontal-padding($horizontal-padding) {
+  padding-right: $horizontal-padding;
+  padding-left: $horizontal-padding;
+}
+
+@mixin vertical-padding($vertical-padding) {
+  padding-top: $vertical-padding;
+  padding-bottom: $vertical-padding;
+}
+
+@mixin media($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $breakpoint: map-get($breakpoints, $breakpoint);
+  }
+
+  @media (min-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+@mixin constrained-width {
+  padding: $padding;
+
+  @include media($min-full-width) {
+    @include horizontal-padding(calc(50vw - #{$min-full-width} / 2));
+  }
+}

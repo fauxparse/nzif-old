@@ -2,9 +2,10 @@ import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router-dom'
+import classNames from 'classnames'
 import Button from './button'
 import Content from './content'
-import Item, { StyledIcon as Icon, StyledText as Text } from './item'
+import Item from './item'
 import Separator from './separator'
 
 class Menu extends React.Component {
@@ -13,18 +14,30 @@ class Menu extends React.Component {
   buttonRef = createRef()
   menuRef = createRef()
 
-  componentDidMount() {
-    document.addEventListener('mousedown', this.close)
-    document.addEventListener('touchstart', this.close)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.state.open && (prevProps.location !== this.props.location)) {
-      this.setState({ open: false })
+  componentDidUpdate(prevProps, prevState) {
+    const { open } = this.state
+    if (open) {
+      if (!prevState.open) {
+        this.addEventListeners()
+      }
+      if (prevProps.location !== this.props.location) {
+        this.setState({ open: false })
+      }
+    } else if (prevState.open) {
+      this.removeEventListeners()
     }
   }
 
   componentWillUnmount() {
+    this.removeEventListeners()
+  }
+
+  addEventListeners() {
+    document.addEventListener('mousedown', this.close)
+    document.addEventListener('touchstart', this.close)
+  }
+
+  removeEventListeners() {
     document.removeEventListener('mousedown', this.close)
     document.removeEventListener('touchstart', this.close)
   }
@@ -58,10 +71,11 @@ class Menu extends React.Component {
   }
 
   render() {
-    const Wrapper = this.props.component
+    const { component: Wrapper } = this.props
+    const { open } = this.state
 
     return (
-      <Wrapper>
+      <Wrapper className={classNames('menu', { 'menu--open': open })}>
         {this.renderButton()}
         {this.renderContent()}
       </Wrapper>
@@ -87,8 +101,6 @@ Menu.defaultProps = {
 Menu.Button = Button
 Menu.Content = Content
 Menu.Item = Item
-Menu.Icon = Icon
-Menu.Text = Text
 Menu.Separator = Separator
 
 export default withRouter(Menu)

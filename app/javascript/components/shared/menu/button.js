@@ -1,45 +1,18 @@
 import React from 'react'
-import styled from 'styled-components'
-import { transition } from '../../../styles'
+import classNames from 'classnames'
 import Icon from '../../icons'
 import Ripple from '../ripple'
 
-const Chevron = styled(Icon).attrs({ name: 'chevron-down' })`
-  flex: 0 0 auto;
-  margin-left: 0.5em;
-`
-
-const StyledButton = styled(Ripple).attrs(({ open }) => ({
-  role: 'button',
-  'aria-expanded': open,
-}))`
-  align-items: center;
-  background-color: ${({ theme }) => theme.colors.hoverBackground.alpha(0)};
-  cursor: pointer;
-  display: flex;
-  padding: 0.5em 1em;
-  transition: ${transition('background-color')};
-
-  :hover,
-  :focus,
-  :active {
-    background: ${({ theme }) => theme.colors.hoverBackground};
-  }
-
-  > ${Chevron} {
-    transition: ${transition('transform')};
-    transform: rotate(${({ open }) => open * 180}deg);
-  }
-`
-
-const Button = React.forwardRef(({ children, open, ...props }, ref) => (
-  <StyledButton ref={ref} open={open} {...props}>
+const Button = React.forwardRef(({ className, open, children, ...props }, ref) => (
+  <Ripple
+    ref={ref}
+    className={classNames('menu__button', className)}
+    aria-expanded={open || undefined}
+    {...props}
+  >
     {children}
-    <Chevron />
-  </StyledButton>
+    <Icon className="menu__chevron" name="chevron-down" />
+  </Ripple>
 ))
-
-Button.Chevron = Chevron
-Button.Styled = StyledButton
 
 export default Button

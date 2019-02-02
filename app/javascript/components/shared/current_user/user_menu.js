@@ -1,21 +1,14 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
-import styled from 'styled-components'
 import { CURRENT_USER_QUERY } from '../../../queries'
-import { media } from '../../../styles'
 import Menu from '../menu'
+import Flatten from '../../flatten'
 import User from './user'
 import LogOutLink from './log_out'
-
-const MenuContent = styled(Menu.Content)`
-  ${media.medium`
-    left: auto;
-  `}
-`
 
 export const NOTIFICATION_SUBSCRIPTION = gql`
   subscription userNotifications($userId: ID!) {
@@ -64,7 +57,7 @@ class UserMenu extends React.Component {
 
     return (
       <Menu
-        component={Fragment}
+        component={Flatten}
         renderButton={({ ref, open, toggle }) => (
           <User
             ref={ref}
@@ -77,7 +70,7 @@ class UserMenu extends React.Component {
           </User>
         )}
         renderContent={({ ref, open }) => (
-          <MenuContent ref={ref} aria-expanded={open}>
+          <Menu.Content ref={ref} className="current-user__menu" aria-expanded={open || undefined}>
             {user.roles.indexOf('admin') > -1 && (
               <Menu.Item
                 icon="admin"
@@ -87,8 +80,8 @@ class UserMenu extends React.Component {
             )}
             <Menu.Item icon="user" text="Profile" to="/profile" />
             <Menu.Separator />
-            <Menu.Item as={LogOutLink} icon="log-out" text="Log out" />
-          </MenuContent>
+            <LogOutLink />
+          </Menu.Content>
         )}
       />
     )

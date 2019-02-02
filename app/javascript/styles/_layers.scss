@@ -1,0 +1,8 @@
+$layers: (
+  base,
+  header
+);
+
+@function z-index($layer) {
+  @return index($layers, $layer);
+}

@@ -71,12 +71,14 @@
     "babel-runtime": "^6.26.0",
     "eslint-codeframe-formatter": "^1.0.2",
     "prettier": "1.13.0",
+    "sass-lint": "^1.12.1",
     "typescript": "^3.2.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "3.1.10"
   },
   "scripts": {
     "eslint": "eslint -c .eslintrc.json app/javascript",
+    "sass-lint": "sass-lint -c .sasslintrc app/javascript/**/*.scss -v -q",
     "storybook": "RAILS_ENV=development start-storybook -p 6006 -c .storybook -s app/assets webpack-dev-server",
     "build-storybook": "build-storybook"
   }

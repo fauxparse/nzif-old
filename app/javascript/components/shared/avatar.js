@@ -1,21 +1,7 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import { palette } from '../../themes/colors'
-import Icon from '../icons'
+import React, { forwardRef } from 'react'
+import classNames from 'classnames'
 
-const AvatarContainer = styled.span`${({ theme, background }) => css`
-  background: ${(background || theme.colors.grey()).shade(600)};
-  color: ${(background || theme.colors.grey()).shade(200)};
-  border-radius: 50%;
-  height: 2.5em;
-  padding: 0.5em 0;
-  width: 2.5em;
-  line-height: 1.5em;
-  text-align: center;
-  -webkit-font-smoothing: antialiased;
-`}`
-
-const COLORS = palette.names().slice(1)
+const COLORS = ['tomato', 'mandarin', 'grape', 'plum', 'apple', 'mint']
 
 function hashCode(str) {
   let hash = 0
@@ -28,14 +14,20 @@ function hashCode(str) {
   return Math.abs(hash)
 }
 
-const colorFromString = str => palette[COLORS[hashCode(str) % COLORS.length]]()
+const colorFromString = str => COLORS[hashCode(str) % COLORS.length]
 
 const initials = str => str.split(/\s+/).map(s => s[0]).join('').toUpperCase().substr(0, 3)
 
-const Avatar = React.forwardRef(({ name, ...props }, ref) =>
-  <AvatarContainer ref={ref} title={name} background={colorFromString(name)} {...props}>
+const Avatar = forwardRef(({ name, className, ...props }, ref) =>
+  <span
+    className={classNames('avatar', className)}
+    ref={ref}
+    title={name}
+    data-color={colorFromString(name)}
+    {...props}
+  >
     {initials(name)}
-  </AvatarContainer>
+  </span>
 )
 
 export default Avatar

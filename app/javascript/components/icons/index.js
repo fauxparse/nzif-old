@@ -1,20 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import classNames from 'classnames'
 import ICONS from './all'
-
-const Svg = styled.svg`
-  color: ${({ theme }) => theme.colors.icon};
-  display: inline-block;
-  font-size: 1.5em;
-  width: 1em;
-  height: 1em;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-`
 
 class Icon extends React.PureComponent {
   render() {
@@ -22,9 +9,9 @@ class Icon extends React.PureComponent {
 
     if (children || name) {
       return (
-        <Svg className={className} viewBox={viewBox} {...props}>
+        <svg className={classNames('icon', className)} viewBox={viewBox} {...props}>
           {children || <use xlinkHref={`#icon-${name}`} />}
-        </Svg>
+        </svg>
       )
     } else {
       return null

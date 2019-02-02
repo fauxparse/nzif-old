@@ -11,6 +11,7 @@ $themes: (
     disabled: color(grey, 900, disabled),
     border: color(grey, 900, border),
     hover: color(tomato, 500, hover),
+    unhover: color(tomato, 500, 0),
     panel: color(grey, 100),
     outline: palette(tomato, 500, border),
     ripple: color(grey, 300),
@@ -32,6 +33,7 @@ $themes: (
     disabled: color(grey, 100, disabled),
     border: color(grey, 100, border),
     hover: color(tomato, 500, hover),
+    unhover: color(tomato, 500, 0),
     panel: color(grey, 900),
     outline: palette(tomato, 500, secondary),
     ripple: color(grey, 700),
@@ -42,6 +44,10 @@ $themes: (
     icon: color(grey, 600)
   )
 );
+
+@function themed($key, $map: $theme-map) {
+  @return map-get($map, $key);
+}
 
 @mixin themify($themes: $themes) {
   @each $theme, $map in $themes {
@@ -58,8 +64,4 @@ $themes: (
       $theme-map: null !global;
     }
   }
-}
-
-@function themed($key) {
-  @return map-get($theme-map, $key);
 }

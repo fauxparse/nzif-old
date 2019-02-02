@@ -17,6 +17,11 @@ export const ACTIVITIES_QUERY = gql`
         type
         name
         url
+
+        presenters {
+          id
+          name
+        }
       }
     }
   }

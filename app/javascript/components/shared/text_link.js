@@ -1,19 +1,11 @@
-import styled from 'styled-components'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { transition } from '../../styles'
+import classNames from 'classnames'
 
-export default styled(Link)`
-  background-color: ${props => props.theme.colors.accent.alpha(0)};
-  border-radius: ${props => props.theme.layout.borderRadius};
-  color: ${props => props.theme.colors.link};
-  margin: 0 -0.25em;
-  padding: 0 0.25em;
-  text-decoration: none;
-  transition: ${transition('background-color')};
+const TextLink = ({ className, children, ...props }) => (
+  <Link className={classNames('text-link', className)} {...props}>
+    {children}
+  </Link>
+)
 
-  &:hover,
-  &:focus {
-    outline: none;
-    background-color: ${props => props.theme.colors.accent.alpha(0.15)};
-  }
-`
+export default TextLink

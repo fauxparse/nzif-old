@@ -1,22 +1,10 @@
-import styled from 'styled-components'
-import { transition } from '../../../styles'
+import React, { forwardRef } from 'react'
+import classNames from 'classnames'
 
-const Content = styled.nav`
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-width: 16em;
-  padding: 0.5em 0;
-  background: ${({ theme }) => theme.colors.background.alpha(0.875)};
-  z-index: -2;
-  box-shadow: ${({ theme }) => theme.shadow(0)};
-  transition: ${transition('transform', 'box-shadow')};
-
-  &[aria-expanded="true"] {
-    box-shadow: ${({ theme }) => theme.shadow(8)};
-    transform: translate3d(0, 100%, 0);
-  }
-`
+const Content = forwardRef(({ className, children, ...props }, ref) => (
+  <nav ref={ref} className={classNames('menu__content', className)} {...props}>
+    {children}
+  </nav>
+))
 
 export default Content

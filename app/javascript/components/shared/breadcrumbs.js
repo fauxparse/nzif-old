@@ -1,36 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import styled, { css } from 'styled-components'
+import classNames from 'classnames'
 import Icon from '../icons'
 import { Link } from './ripple'
 import TextLink from './text_link'
 
-const StyledBreadcrumbs = styled.div`${({ theme }) => css`
-  display: flex;
-  align-items: center;
-  font-size: ${theme.fonts.size(-1)};
-
-  ${TextLink} {
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: ${theme.colors.secondary};
-  }
-`}`
-
-const BackLink = styled(Link).attrs({ children: <Icon name="back" /> })`${({ theme }) => css`
-  flex: 0 0 2.5rem;
-  padding: 0.5rem;
-  margin: 0 0.5rem 0 -3rem;
-  color: ${theme.colors.secondary};
-  font-size: ${theme.fonts.size(0)};
-`}`
-
-const Breadcrumbs = ({ back, children, ...props }) => (
-  <StyledBreadcrumbs {...props}>
-    {back && <BackLink to={back} />}
+const Breadcrumbs = ({ className, back, children, ...props }) => (
+  <div className={classNames('breadcrumbs', className)} {...props}>
+    {back && <Link to={back} className="breadcrumbs__back"><Icon name="back" /></Link>}
     {children}
-  </StyledBreadcrumbs>
+  </div>
 )
 
 Breadcrumbs.propTypes = {
@@ -43,5 +23,13 @@ Breadcrumbs.propTypes = {
 Breadcrumbs.defaultProps = {
   back: null,
 }
+
+export const BreadcrumbsLink = ({ className, children, ...props }) => (
+  <TextLink className={classNames('breadcrumbs__link', className)} {...props}>
+    {children}
+  </TextLink>
+)
+
+Breadcrumbs.Link = BreadcrumbsLink
 
 export default Breadcrumbs

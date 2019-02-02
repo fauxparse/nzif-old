@@ -86,16 +86,17 @@ $opacities: (
   border: 0.25
 );
 
-@function color($hue, $shade, $opacity: 1) {
-  $base: map-get(map-get($palette, $hue), $shade);
+@function color($color, $shade: 500, $opacity: 1) {
+  @if(map-has-key($palette, $color)) {
+    $color: map-get(map-get($palette, $color), $shade);
+  }
+  @return change-opacity($color, $opacity);
+}
 
+@function change-opacity($color, $opacity: 1) {
   @if(map-has-key($opacities, $opacity)) {
     $opacity: map-get($opacities, $opacity);
   }
 
-  @if($opacity < 1) {
-    @return transparentize($base, 1 - $opacity);
-  } @else {
-    @return $base;
-  }
+  @return change-color($color, $alpha: $opacity);
 }

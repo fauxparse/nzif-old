@@ -41,6 +41,13 @@ const NavLink = React.forwardRef(({
 }, ref) => {
   const path = typeof to === 'object' ? to.pathname : to
 
+  const aria = {}
+  if (rest.role === 'tab') {
+    aria['aria-selected'] = isActiveProp || undefined
+  } else if (isActiveProp) {
+    aria['aria-current'] = ariaCurrent
+  }
+
   // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
   const escapedPath = path && path.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1')
 
@@ -59,7 +66,7 @@ const NavLink = React.forwardRef(({
         return (
           <LinkWithCallbacks
             isActive={isActive}
-            aria-current={(isActive && ariaCurrent) || null}
+            {...aria}
             className={className}
             style={style}
             to={to}

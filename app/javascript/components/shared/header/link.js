@@ -1,40 +1,25 @@
-import styled from 'styled-components'
-import { transition } from '../../../styles'
+import React from 'react'
+import classNames from 'classnames'
 import Icon from '../../icons'
 import { Link } from '../ripple'
 
-const HeaderLink = styled(Link)`
-  align-items: center;
-  background-color: ${({ theme }) => theme.colors.hoverBackground.alpha(0)};
-  border: 0;
-  color: ${props => props.theme.colors.foreground};
-  cursor: pointer;
-  display: flex;
-  min-width: 1px;
-  padding: 1em;
-  position: relative;
-  text-decoration: none;
-  transition: ${transition('background-color')};
-  user-select: none;
+const HeaderLink = ({ className, children, ...props }) => (
+  <Link className={classNames('link', 'header__link', className)} {...props}>
+    {children}
+  </Link>
+)
 
-  &:hover,
-  &:focus,
-  &[aria-expanded="true"] {
-    background-color: ${({ theme }) => theme.colors.hoverBackground};
-    outline: none;
-  }
-`
+const HeaderLinkText = ({ className, children, ...props }) => (
+  <span className={classNames('link__text', className)} {...props}>
+    {children}
+  </span>
+)
 
-HeaderLink.Text = styled.span`
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
+const HeaderLinkIcon = ({ className, ...props }) => (
+  <Icon className={classNames('link__icon', className)} {...props} />
+)
 
-HeaderLink.Icon = styled(Icon)`
-  flex: 0 0 auto;
-  margin-right: 2rem;
-`
+HeaderLink.Text = HeaderLinkText
+HeaderLink.Icon = HeaderLinkIcon
 
 export default HeaderLink

@@ -1,0 +1,11 @@
+.bullet {
+  @include themify {
+    background: themed(accent);
+  }
+
+  display: block;
+  width: 1.5em;
+  height: 0.25em;
+  margin: 1em 0;
+  border: 0;
+}

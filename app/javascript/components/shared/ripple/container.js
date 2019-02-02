@@ -1,20 +1,7 @@
 import React, { createRef } from 'react'
-import styled from 'styled-components'
+import classNames from 'classnames'
 import mojs from 'mo-js'
-
-const RippleContainer = styled.div`
-  position: relative;
-  overflow: hidden;
-
-  > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  > [data-name="mojs-shape"] {
-    z-index: 0;
-  }
-`
+import CommonProps from '../../../lib/proptypes'
 
 const trueClientPosition = (coordinates, element) => {
   let { x, y } = coordinates
@@ -48,6 +35,14 @@ const transformCoordinates = (element) => {
 }
 
 class Ripple extends React.Component {
+  static propTypes = {
+    as: CommonProps.component,
+  }
+
+  static defaultProps = {
+    as: 'div',
+  }
+
   constructor(props) {
     super(props)
     this.container = this.props.forwardref || createRef()
@@ -69,7 +64,7 @@ class Ripple extends React.Component {
         scale: { 0: 1 },
         isShowEnd: false,
         isForce3d: true,
-        duration: Math.max(500, 20 * Math.sqrt(size)),
+        duration: Math.max(500, 50 * Math.sqrt(size)),
         easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
         onComplete: () => {
           shape.el.remove()
@@ -97,17 +92,25 @@ class Ripple extends React.Component {
   }
 
   render() {
-    const { onMouseDown, onTouchStart, ...props } = this.props
+    const {
+      as: Container,
+      className,
+      forwardref,
+      onMouseDown,
+      onTouchStart,
+      ...props
+    } = this.props
 
     return (
-      <RippleContainer
+      <Container
         ref={this.container}
+        className={classNames('ripple', className)}
         onMouseDown={this.mouseDown}
         onTouchStart={this.touchStart}
         {...props}
       >
         {this.props.children}
-      </RippleContainer>
+      </Container>
     )
   }
 }

@@ -1,23 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
-import { transition } from '../../../styles'
-import { Link } from '../ripple'
+import HeaderLink from '../header/link'
 
-const LogIn = styled(Link).attrs({
-  to: '/login',
-  children: 'Log in',
-})`
-  background: ${({ theme }) => theme.colors.hoverBackground};
-  color: inherit;
-  order: 1;
-  transition: ${transition('background-color')};
-
-  :hover,
-  :focus,
-  :active {
-    background-color: ${({ theme }) => theme.colors.hoverBackground};
-    outline: none;
-  }
-`
+const LogIn = () => (
+  <HeaderLink to="/login" className="current-user--not-logged-in">
+    Log in
+  </HeaderLink>
+)
 
 export default LogIn

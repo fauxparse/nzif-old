@@ -1,0 +1,137 @@
+$tooltip-background: color(grey, 700);
+
+.tippy-touch {
+  cursor: pointer !important;
+}
+
+.tippy-popper {
+  max-width: 400px;
+  transition-timing-function: normalize-easing(decelerate);
+  outline: 0;
+  z-index: 9999;
+  pointer-events: none;
+
+  &.html-template {
+    max-width: 96%;
+    max-width: calc(100% - 20px);
+  }
+
+  &[x-placement^=top] {
+    [x-arrow] {
+      bottom: -0.5rem;
+      margin: 0 0.5rem;
+      border-top: 0.5rem solid $tooltip-background;
+      border-right: 0.5rem solid transparent;
+      border-left: 0.5rem solid transparent;
+    }
+
+    [data-animation=shift] {
+      &.enter {
+        transform: translateY(-0.5rem);
+        opacity: 1;
+      }
+
+      &.leave {
+        transform: translateY(0);
+        opacity: 0;
+      }
+    }
+  }
+
+  &[x-placement^=bottom] {
+    [x-arrow] {
+      top: -0.5rem;
+      margin: 0 0.5rem;
+      border-right: 0.5rem solid transparent;
+      border-bottom: 0.5rem solid $tooltip-background;
+      border-left: 0.5rem solid transparent;
+    }
+
+    [data-animation=shift] {
+      &.enter {
+        transform: translateY(0.5rem);
+        opacity: 1;
+      }
+
+      &.leave {
+        transform: translateY(0);
+        opacity: 0;
+      }
+    }
+  }
+
+  &[x-placement^=left] {
+    [x-arrow] {
+      right: -0.5rem;
+      margin: 0.5rem 0;
+      border-top: 0.5rem solid transparent;
+      border-bottom: 0.5rem solid transparent;
+      border-left: 0.5rem solid $tooltip-background;
+    }
+
+    [data-animation=shift] {
+      &.enter {
+        transform: translateX(-0.5rem);
+        opacity: 1;
+      }
+
+      &.leave {
+        transform: translateX(0);
+        opacity: 0;
+      }
+    }
+  }
+
+  &[x-placement^=right] {
+    [x-arrow] {
+      left: -0.5rem;
+      margin: 0.5rem 0;
+      border-top: 0.5rem solid transparent;
+      border-right: 0.5rem solid $tooltip-background;
+      border-bottom: 0.5rem solid transparent;
+    }
+
+    [data-animation=shift] {
+      &.enter {
+        transform: translateX(0.5rem);
+        opacity: 1;
+      }
+
+      &.leave {
+        transform: translateX(0);
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.tippy-tooltip {
+  @include elevation(16);
+  position: relative;
+  padding: 0.5em 1em;
+  border-radius: $border-radius;
+  background-color: $tooltip-background;
+  color: $tooltip-background;
+  font-size: font-size(-1);
+  text-align: center;
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tippy-tooltip[data-inertia] {
+  transition-timing-function: normalize-easing(standard);
+}
+
+.tippy-tooltip [x-arrow] {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+@media (max-width:450px) {
+  .tippy-popper {
+    max-width: 96%;
+    max-width: calc(100% - 20px);
+  }
+}

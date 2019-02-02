@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import classNames from 'classnames'
 
 const LETTERS = [
   'M87.1,182.5v95.9H26.5V61.7l125.2,98.8V64.6h60.8v216.7L87.1,182.5z',
@@ -7,28 +7,6 @@ const LETTERS = [
   'M189.9,337h-62V123.3h62V337z',
   'M237.8,161.1h135.6v52.2h-73.6v31.8h62v50.8h-62v78.9h-62V161.1z',
 ]
-
-const Container = styled.div`
-  background: ${({ theme }) => theme.gradients.primary};
-  position: relative;
-`
-
-const Letters = styled.svg`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  .letter {
-    fill: white;
-    opacity: 0.12;
-    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.15));
-    transition: transform 0.3s ease-out;
-  }
-`
 
 class Background extends React.Component {
   ref = (el) => {
@@ -51,15 +29,24 @@ class Background extends React.Component {
   }
 
   render() {
-    const { children, ...props } = this.props
+    const { className, children, ...props } = this.props
 
     return (
-      <Container ref={this.ref} onMouseMove={this.mouseMove} {...props}>
-        <Letters viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
-          {LETTERS.map(path => <path className="letter" key={path} d={path} />)}
-        </Letters>
+      <div
+        className={classNames('floating-letters', className)}
+        ref={this.ref}
+        onMouseMove={this.mouseMove}
+        {...props}
+      >
+        <svg
+          className="floating-letters__letters"
+          viewBox="0 0 400 400"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          {LETTERS.map(path => <path className="floating-letters__letter" key={path} d={path} />)}
+        </svg>
         {children}
-      </Container>
+      </div>
     )
   }
 }

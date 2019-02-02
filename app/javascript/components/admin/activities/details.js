@@ -114,7 +114,9 @@ class ActivityDetails extends Component {
       return (
         <>
           <Breadcrumbs back={`/admin/${year}/activities`}>
-            <TextLink to={`/admin/${year}/activities`}>{pluralize(activity.type)}</TextLink>
+            <Breadcrumbs.Link to={`/admin/${year}/activities`}>
+              {pluralize(activity.type)}
+            </Breadcrumbs.Link>
           </Breadcrumbs>
           <Name
             value={activity.name}

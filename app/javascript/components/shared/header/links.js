@@ -1,40 +1,11 @@
-import styled from 'styled-components'
+import React, { forwardRef } from 'react'
+import classNames from 'classnames'
 import Menu from '../menu'
-import { media, transition } from '../../../styles'
 
-export default styled(Menu.Content)`
-  ${media.medium`
-    display: flex;
-    padding: 0;
-    position: static;
-    transition: none;
+const HeaderLinks = forwardRef(({ className, children, ...props }, ref) => (
+  <Menu.Content ref={ref} className={classNames('header__links', className)} {...props}>
+    {children}
+  </Menu.Content>
+))
 
-    ${Menu.Item.Styled} {
-      &::after {
-        background: ${props => props.theme.colors.accent};
-        bottom: 50%;
-        content: '';
-        height: 0.25em;
-        left: 1em;
-        right: 1em;
-        margin-bottom: -1em;
-        position: absolute;
-        transform: scaleX(0);
-        transition: ${transition('transform', { duration: 'fast' })};
-        transition-delay: 100ms;
-      }
-
-      &:hover,
-      &:focus,
-      &.active {
-        &::after {
-          transform: scaleX(1);
-        }
-      }
-    }
-
-    ${Menu.Icon} {
-      display: none;
-    }
-  `}
-`
+export default HeaderLinks

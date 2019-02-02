@@ -13,6 +13,8 @@ export const ref = PropTypes.shape({
 
 export const className = PropTypes.any
 
+export const component = PropTypes.any
+
 export const color = PropTypes.instanceOf(Color)
 
 export const activityType = PropTypes.oneOf([
@@ -54,6 +56,7 @@ export default {
   activityType,
   className,
   color,
+  component,
   id,
   ref,
   session,

@@ -4,8 +4,9 @@ $font-weight-light: 300;
 $font-weight-bold: 700;
 
 $font-families: (
-  normal: 'Work Sans',
-  branding: 'Brother'
+  normal: "Work Sans",
+  branding: "Brother",
+  skeleton: "Blokk"
 );
 
 $font-sizes: (
@@ -41,11 +42,11 @@ $line-heights: (
 );
 
 @function font-family($family: normal) {
-  @return unquote('#{map-get($font-families, $family)}, #{$system-font-stack}');
+  @return unquote("#{map-get($font-families, $family)}, #{$system-font-stack}");
 }
 
 @function font-size($scale: 0) {
-  @return unquote('#{map-get($font-sizes, $scale) / $font-size-base}rem');
+  @return unquote("#{map-get($font-sizes, $scale) / $font-size-base}rem");
 }
 
 @function font-weight($weight: normal) {
@@ -62,4 +63,9 @@ $line-heights: (
   } @else {
     @return $line-height;
   }
+}
+
+@mixin branding-font {
+  font-family: font-family(branding);
+  font-weight: font-weight(black);
 }

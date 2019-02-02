@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import Icon from '../../icons'
 import Ripple from '../ripple'
 import { CURRENT_USER_QUERY } from '../../../queries'
 
@@ -11,21 +12,11 @@ const LOG_OUT_MUTATION = gql`
   }
 `
 
-class LogOutLink extends React.Component {
-  logOut = () => {
-    this.props.mutate()
-  }
-
-  render() {
-    const { children, ...props } = this.props
-
-    return (
-      <Ripple {...props} onClick={this.logOut}>
-        {children}
-      </Ripple>
-    )
-  }
-}
+const LogOutLink = ({ mutate }) =>
+  <Ripple className="menu__item" onClick={mutate}>
+    <Icon className="menu__icon" name="log-out" />
+    <span className="menu__text">Log out</span>
+  </Ripple>
 
 LogOutLink.propTypes = {
   mutate: PropTypes.func.isRequired,

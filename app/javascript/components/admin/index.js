@@ -32,7 +32,7 @@ const getPageKey = path => path.split('/').slice(0, 6).join('/')
 
 const Admin = ({ match }) => (
   <Theme>
-    <AdminLayout>
+    <AdminLayout data-theme='dark'>
       <Header />
       <Route
         render={({ location }) => (

@@ -1,32 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import mojs from 'mo-js'
-import colors from '../../../themes/colors'
-import { transition } from '../../../styles'
 import Avatar from '../avatar'
-
-export const StyledAvatar = styled(Avatar)`
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 0.625em;
-    height: 0.625em;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.accent};
-    box-shadow: 0 0 0 0.125em ${({ theme }) => theme.colors.background};
-    transform: scale(1);
-    transition: ${transition('transform')};
-  }
-
-  &[data-notification-count="0"]::after {
-    transform: scale(0);
-  }
-`
 
 class AvatarWithNotifications extends React.Component {
   avatar = React.createRef()
@@ -50,7 +25,7 @@ class AvatarWithNotifications extends React.Component {
         count: 14,
         children: {
           radius: 2.5,
-          fill: colors.accent,
+          fill: 'hsl(4, 85%, 57%)',
           scale: { 1: 0, easing: 'quad.in' },
           pathScale: [0.8, null],
           degreeShift: [13, null],
@@ -66,7 +41,7 @@ class AvatarWithNotifications extends React.Component {
     const { user, notificationsCount } = this.props
 
     return (
-      <StyledAvatar
+      <Avatar
         ref={this.avatar}
         name={user.name}
         data-notification-count={notificationsCount}
