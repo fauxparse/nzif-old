@@ -94,11 +94,13 @@ class ActivityDetails extends Component {
 
     this.setState({ saving: true })
 
-    return this.props.client.mutate({
+    const promise = this.props.client.mutate({
       mutation: UPDATE_ACTIVITY_MUTATION,
       variables,
       errorPolicy: 'all',
-    }).then(() => this.setState({ saving: false }))
+    })
+    promise.then(() => this.setState({ saving: false }))
+    return promise
   }
 
   renderContent() {
