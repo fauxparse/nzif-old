@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
-import styled, { css } from 'styled-components'
 import pick from 'lodash/pick'
 import deburr from 'lodash/deburr'
 import Highlighter from 'react-highlight-words'
@@ -10,53 +9,16 @@ import { USERS_QUERY } from '../../../queries'
 import Autocomplete from '../../autocomplete'
 import Avatar from '../../shared/avatar'
 
-const AddPresenterDialog = styled.div`
-  ul {
-    margin: 0.5em 0;
-  }
-`
-
-const StyledAvatar = styled(Avatar)`
-  margin-right: 1rem;
-`
-
-const StyledHighlight = styled(Highlighter)`${({ theme }) => css`
-  font-size: ${theme.fonts.size(1)};
-  line-height: ${theme.fonts.lineHeight}rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: ${theme.colors.text.shade(100)};
-
-  mark {
-    background: none;
-    color: white;
-    font-weight: bold;
-  }
-`}`
-
-const StyledMenuItem = styled.li`${({ theme }) => css`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0.5rem 1rem;
-  color: ${theme.colors.text.shade(100)};
-
-  &[aria-selected] {
-    background: ${theme.colors.highlight};
-    color: ${theme.colors.highlight.shade(100)};
-  }
-`}`
-
 const MenuItem = ({ label, selected, selectedText, value: { name }, ...props }) => (
-  <StyledMenuItem aria-selected={selected || undefined} {...props}>
-    <StyledAvatar name={name} />
-    <StyledHighlight
+  <li className="add-presenter__presenter" aria-selected={selected || undefined} {...props}>
+    <Avatar name={name} />
+    <Highlighter
+      className="highlight"
       textToHighlight={label}
       searchWords={selectedText.split(/\s+/)}
       sanitize={deburr}
     />
-  </StyledMenuItem>
+  </li>
 )
 
 class AddPresenter extends Component {
@@ -91,7 +53,7 @@ class AddPresenter extends Component {
 
     if (users) {
       return (
-        <AddPresenterDialog>
+        <div className="add-presenter">
           <Autocomplete
             options={users.map(u => ({ id: u.id, label: u.name, value: pick(u, ['id', 'name']) }))}
             menuItemComponent={MenuItem}
@@ -99,7 +61,7 @@ class AddPresenter extends Component {
             placeholder="Type someone’s name…"
             onChange={this.add}
           />
-        </AddPresenterDialog>
+        </div>
       )
     } else {
       return <Fragment />

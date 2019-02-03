@@ -1,31 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import CommonProps from '../../../lib/proptypes'
 import Block from './block'
 import Context from './context'
-
-const themeBlock = (type, base) => css`
-  &[data-type="${type}"] {
-    background: linear-gradient(to bottom, ${base(300)}, ${base(400)});
-    border-color: ${base(600)};
-    color: ${base(900)};
-  }
-`
-
-const Activity = styled.div`${({ theme }) => css`
-  font-size: ${theme.fonts.size(-1)};
-  padding: 0 0.5em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
-`}`
-
-const StyledSession = styled(Block.Placed)`${({ theme }) => css`
-  ${themeBlock('workshop', theme.colors.plum)}
-  ${themeBlock('show', theme.colors.grape)}
-`}`
 
 const startOf = (time, startHour) => time.clone().startOf('day').hour(startHour)
 
@@ -52,17 +29,17 @@ class Session extends Component {
     return (
       <Context.Consumer>
         {({ start, minutesPerSlot }) => (
-          <StyledSession
+          <Block
             draggable
             title={activity ? activity.name : undefined}
             data-id={id}
             data-type={activity && activity.type || 'workshop'}
-            data-start={startsAt.diff(startOf(startsAt, start), 'minutes') / minutesPerSlot}
-            data-height={endsAt.diff(startsAt, 'minutes') / minutesPerSlot}
+            start={startsAt.diff(startOf(startsAt, start), 'minutes') / minutesPerSlot}
+            height={endsAt.diff(startsAt, 'minutes') / minutesPerSlot}
             onClick={this.clicked}
           >
-            {activity && <Activity>{activity.name}</Activity>}
-          </StyledSession>
+            {activity && <div className="timetable__activity-name">{activity.name}</div>}
+          </Block>
         )}
       </Context.Consumer>
     )

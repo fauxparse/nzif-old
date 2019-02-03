@@ -1,51 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import Button from '../../button'
 
 const LEVELS = ['beginner', 'intermediate', 'advanced']
 
-const StyledLevel = styled(Button)`${({ theme }) => css`
-  font-size: ${theme.fonts.size(-1)};
-  text-transform: capitalize;
-  line-height: 1rem;
-  padding: 0.5rem 1rem;
-  margin: 0.25rem 0;
-  border: 0;
-  border-radius: 1rem;
-
-  &:not(:last-child) {
-    margin-right: 0.5rem;
-  }
-
-  ${LEVELS.map(level => css`
-    &[data-level="${level}"] {
-      color: ${theme.colors.disabled};
-
-      &[aria-checked] {
-        background-color: ${theme.colors[level]};
-        color: ${theme.colors[level].shade(100)};
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 0.25rem ${theme.colors[level].shade(800)};
-      }
-    }
-  `)}
-`}`
-
-const StyledLevels = styled.div`
-  display: flex;
-`
-
 const Level = ({ level, selected, ...props }) => (
-  <StyledLevel {...props} data-level={level} role="checkbox" aria-checked={selected}>
+  <Button
+    className="activity-level"
+    data-level={level}
+    role="checkbox"
+    aria-checked={selected}
+    {...props}
+  >
     {level}
-  </StyledLevel>
+  </Button>
 )
 
 const Levels = ({ levels, onClick }) => (
-  <StyledLevels>
+  <div className="activity-levels">
     {LEVELS.map(level => (
       <Level
         key={level}
@@ -54,7 +26,7 @@ const Levels = ({ levels, onClick }) => (
         onClick={onClick}
       />
     ))}
-  </StyledLevels>
+  </div>
 )
 
 Levels.propTypes = {

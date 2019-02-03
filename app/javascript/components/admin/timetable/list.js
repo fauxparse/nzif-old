@@ -1,32 +1,30 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import classNames from 'classnames'
 import Context from './context'
-
-const StyledList = styled.div`${({ theme, scale, granularity, 'data-rows': rows }) => css`
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: repeat(${rows}, 1em);
-  font-size: ${scale}em;
-  background: linear-gradient(to top, ${theme.colors.border}, transparent 1px) repeat-y 0 0 / 100% ${granularity}em;
-`}`
 
 class List extends React.Component {
   static contextType = Context
 
   render() {
-    const { children, selection, onResize, ...props } = this.props
+    const { className, children, selection, onResize, ...props } = this.props
     const { start, end, scale, granularity } = this.context
     const rows = (end - start) * granularity
 
     return (
-      <StyledList
+      <div
+        className={classNames('timetable__list', className)}
         scale={scale}
         granularity={granularity}
         data-rows={rows}
+        style={{
+          gridTemplateRows: `repeat(${rows}, 1em)`,
+          fontSize: `${scale}em`,
+          backgroundSize: `100% ${granularity}em`,
+        }}
         {...props}
       >
         {children}
-      </StyledList>
+      </div>
     )
   }
 }

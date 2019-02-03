@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import classNames from 'classnames'
 import upperFirst from 'lodash/upperFirst'
 import CommonProps from '../../../lib/proptypes'
 import Date from '../../shared/date'
@@ -9,36 +9,6 @@ import Icon from '../../icons'
 import Button from '../../button'
 import VenuePicker from '../activities/venue_picker'
 import { IconField } from '../../form'
-
-const ActivityIcon = styled(Icon)``
-
-const ActionButton = styled(Button)`
-  color: inherit;
-  border-color: transparent;
-`
-
-const Buttons = styled.div`
-`
-
-const Actions = styled(({ session, onDelete, onDuplicate, onClose, ...props }) => (
-  <div {...props}>
-    <ActionButton icon="trash" onClick={onDelete} />
-    <ActionButton icon="copy" onClick={onDuplicate} />
-    <ActionButton icon="close" onClick={onClose} />
-  </div>
-))`${({ theme }) => css`
-  color: ${theme.colors.secondary};
-  margin: -0.75rem -0.75rem 0 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  ${ActionButton} {
-    margin-left: 0.5rem;
-  }
-`}`
-
-const Row = styled.div``
 
 class SessionDetails extends Component {
   static propTypes = {
@@ -89,6 +59,7 @@ class SessionDetails extends Component {
 
   render() {
     const {
+      className,
       session: _session,
       onDelete,
       onDuplicate,
@@ -100,62 +71,32 @@ class SessionDetails extends Component {
     const { activity, startsAt, endsAt } = session
 
     return (
-      <div {...props}>
-        <Actions
-          onDelete={this.delete}
-          onDuplicate={this.duplicate}
-          onClose={onClose}
-        />
-        <ActivityIcon name={activity.type} />
-        <h3>{activity.name}</h3>
-        <Row>
+      <div className={classNames('session-summary', className)} {...props}>
+        <div className="session-summary__actions">
+          <Button className="session-summary__action" icon="trash" onClick={this.delete} />
+          <Button className="session-summary__action" icon="copy" onClick={this.duplicate} />
+          <Button className="session-summary__action" icon="close" onClick={onClose} />
+        </div>
+        <Icon className="session-summary__icon" name={activity.type} />
+        <h3 className="session-summary__activity-name">{activity.name}</h3>
+        <div className="session-summary__row">
           <Time time={[startsAt, endsAt]} />
           {', '}
           <Date date={startsAt} />
-        </Row>
-        <Row>
+        </div>
+        <div className="session-summary__row">
           <IconField icon="venue" label="Venue">
             <VenuePicker value={session.venue} onChange={this.venueChanged} />
           </IconField>
-        </Row>
-        <Buttons>
+        </div>
+        <div className="session-summary__buttons">
           <Button onClick={this.showDetails}>
             {upperFirst(activity.type)} details
           </Button>
-        </Buttons>
+        </div>
       </div>
     )
   }
 }
 
-export default styled(SessionDetails)`${({ theme }) => css`
-  display: grid;
-  align-items: flex-start;
-  grid-template-columns: 3.5em auto;
-  padding: ${theme.layout.padding};
-
-  ${Actions} {
-    grid-column: 2 / 3;
-  }
-
-  ${ActivityIcon} {
-    margin: calc((${theme.fonts.size(4)} * ${theme.fonts.lineHeight} - 1em) / 2) 0.5rem;
-  }
-
-  h3 {
-    color: ${theme.colors.text};
-    font-size: ${theme.fonts.size(4)};
-    font-weight: normal;
-    margin: 0;
-  }
-
-  ${Row} {
-    grid-column: 2 / 3;
-    color: ${theme.colors.secondary};
-    margin: 0 0 ${theme.layout.padding};
-  }
-
-  ${Buttons} {
-    grid-column: 2 / 3;
-  }
-`}`
+export default SessionDetails

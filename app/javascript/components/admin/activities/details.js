@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import styled from 'styled-components'
+import classNames from 'classnames'
 import { generatePath } from 'react-router'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { graphql, compose, withApollo } from 'react-apollo'
@@ -13,20 +13,14 @@ import {
 } from '../../../queries'
 import CommonProps from '../../../lib/proptypes'
 import moment from '../../../lib/moment'
-import { fullWidth } from '../../../styles'
 import Loader from '../../shared/loader'
 import { Tab, TabBar } from '../../shared/tabs'
-import TextLink from '../../shared/text_link'
 import Breadcrumbs from '../../shared/breadcrumbs'
 import noTransition from '../../page_transition/none'
 import Name from './name'
 import Slug from './slug'
 import Overview from './overview'
 import Session from './session'
-
-const StyledActivityDetails = styled.section`
-  ${fullWidth}
-`
 
 class ActivityDetails extends Component {
   static propTypes = {
@@ -158,9 +152,9 @@ class ActivityDetails extends Component {
     const { className } = this.props
 
     return (
-      <StyledActivityDetails className={className}>
+      <section className={classNames('activity-details', className)}>
         {this.renderContent()}
-      </StyledActivityDetails>
+      </section>
     )
   }
 }

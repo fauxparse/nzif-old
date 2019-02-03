@@ -1,0 +1,82 @@
+.modal {
+  @include elevation-element(dialog);
+  @include themify {
+    background-color: themed(background);
+    color: themed(text);
+  }
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate3d(-50%, 0, 0);
+  transition: transition(transform, $easing: decelerate), transition(opacity);
+  border-radius: $border-radius;
+  outline: none;
+  opacity: 0;
+
+  &--opening {
+    transform: translate3d(-50%, -50%, 0);
+    opacity: 1;
+  }
+
+  &--closing {
+    transform: translate3d(-50%, 0, 0);
+    opacity: 0;
+  }
+
+  @include media(medium) {
+    max-width: 30rem;
+    height: auto;
+  }
+
+  &.modal--autocomplete {
+    top: 25vh;
+    transform: translate3d(-50%, 25vh, 0);
+
+    &--opening {
+      transform: translate3d(-50%, 0, 0);
+    }
+
+    &--closing {
+      transform: translate3d(-50%, 25vh, 0);
+    }
+  }
+
+  &__overlay {
+    @include themify {
+      background-color: themed(scrim);
+    }
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: z-index(dialog);
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transition: transition(opacity);
+      content: "";
+      opacity: 0;
+    }
+  }
+
+  &--opening::before {
+    opacity: 1;
+  }
+
+  &--closing::before {
+    opacity: 0;
+  }
+}
+
+.ReactModalPortal + div:not(.ReactModalPortal) > div > div {
+  z-index: z-index(menu);
+}

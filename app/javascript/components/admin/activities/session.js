@@ -1,16 +1,9 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { withApollo } from 'react-apollo'
-import pick from 'lodash/pick'
 import { UPDATE_SESSION_MUTATION } from '../../../queries'
 import CommonProps from '../../../lib/proptypes'
 import { IconField } from '../../form'
 import VenuePicker from './venue_picker'
-
-const SessionSection = styled.section`
-  padding: 1.5rem 0;
-`
 
 class Session extends Component {
   static propTypes = {
@@ -39,11 +32,11 @@ class Session extends Component {
     const { session } = this.props
 
     return (
-      <SessionSection>
+      <section className="activity-session">
         <IconField icon="venue" label="Venue">
           <VenuePicker value={session.venue} onChange={this.venueChanged} />
         </IconField>
-      </SessionSection>
+      </section>
     )
   }
 }

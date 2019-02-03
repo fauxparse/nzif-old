@@ -74,7 +74,7 @@ $header-theme: map-merge(map-get($themes, dark), (
     }
 
     g:nth-child(2) line {
-      transition: opacity 0s linear normalize-duration(half);
+      transition: opacity 0s linear duration(half);
       opacity: 1;
     }
 
@@ -210,7 +210,7 @@ $header-theme: map-merge(map-get($themes, dark), (
         &.active {
           &::after {
             transform: scaleX(1);
-            transition-duration: normalize-duration(normal);
+            transition-duration: duration(normal);
             opacity: 1;
           }
         }

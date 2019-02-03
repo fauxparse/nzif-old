@@ -1,33 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
-import { transition } from '../../../styles'
 import Context from './context'
-
-const Time = styled.span`${({ theme }) => css`
-  display: block;
-  line-height: ${theme.fonts.size(0)};
-  padding-right: 1em;
-  font-size: ${theme.fonts.size(-1)};
-  color: ${theme.colors.secondary};
-  text-align: right;
-  white-space: nowrap;
-  transition: ${transition('opacity', { duration: 100 })};
-
-  &:first-of-type,
-  &[aria-hidden="true"] {
-    opacity: 0;
-  }
-`}`
-
-const StyledTimes = styled.aside`${({ scale, granularity }) => css`
-  flex: 0 0 4.5em;
-  padding-top: 2em;
-  align-self: stretch;
-
-  ${Time} {
-    padding-top: ${scale * granularity - 1}rem;
-  }
-`}`
 
 class Times extends React.Component {
   static contextType = Context
@@ -54,11 +26,23 @@ class Times extends React.Component {
     const { start, end, scale, granularity } = this.context
 
     return (
-      <StyledTimes ref={this.container} scale={scale} granularity={granularity} {...this.props}>
+      <aside
+        ref={this.container}
+        className="timetable__times"
+        {...this.props}
+      >
         {Array(end - start).fill(0).map((_, i) => i + start).map(hour => (
-          <Time key={hour}>{(hour - 1) % 12 + 1} {(hour % 24) < 12 ? 'AM' : 'PM'}</Time>
+          <span
+            key={hour}
+            className="timetable__time"
+            style={{
+              paddingTop: `${scale * granularity - 1}rem`,
+            }}
+          >
+            {(hour - 1) % 12 + 1} {(hour % 24) < 12 ? 'AM' : 'PM'}
+          </span>
         ))}
-      </StyledTimes>
+      </aside>
     )
   }
 }

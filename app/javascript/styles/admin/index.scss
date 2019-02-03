@@ -1,1 +1,5 @@
-@import "./activities.scss";
+$admin-theme: map-get($themes, dark);
+
+@import "./layout";
+@import "./activities";
+@import "./timetable";

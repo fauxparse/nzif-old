@@ -7,7 +7,7 @@ $tooltip-foreground: color(grey, 200);
 
 .tippy-popper {
   max-width: 400px;
-  transition-timing-function: normalize-easing(decelerate);
+  transition-timing-function: easing(decelerate);
   outline: 0;
   z-index: 9999;
   pointer-events: none;
@@ -121,7 +121,7 @@ $tooltip-foreground: color(grey, 200);
 }
 
 .tippy-tooltip[data-inertia] {
-  transition-timing-function: normalize-easing(standard);
+  transition-timing-function: easing(standard);
 }
 
 .tippy-tooltip [x-arrow] {

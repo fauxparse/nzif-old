@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
+import classNames from 'classnames'
 import ThemeContext from '../../lib/theme_context'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Theme from './theme'
@@ -10,31 +10,18 @@ import Dashboard from './dashboard'
 import Timetable from './timetable'
 import ActivityDetails from './activities/details'
 
-const AdminLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  min-height: 100vh;
-  background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-`
-
-const Page = styled.main`
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  position: relative;
-`
-
 const getPageKey = path => path.split('/').slice(0, 6).join('/')
+
+const Page = ({ className, children, ...props }) => (
+  <main className={classNames('admin__page', className)} {...props}>
+    {children}
+  </main>
+)
 
 const Admin = ({ match }) => (
   <Theme>
     <ThemeContext.Provider value='dark'>
-      <AdminLayout data-theme='dark'>
+      <div className="admin" data-theme='dark'>
         <Header />
         <Route
           render={({ location }) => (
@@ -51,7 +38,7 @@ const Admin = ({ match }) => (
             </PageTransition>
           )}
         />
-      </AdminLayout>
+      </div>
     </ThemeContext.Provider>
   </Theme>
 )

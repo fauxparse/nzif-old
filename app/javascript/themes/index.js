@@ -6,7 +6,6 @@ import layout from './layout'
 import shadow from './shadows'
 
 import { transitionStyles } from '../components/page_transition'
-import { modalStyles } from '../components/modals'
 
 export const GlobalStyle = createGlobalStyle`${({ theme }) => css`
   *, *::before, *::after {
@@ -26,8 +25,6 @@ export const GlobalStyle = createGlobalStyle`${({ theme }) => css`
 
 
   ${transitionStyles}
-
-  ${modalStyles}
 `}`
 
 export default {

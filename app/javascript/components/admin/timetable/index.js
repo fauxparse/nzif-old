@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import classNames from 'classnames'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
-import mapValues from 'lodash/mapValues'
 import pick from 'lodash/pick'
 import moment from '../../../lib/moment'
 import {
@@ -12,23 +11,13 @@ import {
   UPDATE_SESSION_MUTATION,
   DELETE_SESSION_MUTATION,
 } from '../../../queries'
-import { media } from '../../../styles'
 import Loader from '../../shared/loader'
-import { Modal } from '../../modals'
+import Modal from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
 import Grid from './grid'
 import NewSession from './new'
 import SessionDetails from './session_details'
-import Styles from './styles'
-
-const Container = styled.section`
-  flex: 1;
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-  height: calc(100vh - 3.5rem);
-`
 
 class Timetable extends Component {
   state = {
@@ -42,9 +31,11 @@ class Timetable extends Component {
 
   create = ({ startsAt, endsAt, activity }) => {
     const variables = {
-      activityId: activity.id,
-      startsAt: startsAt.toISOString(),
-      endsAt: endsAt.toISOString(),
+      attributes: {
+        activityId: activity.id,
+        startsAt: startsAt.toISOString(),
+        endsAt: endsAt.toISOString(),
+      },
     }
 
     this.setState({ newSession: undefined })
@@ -55,7 +46,7 @@ class Timetable extends Component {
       errorPolicy: 'all',
       optimisticReponse: {
         id: -1,
-        ...pick(variables, ['startsAt', 'endsAt']),
+        ...pick(variables.attributes, ['startsAt', 'endsAt']),
         activity,
       },
       update: this.updateCachedSessions((sessions, { createSession }) =>
@@ -197,7 +188,6 @@ class Timetable extends Component {
               onShowDetails={history.push}
             />
           </Modal>
-          <Styles/>
         </Context.Provider>
       )
     }
@@ -207,9 +197,9 @@ class Timetable extends Component {
     const { className } = this.props
 
     return (
-      <Container className={className}>
+      <section className={classNames('timetable', className)}>
         {this.renderContent()}
-      </Container>
+      </section>
     )
   }
 }

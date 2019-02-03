@@ -1,8 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import classNames from 'classnames'
 
-const StyledSlot = styled.div`
-  height: 1em;
-`
+const Slot = ({ className, children, ...props }) => (
+  <div className={classNames('timetable__slot', className)} {...props}>
+    {children}
+  </div>
+)
 
-export default StyledSlot
+export default Slot

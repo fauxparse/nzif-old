@@ -86,6 +86,11 @@ $opacities: (
   border: 0.25
 );
 
+$activity-colors: (
+  workshop: plum,
+  show: grape
+);
+
 @function color($color, $shade: 500, $opacity: 1) {
   @if(map-has-key($palette, $color)) {
     $color: map-get(map-get($palette, $color), $shade);

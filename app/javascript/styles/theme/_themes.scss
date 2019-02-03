@@ -4,6 +4,7 @@ $themes: (
     foreground: color(grey, 900),
     accent: color(tomato, 500),
     highlight: color(tomato, 200),
+    highlight-text: color(tomato, 800),
     link: color(tomato, 600),
     error: color(tomato, 700),
     text: color(grey, 900, primary),
@@ -14,6 +15,7 @@ $themes: (
     unhover: color(tomato, 500, 0),
     panel: color(grey, 100),
     outline: color(tomato, 500, border),
+    unfocused: color(tomato, 500, 0),
     ripple: color(grey, 300),
     scrim: color(grey, 900, secondary),
     beginner: color(mint, 500),
@@ -27,6 +29,7 @@ $themes: (
     foreground: color(grey, 100),
     accent: color(tomato, 500),
     highlight: color(tomato, 800),
+    highlight-text: color(tomato, 100),
     link: color(tomato, 400),
     error: color(tomato, 300),
     text: color(grey, 100, primary),
@@ -37,6 +40,7 @@ $themes: (
     unhover: color(tomato, 500, 0),
     panel: color(grey, 900),
     outline: color(tomato, 500, secondary),
+    unfocused: color(tomato, 500, 0),
     ripple: color(grey, 700),
     scrim: color(grey, 900, secondary),
     beginner: color(mint, 500),
@@ -45,6 +49,12 @@ $themes: (
     icon: color(grey, 600),
     menu-background: color(grey, 900)
   )
+);
+
+$levels: (
+  beginner: mint,
+  intermediate: grape,
+  advanced: plum
 );
 
 @function themed($key, $map: $theme-map) {
@@ -57,7 +67,7 @@ $themes: (
       $theme-map: () !global;
 
       @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $value: map-get(map-get($themes, $theme), "#{$key}");
         $theme-map: map-merge($theme-map, ($key: $value)) !global;
       }
 

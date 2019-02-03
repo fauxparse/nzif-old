@@ -1,6 +1,8 @@
 $layers: (
   base,
-  header
+  header,
+  dialog,
+  menu
 );
 
 @function z-index($layer) {

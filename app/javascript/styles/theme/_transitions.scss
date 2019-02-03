@@ -11,7 +11,7 @@ $durations: (
   fast: 150ms
 );
 
-@function normalize-easing($easing) {
+@function easing($easing) {
   @if(map-has-key($easings, $easing)) {
     @return map-get($easings, $easing);
   } @else {
@@ -19,7 +19,7 @@ $durations: (
   }
 }
 
-@function normalize-duration($time) {
+@function duration($time) {
   @if(map-has-key($durations, $time)) {
     @return map-get($durations, $time);
   } @else {
@@ -28,9 +28,9 @@ $durations: (
 }
 
 @function transition($properties: all, $duration: standard, $easing: standard, $delay: 0ms) {
-  $duration: normalize-duration($duration);
-  $easing: normalize-easing($easing);
-  $delay: normalize-duration($delay);
+  $duration: duration($duration);
+  $easing: easing($easing);
+  $delay: duration($delay);
 
   $transitions: ();
   @each $property in $properties {

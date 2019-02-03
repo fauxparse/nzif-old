@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
-import styled, { css } from 'styled-components'
 import { compose, withApollo } from 'react-apollo'
 import { withRouter } from 'react-router'
 import deburr from 'lodash/deburr'
@@ -15,61 +14,21 @@ import {
 import Icon from '../../icons'
 import Autocomplete from '../../autocomplete'
 
-const StyledIcon = styled(Icon)`${({ theme }) => css`
-  flex: 0 0 auto;
-  margin-right: 1rem;
-  color: ${theme.colors.secondary};
-`}`
-
-const StyledDetails = styled.div`
-  flex: 1;
-`
-
-const StyledDescription = styled.span`${({ theme }) => css`
-  font-size: ${theme.fonts.size(-1)};
-  color: ${theme.colors.secondary};
-`}`
-
-const StyledHighlight = styled(Highlighter)`${({ theme }) => css`
-  display: block;
-  font-size: ${theme.fonts.size(1)};
-  line-height: ${theme.fonts.lineHeight}rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  mark {
-    background: none;
-    color: white;
-    font-weight: bold;
-  }
-`}`
-
-const StyledMenuItem = styled.li`${({ theme }) => css`
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0.5rem 1rem;
-  color: ${theme.colors.text.shade(100)};
-
-  &[aria-selected] {
-    background: ${theme.colors.highlight};
-    color: ${theme.colors.highlight.shade(100)};
-  }
-`}`
-
 const MenuItem = ({ label, selected, selectedText, value: { id, type }, ...props }) => (
-  <StyledMenuItem aria-selected={selected || undefined} {...props}>
-    <StyledIcon name={id ? type : 'add'} />
-    <StyledDetails>
-      <StyledHighlight
+  <li className="new-session__menu-item" aria-selected={selected || undefined} {...props}>
+    <Icon name={id ? type : 'add'} />
+    <div className="new-session__activity-details">
+      <Highlighter
+        className="highlight"
         textToHighlight={label}
         searchWords={selectedText.split(/\s+/)}
         sanitize={deburr}
       />
-      <StyledDescription>{id ? upperFirst(type) : `New ${type}`}</StyledDescription>
-    </StyledDetails>
-  </StyledMenuItem>
+      <span className="new-session__activity-description">
+        {id ? upperFirst(type) : `New ${type}`}
+      </span>
+    </div>
+  </li>
 )
 
 MenuItem.propTypes = {
@@ -78,12 +37,6 @@ MenuItem.propTypes = {
   selectedText: PropTypes.string.isRequired,
   value: PropTypes.shape({ type: PropTypes.string.isRequired }).isRequired,
 }
-
-const StyledNewSession = styled.section`
-  ul {
-    margin: 0.5em 0;
-  }
-`
 
 class NewSession extends React.Component {
   static propTypes = {
@@ -179,7 +132,7 @@ class NewSession extends React.Component {
     const { activities } = this.props
 
     return (
-      <StyledNewSession>
+      <section className="new-session">
         <Autocomplete
           options={activities.map(a => ({ id: a.id, label: a.name, value: a }))}
           placeholder="Type activity name…"
@@ -187,7 +140,7 @@ class NewSession extends React.Component {
           search={this.search}
           onChange={this.submit}
         />
-      </StyledNewSession>
+      </section>
     )
   }
 }

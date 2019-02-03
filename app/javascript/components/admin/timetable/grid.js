@@ -1,60 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
-import styled, { css } from 'styled-components'
+import classNames from 'classnames'
 import CommonProps from '../../../lib/proptypes'
-import { media } from '../../../styles'
 import Day from './day'
 import Times from './times'
 
-const StyledGrid = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  height: calc(100vh - 3.5rem);
-  overflow: auto;
-  scroll-snap-type: x mandatory;
-
-  ${media.medium`
-    scroll-padding: 0 0 0 4.5em;
-  `}
-`
-
-const StyledTimes = styled(Times)`${({ theme }) => css`
-  display: none;
-
-  ${media.medium`
-    display: block;
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    background: ${theme.colors.background}
-  `}
-`}`
-
-const StyledDay = styled(Day)`
-  ${media.medium`
-    flex-basis: calc((100vw - 4.5rem) / 3);
-    flex-grow: 0;
-    flex-shrink: 0;
-    grid-template-columns: auto;
-  `}
-
-  ${media.large`
-    flex-basis: calc((100vw - 4.5rem) / 6);
-  `}
-
-  ${media.huge`
-    flex-basis: calc((100vw - 4.5rem) / 8);
-  `}
-`
-
-const Grid = ({ days, sessions, selection, selectedId, onSessionClick, ...props }) => {
+const Grid = ({ className, days, sessions, selection, selectedId, onSessionClick, ...props }) => {
   return (
-    <StyledGrid {...props}>
-      <StyledTimes />
+    <div className={classNames('timetable__grid', className)} {...props}>
+      <Times />
       {days.map(day => (
-        <StyledDay
+        <Day
           key={day.valueOf()}
           date={day}
           id={day.format('dddd').toLowerCase()}
@@ -63,11 +20,12 @@ const Grid = ({ days, sessions, selection, selectedId, onSessionClick, ...props 
           onSessionClick={onSessionClick}
         />
       ))}
-    </StyledGrid>
+    </div>
   )
 }
 
 Grid.propTypes = {
+  className: CommonProps.className,
   days: PropTypes.arrayOf(MomentPropTypes.momentObj.isRequired).isRequired,
   sessions: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
     id: CommonProps.id,

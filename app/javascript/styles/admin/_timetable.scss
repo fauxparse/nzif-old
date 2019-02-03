@@ -1,0 +1,318 @@
+.timetable {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+  justify-content: stretch;
+  height: calc(100vh - 3.5rem);
+
+  @include themify {
+    &__times {
+      background-color: themed(background);
+    }
+
+    &__time {
+      color: themed(secondary);
+    }
+
+    &__header {
+      border-bottom: 1px solid themed(secondary);
+      background: themed(background);
+
+      small {
+        color: themed(secondary);
+      }
+    }
+
+    &__list {
+      background: linear-gradient(to top, #{themed(border)}, transparent 1px) repeat-y 0 0;
+
+      @include media(medium) {
+        border-left: 1px solid themed(border);
+      }
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    height: calc(100vh - 3.5rem);
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+
+    & > .timetable__times {
+      display: none;
+    }
+
+    @include media(medium) {
+      scroll-padding: 0 0 0 4.5em;
+
+      & > .timetable__times {
+        display: block;
+        position: sticky;
+        left: 0;
+        z-index: 2;
+      }
+    }
+  }
+
+  &__time {
+    display: block;
+    padding-right: 1em;
+    transition: transition(opacity, $duration: 100ms);
+    font-size: font-size(-1);
+    line-height: font-size(0);
+    text-align: right;
+    white-space: nowrap;
+
+    &:first-of-type,
+    &[aria-hidden="true"] {
+      opacity: 0;
+    }
+  }
+
+  &__times {
+    flex: 0 0 4.5rem;
+    align-self: stretch;
+    padding-top: 2em;
+  }
+
+  &__day {
+    display: grid;
+    flex: 1 0 100vw;
+    scroll-snap-align: start;
+    grid-template-rows: 4.5em auto;
+    grid-template-columns: 4.5em auto;
+
+    .timetable__times {
+      grid-row: 1 / span 2;
+      grid-column: 1;
+    }
+
+    @include media(medium) {
+      flex-basis: calc((100vw - 4.5rem) / 3);
+      flex-grow: 0;
+      flex-shrink: 0;
+      grid-template-columns: auto;
+
+      .timetable__times {
+        display: none;
+      }
+    }
+
+    @include media(large) {
+      flex-basis: calc((100vw - 4.5rem) / 6);
+    }
+
+    @include media(huge) {
+      flex-basis: calc((100vw - 4.5rem) / 8);
+    }
+  }
+
+  &__header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    flex-direction: column;
+    justify-content: center;
+    height: 4.5rem;
+    z-index: 1;
+    grid-row: 1;
+    grid-column: 2;
+
+    @include media(medium) {
+      padding-left: 1em;
+      grid-column: 1;
+    }
+
+    small {
+      display: block;
+      font-size: font-size(-1);
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: auto;
+    grid-row: 2;
+    grid-column: 2;
+
+    @include media(medium) {
+      grid-column: 1;
+
+    }
+  }
+
+  &__slot {
+    height: 1em;
+  }
+
+  &__block {
+    @include elevation(0);
+
+    position: relative;
+    min-width: 1px;
+    margin: 1px;
+    transition: transition(box-shadow background-color);
+    border: 1px solid color(plum, 500);
+    border-radius: $border-radius;
+    background: color(plum, 300);
+
+    &[aria-grabbed] {
+      @include elevation(8);
+      background-color: color(plum, 500);
+    }
+
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: -2px;
+      left: 0;
+      height: 0.75em;
+      content: "";
+      cursor: ns-resize;
+    }
+
+    &--selecting {
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    @each $type, $base in $activity-colors {
+      &[data-type="#{$type}"] {
+        border-color: #{color($base, 600)};
+        background: linear-gradient(to bottom, #{color($base, 300)}, #{color($base, 400)});
+        color: #{color($base, 900)};
+      }
+    }
+  }
+
+  &__activity-name {
+    max-width: 100%;
+    padding: 0 0.5em;
+    font-size: font-size(-1);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__session-details {
+
+  }
+
+}
+
+.session-summary {
+  @include themify {
+    &__actions {
+      color: themed(secondary);
+    }
+
+    &__activity-name {
+      color: themed(text);
+    }
+
+    &__row {
+      color: themed(secondary);
+    }
+  }
+
+  display: grid;
+  align-items: flex-start;
+  padding: $padding;
+  grid-template-columns: 3.5em auto;
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: -0.75rem -0.75rem 0 0;
+    grid-column: 2 / 3;
+  }
+
+  &__action {
+    margin-left: 0.5rem;
+    border-color: transparent;
+    color: inherit;
+  }
+
+  &__buttons {
+    grid-column: 2 / 3;
+  }
+
+  &__row {
+    margin: 0 0 $padding;
+    grid-column: 2 / 3;
+  }
+
+  &__icon {
+    margin: calc((#{font-size(4)} * #{line-height(normal)} - 1.5rem) / 2) 0 0 1rem;
+  }
+
+  &__activity-name {
+    margin: 0;
+    font-size: font-size(4);
+    font-weight: font-weight(light);
+  }
+}
+
+.new-session {
+  @include themify {
+    color: themed(text);
+
+    &__menu-item {
+      &[aria-selected] {
+        background: themed(highlight);
+        color: themed(highlight-text);
+      }
+
+      .icon {
+        color: themed(secondary);
+      }
+    }
+
+    &__activity-description {
+      color: themed(secondary);
+    }
+  }
+
+  ul {
+    margin: 0.5em 0;
+  }
+
+  &__menu-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0.5rem 1rem;
+
+    .icon {
+      flex: 0 0 auto;
+      margin-right: 1rem;
+    }
+  }
+
+  &__activity-details {
+    flex: 1;
+
+    .highlight {
+      display: block;
+      flex: 1;
+      font-size: font-size(1);
+      line-height: 1.5rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+
+      mark {
+        background: none;
+        color: white;
+        font-weight: font-weight(bold);
+      }
+    }
+  }
+
+  &__activity-description {
+    font-size: font-size(-1);
+  }
+}

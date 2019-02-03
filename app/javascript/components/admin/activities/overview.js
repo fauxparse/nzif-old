@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import pick from 'lodash/pick'
 import CommonProps from '../../../lib/proptypes'
 import { IconField, Textarea } from '../../form'
@@ -8,10 +7,6 @@ import Button from '../../button'
 import Presenters from './presenters'
 import Levels from './levels'
 import { ImageUpload } from '../../form'
-
-const OverviewSection = styled.section`
-  padding: 1.5rem 0;
-`
 
 class Overview extends Component {
   static propTypes = {
@@ -79,7 +74,7 @@ class Overview extends Component {
     const { description, presenters, levels, existingImage, changed } = this.state
 
     return (
-      <OverviewSection>
+      <section className="activity-overview">
         <IconField icon="user" label="Presenters">
           <Presenters
             activity={activity}
@@ -102,7 +97,7 @@ class Overview extends Component {
           disabled={saving || !changed}
           onClick={this.save}
         />
-      </OverviewSection>
+      </section>
     )
   }
 }
