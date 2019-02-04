@@ -25,6 +25,9 @@
       "version": "16.6.0"
     }
   },
+  "globals": {
+    "process": true
+  },
   "rules": {
     "max-len": ["warn", {
       "code": 100,

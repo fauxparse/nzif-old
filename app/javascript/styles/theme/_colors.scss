@@ -98,10 +98,14 @@ $activity-colors: (
   @return change-opacity($color, $opacity);
 }
 
-@function change-opacity($color, $opacity: 1) {
+@function opacity($opacity) {
   @if(map-has-key($opacities, $opacity)) {
-    $opacity: map-get($opacities, $opacity);
+    @return map-get($opacities, $opacity);
+  } @else {
+    @return $opacity;
   }
+}
 
-  @return change-color($color, $alpha: $opacity);
+@function change-opacity($color, $opacity: 1) {
+  @return change-color($color, $alpha: opacity($opacity));
 }
