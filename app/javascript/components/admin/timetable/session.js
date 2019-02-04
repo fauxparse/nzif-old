@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 import Block from './block'
 import Context from './context'
 

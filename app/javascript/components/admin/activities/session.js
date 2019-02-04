@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withApollo } from 'react-apollo'
 import { UPDATE_SESSION_MUTATION } from '../../../queries'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 import { IconField } from '../../form'
 import VenuePicker from './venue_picker'
 

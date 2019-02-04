@@ -1,7 +1,7 @@
 import React, { Component, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import CommonProps from '../../lib/proptypes'
+import CommonProps from '../../lib/common_props'
 import MenuItem from './menu_item'
 
 class Menu extends Component {

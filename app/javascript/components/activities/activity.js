@@ -1,5 +1,5 @@
 import React from 'react'
-import CommonProps from '../../lib/proptypes'
+import CommonProps from '../../lib/common_props'
 import TextLink from '../../components/shared/text_link'
 
 class Activity extends React.PureComponent {

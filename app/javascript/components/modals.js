@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactModal from 'react-modal'
 import classNames from 'classnames'
-import CommonProps from '../lib/proptypes'
+import CommonProps from '../lib/common_props'
 import ThemeContext from '../lib/theme_context'
 
 const elementClassName = (blocks, element, modifier) =>

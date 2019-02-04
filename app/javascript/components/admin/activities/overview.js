@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import pick from 'lodash/pick'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 import { IconField, Textarea } from '../../form'
 import Button from '../../button'
 import Presenters from './presenters'

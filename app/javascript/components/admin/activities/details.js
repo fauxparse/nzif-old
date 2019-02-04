@@ -11,7 +11,7 @@ import {
   ACTIVITY_QUERY,
   UPDATE_ACTIVITY_MUTATION,
 } from '../../../queries'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 import moment from '../../../lib/moment'
 import Loader from '../../shared/loader'
 import { Tab, TabBar } from '../../shared/tabs'

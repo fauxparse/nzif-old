@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import RelativePortal from 'react-relative-portal'
 import ThemeContext from '../../lib/theme_context'
-import CommonProps from '../../lib/proptypes'
+import CommonProps from '../../lib/common_props'
 import Icon from '../icons'
 
 const KEYS = {

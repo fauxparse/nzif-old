@@ -1,5 +1,5 @@
 import React from 'react'
-import CommonProps from '../../lib/proptypes'
+import CommonProps from '../../lib/common_props'
 import Map from './map'
 
 const MapSection = ({ className }) => (

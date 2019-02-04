@@ -1,7 +1,7 @@
 import React, { createRef } from 'react'
 import classNames from 'classnames'
 import mojs from 'mo-js'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 
 const trueClientPosition = (coordinates, element) => {
   let { x, y } = coordinates

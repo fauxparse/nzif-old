@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 import { WithPermission } from '../../../lib/permissions'
 import Avatar from '../../shared/avatar'
 import Button from '../../button'

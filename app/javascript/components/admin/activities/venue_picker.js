@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { Select } from '../../form'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 import { VENUES_QUERY } from '../../../queries'
 
 const VenuePicker = ({ value, data: { venues = [] }, onChange }) => (

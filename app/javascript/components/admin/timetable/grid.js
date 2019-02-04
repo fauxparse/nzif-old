@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../../lib/proptypes'
+import CommonProps from '../../../lib/common_props'
 import Day from './day'
 import Times from './times'
 
