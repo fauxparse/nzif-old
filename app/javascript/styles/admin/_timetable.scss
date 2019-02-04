@@ -208,6 +208,10 @@
       color: themed(secondary);
     }
 
+    &__action {
+      color: inherit;
+    }
+
     &__activity-name {
       color: themed(text);
     }
@@ -233,7 +237,6 @@
   &__action {
     margin-left: 0.5rem;
     border-color: transparent;
-    color: inherit;
   }
 
   &__buttons {
