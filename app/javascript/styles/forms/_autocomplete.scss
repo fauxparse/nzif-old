@@ -1,0 +1,78 @@
+.autocomplete {
+  @include themify {
+    &__input {
+      &::placeholder {
+        color: themed(disabled);
+      }
+
+      &[data-autocompleting] {
+        &::selection {
+          background: transparent;
+          color: themed(disabled);
+        }
+      }
+    }
+
+    &__menu {
+      &:empty {
+        &::after {
+          color: themed(secondary);
+        }
+      }
+    }
+
+    &__menu-item {
+      &[aria-selected] {
+        background: themed(highlight);
+        color: themed(highlight-text);
+      }
+    }
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem 0.75rem;
+    border: 0;
+    outline: none;
+    background: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: font-size(4);
+    box-shadow: none;
+    appearance: none;
+  }
+
+  &__menu {
+    max-height: 20em;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+
+    &:empty {
+      &::after {
+        display: block;
+        padding: 1rem;
+        text-align: center;
+        content: attr(data-empty-text);
+      }
+    }
+  }
+
+  &__menu-item {
+    padding: 0.5rem 1rem;
+    font-size: font-size(1);
+  }
+
+  &__highlight {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    mark {
+      font-weight: font-weight(bold);
+    }
+  }
+}

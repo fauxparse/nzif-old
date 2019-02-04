@@ -1,52 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
-import { text } from '../../styles'
-import Button from '../button'
+import classNames from 'classnames'
 import {
   Tag as FormTag,
-  Field as FormField,
-  Fieldset as FormFieldset,
+  Fieldset,
   Error,
 } from '../form'
-
-export const Title = styled.h2`${({ theme }) => css`
-  ${text.branded}
-
-  color: ${theme.colors.accent};
-  font-size: ${theme.fonts.size(7)};
-  line-height: ${theme.fonts.lineHeight.tight};
-  margin: 0 0 0.25em;
-`}`
-
-export const Field = styled(FormField)`${({ theme }) => css`
-  font-size: ${theme.fonts.size(1)};
-
-  p {
-    font-size: ${theme.fonts.size(-1)};
-  }
-`}`
-
-export const Fieldset = styled(FormFieldset)`
-  > p {
-    margin: 0 0 2em;
-  }
-`
-
-export const Container = styled(FormTag)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-`
-
-export const SubmitButton = styled(Button)`
-  margin: 2em 0;
-`
 
 class Form extends React.Component {
   message() {
@@ -65,13 +24,13 @@ class Form extends React.Component {
     const { className, loading, title, onSubmit, children } = this.props
 
     return (
-      <Container className={className} onSubmit={onSubmit} method="post">
-        <Fieldset disabled={loading} aria-busy={loading}>
-          <Title>{title}</Title>
+      <FormTag className={classNames('login__form', className)} onSubmit={onSubmit} method="post">
+        <Fieldset className="login__fieldset" disabled={loading} aria-busy={loading}>
+          <h2 className="login__title">{title}</h2>
           {this.message()}
           {children}
         </Fieldset>
-      </Container>
+      </FormTag>
     )
   }
 }

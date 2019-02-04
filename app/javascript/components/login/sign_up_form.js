@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
-import { Label, Input, Error } from '../form'
-import Form, { Field, SubmitButton } from './form'
+import { Field, Label, Input, Error } from '../form'
+import Button from '../button'
+import Form from './form'
 import TextLink from '../shared/text_link'
 import { slideRight } from '../page_transition'
 import { CURRENT_USER_QUERY } from '../../queries'
@@ -97,7 +98,7 @@ class SignUpForm extends React.Component {
         errors={errors}
         onSubmit={this.submit}
       >
-        <Field>
+        <Field className="login__field">
           <Label htmlFor="signup-name">Name</Label>
           <Input
             ref={this.nameField}
@@ -110,7 +111,7 @@ class SignUpForm extends React.Component {
           />
           {this.errorMessageFor('name')}
         </Field>
-        <Field>
+        <Field className="login__field">
           <Label htmlFor="signup-email">Email address</Label>
           <Input
             id="signup-email"
@@ -122,7 +123,7 @@ class SignUpForm extends React.Component {
           />
           {this.errorMessageFor('email')}
         </Field>
-        <Field>
+        <Field className="login__field">
           <Label htmlFor="signup-password">Password</Label>
           <Input
             id="signup-password"
@@ -134,7 +135,7 @@ class SignUpForm extends React.Component {
           />
           {this.errorMessageFor('password')}
         </Field>
-        <Field>
+        <Field className="login__field">
           <Label htmlFor="signup-password-confirmation">Confirm password</Label>
           <Input
             id="signup-password-confirmation"
@@ -146,7 +147,14 @@ class SignUpForm extends React.Component {
           />
           {this.errorMessageFor('passwordConfirmation')}
         </Field>
-        <SubmitButton primary type="submit" text="Create account" key="submit" />
+        <Button
+          className="login__submit"
+          primary
+          type="submit"
+          text="Create
+          account"
+          key="submit"
+        />
         <p>
           Already signed up?{' '}
           <TextLink replace to={{ pathname: 'login', state: { transition: slideRight } }}>

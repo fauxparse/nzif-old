@@ -1,11 +1,8 @@
 import React, { Component, Fragment, createRef } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import deburr from 'lodash/deburr'
 import Input from './input'
 import Menu from './menu'
-
-export { Highlight } from './menu_item'
 
 const KEYS = {
   UP: 38,

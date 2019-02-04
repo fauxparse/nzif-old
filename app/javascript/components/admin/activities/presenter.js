@@ -13,6 +13,7 @@ const Presenter = ({ id, name, activity, className, onRemove }) => {
       <span className="presenter__name">{name}</span>
       <WithPermission to="update" subject={activity}>
         <Button
+          className="presenter__remove"
           icon="close"
           onClick={() => onRemove(id)}
         />

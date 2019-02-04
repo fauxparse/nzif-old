@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
-import { Label, Input } from '../form'
-import Form, { Field, SubmitButton } from './form'
+import { Label, Input, Field } from '../form'
+import Button from '../button'
+import Form from './form'
 import TextLink from '../shared/text_link'
 import { slideLeft } from '../page_transition'
 import { CURRENT_USER_QUERY } from '../../queries'
@@ -67,7 +68,7 @@ class LogInForm extends React.Component {
         errors={errors}
         onSubmit={this.submit}
       >
-        <Field>
+        <Field className="login__field">
           <Label htmlFor="login-email">Email address</Label>
           <Input
             ref={this.emailField}
@@ -79,7 +80,7 @@ class LogInForm extends React.Component {
             onChange={this.fieldChanged}
           />
         </Field>
-        <Field>
+        <Field className="login__field">
           <Label htmlFor="login-password">Password</Label>
           <Input
             id="login-password"
@@ -90,7 +91,7 @@ class LogInForm extends React.Component {
             onChange={this.fieldChanged}
           />
         </Field>
-        <SubmitButton primary type="submit" text="Log in" key="submit" />
+        <Button className="login__submit" primary type="submit" text="Log in" key="submit" />
         <p>
           New here?{' '}
           <TextLink replace to={{ pathname: 'signup', state: { transition: slideLeft } }}>

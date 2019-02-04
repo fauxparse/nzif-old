@@ -1,0 +1,23 @@
+.environment-marker {
+  display: none;
+
+  @include media(medium) {
+    display: block;
+    position: fixed;
+    top: -1em;
+    left: -1em;
+    width: 6.5em;
+    height: 6.5em;
+    padding: 1.5em;
+    background: linear-gradient(to right bottom, color(plum, 500) 10%, color(grape, 800) 50%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 55%);
+    color: white;
+    opacity: 0.875;
+    z-index: 1000;
+    pointer-events: none;
+    touch-action: none;
+
+    svg {
+      display: block;
+    }
+  }
+}

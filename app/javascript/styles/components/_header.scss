@@ -53,7 +53,10 @@ $header-theme: map-merge(map-get($themes, dark), (
     &:focus {
       outline: none;
       background: themed(hover, $header-theme);
-      box-shadow: none;
+
+      @include themify {
+        box-shadow: none;
+      }
     }
 
     line {

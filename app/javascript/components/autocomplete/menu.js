@@ -1,22 +1,8 @@
 import React, { Component, forwardRef } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import classNames from 'classnames'
 import CommonProps from '../../lib/proptypes'
 import MenuItem from './menu_item'
-
-export const StyledMenu = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-height: 20em;
-  overflow-y: auto;
-`
-
-const Empty = styled.li`${({ theme }) => css`
-  text-align: center;
-  color: ${theme.colors.secondary};
-  padding: 1rem;
-`}`
 
 class Menu extends Component {
   static propTypes = {
@@ -38,6 +24,7 @@ class Menu extends Component {
 
   render() {
     const {
+      className,
       options,
       selectedIndex,
       selectedText,
@@ -47,20 +34,21 @@ class Menu extends Component {
     } = this.props
 
     return (
-      <StyledMenu ref={menuRef}>
-        {options.length
-          ? options.map((option, i) => (
-              <MenuItemComponent
-                key={JSON.stringify(option.value)}
-                selected={selectedIndex === i}
-                selectedText={selectedText}
-                onClick={onClick}
-                {...option}
-              />
-            ))
-          : <Empty>(No matches)</Empty>
-        }
-      </StyledMenu>
+      <ul
+        className={classNames('autocomplete__menu', className)}
+        ref={menuRef}
+        data-empty-text="(No matches)"
+      >
+        {options.map((option, i) => (
+          <MenuItemComponent
+            key={JSON.stringify(option.value)}
+            selected={selectedIndex === i}
+            selectedText={selectedText}
+            onClick={onClick}
+            {...option}
+          />
+        ))}
+      </ul>
     )
   }
 }

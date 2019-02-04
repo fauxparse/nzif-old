@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 import Icon from '../icons'
 
-const ButtonIcon = styled(Icon)`
-  display: block;
-  color: inherit;
-`
+const ButtonIcon = ({ className, children, ...props }) => (
+  <Icon className={classNames('button__icon', className)} {...props} />
+)
 
 export default ButtonIcon

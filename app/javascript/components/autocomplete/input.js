@@ -1,30 +1,6 @@
 import React, { Component, createRef } from 'react'
-import styled, { css } from 'styled-components'
+import classNames from 'classnames'
 import deburr from 'lodash/deburr'
-
-const StyledInput = styled.input`${({ theme }) => css`
-  display: block;
-  width: 100%;
-  appearance: none;
-  background: none;
-  color: inherit;
-  outline: none;
-  border: 0;
-  font-family: inherit;
-  font-size: ${theme.fonts.size(4)};
-  padding: 0.5rem 1rem 0.75rem;
-
-  &::placeholder {
-    color: ${theme.colors.disabled};
-  }
-
-  &[data-autocompleting] {
-    &::selection {
-      background: transparent;
-      color: ${theme.colors.disabled};
-    }
-  }
-`}`
 
 class Input extends Component {
   state = {
@@ -33,7 +9,7 @@ class Input extends Component {
 
   input = createRef()
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     if (this.state.completing) {
       const { value, placeholder } = this.props
       const { length } = value
@@ -54,11 +30,13 @@ class Input extends Component {
   }
 
   render() {
-    const { value, onChange, ...props } = this.props
+    const { className, value, type = 'text', onChange, ...props } = this.props
     const { completing } = this.state
 
     return (
-      <StyledInput
+      <input
+        className={classNames('autocomplete__input', className)}
+        type={type}
         {...props}
         ref={this.input}
         value={value}

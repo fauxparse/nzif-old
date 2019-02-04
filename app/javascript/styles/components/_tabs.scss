@@ -1,6 +1,15 @@
 .tabs {
   @include themify {
     border-bottom: 1px solid themed(border);
+
+    &__tab {
+      &:focus {
+        padding-bottom: calc(0.5rem - 1px);
+        border-bottom: 1px solid themed(border);
+        outline: none;
+        background: themed(panel);
+      }
+    }
   }
 
   display: flex;
