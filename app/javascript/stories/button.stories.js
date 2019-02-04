@@ -8,7 +8,6 @@ import Button from '../components/button'
 import { icon } from './knobs'
 
 storiesOf('Buttons', module)
-  .addDecorator(withKnobs)
   .add('Normal', () => (
     <Button
       icon={icon('Icon', null)}

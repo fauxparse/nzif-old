@@ -1,20 +1,22 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
-import { ThemeProvider } from 'styled-components'
-import Theme, { GlobalStyle } from '../app/javascript/themes'
+import { withKnobs, select } from '@storybook/addon-knobs'
+
+import '../app/javascript/styles/application.scss'
 
 const req = require.context('../app/javascript/stories', true, /(\.stories|index)\.js$/)
 function loadStories() {
   req.keys().forEach(filename => req(filename))
 }
 
+addDecorator(withKnobs)
+
 addDecorator(story => (
-  <ThemeProvider theme={Theme}>
-    <Fragment>
-      <GlobalStyle />
+  <div data-theme={select('Theme', { light: 'light', dark: 'dark' }, 'light')}>
+    <div className="container" style={{ width: '100vw', height: '100vh' }}>
       {story()}
-    </Fragment>
-  </ThemeProvider>
+    </div>
+  </div>
 ))
 
 configure(loadStories, module)

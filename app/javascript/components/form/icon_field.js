@@ -4,6 +4,7 @@ import { Transition } from 'react-transition-group'
 import classNames from 'classnames'
 import Icon, { ICONS } from '../icons'
 import Tooltip from '../shared/tooltip'
+import Loader from '../shared/loader'
 
 const transitionStyles = {
   entering: { opacity: 0 },
@@ -22,7 +23,7 @@ const IconField = ({ className, label, loading, icon, children, ...props }) => (
       <Icon name={icon} />
       <Transition in={loading} timeout={300} appear>
         {state => (
-          <span className="form__field-loader" style={transitionStyles[state]} />
+          <Loader className="form__field-loader" style={transitionStyles[state]} />
         )}
       </Transition>
     </Tooltip>

@@ -56,7 +56,7 @@ class Ripple extends React.Component {
       const shape = new mojs.Shape({
         parent: this.container.current,
         shape: 'circle',
-        opacity: { 0.15: 0 },
+        opacity: { 0.25: 0 },
         left,
         top,
         fill: 'currentColor',

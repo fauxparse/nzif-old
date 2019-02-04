@@ -22,7 +22,7 @@ class Background extends React.Component {
   }
 
   updateTransforms = () => {
-    Array.from(this.el.querySelectorAll('.letter')).forEach((letter, i) => {
+    Array.from(this.el.querySelectorAll('.floating-letters__letter')).forEach((letter, i) => {
       const d = (i + 2) * -5
       letter.style.transform = `translate3d(${this.x * d}px, ${this.y * d}px, 0)`
     })

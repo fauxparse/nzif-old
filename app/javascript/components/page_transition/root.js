@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import styled from 'styled-components'
+import classNames from 'classnames'
 import PageTransition from './group'
 import none from './none'
 import fade from './fade'
@@ -30,9 +30,11 @@ const TRANSITIONS = {
 const findGroup = (key) =>
   GROUPS.find(([_name, ...patterns]) => patterns.find(pattern => pattern.test(key)))[0]
 
-const TransitionContainer = styled.div`
-  background: ${({ theme }) => `linear-gradient(to bottom, ${theme.colors.grey(300)}, ${theme.colors.grey(600)})`};
-`
+const TransitionContainer = ({ className, children, ...props }) => (
+  <div className={classNames('root-transition-container', className)} {...props}>
+    {children}
+  </div>
+)
 
 class RootPageTransition extends React.Component {
   state = { pageKey: '', transition: none }

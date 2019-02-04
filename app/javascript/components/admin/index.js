@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom'
 import classNames from 'classnames'
 import ThemeContext from '../../lib/theme_context'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
-import Theme from './theme'
 import Header from './header'
 import Dashboard from './dashboard'
 import Timetable from './timetable'
@@ -19,28 +18,26 @@ const Page = ({ className, children, ...props }) => (
 )
 
 const Admin = ({ match }) => (
-  <Theme>
-    <ThemeContext.Provider value='dark'>
-      <div className="admin" data-theme='dark'>
-        <Header />
-        <Route
-          render={({ location }) => (
-            <PageTransition
-              component={Page}
-              location={location}
-              pageKey={getPageKey(location.pathname)}
-            >
-              <Switch location={location}>
-                <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
-                <Route path={`${match.path}/activities`} component={Timetable} />
-                <Route path={`${match.path}/`} component={Dashboard} />
-              </Switch>
-            </PageTransition>
-          )}
-        />
-      </div>
-    </ThemeContext.Provider>
-  </Theme>
+  <ThemeContext.Provider value='dark'>
+    <div className="admin" data-theme='dark'>
+      <Header />
+      <Route
+        render={({ location }) => (
+          <PageTransition
+            component={Page}
+            location={location}
+            pageKey={getPageKey(location.pathname)}
+          >
+            <Switch location={location}>
+              <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
+              <Route path={`${match.path}/activities`} component={Timetable} />
+              <Route path={`${match.path}/`} component={Dashboard} />
+            </Switch>
+          </PageTransition>
+        )}
+      />
+    </div>
+  </ThemeContext.Provider>
 )
 
 Admin.propTypes = {

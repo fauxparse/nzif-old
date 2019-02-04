@@ -1,3 +1,10 @@
-import styled from 'styled-components'
+import React from 'react'
+import classNames from 'classnames'
 
-export default styled.div``
+const PageContent = ({ className, children, ...props }) => (
+  <div className={classNames('page-content', className)} {...props}>
+    {children}
+  </div>
+)
+
+export default PageContent

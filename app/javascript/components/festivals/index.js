@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Header from './header'
@@ -10,21 +9,6 @@ import Map from '../map'
 import Home from './home'
 
 export { default as CurrentFestival } from './current'
-
-const Container = styled.div`
-  align-items: stretch;
-  background: ${({ theme }) => theme.colors.background};
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  position: relative;
-`
-
-const Page = styled.main`
-  flex: 1 0 auto;
-  position: relative;
-  overflow-x: hidden;
-`
 
 class Festival extends React.Component {
   page = React.createRef()
@@ -43,10 +27,10 @@ class Festival extends React.Component {
     const { match } = this.props
 
     return (
-      <Container>
+      <div className="public-section">
         <Header />
 
-        <Page ref={this.page}>
+        <div className="page" ref={this.page}>
           <Route
             render={({ location }) => (
               <PageTransition
@@ -66,9 +50,9 @@ class Festival extends React.Component {
               </PageTransition>
             )}
           />
-        </Page>
+        </div>
         <Footer />
-      </Container>
+      </div>
     )
   }
 }

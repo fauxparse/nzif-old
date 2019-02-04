@@ -1,14 +1,15 @@
 @import "./layers";
-@import "./theme";
+@import "./theme/index";
+@import "./transitions/index";
 @import "./icons";
 @import "./tooltips";
-@import "./forms";
+@import "./forms/index";
 
-@import "./components";
-@import "./festivals";
+@import "./components/index";
+@import "./festivals/index";
 @import "./activities";
-@import "./log_in";
-@import "./admin";
+@import "./log_in/index";
+@import "./admin/index";
 @import "./environment";
 
 *,

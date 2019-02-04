@@ -1,0 +1,58 @@
+@keyframes push-in {
+  0% {
+    transform: translate3d(100vw, 0, 0) scale(0.9);
+  }
+  50% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes push-out {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+  100% {
+    transform: translate3d(-100vw, 0, 0) scale(0.9);
+  }
+}
+
+.push,
+.pop {
+  &-enter,
+  &-exit {
+    @include elevation(24);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+  }
+
+  &-enter {
+    transform: translate3d(100vw, 0, 0);
+
+    &-active {
+      animation: push-in 1s easing(standard) 0.5s forwards;
+    }
+  }
+
+  &-exit {
+    &-active {
+      animation: push-out 1s easing(standard) forwards;
+    }
+  }
+}
+
+.pop-enter-active {
+  animation: push-out 1s easing(standard) 0.5s reverse forwards;
+}
+
+.pop-exit-active {
+  animation: push-in 1s easing(standard) reverse forwards;
+}

@@ -1,13 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
 import Map from './map'
 
-const StyledSection = styled.section``
-
-const MapSection = () => (
-  <StyledSection>
+const MapSection = ({ className }) => (
+  <section className={className}>
     <Map />
-  </StyledSection>
+  </section>
 )
 
 export default MapSection

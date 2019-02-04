@@ -5,8 +5,6 @@ import gradients from './gradients'
 import layout from './layout'
 import shadow from './shadows'
 
-import { transitionStyles } from '../components/page_transition'
-
 export const GlobalStyle = createGlobalStyle`${({ theme }) => css`
   *, *::before, *::after {
     box-sizing: border-box;
@@ -22,9 +20,6 @@ export const GlobalStyle = createGlobalStyle`${({ theme }) => css`
     line-height: ${theme.fonts.lineHeight};
     overflow-x: hidden;
   }
-
-
-  ${transitionStyles}
 `}`
 
 export default {

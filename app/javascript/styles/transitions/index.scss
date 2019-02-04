@@ -1,0 +1,9 @@
+@import "./fade";
+@import "./none";
+@import "./pop_over";
+@import "./push";
+@import "./slide";
+
+.root-transition-container {
+  background: linear-gradient(to bottom, #{color(grey, 300)}, #{color(grey, 600)});
+}

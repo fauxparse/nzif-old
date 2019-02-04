@@ -100,8 +100,10 @@
     white-space: nowrap;
     overflow: hidden;
 
-    &[data-empty] {
-      @include themify {
+    @include themify {
+      color: themed(text);
+
+      &[data-empty] {
         color: themed(secondary);
       }
     }

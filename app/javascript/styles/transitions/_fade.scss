@@ -1,0 +1,27 @@
+  .fade {
+    &-enter,
+    &-exit {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+    }
+
+    &-enter {
+      opacity: 0;
+
+      &-active {
+        transition: transition(opacity, $duration: 50ms);
+        opacity: 1;
+      }
+    }
+
+    &-exit {
+      opacity: 1;
+
+      &-active {
+        transition: transition(opacity, $duration: 50ms);
+        opacity: 0;
+      }
+    }
+  }

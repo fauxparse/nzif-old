@@ -1,0 +1,8 @@
+.container {
+  @include themify {
+    background: themed(background);
+    color: themed(text);
+  }
+
+  padding: $padding;
+}

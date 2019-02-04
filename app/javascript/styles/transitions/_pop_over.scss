@@ -1,0 +1,13 @@
+.pop-over {
+  z-index: 200;
+
+  &-enter {
+    &-active {
+    }
+  }
+
+  &-exit {
+    &-active {
+    }
+  }
+}
