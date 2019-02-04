@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import flatMap from 'lodash/flatMap'
 import chroma from 'chroma-js'
 import Clipboard from 'clipboard'

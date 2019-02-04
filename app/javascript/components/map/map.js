@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { compose, withProps } from 'recompose'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import styles from './styles.json'
@@ -15,7 +15,7 @@ const Map = compose(
   }),
   withScriptjs,
   withGoogleMap
-)(props => (
+)(_props => (
   <GoogleMap
     defaultZoom={16}
     defaultCenter={{ lat: -41.2935382, lng: 174.7845073 }}

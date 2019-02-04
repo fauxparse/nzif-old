@@ -137,7 +137,7 @@ class Select extends Component {
   }
 
   render() {
-    const { className, value, options, placeholder, menuItemComponent: Item } = this.props
+    const { className, value, options, placeholder, menuItemComponent: Item = 'li' } = this.props
     const { open } = this.state
     const selectedOption = value && options.find(option => this.value(option) === value)
 
@@ -175,7 +175,7 @@ class Select extends Component {
                   style={{ minWidth: `${this.trigger.current.offsetWidth + 32}px` }}
                 >
                   {options.map((option, index) => (
-                    <li
+                    <Item
                       className="select__menu-item"
                       key={this.value(option)}
                       role="menuitemradio"
@@ -186,7 +186,7 @@ class Select extends Component {
                       onKeyDown={this.menuItemKeyDown}
                     >
                       {this.label(option)}
-                    </li>
+                    </Item>
                   ))}
                 </ul>
               </RelativePortal>

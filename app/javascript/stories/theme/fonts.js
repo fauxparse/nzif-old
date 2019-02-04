@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const BASE_SIZE = 2
 
-const Row = ({ size, index }) => (
+const Row = ({ size }) => (
   <div style={{
     display: 'flex',
     alignItems: 'baseline',
