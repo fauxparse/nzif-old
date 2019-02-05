@@ -13,6 +13,15 @@ const MAPS = 'https://maps.googleapis.com/maps/api/js'
 const KEY = process.env.GOOGLE_MAPS_API_KEY
 const BATS = { lat: -41.2935382, lng: 174.7845073 }
 
+const MarkerIcon = {
+  path: 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0zM9,10a3,3 0 1,0 6,0a3,3 0 1,0 -6,0',
+  fillColor: 'hsl(4, 85%, 57%)',
+  fillOpacity: 0.875,
+  scale: 1,
+  strokeColor: 'hsl(4, 85%, 57%)',
+  strokeWeight: 2,
+}
+
 class Map extends Component {
   static propTypes = {
     venues: PropTypes.arrayOf(CommonProps.venue.isRequired),
@@ -75,7 +84,7 @@ class Map extends Component {
   }
 
   render() {
-    const { venues, onVenueClick } = this.props
+    const { venues, selection, onVenueClick } = this.props
 
     return (
       <GoogleMap
@@ -93,6 +102,11 @@ class Map extends Component {
             key={venue.id}
             position={{ lat: venue.latitude, lng: venue.longitude }}
             clickable={true}
+            icon={{
+              ...MarkerIcon,
+              scale: selection && selection.address === venue.address ? 1.5 : 1,
+              anchor: new google.maps.Point(12, 23)
+            }}
             onClick={() => onVenueClick(venue)}
           />
         ))}
