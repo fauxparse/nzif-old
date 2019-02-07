@@ -1,5 +1,5 @@
 .footer {
-  @include constrained-width;
+  @include constrained-width($keyline, $padding);
 
   min-height: 6rem;
   background: color(grey, 600);
@@ -11,7 +11,8 @@
   &__link {
     display: flex;
     align-items: center;
-    padding: 0.25rem 0;
+    margin: 0 0 0.25rem -0.25rem;
+    padding: 0.25rem;
     color: color(grey, 200, primary);
     text-decoration: none;
 
@@ -23,12 +24,23 @@
     }
 
     .link__text {
+      line-height: 1;
     }
 
     &:hover,
     &:focus,
     &--active {
+      @include themify {
+        background: radial-gradient(circle 0.75rem at 0.75rem 50%, change-opacity(themed(accent), secondary) 100%, transparent 100%);
+      }
+
+      outline: none;
       color: white;
+      opacity: 1;
+
+      .icon {
+        opacity: 1;
+      }
     }
   }
 }

@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-const SkeletonText = ({ loading, className, children, ...props }) => (
-  <span
+const SkeletonText = ({ as: Component, loading, className, children, ...props }) => (
+  <Component
     className={classNames('skeleton-text', className, { 'skeleton-text--loading': loading })}
     aria-busy={loading || undefined}
     aria-hidden={loading || undefined}
@@ -11,15 +11,17 @@ const SkeletonText = ({ loading, className, children, ...props }) => (
     {...props}
   >
     {children}
-  </span>
+  </Component>
 )
 
 SkeletonText.propTypes = {
   loading: PropTypes.bool.isRequired,
+  as: PropTypes.any,
 }
 
 SkeletonText.defaultProps = {
   loading: false,
+  as: 'span',
 }
 
 export default SkeletonText

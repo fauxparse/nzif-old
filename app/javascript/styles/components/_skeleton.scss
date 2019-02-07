@@ -14,7 +14,8 @@
     @include themify {
       $base: themed(text);
 
-      background: change-opacity($base, 0.15) linear-gradient(to right, #{change-opacity($base, 0)} 25%, #{change-opacity($base, 0.1)} 50%, #{change-opacity($base, 0) 75%});
+      background: change-opacity($base, 0.15)
+        linear-gradient(to right, #{change-opacity($base, 0)} 25%, #{change-opacity($base, 0.1)} 50%, #{change-opacity($base, 0) 75%});
       background-repeat: no-repeat;
       background-size: 400% 100vh;
       -webkit-background-clip: text;

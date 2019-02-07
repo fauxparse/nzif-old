@@ -5,6 +5,7 @@ import { SubPageTransition as PageTransition } from '../../components/page_trans
 import Header from './header'
 import Footer from '../../components/footer'
 import Activities from '../activities'
+import ActivityDetails from '../activities/activity_details'
 import Map from '../map'
 import Home from './home'
 
@@ -39,11 +40,12 @@ class Festival extends React.Component {
                 onEntered={this.pageEntered}
               >
                 <Switch location={location}>
-                  <Route
-                    path={`${match.path}/:type(shows|workshops)`}
-                    exact
-                    component={Activities}
-                  />
+                  <Route path={`${match.path}/:type(shows|workshops)`} render={({ match }) => (
+                    <>
+                      <Route path={`${match.path}/:slug`} exact component={ActivityDetails} />
+                      <Route path={match.path} exact component={Activities} />
+                    </>
+                  )} />
                   <Route path={`${match.path}/map`} exact component={Map} />
                   <Route path={`${match.path}/`} exact component={Home} />
                 </Switch>

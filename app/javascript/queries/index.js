@@ -1,4 +1,5 @@
 export { default as ACTIVITY_QUERY } from './activity'
+export { default as ACTIVITIES_QUERY } from './activities'
 export { default as CURRENT_USER_QUERY } from './current_user'
 export { default as TIMETABLE_QUERY } from './timetable'
 export { default as USERS_QUERY } from './users'

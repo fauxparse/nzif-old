@@ -8,11 +8,12 @@ $breakpoints: (
 $border-radius: 0.25rem;
 $padding: 1rem;
 $spacing: 1rem;
+$keyline: 4.5rem;
 $min-full-width: map-get($breakpoints, large) + $padding * 2;
 
-@mixin horizontal-padding($horizontal-padding) {
-  padding-right: $horizontal-padding;
-  padding-left: $horizontal-padding;
+@mixin horizontal-padding($left, $right: $left) {
+  padding-right: $right;
+  padding-left: $left;
 }
 
 @mixin vertical-padding($vertical-padding) {
@@ -30,10 +31,13 @@ $min-full-width: map-get($breakpoints, large) + $padding * 2;
   }
 }
 
-@mixin constrained-width {
-  padding: $padding;
+@mixin constrained-width($extra-padding-left: 1rem, $extra-padding-right: $extra-padding-left) {
+  padding: $padding $extra-padding-right $padding $extra-padding-left;
 
   @include media($min-full-width) {
-    @include horizontal-padding(calc(50vw - #{$min-full-width} / 2));
+    @include horizontal-padding(
+      $left: calc(50vw - #{map-get($breakpoints, large)} / 2 + #{$extra-padding-left}),
+      $right: calc(50vw - #{map-get($breakpoints, large)} / 2 + #{$extra-padding-right})
+    );
   }
 }

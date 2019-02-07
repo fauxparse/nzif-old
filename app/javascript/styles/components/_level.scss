@@ -1,0 +1,25 @@
+.activity-levels {
+  display: flex;
+
+  > :not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}
+
+.activity-level {
+  margin: 0;
+  padding: 0.25rem 0.75rem;
+  border: 0;
+  border-radius: 0.75rem;
+  font-size: font-size(-1);
+  line-height: 1rem;
+  text-transform: capitalize;
+  cursor: help;
+
+  @each $level, $color in $levels {
+    &[data-level="#{$level}"] {
+      background-color: color($color, 500);
+      color: color($color, 100);
+    }
+  }
+}

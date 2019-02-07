@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import { Color } from './palette'
+import ICONS from '../components/icons/all'
 
 export const id = PropTypes.oneOfType([
   PropTypes.number.isRequired,
@@ -22,9 +23,17 @@ export const activityType = PropTypes.oneOf([
   'show',
 ])
 
+export const activityLevel = PropTypes.oneOf([
+  'beginner',
+  'intermediate',
+  'advanced',
+])
+
 export const role = PropTypes.oneOf([
   'admin',
 ])
+
+export const icon = PropTypes.oneOf(ICONS)
 
 export const user = PropTypes.shape({
   id: id.isRequired,
@@ -61,10 +70,12 @@ export const venue = PropTypes.shape({
 
 export default {
   activity,
+  activityLevel,
   activityType,
   className,
   color,
   component,
+  icon,
   id,
   ref,
   session,

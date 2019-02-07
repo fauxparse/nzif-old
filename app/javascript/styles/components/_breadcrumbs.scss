@@ -17,9 +17,13 @@
       color: themed(secondary);
     }
 
-    flex: 0 0 2.5rem;
-    margin: 0 0.5rem 0 -3rem;
+    flex: 0 0 3.5rem;
+    margin: 0 0.5rem 0 -4rem;
     padding: 0.5rem;
     font-size: font-size(0);
+
+    .icon {
+      color: inherit;
+    }
   }
 }

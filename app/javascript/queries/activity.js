@@ -9,6 +9,7 @@ export default gql`
       slug
       url
       description
+
       image {
         name
         thumbnail
@@ -17,6 +18,10 @@ export default gql`
 
       ...on Workshop {
         levels
+      }
+
+      festival {
+        year
       }
 
       presenters {
@@ -35,6 +40,8 @@ export default gql`
 
         venue {
           id
+          name
+          address
         }
       }
     }

@@ -30,5 +30,9 @@ module Types
     def image
       object.image.attached? ? object.image : nil
     end
+
+    def sessions
+      object.sessions.includes(:venue).order(starts_at: :asc)
+    end
   end
 end

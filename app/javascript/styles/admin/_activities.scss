@@ -9,6 +9,50 @@
     line-height: line-height(tight);
     resize: none;
   }
+
+  .activity-overview,
+  .activity-session {
+    padding: 1.5rem 0;
+  }
+
+  .activity-levels {
+    display: flex;
+  }
+
+  .activity-level {
+    margin: 0.25rem 0;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 1rem;
+    font-size: font-size(-1);
+    line-height: 1rem;
+    text-transform: capitalize;
+
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    @each $level, $color in $levels {
+      &[data-level="#{$level}"] {
+        @include themify {
+          &[role="checkbox"] {
+            background: none;
+            color: themed(secondary);
+            cursor: pointer;
+
+            &[aria-checked] {
+              background-color: color($color, 500);
+              color: color($color, 100);
+            }
+
+            &:focus {
+              box-shadow: 0 0 0 0.25rem color($color, 800);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .presenters {
@@ -115,46 +159,6 @@
       font-weight: bold;
     }
   }
-}
-
-.activity-levels {
-  display: flex;
-}
-
-.activity-level {
-  margin: 0.25rem 0;
-  padding: 0.5rem 1rem;
-  border: 0;
-  border-radius: 1rem;
-  font-size: font-size(-1);
-  line-height: 1rem;
-  text-transform: capitalize;
-
-  &:not(:last-child) {
-    margin-right: 0.5rem;
-  }
-
-  @each $level, $color in $levels {
-    &[data-level="#{$level}"] {
-      @include themify {
-        color: themed(secondary);
-      }
-
-      &[aria-checked] {
-        background-color: color($color, 500);
-        color: color($color, 100);
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 0.25rem color($color, 800);
-      }
-    }
-  }
-}
-
-.activity-overview,
-.activity-session {
-  padding: 1.5rem 0;
 }
 
 .slug {

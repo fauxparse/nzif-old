@@ -28,7 +28,7 @@ const Home = ({ match }) => {
   const year = parseInt(match.params.year, 10)
 
   return (
-    <PageContent>
+    <PageContent className="page-content--no-padding">
       <Query query={HOMEPAGE_QUERY} variables={{ year }}>
         {({ loading, data: { festival } }) =>
           loading ? (

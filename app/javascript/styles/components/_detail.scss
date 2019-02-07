@@ -1,0 +1,15 @@
+.detail {
+  display: flex;
+  margin: 0 0 $padding;
+
+  &__icon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 2rem 0 -3.5rem;
+  }
+
+  &__content {
+    flex: 1;
+  }
+}

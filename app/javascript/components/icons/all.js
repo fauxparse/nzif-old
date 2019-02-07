@@ -2,6 +2,7 @@ export default [
   'add',
   'admin',
   'back',
+  'calendar',
   'chevron-down',
   'close',
   'copy',
