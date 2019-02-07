@@ -8,6 +8,7 @@ export default [
   'code-of-conduct',
   'copy',
   'development',
+  'edit',
   'image',
   'info',
   'levels',

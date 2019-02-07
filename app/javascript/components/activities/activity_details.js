@@ -6,12 +6,13 @@ import PageContent from '../page_content'
 import Header from './header'
 import Summary from './summary'
 import Description from './description'
+import Presenters from './presenters'
 
 const ActivityDetails = ({ match }) => {
   const type = match.params.type.replace(/s$/, '')
   const slug = match.params.slug
   const year = parseInt(match.params.year, 10)
-  const dummy = { type, slug, name: slug, festival: { year } }
+  const dummy = { type, slug, name: slug, festival: { year }, associated: [] }
 
   return (
     <PageContent>
@@ -21,6 +22,7 @@ const ActivityDetails = ({ match }) => {
             <Header loading={loading} activity={activity || dummy} />
             <Summary loading={loading} activity={activity || dummy} />
             <Description loading={loading} activity={activity || dummy} />
+            <Presenters loading={loading} presenters={activity ? activity.presenters : []} />
           </>
         )}
       </Query>

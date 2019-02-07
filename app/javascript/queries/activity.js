@@ -20,6 +20,17 @@ export default gql`
         levels
       }
 
+      associated {
+        id
+        name
+        type
+        url
+
+        sessions {
+          startsAt
+        }
+      }
+
       festival {
         year
       }
@@ -27,6 +38,8 @@ export default gql`
       presenters {
         id
         name
+        origin
+        bio
       }
 
       sessions {

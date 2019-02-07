@@ -4,6 +4,9 @@ import pluralize from 'pluralize'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Skeleton from '../shared/skeleton_text'
 import Duotone from '../shared/duotone'
+import Presenter from '../shared/presenter'
+import Sentence from '../shared/sentence'
+import EditButton from './edit_button'
 
 const ActivityHeader = ({ loading, activity }) => (
   <header className="activity-header" data-theme="dark">
@@ -20,13 +23,18 @@ const ActivityHeader = ({ loading, activity }) => (
         {pluralize(activity.type)}
       </Breadcrumbs.Link>
     </Breadcrumbs>
+    <EditButton activity={activity} />
     <Skeleton loading={loading} as="h1" className="activity-header__name">
       {activity.name}
     </Skeleton>
     <Skeleton loading={loading} as="h2" className="activity-header__presenters">
-      {loading
-        ? 'Presenter names go here'
-        : activity.presenters.map(({ name }) => name).join(' and ')}
+      {loading ? (
+        'Presenter names go here'
+      ) : (
+        <Sentence>
+          {activity.presenters.map(presenter => <Presenter key={presenter.id} {...presenter} />)}
+        </Sentence>
+      )}
     </Skeleton>
   </header>
 )

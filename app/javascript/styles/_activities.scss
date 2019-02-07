@@ -58,9 +58,26 @@
 
   &__presenters {
     margin: 0;
-    color: color(tomato, 100, primary);
+    color: change-opacity(white, primary);
     font-size: font-size(1);
     font-weight: font-weight(normal);
+
+    small {
+      color: color(tomato, 100, primary);
+      font-size: font-size(-1);
+    }
+  }
+
+  &__edit {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+
+    .icon {
+      color: color(tomato, 100, primary);
+    }
   }
 
   .breadcrumbs {
@@ -100,16 +117,12 @@
 
     &::after {
       position: absolute;
-      top: 50%;
+      top: 0%;
       right: 0;
-      width: 1em;
-      height: 1em;
-      margin: -0.5em;
-      color: color(grey, 900, border);
-      font-size: font-size(1);
-      font-weight: font-weight(light);
-      line-height: line-height(tight);
-      content: "&";
+      bottom: 0;
+      transform: skew(-15deg);
+      border-right: 1px solid color(grey, 900, border);
+      content: "";
     }
 
     &:last-child {
@@ -131,9 +144,48 @@
   }
 }
 
-.activity-description {
+.activity-description,
+.activity-presenters {
   @include constrained-width($keyline, $padding);
   padding-top: 0;
+  line-height: line-height(relaxed);
+}
+
+.activity-description {
+  .associated {
+    padding-left: $padding;
+    border-left: 0.25rem solid color(tomato);
+  }
+}
+
+.activity-presenters {
+  @include themify {
+    .presenter-details__name {
+      small {
+        color: themed(secondary);
+      }
+    }
+  }
+
+  .presenter-details {
+    position: relative;
+
+    &__avatar {
+      position: absolute;
+      top: calc((#{font-size(2)} * #{line-height(relaxed)} - 2.5rem) / 2);
+      left: -3.5rem;
+    }
+
+    &__name {
+      margin: 0;
+      font-size: font-size(2);
+      font-weight: font-weight(normal);
+
+      small {
+        font-size: font-size(1);
+      }
+    }
+  }
 }
 
 .card {

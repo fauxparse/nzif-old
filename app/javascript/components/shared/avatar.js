@@ -18,7 +18,7 @@ const colorFromString = str => COLORS[hashCode(str) % COLORS.length]
 
 const initials = str => str.split(/\s+/).map(s => s[0]).join('').toUpperCase().substr(0, 3)
 
-const Avatar = forwardRef(({ name, className, ...props }, ref) =>
+const Avatar = forwardRef(({ id, name, origin, bio, className, ...props }, ref) =>
   <span
     className={classNames('avatar', className)}
     ref={ref}

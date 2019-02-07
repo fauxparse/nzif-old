@@ -29,4 +29,25 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to be_admin }
   end
+
+  describe '#country' do
+    subject(:country) { user.country }
+
+    it { is_expected.to be_nil }
+
+    context 'when set with a country code' do
+      let(:user) { build(:user, country_code: 'nz') }
+
+      it { is_expected.to eq 'New Zealand' }
+    end
+
+    context 'with a bad country code' do
+      let(:user) { build(:user, country_code: 'zz') }
+
+      it 'should not be valid' do
+        expect(user).not_to be_valid
+        expect(user).to have_exactly(1).error_on(:country)
+      end
+    end
+  end
 end

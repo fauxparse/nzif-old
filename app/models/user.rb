@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Authorisable
+  include Nationalisable
 
   has_many :identities, dependent: :destroy, autosave: true
   has_many :presenters, dependent: :destroy, autosave: true

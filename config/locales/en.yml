@@ -1,5 +1,8 @@
 en:
   errors:
+    attributes:
+      country:
+        blank: 'is invalid'
     messages:
       blank: 'can’t be blank'
       email: 'must be a valid email address'

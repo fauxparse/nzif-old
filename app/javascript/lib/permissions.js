@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../components/shared/current_user'
 
 const can = (user, action, _object) => {
   if (action === 'update') {
-    return user.roles.indexOf('admin') > -1
+    return user && user.roles.indexOf('admin') > -1
   }
   return false
 }
