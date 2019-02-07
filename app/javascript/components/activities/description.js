@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Bullet from '../shared/bullet'
 import Markdown from '../shared/markdown'
 import SkeletonText from '../shared/skeleton_text'
+import Detail from '../shared/detail'
 
 const FILLER =
 `Whoa, wait, Doc. Okay, real mature guys. Okay, Biff, will you pick up my books?
@@ -17,9 +18,11 @@ need your help to get back to the year 1985.`
 const ActivityDescription = ({ loading, activity }) => (
   <div className="activity-description">
     <Bullet />
-    <SkeletonText loading={loading}>
-      <Markdown text={activity.description || FILLER} />
-    </SkeletonText>
+    <Detail icon="info">
+      <SkeletonText loading={loading}>
+        <Markdown text={activity.description || FILLER} />
+      </SkeletonText>
+    </Detail>
   </div>
 )
 
