@@ -10,16 +10,14 @@ const Activities = ({ match }) => {
   const year = parseInt(match.params.year, 10)
 
   return (
-    <PageContent>
+    <PageContent className="section--activities">
       <Query query={ACTIVITIES_QUERY} variables={{ year, type }}>
         {({ loading, data }) =>
-          loading ? null : (
-            <section className="section--activities">
-              {data.festival.activities.map(activity => (
+          loading
+            ? null
+            : data.festival.activities.map(activity => (
                 <Activity key={activity.id} activity={activity} />
-              ))}
-            </section>
-          )
+              ))
         }
       </Query>
     </PageContent>
@@ -27,7 +25,7 @@ const Activities = ({ match }) => {
 }
 
 Activities.propTypes = {
-  match: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 }
 
 export default Activities

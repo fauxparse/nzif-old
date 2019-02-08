@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
@@ -6,12 +6,12 @@ import Icon from '../icons'
 import { Link } from './ripple'
 import TextLink from './text_link'
 
-const Breadcrumbs = ({ className, back, children, ...props }) => (
-  <div className={classNames('breadcrumbs', className)} {...props}>
+const Breadcrumbs = forwardRef(({ className, back, children, ...props }, ref) => (
+  <div ref={ref} className={classNames('breadcrumbs', className)} {...props}>
     {back && <Link to={back} className="breadcrumbs__back"><Icon name="back" /></Link>}
     {children}
   </div>
-)
+))
 
 Breadcrumbs.propTypes = {
   back: PropTypes.oneOfType([

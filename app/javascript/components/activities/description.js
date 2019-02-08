@@ -22,10 +22,10 @@ const ActivityDescription = ({ loading, activity }) => (
       <SkeletonText loading={loading}>
         <Markdown text={activity.description || FILLER} />
       </SkeletonText>
+      {activity.associated && activity.associated.map(associatedActivity => (
+        <Associated key={associatedActivity.id} {...associatedActivity} />
+      ))}
     </Detail>
-    {activity.associated && activity.associated.map(associatedActivity => (
-      <Associated key={associatedActivity.id} {...associatedActivity} />
-    ))}
   </div>
 )
 

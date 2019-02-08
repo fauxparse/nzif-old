@@ -10274,6 +10274,11 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
+stickybits@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/stickybits/-/stickybits-3.6.1.tgz#270fa4d0fb34691e356a6c0a16dd5a8f3bbac4fe"
+  integrity sha512-8T+513bEHJs5MYoqN1UUnWBkNwGk0brvUzuQZZSAasWqkLWf7g3lWfJSDpRVNQ1czj/2ijIpDKPuigjkvKzA5g==
+
 stickyfilljs@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/stickyfilljs/-/stickyfilljs-2.1.0.tgz#46dabb599d8275d185bdb97db597f86a2e3afa7b"

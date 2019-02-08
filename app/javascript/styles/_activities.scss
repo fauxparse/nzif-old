@@ -81,8 +81,14 @@
   }
 
   .breadcrumbs {
-    flex: 0 0 auto;
-    order: -1;
+    position: absolute;
+    top: 0;
+    left: $keyline;
+    padding-top: 1rem;
+
+    &.js-is-stuck {
+      padding-top: 2rem;
+    }
 
     &__link,
     &__back {

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import stickybits from 'stickybits'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Skeleton from '../shared/skeleton_text'
 import Duotone from '../shared/duotone'
@@ -8,36 +9,48 @@ import Presenter from '../shared/presenter'
 import Sentence from '../shared/sentence'
 import EditButton from './edit_button'
 
-const ActivityHeader = ({ loading, activity }) => (
-  <header className="activity-header" data-theme="dark">
-    {activity.image && (
-      <Duotone src={activity.image.full}>
-        <img className="activity-header__background" src={activity.image.full} />
-      </Duotone>
-    )}
-    <Breadcrumbs
-      className="activity-header__breadcrumbs"
-      back={`/${activity.festival.year}/${activity.type}s`}
-    >
-      <Breadcrumbs.Link to={`/${activity.festival.year}/${activity.type}s`}>
-        {pluralize(activity.type)}
-      </Breadcrumbs.Link>
-    </Breadcrumbs>
-    <EditButton activity={activity} />
-    <Skeleton loading={loading} as="h1" className="activity-header__name">
-      {activity.name}
-    </Skeleton>
-    <Skeleton loading={loading} as="h2" className="activity-header__presenters">
-      {loading ? (
-        'Presenter names go here'
-      ) : (
-        <Sentence>
-          {activity.presenters.map(presenter => <Presenter key={presenter.id} {...presenter} />)}
-        </Sentence>
-      )}
-    </Skeleton>
-  </header>
-)
+class ActivityHeader extends Component {
+  breadcrumbs = createRef()
+
+  componentDidMount() {
+    stickybits(this.breadcrumbs.current, { useFixed: true, useGetBoundingClientRect: true })
+  }
+
+  render() {
+    const { loading, activity } = this.props
+    return (
+      <header className="activity-header" data-theme="dark">
+        {activity.image && (
+          <Duotone src={activity.image.full}>
+            <img className="activity-header__background" src={activity.image.full} />
+          </Duotone>
+        )}
+        <Breadcrumbs
+          ref={this.breadcrumbs}
+          className="activity-header__breadcrumbs"
+          back={`/${activity.festival.year}/${activity.type}s`}
+        >
+          <Breadcrumbs.Link to={`/${activity.festival.year}/${activity.type}s`}>
+            {pluralize(activity.type)}
+          </Breadcrumbs.Link>
+        </Breadcrumbs>
+        <EditButton activity={activity} />
+        <Skeleton loading={loading} as="h1" className="activity-header__name">
+          {activity.name}
+        </Skeleton>
+        <Skeleton loading={loading} as="h2" className="activity-header__presenters">
+          {loading ? (
+            'Presenter names go here'
+          ) : (
+            <Sentence>
+              {activity.presenters.map(presenter => <Presenter key={presenter.id} {...presenter} />)}
+            </Sentence>
+          )}
+        </Skeleton>
+      </header>
+    )
+  }
+}
 
 ActivityHeader.propTypes = {
   loading: PropTypes.bool.isRequired,
