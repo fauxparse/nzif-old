@@ -13,7 +13,7 @@ class Activity < ApplicationRecord
 
   validate :not_a_vanilla_activity
 
-  scope :of_type, -> (type) { where(type: type) }
+  scope :of_type, -> (type) { type.nil? ? self : where(type: type) }
 
   def self.to_param
     name.demodulize.pluralize.underscore.dasherize

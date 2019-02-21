@@ -7,6 +7,7 @@ module Types
       argument :type, ActivityType, 'Restrict activities by type', required: false
       argument :slug, String, 'Restrict activities by slug', required: false
     end
+    field :days, [Types::Day], null: false
 
     def activities(type: nil, slug: nil)
       scope = object.activities.with_attached_image.order(:id)

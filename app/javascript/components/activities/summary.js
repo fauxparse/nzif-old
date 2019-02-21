@@ -7,12 +7,11 @@ import Time from '../shared/time'
 
 const ActivitySummary = ({ activity }) => (
   <aside className="activity-summary">
-    {activity.levels &&
-      activity.levels.length && (
-        <Detail className="activity-levels activity-summary__levels" icon="levels">
-          {activity.levels.map(level => <Level level={level} key={level} />)}
-        </Detail>
-      )}
+    {activity.levels && activity.levels.length ? (
+      <Detail className="activity-levels activity-summary__levels" icon="levels">
+        {activity.levels.map(level => <Level level={level} key={level} />)}
+      </Detail>
+    ) : null}
     {activity.sessions &&
       activity.sessions.length && (
         <Detail className="activity-sessions activity-summary__sessions" icon="calendar">

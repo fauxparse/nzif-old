@@ -1,9 +1,29 @@
 .section--activities {
-  @include constrained-width;
 
+}
+
+.activities__day {
+  padding: $padding;
+
+  @include media(medium) {
+    @include constrained-width($keyline, $padding);
+  }
+}
+
+.activities__list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(14.25em, 1fr));
   grid-column-gap: $spacing;
+  grid-row-gap: $spacing;
+}
+
+.activity {
+  &__thumbnail--placeholder {
+    display: block;
+    position: relative;
+    padding-top: 9 * 100% / 16;
+    overflow: hidden;
+  }
 }
 
 .activity-header {
@@ -191,12 +211,5 @@
         font-size: font-size(1);
       }
     }
-  }
-}
-
-.card {
-  &__title {
-    @include branding-font;
-    font-size: font-size(1);
   }
 }

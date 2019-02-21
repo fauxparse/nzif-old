@@ -7,22 +7,27 @@
   }
 }
 
-.skeleton-text {
-  display: inline-block;
+.skeleton {
+  &--text {
+    display: inline-block;
+
+    &.skeleton--loading {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
 
   &--loading {
     @include themify {
       $base: themed(text);
 
-      background: change-opacity($base, 0.15)
-        linear-gradient(to right, #{change-opacity($base, 0)} 25%, #{change-opacity($base, 0.1)} 50%, #{change-opacity($base, 0) 75%});
+      background-color: change-opacity($base, 0.15);
+      background-image: linear-gradient(to right, #{change-opacity($base, 0)} 25%, #{change-opacity($base, 0.1)} 50%, #{change-opacity($base, 0) 75%});
       background-repeat: no-repeat;
       background-size: 400% 100vh;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
-    font-family: font-family(skeleton);
+    font-family: font-family(skeleton) !important;
     letter-spacing: -0.1em;
     animation: skeleton-shimmer 3s linear infinite forwards;
   }

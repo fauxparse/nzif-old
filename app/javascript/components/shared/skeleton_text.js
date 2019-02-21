@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 const SkeletonText = ({ as: Component, loading, className, children, ...props }) => (
   <Component
-    className={classNames('skeleton-text', className, { 'skeleton-text--loading': loading })}
+    className={classNames('skeleton--text', className, { 'skeleton--loading': loading })}
     aria-busy={loading || undefined}
     aria-hidden={loading || undefined}
     aria-live="polite"
