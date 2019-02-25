@@ -27,6 +27,8 @@ module Types
       image_url(1920, 1080)
     end
 
+    alias full_2x full
+
     def original
       object.present? ? url_for(object.image) : placeholder_url
     end
