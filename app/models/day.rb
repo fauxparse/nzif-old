@@ -7,8 +7,7 @@ class Day
   end
 
   def activities
-    @activities ||=
-      festival.activities.includes(:sessions).where('DATE(sessions.starts_at) = ?', date)
+    @activities ||= festival.activities.includes(:sessions).merge(Session.on_day(date))
   end
 
   private
