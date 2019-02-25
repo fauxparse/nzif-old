@@ -1,12 +1,38 @@
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { split } from 'apollo-link'
-import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+  defaultDataIdFromObject,
+} from 'apollo-cache-inmemory'
 import ActionCable from 'actioncable'
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
 import { getMainDefinition } from 'apollo-utilities'
 
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData: {
+    __schema: {
+      types: [
+        {
+          kind: 'INTERFACE',
+          name: 'Activity',
+          possibleTypes: [
+            {
+              name: 'Show'
+            },
+            {
+              name: 'Workshop'
+            }
+          ]
+        }
+      ]
+    }
+  }
+})
+
 const cache = new InMemoryCache({
+  fragmentMatcher,
   dataIdFromObject: object => {
     switch (object.__typename) {
       case 'Festival': return `Festival:${object.year}`
