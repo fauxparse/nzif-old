@@ -13,6 +13,8 @@ export default gql`
       image {
         name
         thumbnail
+        small
+        medium
         full
       }
 

@@ -2,6 +2,8 @@ module Types
   class ActivityImage < Types::BaseObject
     field :name, String, null: false
     field :thumbnail, String, null: false
+    field :small, String, null: false
+    field :medium, String, null: false
     field :full, String, null: false
     field :original, String, null: false
 
@@ -10,11 +12,19 @@ module Types
     end
 
     def thumbnail
-      object.present? ? url_for(variant(width: 384, height: 216)) : placeholder_url
+      image_url(384, 216)
+    end
+
+    def small
+      image_url(768, 432)
+    end
+
+    def medium
+      image_url(960, 540)
     end
 
     def full
-      object.present? ? url_for(variant(width: 1920, height: 1080)) : placeholder_url
+      image_url(1920, 1080)
     end
 
     def original
@@ -29,6 +39,10 @@ module Types
         extent: "#{width}x#{height}",
         gravity: 'center'
       )
+    end
+
+    def image_url(width, height)
+      url_for variant(width: width, height: height)
     end
 
     def placeholder_url

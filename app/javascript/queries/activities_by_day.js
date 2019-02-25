@@ -18,12 +18,13 @@ export default gql`
           image {
             name
             thumbnail
-            full
+            small
+            medium
           }
 
-            ...on Workshop {
-              levels
-            }
+          ...on Workshop {
+            levels
+          }
 
           presenters {
             id

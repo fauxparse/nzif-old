@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Picture } from 'react-responsive-picture'
 import CommonProps from '../../lib/common_props'
 import TextLink from '../../components/shared/text_link'
 import Skeleton from '../shared/skeleton_text'
@@ -11,9 +12,18 @@ const Activity = ({ activity = {}, loading }) => (
     {loading ? (
       <div className="skeleton skeleton--loading activity__thumbnail--placeholder" />
     ) : (
-      <img
+      <Picture
         className="activity__thumbnail card__image"
-        src={activity.image && activity.image.thumbnail}
+        sources={[
+          {
+            srcSet: `${activity.image.thumbnail}, ${activity.image.small} 2x`,
+            media: '(max-width: 384px)',
+          },
+          {
+            srcSet: `${activity.image.small}, ${activity.image.medium} 2x`,
+          },
+        ]}
+        alt={activity.name}
       />
     )}
     <Skeleton as="h3" className="card__title activity__name" loading={loading}>

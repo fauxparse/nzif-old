@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import stickybits from 'stickybits'
+import { Picture } from 'react-responsive-picture'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Skeleton from '../shared/skeleton_text'
 import Duotone from '../shared/duotone'
@@ -21,8 +22,24 @@ class ActivityHeader extends Component {
     return (
       <header className="activity-header" data-theme="dark">
         {activity.image && (
-          <Duotone src={activity.image.full}>
-            <img className="activity-header__background" src={activity.image.full} />
+          <Duotone>
+            <Picture
+              className="activity-header__background"
+              sources={[
+                {
+                  srcSet: `${activity.image.thumbnail}, ${activity.image.small} 2x`,
+                  media: '(max-width: 384px)',
+                },
+                {
+                  srcSet: `${activity.image.medium}, ${activity.image.full} 2x`,
+                  media: '(max-width: 960px)',
+                },
+                {
+                  srcSet: activity.image.full,
+                },
+              ]}
+              alt={activity.name}
+            />
           </Duotone>
         )}
         <Breadcrumbs
@@ -58,6 +75,12 @@ ActivityHeader.propTypes = {
     slug: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    image: PropTypes.shape({
+      thumbnail: PropTypes.string.isRequired,
+      small: PropTypes.string.isRequired,
+      medium: PropTypes.string.isRequired,
+      full: PropTypes.string.isRequired,
+    }),
     festival: PropTypes.shape({
       year: PropTypes.number.isRequired
     }).isRequired

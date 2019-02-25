@@ -16,7 +16,8 @@ export default gql`
         image {
           name
           thumbnail
-          full
+          small
+          medium
         }
 
         ...on Workshop {
