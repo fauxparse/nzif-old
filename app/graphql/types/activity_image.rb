@@ -6,19 +6,19 @@ module Types
     field :original, String, null: false
 
     def name
-      object.filename
+      object.present? ? object.filename : 'placeholder.jpg'
     end
 
     def thumbnail
-      url_for(variant(width: 384, height: 216))
+      object.present? ? url_for(variant(width: 384, height: 216)) : placeholder_url
     end
 
     def full
-      url_for(variant(width: 1920, height: 1080))
+      object.present? ? url_for(variant(width: 1920, height: 1080)) : placeholder_url
     end
 
     def original
-      url_for(object)
+      object.present? ? url_for(object.image) : placeholder_url
     end
 
     private
@@ -29,6 +29,10 @@ module Types
         extent: "#{width}x#{height}",
         gravity: 'center'
       )
+    end
+
+    def placeholder_url
+      ActionController::Base.helpers.image_path('placeholder')
     end
   end
 end

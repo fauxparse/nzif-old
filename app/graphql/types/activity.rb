@@ -28,7 +28,7 @@ module Types
     end
 
     def image
-      object.image.attached? ? object.image : nil
+      AttachedImage.new(object.image)
     end
 
     def sessions
