@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import CommonProps from '../../lib/common_props'
 import Link from '../shared/text_link'
 import Date from '../shared/date'
 
@@ -23,6 +24,13 @@ const Associated = ({ type, name, url, sessions }) => {
       <Content {...{ name, url, session }} />
     </div>
   )
+}
+
+Associated.propTypes = {
+  type: CommonProps.activityType.isRequired,
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  sessions: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 export default Associated

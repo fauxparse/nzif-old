@@ -1,12 +1,15 @@
 .footer {
-  @include constrained-width($keyline, $padding);
-
   min-height: 6rem;
+  padding: $padding;
   background: color(grey, 600);
   color: color(grey, 200);
   font-size: font-size(-1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @include media(medium) {
+    @include constrained-width($keyline, $padding);
+  }
 
   &__link {
     display: flex;

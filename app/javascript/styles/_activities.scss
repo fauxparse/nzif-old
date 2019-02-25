@@ -12,7 +12,7 @@
 
 .activities__list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(14.25em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
   grid-column-gap: $spacing;
   grid-row-gap: $spacing;
 }
@@ -186,11 +186,18 @@
 
 .activity-presenters {
   @include themify {
+    padding-top: $padding;
+    background: themed(panel);
+
     .presenter-details__name {
       small {
         color: themed(secondary);
       }
     }
+  }
+
+  &:empty {
+    display: none;
   }
 
   .presenter-details {
