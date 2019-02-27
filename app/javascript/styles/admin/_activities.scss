@@ -1,5 +1,5 @@
 .activity-details {
-  @include constrained-width;
+  @include constrained-width($keyline, $padding);
 
   &__name {
     margin: 0 0 1.5rem;
