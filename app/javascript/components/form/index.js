@@ -1,4 +1,5 @@
 import Checkbox from './checkbox'
+import CountrySelect from './country_select'
 import Error from './error'
 import Errors from './errors'
 import Field from './field'
@@ -14,6 +15,7 @@ import Textarea from './textarea'
 
 export {
   Checkbox,
+  CountrySelect,
   Error,
   Errors,
   Field,
@@ -30,6 +32,7 @@ export {
 
 export default {
   Checkbox,
+  CountrySelect,
   Error,
   Errors,
   Field,

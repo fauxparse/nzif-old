@@ -22,6 +22,8 @@ const SelectMenuItem = ({ className, children, ...props }) => (
   </li>
 )
 
+const SelectMenuSeparator = () => <li className="select__menu-separator" />
+
 class Select extends Component {
   static propTypes = {
     className: CommonProps.className,
@@ -79,7 +81,7 @@ class Select extends Component {
   }
 
   triggerKeyDown = (e) => {
-    switch(e.which) {
+    switch (e.which) {
       case KEYS.ENTER:
       case KEYS.SPACE:
         e.preventDefault()
@@ -89,7 +91,7 @@ class Select extends Component {
   }
 
   menuItemKeyDown = (e) => {
-    switch(e.which) {
+    switch (e.which) {
       case KEYS.ESC:
         e.preventDefault()
         e.stopPropagation()
@@ -104,8 +106,12 @@ class Select extends Component {
       case KEYS.UP:
       case KEYS.DOWN: {
         const direction = e.which === KEYS.UP ? -1 : 1
-        const { options: { length } } = this.props
-        const { dataset: { index } } = e.target
+        const {
+          options: { length }
+        } = this.props
+        const {
+          dataset: { index }
+        } = e.target
         e.preventDefault()
         e.stopPropagation()
         this.focusMenuItem((parseInt(index, 10) + length + direction) % length)
@@ -115,7 +121,9 @@ class Select extends Component {
       case KEYS.END:
         e.preventDefault()
         e.stopPropagation()
-        this.focusMenuItem(e.which === KEYS.END ? this.props.options.length - 1 : 0)
+        this.focusMenuItem(
+          e.which === KEYS.END ? this.props.options.length - 1 : 0
+        )
         break
     }
   }
@@ -137,15 +145,19 @@ class Select extends Component {
   }
 
   render() {
-    const { className, value, options, placeholder, menuItemComponent: Item = 'li' } = this.props
+    const {
+      className,
+      value,
+      options,
+      placeholder,
+      menuItemComponent: Item = SelectMenuItem,
+    } = this.props
     const { open } = this.state
-    const selectedOption = value && options.find(option => this.value(option) === value)
+    const selectedOption =
+      value && (options.find(option => this.value(option) === value) || value)
 
     return (
-      <div
-        className={classNames('select', className)}
-        role="menu"
-      >
+      <div className={classNames('select', className)} role="menu">
         <div
           className="select__trigger"
           ref={this.trigger}
@@ -155,14 +167,17 @@ class Select extends Component {
           onClick={this.toggle}
           aria-expanded={open || undefined}
         >
-          <span className="select__current-value" data-empty={!selectedOption || undefined}>
+          <span
+            className="select__current-value"
+            data-empty={!selectedOption || undefined}
+          >
             {this.label(selectedOption) || placeholder}
           </span>
           <Icon className="select__chevron" name="chevron-down" />
         </div>
         {open && (
           <ThemeContext.Consumer>
-            {theme =>
+            {theme => (
               <RelativePortal
                 left={-16}
                 top={-48}
@@ -172,25 +187,35 @@ class Select extends Component {
                 <ul
                   className="select__menu-items"
                   ref={this.menu}
-                  style={{ minWidth: `${this.trigger.current.offsetWidth + 32}px` }}
+                  style={{
+                    minWidth: `${this.trigger.current.offsetWidth + 32}px`
+                  }}
                 >
-                  {options.map((option, index) => (
-                    <Item
-                      className="select__menu-item"
-                      key={this.value(option)}
-                      role="menuitemradio"
-                      tabIndex={-1}
-                      data-index={index}
-                      aria-selected={(this.value(option) === this.value(value)) || undefined}
-                      onClick={this.choose}
-                      onKeyDown={this.menuItemKeyDown}
-                    >
-                      {this.label(option)}
-                    </Item>
-                  ))}
+                  {options.map(
+                    (option, index) =>
+                      option === '---' ? (
+                        <SelectMenuSeparator key={`separator-${index}`} />
+                      ) : (
+                        <Item
+                          className="select__menu-item"
+                          key={this.value(option)}
+                          role="menuitemradio"
+                          tabIndex={-1}
+                          data-index={index}
+                          aria-selected={
+                            this.value(option) === this.value(value) ||
+                            undefined
+                          }
+                          onClick={this.choose}
+                          onKeyDown={this.menuItemKeyDown}
+                        >
+                          {this.label(option)}
+                        </Item>
+                      )
+                  )}
                 </ul>
               </RelativePortal>
-            }
+            )}
           </ThemeContext.Consumer>
         )}
       </div>

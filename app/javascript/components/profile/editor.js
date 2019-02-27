@@ -6,7 +6,7 @@ import CommonProps from '../../lib/common_props'
 import { ROLES, ROLE_DESCRIPTIONS } from '../../lib/roles'
 import { WithPermission } from '../../lib/permissions'
 import { CurrentUserContext } from '../shared/current_user'
-import { Errors, IconField, ImageUpload, Input, Select, Switch, Textarea } from '../form'
+import { CountrySelect, Errors, IconField, ImageUpload, Input, Switch, Textarea } from '../form'
 import Icon from '../icons'
 import Button from '../button'
 
@@ -87,7 +87,7 @@ class ProfileEditor extends Component {
   }
 
   render() {
-    const { className, saving, user, countries, errors } = this.props
+    const { className, saving, user, errors } = this.props
     const { existingImage, name, email, bio, city, country, changed } = this.state
     const roles = new Set(this.state.roles)
 
@@ -119,9 +119,9 @@ class ProfileEditor extends Component {
                   onChange={this.changed}
                   placeholder="City"
                 />
-                <Select
+                <CountrySelect
+                  placeholder="Country"
                   value={country}
-                  options={countries}
                   onChange={this.countryChanged}
                 />
               </IconField>

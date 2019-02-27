@@ -20,7 +20,5 @@ export default gql`
         full
       }
     }
-
-    countries
   }
 `

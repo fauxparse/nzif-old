@@ -44,13 +44,12 @@ class ProfileSection extends Component {
     return (
       <section className={classNames('my-profile', className)}>
         <Query query={EDIT_USER_QUERY}>
-          {({ loading, data: { currentUser, countries } = {} }) =>
+          {({ loading, data: { currentUser } = {} }) =>
             loading ? (
               <Loader />
             ) : currentUser ? (
               <Editor
                 user={currentUser}
-                countries={countries}
                 saving={saving}
                 errors={errors}
                 onChange={this.save(currentUser.id)}

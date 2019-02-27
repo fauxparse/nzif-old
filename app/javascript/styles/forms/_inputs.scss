@@ -158,4 +158,12 @@
     cursor: pointer;
     overflow: hidden;
   }
+
+  &__menu-separator {
+    margin: ($spacing / 2) 0;
+
+    @include themify {
+      border-top: 1px solid themed(border);
+    }
+  }
 }

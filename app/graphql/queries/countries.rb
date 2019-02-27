@@ -5,7 +5,7 @@ module Types
     end
 
     def countries
-      ::ISO3166::Country.all.map(&:name).sort
+      ::ISO3166::Country.all.map(&:name).sort_by { |country| I18n.transliterate(country) }
     end
   end
 end
