@@ -6,6 +6,9 @@ export default gql`
       id
       name
       email
+      bio
+      city
+      country
       roles
       notificationsCount
 
@@ -17,5 +20,7 @@ export default gql`
         full
       }
     }
+
+    countries
   }
 `

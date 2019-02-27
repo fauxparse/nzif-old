@@ -8,6 +8,7 @@ export default [
   'close',
   'code-of-conduct',
   'copy',
+  'country',
   'development',
   'edit',
   'email',

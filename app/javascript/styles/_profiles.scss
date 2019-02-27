@@ -49,9 +49,16 @@
     }
   }
 
+  &__country {
+    .form__field-contents {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+      grid-row-gap: $spacing;
+      grid-column-gap: $spacing;
+    }
+  }
+
   .form__input {
     margin-bottom: 0;
   }
-
-
 }

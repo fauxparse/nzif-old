@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Query, withApollo } from 'react-apollo'
 import classNames from 'classnames'
-import { CURRENT_USER_QUERY, UPDATE_USER_MUTATION } from '../../queries'
+import { EDIT_USER_QUERY, UPDATE_USER_MUTATION } from '../../queries'
 import CommonProps from '../../lib/common_props'
 import Loader from '../shared/loader'
 import NotFound from '../not_found'
@@ -43,13 +43,14 @@ class ProfileSection extends Component {
 
     return (
       <section className={classNames('my-profile', className)}>
-        <Query query={CURRENT_USER_QUERY}>
-          {({ loading, data: { currentUser } = {} }) =>
+        <Query query={EDIT_USER_QUERY}>
+          {({ loading, data: { currentUser, countries } = {} }) =>
             loading ? (
               <Loader />
             ) : currentUser ? (
               <Editor
                 user={currentUser}
+                countries={countries}
                 saving={saving}
                 errors={errors}
                 onChange={this.save(currentUser.id)}

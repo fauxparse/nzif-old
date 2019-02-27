@@ -6,7 +6,7 @@ import CommonProps from '../../lib/common_props'
 import { ROLES, ROLE_DESCRIPTIONS } from '../../lib/roles'
 import { WithPermission } from '../../lib/permissions'
 import { CurrentUserContext } from '../shared/current_user'
-import { Errors, IconField, ImageUpload, Input, Switch } from '../form'
+import { Errors, IconField, ImageUpload, Input, Select, Switch, Textarea } from '../form'
 import Icon from '../icons'
 import Button from '../button'
 
@@ -29,7 +29,7 @@ class ProfileEditor extends Component {
   }
 
   state = {
-    ...pick(this.props.user, 'name', 'email', 'bio', 'roles'),
+    ...pick(this.props.user, 'name', 'email', 'bio', 'city','country', 'roles'),
     existingImage: this.props.user.image,
     changed: false,
   }
@@ -57,6 +57,10 @@ class ProfileEditor extends Component {
     }
   }
 
+  countryChanged = (country) => {
+    this.setState({ country, changed: true })
+  }
+
   save = (e) => {
     e && e.preventDefault()
 
@@ -64,6 +68,9 @@ class ProfileEditor extends Component {
       pick(this.state, [
         'name',
         'email',
+        'bio',
+        'city',
+        'country',
         'roles',
         this.state.hasOwnProperty('image') && 'image',
       ].filter(Boolean))
@@ -80,8 +87,8 @@ class ProfileEditor extends Component {
   }
 
   render() {
-    const { className, saving, user, errors } = this.props
-    const { existingImage, name, email, changed } = this.state
+    const { className, saving, user, countries, errors } = this.props
+    const { existingImage, name, email, bio, city, country, changed } = this.state
     const roles = new Set(this.state.roles)
 
     return (
@@ -104,6 +111,23 @@ class ProfileEditor extends Component {
                 <Input type="email" name="email" value={email} onChange={this.changed} required />
               </IconField>
               <Errors from={errors} name="email" />
+              <IconField icon="country" label="Country" className="profile-editor__country">
+                <Input
+                  type="text"
+                  name="city"
+                  value={city || ''}
+                  onChange={this.changed}
+                  placeholder="City"
+                />
+                <Select
+                  value={country}
+                  options={countries}
+                  onChange={this.countryChanged}
+                />
+              </IconField>
+              <IconField icon="text" label="Bio">
+                <Textarea name="bio" value={bio || ''} minRows={5} onChange={this.changed} />
+              </IconField>
               <WithPermission to="editRoles" subject={user}>
                 <IconField icon="role" label="Roles">
                   <div className="profile-editor__roles checkboxes">
