@@ -54,6 +54,7 @@ class UserMenu extends React.Component {
     const { user, match } = this.props
     const { notificationsCount } = this.state
     const { year } = match.params
+    const admin = /^\/admin/.test(match.url)
 
     return (
       <Menu
@@ -71,7 +72,8 @@ class UserMenu extends React.Component {
         )}
         renderContent={({ ref, open }) => (
           <Menu.Content ref={ref} className="current-user__menu" aria-expanded={open || undefined}>
-            {user.roles.indexOf('admin') > -1 && (
+            {admin && <Menu.Item icon="home" text="Home" to={`/${year}`} />}
+            {!admin && user.roles.indexOf('admin') > -1 && (
               <Menu.Item
                 icon="admin"
                 text="Festival admin"

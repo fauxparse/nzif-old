@@ -15,6 +15,10 @@ class Times extends React.Component {
       .forEach(el => this.intersectionObserver.observe(el))
   }
 
+  componentWillUnmount() {
+    this.intersectionObserver.disconnect()
+  }
+
   observe = (entries) => {
     entries.forEach(({ target, boundingClientRect, rootBounds }) => {
       const hidden = boundingClientRect.y < rootBounds.y
