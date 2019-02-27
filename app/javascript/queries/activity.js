@@ -43,8 +43,8 @@ export default gql`
         origin
         bio
         image {
-          thumbnail
           small
+          medium
         }
       }
 

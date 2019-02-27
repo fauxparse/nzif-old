@@ -30,8 +30,8 @@ export default gql`
             id
             name
             image {
-              thumbnail
               small
+              medium
             }
           }
 

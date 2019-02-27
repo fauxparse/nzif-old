@@ -21,7 +21,7 @@ class Overview extends Component {
 
   state = {
     description: this.props.activity.description,
-    presenters: this.props.activity.presenters.slice(0).map(p => pick(p, ['id', 'name'])),
+    presenters: this.props.activity.presenters.slice(0).map(p => pick(p, ['id', 'name', 'image'])),
     levels: this.props.activity.levels.slice(0),
     existingImage: this.props.activity.image,
     changed: false,
