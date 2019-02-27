@@ -42,6 +42,10 @@ export default gql`
         name
         origin
         bio
+        image {
+          thumbnail
+          small
+        }
       }
 
       sessions {

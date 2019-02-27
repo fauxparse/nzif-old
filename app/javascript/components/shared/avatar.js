@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react'
+import { Picture } from 'react-responsive-picture'
 import classNames from 'classnames'
 
 const COLORS = ['tomato', 'mandarin', 'grape', 'plum', 'apple', 'mint']
@@ -18,16 +19,26 @@ const colorFromString = str => COLORS[hashCode(str) % COLORS.length]
 
 const initials = str => str.split(/\s+/).map(s => s[0]).join('').toUpperCase().substr(0, 3)
 
-const Avatar = forwardRef(({ id, name, origin, bio, className, ...props }, ref) =>
-  <span
-    className={classNames('avatar', className)}
-    ref={ref}
-    title={name}
-    data-color={colorFromString(name)}
-    {...props}
-  >
-    {initials(name)}
-  </span>
+const Avatar = forwardRef(
+  ({ id, name, origin, bio, image, className, ...props }, ref) => (
+    <span
+      className={classNames('avatar', className)}
+      ref={ref}
+      title={name}
+      data-color={colorFromString(name)}
+      {...props}
+    >
+      {image ? (
+        <Picture
+          className="avatar__image"
+          sources={[{ srcSet: `${image.small}, ${image.medium} 2x` }]}
+          alt={name}
+        />
+      ) : (
+        initials(name)
+      )}
+    </span>
+  )
 )
 
 export default Avatar

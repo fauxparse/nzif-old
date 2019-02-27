@@ -78,7 +78,7 @@ class UserMenu extends React.Component {
                 to={`/admin${year ? `/${year}` : ''}`}
               />
             )}
-            <Menu.Item icon="user" text="Profile" to="/profile" />
+            <Menu.Item icon="user" text="Profile" to={`${match.url}/profile`} />
             <Menu.Separator />
             <LogOutLink />
           </Menu.Content>

@@ -19,7 +19,7 @@ const IconField = ({ className, label, loading, icon, children, ...props }) => (
     aria-label={label}
     {...props}
   >
-    <Tooltip title={label}>
+    <Tooltip className="form__field-icon" title={label}>
       <Icon name={icon} />
       <Transition in={loading} timeout={300} appear>
         {state => (

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import { Color } from './palette'
 import ICONS from '../components/icons/all'
+import ROLES from './roles'
 
 export const id = PropTypes.oneOfType([
   PropTypes.number.isRequired,
@@ -29,9 +30,7 @@ export const activityLevel = PropTypes.oneOf([
   'advanced',
 ])
 
-export const role = PropTypes.oneOf([
-  'admin',
-])
+export const role = PropTypes.oneOf(ROLES)
 
 export const icon = PropTypes.oneOf(ICONS)
 

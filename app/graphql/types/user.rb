@@ -8,9 +8,14 @@ module Types
     field :country, String, null: true
     field :origin, String, null: true
     field :bio, String, null: true
+    field :image, Types::UserImage, null: true
 
     def notifications_count
       0
+    end
+
+    def image
+      object.image.attached? ? object.image : nil
     end
   end
 end

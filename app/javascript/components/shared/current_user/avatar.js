@@ -44,6 +44,7 @@ class AvatarWithNotifications extends React.Component {
       <Avatar
         ref={this.avatar}
         name={user.name}
+        image={user.image}
         data-notification-count={notificationsCount}
       />
     )

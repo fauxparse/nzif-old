@@ -6,7 +6,9 @@ import Header from './header'
 import Footer from '../../components/footer'
 import Activities from '../activities'
 import ActivityDetails from '../activities/activity_details'
+import Profile from '../profile'
 import Map from '../map'
+import NotFound from '../not_found'
 import Home from './home'
 
 export { default as CurrentFestival } from './current'
@@ -26,14 +28,23 @@ class Festival extends React.Component {
                 pageKey={location.pathname}
               >
                 <Switch location={location}>
-                  <Route path={`${match.path}/:type(shows|workshops)`} render={({ match }) => (
-                    <>
-                      <Route path={`${match.path}/:slug`} exact component={ActivityDetails} />
-                      <Route path={match.path} exact component={Activities} />
-                    </>
-                  )} />
+                  <Route
+                    path={`${match.path}/:type(shows|workshops)`}
+                    render={({ match }) => (
+                      <>
+                        <Route
+                          path={`${match.path}/:slug`}
+                          exact
+                          component={ActivityDetails}
+                        />
+                        <Route path={match.path} exact component={Activities} />
+                      </>
+                    )}
+                  />
+                  <Route path={`${match.path}/profile`} exact component={Profile} />
                   <Route path={`${match.path}/map`} exact component={Map} />
                   <Route path={`${match.path}/`} exact component={Home} />
+                  <Route component={NotFound} />
                 </Switch>
               </PageTransition>
             )}
@@ -46,7 +57,7 @@ class Festival extends React.Component {
 }
 
 Festival.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
+  match: ReactRouterPropTypes.match.isRequired
 }
 
 export default Festival

@@ -30,7 +30,7 @@ RSpec.describe UpdateActivity, type: :interactor do
     context 'with invalid attributes' do
       let(:attributes) { { name: nil } }
 
-      it 'changes the activity name' do
+      it 'raises an exception' do
         expect { result }.to raise_error ActiveRecord::RecordInvalid
       end
     end

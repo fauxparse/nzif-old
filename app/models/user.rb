@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :identities, dependent: :destroy, autosave: true
   has_many :presenters, dependent: :destroy, autosave: true
+  has_one_attached :image
 
   validates :name, :email, presence: true
   validates :email, email: true, uniqueness: { case_sensitive: false }, if: :email?

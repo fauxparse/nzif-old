@@ -10,3 +10,4 @@ export { default as UPDATE_ACTIVITY_MUTATION } from './mutations/update_activity
 export { default as CREATE_SESSION_MUTATION } from './mutations/create_session'
 export { default as UPDATE_SESSION_MUTATION } from './mutations/update_session'
 export { default as DELETE_SESSION_MUTATION } from './mutations/delete_session'
+export { default as UPDATE_USER_MUTATION } from './mutations/update_user'

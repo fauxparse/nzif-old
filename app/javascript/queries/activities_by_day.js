@@ -29,6 +29,10 @@ export default gql`
           presenters {
             id
             name
+            image {
+              thumbnail
+              small
+            }
           }
 
           sessions {

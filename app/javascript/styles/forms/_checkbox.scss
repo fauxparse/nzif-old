@@ -1,0 +1,84 @@
+.checkbox,
+.switch {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+
+  [type="checkbox"] {
+    display: none;
+
+    &:disabled {
+      ~ * {
+        opacity: opacity(disabled);
+      }
+    }
+  }
+}
+
+.checkbox__icon {
+  flex: 0 0 auto;
+  margin-right: $spacing;
+  cursor: pointer;
+
+  .check {
+    stroke-dasharray: 13;
+    stroke-dashoffset: -13;
+
+    @include themify {
+      stroke: themed(background);
+    }
+  }
+
+  :checked ~ & {
+    .circle {
+      fill: currentColor;
+    }
+
+    .check {
+      transition: transition(stroke-dashoffset);
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+.switch {
+  &__icon {
+    flex: 0 0 1.5em;
+    order: 1;
+    width: 1.5em;
+    margin-left: $spacing;
+    cursor: pointer;
+
+    .track {
+      transition: transition(fill, $duration: 0s, $delay: 0.1s);
+
+      @include themify {
+        fill: change-opacity(themed(border), 0);
+      }
+    }
+
+    .thumb {
+      transition: transition(transform);
+
+      @include themify {
+        fill: themed(background);
+      }
+    }
+
+    :checked ~ & {
+      .track {
+        @include themify {
+          fill: themed(border);
+        }
+      }
+
+      .thumb {
+        transform: translateX(12px);
+      }
+    }
+  }
+
+  &__label {
+    flex: 1;
+  }
+}

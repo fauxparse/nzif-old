@@ -1,15 +1,14 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  {
-    currentUser {
+  mutation UpdateUser($id: ID!, $attributes: UserAttributes!) {
+    updateUser(id: $id, attributes: $attributes) {
       id
       name
       email
       roles
-      notificationsCount
+
       image {
-        name
         thumbnail
         small
         medium

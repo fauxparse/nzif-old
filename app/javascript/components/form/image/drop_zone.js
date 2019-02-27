@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 class DropZone extends Component {
   static propTypes = {
     status: PropTypes.oneOf(['ready', 'waiting', 'uploading', 'finished', 'error']),
+    instructions: PropTypes.any,
     progress: PropTypes.number,
     file: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -64,7 +65,7 @@ class DropZone extends Component {
   }
 
   contents() {
-    const { status, file } = this.props
+    const { status, file, instructions } = this.props
 
     if (status === 'uploading') {
       return (
@@ -75,8 +76,7 @@ class DropZone extends Component {
     } else if (status === 'ready') {
       return (
         <>
-          <span>Upload an image</span>
-          <small>1920 &times; 1080 pixels</small>
+          {instructions}
         </>
       )
     } else {
@@ -91,6 +91,9 @@ class DropZone extends Component {
       progress,
       handleUpload,
       children,
+      instructions,
+      width,
+      height,
       ...props
     } = this.props
     return (

@@ -11,6 +11,14 @@ $spacing: 1rem;
 $keyline: 4.5rem;
 $min-full-width: map-get($breakpoints, large) + $padding * 2;
 
+@function breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @return map-get($breakpoints, $breakpoint);
+  } @else {
+    @return $breakpoint;
+  }
+}
+
 @mixin horizontal-padding($left, $right: $left) {
   padding-right: $right;
   padding-left: $left;
@@ -22,11 +30,7 @@ $min-full-width: map-get($breakpoints, large) + $padding * 2;
 }
 
 @mixin media($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    $breakpoint: map-get($breakpoints, $breakpoint);
-  }
-
-  @media (min-width: #{$breakpoint}) {
+  @media (min-width: #{breakpoint($breakpoint)}) {
     @content;
   }
 }

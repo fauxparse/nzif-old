@@ -1,14 +1,7 @@
 module Types
-  class ActivityImage < Types::BaseObject
-    field :name, String, null: false
-    field :thumbnail, String, null: false
-    field :small, String, null: false
-    field :medium, String, null: false
-    field :full, String, null: false
-    field :original, String, null: false
-
+  class ActivityImage < Types::Image
     def name
-      object.present? ? object.filename : 'placeholder.jpg'
+      object.present? ? super : 'placeholder.jpg'
     end
 
     def thumbnail
@@ -27,28 +20,18 @@ module Types
       image_url(1920, 1080)
     end
 
-    alias full_2x full
-
     def original
-      object.present? ? url_for(object.image) : placeholder_url
+      object.present? ? super : placeholder_url
     end
 
     private
 
-    def variant(width:, height:)
-      object.variant(
-        resize: "#{width}x#{height}^",
-        extent: "#{width}x#{height}",
-        gravity: 'center'
-      )
+    def placeholder_url
+      ActionController::Base.helpers.image_path('placeholder')
     end
 
     def image_url(width, height)
-      url_for variant(width: width, height: height)
-    end
-
-    def placeholder_url
-      ActionController::Base.helpers.image_path('placeholder')
+      object.present? ? super(width, height) : placeholder_url
     end
   end
 end

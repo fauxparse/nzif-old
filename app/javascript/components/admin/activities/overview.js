@@ -87,7 +87,10 @@ class Overview extends Component {
             <Levels levels={levels} onClick={this.levelClicked} />
           </IconField>
         )}
-        <ImageUpload image={existingImage} onChange={this.imageChanged} />
+        <ImageUpload image={existingImage} width={1920} height={1080} onChange={this.imageChanged}>
+          <span className="image-upload__instructions">Upload an image</span>
+          <small className="image-upload__size">1920 &times; 1080 pixels</small>
+        </ImageUpload>
         <IconField icon="text" label="Description">
           <Textarea value={description || ''} minRows={5} onChange={this.descriptionChanged} />
         </IconField>
