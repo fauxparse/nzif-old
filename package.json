@@ -28,6 +28,7 @@
     "lodash": "^4.17.11",
     "lyft-coloralgorithm": "https://github.com/lyft/coloralgorithm.git#soffes/fix-package",
     "markdown-react-js": "^1.0.2",
+    "minisearch": "^1.2.0",
     "mo-js": "^0.288.2",
     "moment": "^2.23.0",
     "moment-range": "^4.0.1",

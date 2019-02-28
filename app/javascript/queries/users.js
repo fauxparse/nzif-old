@@ -7,6 +7,11 @@ export default gql`
       name
       email
       roles
+
+      image {
+        small
+        medium
+      }
     }
   }
 `

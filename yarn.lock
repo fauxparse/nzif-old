@@ -7123,6 +7123,11 @@ minipass@^2.2.1, minipass@^2.3.4:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
 
+minisearch@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/minisearch/-/minisearch-1.2.0.tgz#ae6bf70083c5dc5c438db87129b64d0fe2f55063"
+  integrity sha512-HnEJotPmq9u5BHbIwAhOZM3RqnK4SKqNDAs1GNhBf3ZxexsRKJdgk/zk2g+7/QbKf7F1bUgNVs3fZkyckmHt/A==
+
 minizlib@^1.1.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/minizlib/-/minizlib-1.2.1.tgz#dd27ea6136243c7c880684e8672bb3a45fd9b614"

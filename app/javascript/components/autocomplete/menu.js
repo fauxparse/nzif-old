@@ -10,7 +10,7 @@ class Menu extends Component {
       label: PropTypes.string.isRequired,
       value: PropTypes.any.isRequired,
     }).isRequired).isRequired,
-    selectedIndex: PropTypes.number.isRequired,
+    selectedIndex: PropTypes.number,
     selectedText: PropTypes.string.isRequired,
     menuItemComponent: PropTypes.func,
     menuRef: CommonProps.ref,
@@ -31,6 +31,7 @@ class Menu extends Component {
       menuItemComponent: MenuItemComponent,
       menuRef,
       onClick,
+      ...props
     } = this.props
 
     return (
@@ -38,10 +39,11 @@ class Menu extends Component {
         className={classNames('autocomplete__menu', className)}
         ref={menuRef}
         data-empty-text="(No matches)"
+        {...props}
       >
         {options.map((option, i) => (
           <MenuItemComponent
-            key={JSON.stringify(option.value)}
+            key={option.id}
             selected={selectedIndex === i}
             selectedText={selectedText}
             onClick={onClick}

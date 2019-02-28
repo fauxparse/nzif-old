@@ -8,6 +8,7 @@ import Header from './header'
 import Dashboard from './dashboard'
 import Timetable from './timetable'
 import ActivityDetails from './activities/details'
+import People from './people'
 
 const getPageKey = path => path.split('/').slice(0, 6).join('/')
 
@@ -31,6 +32,7 @@ const Admin = ({ match }) => (
             <Switch location={location}>
               <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
               <Route path={`${match.path}/activities`} component={Timetable} />
+              <Route path={`${match.path}/people`} component={People} />
               <Route path={`${match.path}/`} component={Dashboard} />
             </Switch>
           </PageTransition>

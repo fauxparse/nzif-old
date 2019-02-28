@@ -1,0 +1,66 @@
+.people {
+  @include constrained-width($padding);
+
+  &__search {
+    max-width: 30rem;
+    margin: 0 auto;
+
+    .page-title {
+      margin: $spacing 0;
+    }
+
+    .autocomplete__input {
+      @include horizontal-padding(0);
+
+      @include themify {
+        border-bottom: 1px solid themed(border)
+      }
+    }
+
+    .autocomplete__menu {
+      max-height: unset;
+      padding: $padding 0;
+      overflow-y: auto;
+    }
+  }
+
+  &__person {
+    display: grid;
+    padding: $padding;
+    border-radius: $border-radius;
+    cursor: pointer;
+    grid-template-columns: 2.5rem 1fr;
+    grid-column-gap: $keyline - $padding - 2.5rem;
+
+    .person__avatar {
+      align-self: center;
+      grid-row: 1 / span 2;
+    }
+
+    .person__name {
+      font-size: font-size(2);
+      font-weight: font-weight(light);
+      line-height: line-height(tight);
+    }
+
+    .person__email {
+      font-size: font-size(-1);
+    }
+
+    @include themify {
+      .person__email {
+        color: themed(secondary);
+      }
+
+      &:hover,
+      &.people__person--selected {
+        background: themed(highlight);
+        color: themed(highlight-text);
+
+        .person__email {
+          color: change-opacity(themed(highlight-text), secondary);
+        }
+      }
+    }
+  }
+}

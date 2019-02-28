@@ -33,12 +33,14 @@ class Autocomplete extends Component {
     inputComponent: PropTypes.any,
     menuItemComponent: PropTypes.any,
     placeholder: PropTypes.string.isRequired,
+    showFullList: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     search,
     autoFocus: true,
+    showFullList: false,
   }
 
   state = {
@@ -46,10 +48,15 @@ class Autocomplete extends Component {
     matches: []
   }
 
-  menuRef = createRef()
+  input = createRef()
+  menu = createRef()
+
+  componentDidMount() {
+    this.valueChanged('')
+  }
 
   componentDidUpdate(_, prevState) {
-    const menu = this.menuRef.current
+    const menu = this.menu.current
     const { selectedIndex } = this.state
 
     if (menu && selectedIndex !== prevState.selectedIndex) {
@@ -60,21 +67,26 @@ class Autocomplete extends Component {
 
   inputChanged = (e) => {
     const { target: { value } } = e
+    this.valueChanged(value)
+  }
+
+  valueChanged = (value) => {
     const { search, options } = this.props
     const { selected } = this.state
     const matches = search(value, options)
     const selectedIndex = selected ? Math.max(matches.indexOf(selected), 0) : 0
+
     this.setState({
       value,
       matches,
-      selectedIndex,
-      selected: matches[selectedIndex]
+      selectedIndex: value ? selectedIndex : undefined,
+      selected: matches[selectedIndex],
     })
   }
 
   inputKeyDown = e => {
-    const { target } = e
-    const { selectionStart, selectionEnd } = target
+    const input = this.input.current
+    const { selectionStart, selectionEnd } = input
 
     switch (e.which) {
       case KEYS.UP:
@@ -92,7 +104,7 @@ class Autocomplete extends Component {
         if (selectionStart < selectionEnd) {
           e.preventDefault()
           e.stopPropagation()
-          target.setSelectionRange(selectionEnd, selectionEnd)
+          input.setSelectionRange(selectionEnd, selectionEnd)
           this.inputChanged(e)
         }
         break
@@ -102,10 +114,16 @@ class Autocomplete extends Component {
   }
 
   move = (direction = 1) => {
+    const { options, showFullList } = this.props
     const { matches, selectedIndex: oldIndex } = this.state
-    if (matches.length > 1) {
+    const list = matches.length ? matches : (showFullList ? options : [])
+    const { length } = list
+
+    if (length) {
       const selectedIndex =
-        (oldIndex + matches.length + direction) % matches.length
+        oldIndex === undefined
+          ? (direction < 0 ? matches.length - 1 : 0)
+          : (oldIndex + matches.length + direction) % matches.length
       this.setState({ selectedIndex, selected: matches[selectedIndex] })
     }
   }
@@ -120,8 +138,18 @@ class Autocomplete extends Component {
   clicked = (e) => {
     const target = e.target.closest('li')
     const index = Array.from(target.parentNode.children).indexOf(target)
-    const selected = this.state.matches[index]
-    this.confirm(selected)
+    this.setState({ selectedIndex: index })
+    this.confirm(this.itemAt(index))
+  }
+
+  itemAt(index) {
+    const { matches } = this.state
+    const { options, showFullList } = this.props
+    if (matches.length) {
+      return matches[index]
+    } else if (showFullList) {
+      return options[index]
+    }
   }
 
   render() {
@@ -130,26 +158,30 @@ class Autocomplete extends Component {
       menuItemComponent,
       placeholder,
       autoFocus,
+      showFullList,
     } = this.props
     const { value, matches, selected, selectedIndex } = this.state
 
     return (
       <Fragment>
         <InputComponent
+          ref={this.input}
           autoFocus={autoFocus}
           value={value}
-          placeholder={(selected ? selected.label : !value && placeholder) || ''}
+          placeholder={value ? (selected ? selected.label : '') : placeholder}
           onChange={this.inputChanged}
           onKeyDown={this.inputKeyDown}
         />
-        {value.length ? (
+        {showFullList || value.length ? (
           <Menu
             options={matches}
             selectedIndex={selectedIndex}
             selectedText={value}
             menuItemComponent={menuItemComponent}
-            ref={this.menuRef}
+            tabIndex={-1}
+            menuRef={this.menu}
             onClick={this.clicked}
+            onKeyDown={this.inputKeyDown}
           />
         ) : null}
       </Fragment>

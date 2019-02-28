@@ -14,7 +14,8 @@
   },
   "plugins": [
     "react",
-    "prettier"
+    "prettier",
+    "react-hooks"
   ],
   "extends": [
     "eslint:recommended",
@@ -43,6 +44,8 @@
       "argsIgnorePattern": "^_",
       "varsIgnorePattern": "^(React$|_)"
     }],
-    "react/prop-types": [2, { "ignore": ["children", "history", "match", "client"] }]
+    "react/prop-types": [2, { "ignore": ["children", "history", "match", "client", "className"] }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
