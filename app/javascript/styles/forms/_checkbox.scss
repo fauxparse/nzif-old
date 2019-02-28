@@ -68,7 +68,7 @@
     :checked ~ & {
       .track {
         @include themify {
-          fill: themed(border);
+          fill: change-opacity(themed(icon), 0.5);
         }
       }
 

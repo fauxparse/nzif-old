@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  {
-    currentUser {
+  query EditUser($id: ID) {
+    user(id: $id) {
       id
       name
       email

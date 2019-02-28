@@ -64,3 +64,9 @@
     }
   }
 }
+
+.edit-user {
+  .breadcrumbs {
+    @include constrained-width($keyline, $padding);
+  }
+}
