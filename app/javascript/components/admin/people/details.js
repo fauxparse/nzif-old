@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import { Query, withApollo } from 'react-apollo'
+import { Query, withApollo, compose } from 'react-apollo'
+import { withRouter } from 'react-router-dom'
 import classNames from 'classnames'
-import { EDIT_USER_QUERY, UPDATE_USER_MUTATION } from '../../queries'
-import CommonProps from '../../lib/common_props'
-import Loader from '../shared/loader'
-import NotFound from '../not_found'
-import Editor from './editor'
+import { EDIT_USER_QUERY, UPDATE_USER_MUTATION } from '../../../queries'
+import CommonProps from '../../../lib/common_props'
+import Loader from '../../shared/loader'
+import Breadcrumbs from '../../shared/breadcrumbs'
+import NotFound from '../../not_found'
+import Editor from '../../profile/editor'
 
-class ProfileSection extends Component {
+class PersonDetails extends Component {
   static propTypes = {
     className: CommonProps.className,
   }
@@ -38,12 +40,18 @@ class ProfileSection extends Component {
   }
 
   render() {
-    const { className } = this.props
+    const { className, match: { params } } = this.props
+    const { year, id } = params
     const { saving, errors } = this.state
 
     return (
-      <section className={classNames('my-profile', className)}>
-        <Query query={EDIT_USER_QUERY}>
+      <section className={classNames('edit-user', className)}>
+        <Breadcrumbs back={`/admin/${year}/people`}>
+          <Breadcrumbs.Link to={`/admin/${year}/people`}>
+            People
+          </Breadcrumbs.Link>
+        </Breadcrumbs>
+        <Query query={EDIT_USER_QUERY} variables={{ id }}>
           {({ loading, data: { user } = {} }) =>
             loading ? (
               <Loader />
@@ -64,4 +72,7 @@ class ProfileSection extends Component {
   }
 }
 
-export default withApollo(ProfileSection)
+export default compose(
+  withRouter,
+  withApollo
+)(PersonDetails)

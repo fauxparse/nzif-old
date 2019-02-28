@@ -54,13 +54,19 @@
 
       &:hover,
       &.people__person--selected {
-        background: themed(highlight);
-        color: themed(highlight-text);
+        background: themed(panel);
+        color: themed(primary);
 
         .person__email {
-          color: change-opacity(themed(highlight-text), secondary);
+          color: themed(secondary);
         }
       }
     }
+  }
+}
+
+.edit-user {
+  .breadcrumbs {
+    @include constrained-width($keyline, $padding);
   }
 }
