@@ -1,0 +1,148 @@
+.new-pitch {
+  padding: $padding;
+
+  @include media(medium) {
+    @include constrained-width($keyline, $padding);
+  }
+}
+
+.pitch-form {
+  position: relative;
+}
+
+.pitch-section {
+  &__title {
+    margin: ($spacing * 2) 0 $spacing;
+    font-size: font-size(3);
+    font-weight: font-weight(normal);
+  }
+}
+
+.pitch {
+  &__field {
+    margin: ($spacing * 2) 0;
+  }
+
+  &__presenters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    grid-column-gap: $spacing;
+    grid-row-gap: $spacing;
+  }
+
+  &__presenter {
+    @include themify {
+      border: 1px solid themed(border);
+
+      &::before {
+        border: 1px solid themed(border);
+        background: themed(background);
+      }
+    }
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    padding: ($padding * 2.5) $padding $padding;
+    border-radius: $border-radius;
+
+    &::before {
+      position: absolute;
+      top: $spacing;
+      left: 50%;
+      width: 2rem;
+      height: $border-radius * 2;
+      margin: 0 -1rem;
+      border-radius: $border-radius;
+      content: "";
+    }
+
+    .select {
+      width: 100%;
+    }
+
+    .avatar {
+      align-self: center;
+    }
+  }
+
+  &__add-presenter {
+    @include themify {
+      background: themed(panel);
+      color: themed(secondary);
+    }
+
+    justify-content: center;
+
+    .button__icon {
+      align-self: center;
+      font-size: 2.5rem;
+      margin-bottom: $spacing;
+    }
+  }
+
+  &__delete-presenter {
+    @include themify {
+      color: themed(secondary);
+    }
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-color: transparent;
+  }
+
+  &__activity-types {
+    @include media(medium) {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(6em, 1fr));
+      grid-column-gap: $spacing;
+    }
+  }
+
+  &__activity-type {
+    margin: 0 0 ($spacing / 2);
+    padding: calc(#{$padding / 2} - 1px);
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+
+    b,
+    small {
+      display: block;
+    }
+
+    b {
+      font-weight: font-weight(normal);
+    }
+
+    small {
+      font-size: font-size(-1);
+    }
+
+    @include themify {
+      &.checkbox--checked {
+        border-color: themed(border);
+        background: themed(panel);
+      }
+
+      small {
+        color: themed(secondary);
+      }
+    }
+
+    @include media(medium) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      padding-top: $padding;
+      text-align: center;
+
+      .checkbox__icon {
+        align-self: center;
+        margin: 0 0 ($spacing / 2);
+      }
+    }
+  }
+}

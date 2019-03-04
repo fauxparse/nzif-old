@@ -8,6 +8,7 @@ import Activities from '../activities'
 import ActivityDetails from '../activities/activity_details'
 import Profile from '../profile'
 import Map from '../map'
+import NewPitch from '../pitches/new'
 import NotFound from '../not_found'
 import Home from './home'
 
@@ -42,6 +43,7 @@ class Festival extends React.Component {
                     )}
                   />
                   <Route path={`${match.path}/profile`} exact component={Profile} />
+                  <Route path={`${match.path}/pitches/new`} exact component={NewPitch} />
                   <Route path={`${match.path}/map`} exact component={Map} />
                   <Route path={`${match.path}/`} exact component={Home} />
                   <Route component={NotFound} />

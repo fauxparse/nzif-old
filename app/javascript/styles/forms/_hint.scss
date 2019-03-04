@@ -1,0 +1,8 @@
+.form__hint {
+  margin: spacing 0;
+  font-size: font-size(-1);
+
+  @include themify {
+    color: themed(secondary);
+  }
+}

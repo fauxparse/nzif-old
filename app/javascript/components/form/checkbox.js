@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Icon from '../icons'
 
 const Checkbox = ({ checked, className, children, ...props }) => (
-  <label className={classNames('checkbox', className)}>
+  <label className={classNames('checkbox', className, { 'checkbox--checked': checked })}>
     <input type="checkbox" checked={checked} {...props} />
     <Icon className="checkbox__icon" viewBox="0 0 24 24">
       <path className="circle" d="M12 2a10 10 0 0 1 0 20a10 10 0 0 1 0 -20" />
@@ -15,7 +15,7 @@ const Checkbox = ({ checked, className, children, ...props }) => (
 )
 
 Checkbox.propTypes = {
-  checked: PropTypes.bool.isRequired,
+  checked: PropTypes.bool,
 }
 
 export default Checkbox

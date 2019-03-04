@@ -22,7 +22,13 @@ $themes: (
     intermediate: color(grape, 500),
     advanced: color(plum, 500),
     icon: color(grey, 400),
-    menu-background: white
+    menu-background: white,
+    step-pending-background: color(grey, 300),
+    step-pending-foreground: color(grey, 100),
+    step-active-background: color(tomato, 500),
+    step-active-foreground: white,
+    step-completed-background: color(tomato, 500),
+    step-completed-foreground: white
   ),
   dark: (
     background: color(grey, 800),
@@ -47,7 +53,13 @@ $themes: (
     intermediate: color(grape, 500),
     advanced: color(plum, 500),
     icon: color(grey, 600),
-    menu-background: color(grey, 900)
+    menu-background: color(grey, 900),
+    step-pending-background: color(grey, 300),
+    step-pending-foreground: color(grey, 100),
+    step-active-background: color(tomato, 500),
+    step-active-foreground: white,
+    step-completed-background: color(tomato, 500),
+    step-completed-foreground: white
   )
 );
 

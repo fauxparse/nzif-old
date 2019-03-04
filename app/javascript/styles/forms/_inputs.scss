@@ -60,6 +60,38 @@
   }
 }
 
+.word-count {
+  font-size: font-size(-1);
+  line-height: font-size(0);
+
+  &__progress {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: top;
+    fill: none;
+    stroke-width: 1.5px;
+  }
+
+  &__limit {
+  }
+
+  @include themify {
+    color: themed(secondary);
+
+    &__progress {
+      circle {
+        stroke: themed(border);
+      }
+
+      path {
+        stroke: themed(accent);
+      }
+    }
+  }
+}
+
 .select {
   display: inline-block;
   position: relative;

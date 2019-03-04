@@ -16,12 +16,13 @@ const handleIterate = (Tag, props, children, _level) => {
   return <Tag {...props}>{children}</Tag>
 }
 
-const Markdown = ({ component = 'div', text }) => (
+const Markdown = ({ component = 'div', text, ...props }) => (
   <MDReactComponent
     text={text}
     tags={{ html: component }}
     onIterate={handleIterate}
     markdownOptions={{ typographer: true }}
+    {...props}
   />
 )
 

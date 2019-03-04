@@ -4,6 +4,7 @@ import Error from './error'
 import Errors from './errors'
 import Field from './field'
 import Fieldset from './fieldset'
+import Hint from './hint'
 import IconField from './icon_field'
 import ImageUpload from './image'
 import Input from './input'
@@ -12,6 +13,7 @@ import Select from './select'
 import Switch from './switch'
 import Tag from './form'
 import Textarea from './textarea'
+import WordCount from './word_count'
 
 export {
   Checkbox,
@@ -20,6 +22,7 @@ export {
   Errors,
   Field,
   Fieldset,
+  Hint,
   ImageUpload,
   Input,
   IconField,
@@ -28,6 +31,7 @@ export {
   Switch,
   Tag,
   Textarea,
+  WordCount,
 }
 
 export default {
@@ -37,6 +41,7 @@ export default {
   Errors,
   Field,
   Fieldset,
+  Hint,
   IconField,
   ImageUpload,
   Input,
@@ -45,4 +50,5 @@ export default {
   Switch,
   Tag,
   Textarea,
+  WordCount,
 }
