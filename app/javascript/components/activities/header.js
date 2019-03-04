@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import stickybits from 'stickybits'
 import { Picture } from 'react-responsive-picture'
+import CommonProps from '../../lib/common_props'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Skeleton from '../shared/skeleton_text'
 import Duotone from '../shared/duotone'
@@ -82,7 +83,7 @@ ActivityHeader.propTypes = {
       full: PropTypes.string.isRequired,
     }),
     festival: PropTypes.shape({
-      year: PropTypes.number.isRequired
+      year: CommonProps.id.isRequired
     }).isRequired
   })
 }

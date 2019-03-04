@@ -8,7 +8,7 @@ import Loader from '../shared/loader'
 import PitchForm from './form'
 
 const PITCH_CONTEXT_QUERY = gql`
-  query PitchContext($year: Int!) {
+  query PitchContext($year: ID!) {
     festival(year: $year) {
       year
       startDate
@@ -27,7 +27,7 @@ const PITCH_CONTEXT_QUERY = gql`
 `
 
 const NewPitch = ({ match, className }) => {
-  const year = parseInt(match.params.year, 10)
+  const { year } = match.params
 
   return (
     <section className={classNames('new-pitch', className)}>

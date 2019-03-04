@@ -2,7 +2,7 @@ module Types
   class QueryType
     field :festival, Types::Festival, null: false do
       description 'Get the current festival'
-      argument :year, Integer, required: false
+      argument :year, ID, required: false
     end
 
     def festival(year: nil)

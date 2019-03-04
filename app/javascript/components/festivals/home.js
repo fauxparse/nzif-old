@@ -16,7 +16,7 @@ export const HOMEPAGE_FRAGMENT = gql`
 `
 
 export const HOMEPAGE_QUERY = gql`
-  query Festival($year: Int!) {
+  query Festival($year: ID!) {
     festival(year: $year) {
       ...HomepageFragment
     }
@@ -25,7 +25,7 @@ export const HOMEPAGE_QUERY = gql`
 `
 
 const Home = ({ match }) => {
-  const year = parseInt(match.params.year, 10)
+  const { year } = match.params
 
   return (
     <PageContent className="page-content--no-padding">

@@ -4,7 +4,7 @@ module Mutations
     payload_type Types::Activity
     null false
 
-    argument :year, Integer, required: true
+    argument :year, ID, required: true
     argument :type, Types::ActivityType, required: true
     argument :attributes, Types::ActivityAttributes, required: true
 

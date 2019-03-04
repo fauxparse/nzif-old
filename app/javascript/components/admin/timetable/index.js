@@ -96,7 +96,7 @@ class Timetable extends Component {
   }
 
   updateCachedSessions = callback => (cache, { data }) => {
-    const year = parseInt(this.props.match.params.year, 10)
+    const { year } = this.props.match.params
     const { sessions, ...rest } = cache.readQuery({
       query: TIMETABLE_QUERY,
       variables: { year },
@@ -209,7 +209,7 @@ export default compose(
   withApollo,
   graphql(TIMETABLE_QUERY, {
     options: props => ({
-      variables: { year: parseInt(props.match.params.year, 10) },
+      variables: props.match.params,
     }),
   })
 )(Timetable)

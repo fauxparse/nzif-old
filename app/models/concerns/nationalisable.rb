@@ -26,7 +26,7 @@ module Nationalisable
   end
 
   def origin_city
-    case city&.downcase&.ucfirst
+    case city&.downcase&.upcase_first
     when nil then nil
     when 'Wellington' then 'WLG'
     when 'Auckland' then 'AKL'
