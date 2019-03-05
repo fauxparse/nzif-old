@@ -1,11 +1,3 @@
-.new-pitch {
-  padding: $padding;
-
-  @include media(medium) {
-    @include constrained-width($keyline, $padding);
-  }
-}
-
 .pitch-form {
   position: relative;
 }
@@ -144,5 +136,16 @@
         margin: 0 0 ($spacing / 2);
       }
     }
+  }
+}
+
+.pitches {
+  &__header {
+
+  }
+
+  &__add {
+    display: inline-flex;
+    margin: $spacing 0;
   }
 }

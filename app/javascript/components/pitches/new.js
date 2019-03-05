@@ -30,7 +30,7 @@ const NewPitch = ({ match, className }) => {
   const { year } = match.params
 
   return (
-    <section className={classNames('new-pitch', className)}>
+    <section className={classNames('public-page', 'new-pitch', className)}>
       <header className="new-pitch__header">
         <Breadcrumbs className="new-pitch__breadcrumbs" back={`/${year}/pitches`}>
           <Breadcrumbs.Link to={`/${year}/pitches`}>

@@ -1,0 +1,7 @@
+.public-page {
+  padding: $padding;
+
+  @include media(medium) {
+    @include constrained-width($keyline, $padding);
+  }
+}

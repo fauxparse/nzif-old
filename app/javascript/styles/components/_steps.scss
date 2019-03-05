@@ -30,6 +30,10 @@
       transition: transition(transform);
     }
 
+    &--active ~ .step::after {
+      transition: none;
+    }
+
     &--completed::after {
       transform: scaleX(1);
     }
