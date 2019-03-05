@@ -78,7 +78,7 @@
     "sass-lint": "^1.12.1",
     "typescript": "^3.2.2",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "3.1.10"
+    "webpack-dev-server": "3.1.11"
   },
   "scripts": {
     "eslint": "eslint -c .eslintrc.json app/javascript",
