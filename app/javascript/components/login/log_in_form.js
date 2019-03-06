@@ -17,7 +17,17 @@ export const LOG_IN_MUTATION = gql`
       name
       roles
       email
+      city
+      country
       notificationsCount
+
+      image {
+        name
+        thumbnail
+        small
+        medium
+        full
+      }
     }
   }
 `

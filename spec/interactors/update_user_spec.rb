@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UpdateUser, type: :interactor do
   subject(:result) do
-    UpdateActivity.call(current_user: current_user, user: user, attributes: attributes)
+    UpdateUser.call(current_user: current_user, user: user, attributes: attributes)
   end
 
   let(:user) { create(:user) }
