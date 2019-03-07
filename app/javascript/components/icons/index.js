@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import CommonProps from '../../lib/common_props'
 import ICONS from './all'
 
 class Icon extends React.PureComponent {
@@ -32,7 +33,8 @@ class Icon extends React.PureComponent {
 
 Icon.propTypes = {
   className: PropTypes.string,
-  name: PropTypes.oneOf(ICONS)
+  name: CommonProps.icon,
+  viewBox: PropTypes.string,
 }
 
 export { ICONS }

@@ -36,6 +36,7 @@ Grid.propTypes = {
     startsAt: MomentPropTypes.momentObj.isRequired,
     endsAt: MomentPropTypes.momentObj.isRequired,
   }),
+  selectedId: CommonProps.id,
   onSessionClick: PropTypes.func.isRequired,
 }
 

@@ -15,6 +15,7 @@ class SessionDetails extends Component {
     session: CommonProps.session,
     onDelete: PropTypes.func.isRequired,
     onDuplicate: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     onShowDetails: PropTypes.func.isRequired,
   }

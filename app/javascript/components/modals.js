@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactModal from 'react-modal'
 import classNames from 'classnames'
 import CommonProps from '../lib/common_props'
@@ -23,6 +24,7 @@ const modalClassNames = (classes, element) => {
 class Modal extends React.Component {
   static propTypes = {
     className: CommonProps.className,
+    theme: PropTypes.string,
   }
 
   static defaultProps = {

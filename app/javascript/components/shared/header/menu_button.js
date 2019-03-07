@@ -25,6 +25,8 @@ const MenuButton = forwardRef(({ className, open, ...props }, ref) => (
   </Button>
 ))
 
+MenuButton.displayName = 'MenuButton'
+
 MenuButton.propTypes = {
   open: PropTypes.bool.isRequired
 }

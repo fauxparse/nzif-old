@@ -1,6 +1,8 @@
 import React, { forwardRef } from 'react'
+import PropTypes from 'prop-types'
 import { Picture } from 'react-responsive-picture'
 import classNames from 'classnames'
+import CommonProps from '../../lib/common_props'
 
 const COLORS = ['tomato', 'mandarin', 'grape', 'plum', 'apple', 'mint']
 
@@ -40,5 +42,15 @@ const Avatar = forwardRef(
     </span>
   )
 )
+
+Avatar.displayName = 'Avatar'
+
+Avatar.propTypes = {
+  id: CommonProps.id,
+  name: PropTypes.string.isRequired,
+  image: CommonProps.userImage,
+  origin: PropTypes.string,
+  bio: PropTypes.string,
+}
 
 export default Avatar

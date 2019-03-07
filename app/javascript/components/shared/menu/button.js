@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Icon from '../../icons'
 import Ripple from '../ripple'
@@ -14,5 +15,11 @@ const Button = React.forwardRef(({ className, open, children, ...props }, ref) =
     <Icon className="menu__chevron" name="chevron-down" />
   </Ripple>
 ))
+
+Button.propTypes = {
+  open: PropTypes.bool,
+}
+
+Button.displayName = 'Menu.Button'
 
 export default Button

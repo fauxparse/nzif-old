@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
 import pick from 'lodash/pick'
+import CommonProps from '../../../lib/common_props'
 import moment from '../../../lib/moment'
 import {
   TIMETABLE_QUERY,
@@ -20,6 +22,15 @@ import NewSession from './new'
 import SessionDetails from './session_details'
 
 class Timetable extends Component {
+  static propTypes = {
+    data: PropTypes.shape({
+      activityTypes: PropTypes.arrayOf(CommonProps.activityType.isRequired),
+      festival: PropTypes.shape({
+        activities: PropTypes.arrayOf(CommonProps.activity.isRequired),
+      }),
+    }),
+  }
+
   state = {
     newSession: undefined,
     selected: undefined,

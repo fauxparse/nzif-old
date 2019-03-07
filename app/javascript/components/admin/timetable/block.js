@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const Block = ({ className, start, height, children, ...props }) => (
@@ -12,5 +13,10 @@ const Block = ({ className, start, height, children, ...props }) => (
     {children}
   </div>
 )
+
+Block.propTypes = {
+  start: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+}
 
 export default Block

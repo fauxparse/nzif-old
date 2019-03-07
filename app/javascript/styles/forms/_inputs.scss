@@ -152,12 +152,14 @@
       }
     }
 
+    position: relative;
     max-width: 16rem;
     max-height: 13.5rem;
     margin: 0;
     padding: 0.5rem 0;
     border-radius: $border-radius;
     list-style: none;
+    z-index: z-index(menu);
     overflow-y: scroll;
 
     &:empty::after {

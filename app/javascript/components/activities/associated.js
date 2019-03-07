@@ -11,12 +11,24 @@ const AssociatedShow = ({ name, url, session }) => (
   </>
 )
 
+AssociatedShow.propTypes = {
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  session: CommonProps.session.isRequired,
+}
+
 const AssociatedWorkshop = ({ name, url, session }) => (
   <>
     This show will be cast from the associated workshop,{' '}
     <Link to={url}>{name}</Link>, on <Date date={session.startsAt} />.
   </>
 )
+
+AssociatedWorkshop.propTypes = {
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  session: CommonProps.session.isRequired,
+}
 
 const Associated = ({ type, name, url, sessions }) => {
   const session = sessions[0]

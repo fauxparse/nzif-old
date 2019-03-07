@@ -34,11 +34,19 @@ export const role = PropTypes.oneOf(ROLES)
 
 export const icon = PropTypes.oneOf(ICONS)
 
+export const userImage = PropTypes.shape({
+  thumbnail: PropTypes.string,
+  small: PropTypes.string,
+  medium: PropTypes.string,
+  full: PropTypes.string,
+})
+
 export const user = PropTypes.shape({
   id: id.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string,
   roles: PropTypes.arrayOf(role.isRequired),
+  image: userImage,
 })
 
 export const activity = PropTypes.shape({
@@ -54,8 +62,14 @@ export const activity = PropTypes.shape({
 export const session = PropTypes.shape({
   id,
   activity: PropTypes.any,
-  startsAt: MomentPropTypes.momentObj.isRequired,
-  endsAt: MomentPropTypes.momentObj.isRequired,
+  startsAt: PropTypes.oneOfType([
+    MomentPropTypes.momentObj,
+    PropTypes.string
+  ]).isRequired,
+  endsAt: PropTypes.oneOfType([
+    MomentPropTypes.momentObj,
+    PropTypes.string
+  ]),
   venueId: id,
 })
 
@@ -79,5 +93,6 @@ export default {
   ref,
   session,
   user,
+  userImage,
   venue,
 }

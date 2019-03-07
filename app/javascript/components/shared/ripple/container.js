@@ -1,4 +1,4 @@
-import React, { useState, useRef, forwardRef } from 'react'
+import React, { useState, useEffect, useRef, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import mojs from 'mo-js'
@@ -44,6 +44,15 @@ const Ripple = forwardRef(
 
     const [playing, setPlaying] = useState(false)
 
+    let mounted = false
+
+    useEffect(() => {
+      mounted = true
+      return () => {
+        mounted = false
+      }
+    })
+
     const ripple = (x, y) => {
       if (!playing) {
         const el = container.current
@@ -64,11 +73,11 @@ const Ripple = forwardRef(
           easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
           onComplete: () => {
             shape.el.remove()
-            setPlaying(false)
+            mounted && setPlaying(false)
           }
         })
         shape.play()
-        setPlaying(true)
+        mounted && setPlaying(true)
       }
     }
 

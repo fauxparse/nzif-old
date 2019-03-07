@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Button from '../button'
 
@@ -11,5 +12,9 @@ const Page = ({ className, onClose, children, ...props }) => (
     <Button className="login__close" icon="close" onClick={onClose} />
   </section>
 )
+
+Page.propTypes = {
+  onClose: PropTypes.func.isRequired,
+}
 
 export default Page
