@@ -22,6 +22,8 @@ class Pitch < ApplicationRecord
   validates :bio, :availability, presence: true
   validates :code_of_conduct, acceptance: true
 
+  scope :newest_first, -> { order(created_at: :desc) }
+
   def belongs_to?(user)
     user == self.user || info.presenters.any? { |presenter| presenter == user }
   end

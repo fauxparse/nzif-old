@@ -24,7 +24,9 @@ const Presenters = ({ pitch, errors, onChange }) => {
   const addPresenter = () => onChange('presenters', [...presenters, {}])
 
   const deletePresenter = index => {
-    onChange('presenters', presenters.splice(index, 1))
+    const newPresenters = presenters.slice(0)
+    newPresenters.splice(index, 1)
+    onChange('presenters', newPresenters)
   }
 
   return (
@@ -142,7 +144,7 @@ const Presenters = ({ pitch, errors, onChange }) => {
 
 Presenters.propTypes = {
   pitch: PropTypes.shape({
-    presenters: PropTypes.array.isRequired
+    presenters: PropTypes.array,
   }).isRequired,
   errors: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,

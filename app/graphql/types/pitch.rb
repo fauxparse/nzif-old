@@ -2,7 +2,8 @@ module Types
   class Pitch < Types::BaseObject
     field :id, ID, null: true
     field :festival, Types::Festival, null: false
-    field :presenters, [Types::Pitch::Presenter], null: false
+    field :state, String, null: false
+    field :presenters, [Types::Pitch::PitchPresenter], null: false
     field :company, String, null: true
     field :bio, String, null: true
     field :availability, String, null: true

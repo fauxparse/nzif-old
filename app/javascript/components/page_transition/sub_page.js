@@ -7,7 +7,7 @@ import fade from './fade'
 const isPrefix = (a, b) => b.substring(0, a.length) === a
 
 export default class SubPageTransition extends React.Component {
-  state = { pageKey: '', transition: none }
+  state = { pageKey: this.props.pageKey || '', transition: none }
 
   static getDerivedStateFromProps({ pageKey, location }, state) {
     const { state: locationState = {} } = location || {}

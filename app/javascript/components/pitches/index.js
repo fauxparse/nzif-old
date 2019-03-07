@@ -7,7 +7,7 @@ import { SubPageTransition as PageTransition } from '../page_transition'
 const Pitches = ({ match }) => (
   <Route
     render={({ location }) => (
-      <PageTransition pageKey={(location.pathname || '').split('/').length.toString()}>
+      <PageTransition pageKey={location.pathname}>
         <Switch location={location}>
           <Route path={`${match.path}/new`} exact component={EditPitch} />
           <Route path={`${match.path}/:id`} exact component={EditPitch} />

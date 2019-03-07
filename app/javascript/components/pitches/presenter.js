@@ -34,7 +34,6 @@ const Presenter = ({ presenter, disabled, passwordRequired, onChange, onDelete }
           onChange={fieldChanged}
           required
           disabled={disabled}
-          autoFocus
         />
       </Field>
       <Field>
