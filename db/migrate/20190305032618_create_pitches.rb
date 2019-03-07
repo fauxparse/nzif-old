@@ -8,7 +8,7 @@ class CreatePitches < ActiveRecord::Migration[5.2]
 
       t.timestamps
 
-      t.index %i[festival_id user_id state]
+      t.index %i(festival_id user_id state)
     end
   end
 end

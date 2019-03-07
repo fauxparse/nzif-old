@@ -15,7 +15,10 @@ class ActivityHeader extends Component {
   breadcrumbs = createRef()
 
   componentDidMount() {
-    stickybits(this.breadcrumbs.current, { useFixed: true, useGetBoundingClientRect: true })
+    stickybits(this.breadcrumbs.current, {
+      useFixed: true,
+      useGetBoundingClientRect: true
+    })
   }
 
   render() {
@@ -29,15 +32,15 @@ class ActivityHeader extends Component {
               sources={[
                 {
                   srcSet: `${activity.image.thumbnail}, ${activity.image.small} 2x`,
-                  media: '(max-width: 384px)',
+                  media: '(max-width: 384px)'
                 },
                 {
                   srcSet: `${activity.image.medium}, ${activity.image.full} 2x`,
-                  media: '(max-width: 960px)',
+                  media: '(max-width: 960px)'
                 },
                 {
-                  srcSet: activity.image.full,
-                },
+                  srcSet: activity.image.full
+                }
               ]}
               alt={activity.name}
             />
@@ -56,12 +59,18 @@ class ActivityHeader extends Component {
         <Skeleton loading={loading} as="h1" className="activity-header__name">
           {activity.name}
         </Skeleton>
-        <Skeleton loading={loading} as="h2" className="activity-header__presenters">
+        <Skeleton
+          loading={loading}
+          as="h2"
+          className="activity-header__presenters"
+        >
           {loading ? (
             'Presenter names go here'
           ) : (
             <Sentence>
-              {activity.presenters.map(presenter => <Presenter key={presenter.id} {...presenter} />)}
+              {activity.presenters.map(presenter => (
+                <Presenter key={presenter.id} {...presenter} />
+              ))}
             </Sentence>
           )}
         </Skeleton>

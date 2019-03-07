@@ -19,7 +19,7 @@ RSpec.describe WordCountValidator, type: :validator do
 
   subject(:instance) do
     test_instance(options) do
-      validates :text, word_count: { min: 5 }
+      validates :text, word_count: { minimum: 5 }
     end
   end
 
@@ -27,8 +27,8 @@ RSpec.describe WordCountValidator, type: :validator do
 
   before { instance.validate }
 
-  context 'validating minimum word length' do
-    let(:options) { { min: 5 } }
+  context 'validating minimumimum word length' do
+    let(:options) { { minimum: 5 } }
 
     context 'with enough text' do
       let(:text) { 'Lorem ipsum dolor sit amet' }
@@ -58,14 +58,14 @@ RSpec.describe WordCountValidator, type: :validator do
   end
 
   context 'with allow_blank: true' do
-    let(:options) { { min: 5, allow_blank: true } }
+    let(:options) { { minimum: 5, allow_blank: true } }
     let(:text) { nil }
 
     it { is_expected.to be_valid }
   end
 
-  context 'validating maximum word length' do
-    let(:options) { { max: 3 } }
+  context 'validating maximumimum word length' do
+    let(:options) { { maximum: 3 } }
 
     context 'with short enough text' do
       let(:text) { 'Qui adipisicing elit' }
@@ -84,8 +84,8 @@ RSpec.describe WordCountValidator, type: :validator do
     end
   end
 
-  context 'validating minimum and maximum word length' do
-    let(:options) { { min: 3, max: 5 } }
+  context 'validating minimumimum and maximumimum word length' do
+    let(:options) { { minimum: 3, maximum: 5 } }
 
     context 'with not enough text' do
       let(:text) { 'Quid nonummy' }

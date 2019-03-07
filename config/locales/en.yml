@@ -24,7 +24,7 @@ en:
         at_or_after: 'must be at or after %{time}'
         at: 'must be %{time}'
       word_count:
-        too_short: 'is too short (%{count}/%{min} words)'
-        too_long: 'is too long (%{count}/%{max} words)'
+        too_short: 'is too short (%{count}/%{minimum} words)'
+        too_long: 'is too long (%{count}/%{maximum} words)'
       invalid_level: 'cannot include ‘%{level}’'
       invalid_role: 'cannot include ‘%{role}’'

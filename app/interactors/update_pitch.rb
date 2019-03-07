@@ -29,7 +29,7 @@ class UpdatePitch < Interaction
   end
 
   def update_user_details(user)
-    return user unless attributes[:presenters].present?
+    return user if attributes[:presenters].blank?
 
     presenter = attributes[:presenters].detect { |p| p[:id] == user.id }
     if presenter
@@ -45,7 +45,7 @@ class UpdatePitch < Interaction
   end
 
   def strip_passwords(attributes)
-    return attributes unless attributes[:presenters].present?
+    return attributes if attributes[:presenters].blank?
 
     attributes.merge(presenters: attributes[:presenters].map { |p| p.except(:password) })
   end

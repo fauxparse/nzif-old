@@ -15,6 +15,7 @@ const Step = ({ name, title, icon, active, completed, nextStep, onClick }) => {
   return (
     <li
       className={className}
+      data-step={name}
       onClick={(completed || nextStep) ? onClick : undefined}
     >
       <Icon name={icon} className="step__icon" width={40} height={40} viewBox="-8 -8 40 40">
