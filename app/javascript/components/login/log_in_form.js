@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { graphql } from 'react-apollo'
+import ReactRouterPropTypes from 'react-router-prop-types'
+import { withApollo, compose } from 'react-apollo'
+import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
+import CommonProps from '../../lib/common_props'
 import { Label, Input, Field } from '../form'
 import Button from '../button'
 import Form from './form'
@@ -32,96 +35,94 @@ export const LOG_IN_MUTATION = gql`
   }
 `
 
-class LogInForm extends React.Component {
-  state = { email: '', password: '', loading: false, errors: [] }
+const LogInForm = ({ client, history, lastLocation, className }) => {
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+    loading: false,
+    errors: [],
+  })
+  const { email, password, loading, errors } = state
 
-  emailField = React.createRef()
+  const emailField = useRef()
 
-  componentDidMount() {
-    this.emailField.current.focus()
-  }
+  useEffect(() => {
+    if (emailField.current) {
+      emailField.current.focus()
+    }
+  }, [emailField])
 
-  submit = (e) => {
+  const fieldChanged = (e) => setState({ ...state, [e.target.name]: e.target.value })
+
+  const logIn = useMutation(LOG_IN_MUTATION, {
+    update: (proxy, { data }) => {
+      proxy.writeQuery({
+        query: CURRENT_USER_QUERY,
+        data: { currentUser: data.logIn },
+      })
+    }
+  })
+
+  const submit = (e) => {
     e.preventDefault()
 
-    const { email, password } = this.state
-    const { mutate, history } = this.props
-    const redirect = this.props.lastLocation || '/'
-
-    this.setState({ errors: [], loading: true })
-    mutate({
-      variables: { email, password },
-      update: (proxy, { data }) => {
-        proxy.writeQuery({
-          query: CURRENT_USER_QUERY,
-          data: { currentUser: data.logIn },
-        })
-        history.push(redirect)
-      }
-    }).catch(e => this.setState({ errors: e.graphQLErrors, loading: false }))
+    logIn({ variables: { email, password } })
+      .then(() => client.resetStore())
+      .then(() => history.push(lastLocation || '/'))
+      .catch(e => setState({ ...state, errors: e.graphQLErrors, loading: false }))
   }
 
-  fieldChanged = e => {
-    const { name, value } = e.target
-    this.setState({ [name]: value })
-  }
-
-  render() {
-    const { loading, email, password, errors } = this.state
-
-    return (
-      <Form
-        title="Kia ora."
-        message="Please log in to continue."
-        className={this.props.className}
-        loading={loading}
-        errors={errors}
-        onSubmit={this.submit}
-      >
-        <Field className="login__field">
-          <Label htmlFor="login-email">Email address</Label>
-          <Input
-            ref={this.emailField}
-            id="login-email"
-            type="email"
-            name="email"
-            value={email}
-            autoComplete="username email"
-            onChange={this.fieldChanged}
-          />
-        </Field>
-        <Field className="login__field">
-          <Label htmlFor="login-password">Password</Label>
-          <Input
-            id="login-password"
-            type="password"
-            name="password"
-            value={password}
-            autoComplete="current-password"
-            onChange={this.fieldChanged}
-          />
-        </Field>
-        <Button className="login__submit" primary type="submit" text="Log in" key="submit" />
-        <p>
-          New here?{' '}
-          <TextLink replace to={{ pathname: 'signup', state: { transition: slideLeft } }}>
-            Create an account
-          </TextLink>
-          .
-        </p>
-      </Form>
-    )
-  }
+  return (
+    <Form
+      title="Kia ora."
+      message="Please log in to continue."
+      className={className}
+      loading={loading}
+      errors={errors}
+      onSubmit={submit}
+    >
+      <Field className="login__field">
+        <Label htmlFor="login-email">Email address</Label>
+        <Input
+          ref={emailField}
+          id="login-email"
+          type="email"
+          name="email"
+          value={email}
+          autoComplete="username email"
+          onChange={fieldChanged}
+        />
+      </Field>
+      <Field className="login__field">
+        <Label htmlFor="login-password">Password</Label>
+        <Input
+          id="login-password"
+          type="password"
+          name="password"
+          value={password}
+          autoComplete="current-password"
+          onChange={fieldChanged}
+        />
+      </Field>
+      <Button className="login__submit" primary type="submit" text="Log in" key="submit" />
+      <p>
+        New here?{' '}
+        <TextLink replace to={{ pathname: 'signup', state: { transition: slideLeft } }}>
+          Create an account
+        </TextLink>
+        .
+      </p>
+    </Form>
+  )
 }
 
 LogInForm.propTypes = {
-  className: PropTypes.string,
-  history: PropTypes.object.isRequired,
-  mutate: PropTypes.func.isRequired,
-  lastLocation: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({ pathname: PropTypes.string }),
-  ]),
+  className: CommonProps.className,
+  history: ReactRouterPropTypes.history.isRequired,
+  lastLocation: ReactRouterPropTypes.location,
+  client: PropTypes.shape({
+    resetStore: PropTypes.func.isRequired,
+  }).isRequired,
 }
 
-export default withRouter(graphql(LOG_IN_MUTATION)(LogInForm))
+export default compose(withApollo, withRouter)(LogInForm)
