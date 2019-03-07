@@ -6,6 +6,7 @@ module Types
       argument :email, String, required: false
       argument :city, String, required: false
       argument :country, String, required: false
+      argument :password, String, required: false
     end
   end
 end

@@ -4,9 +4,9 @@ import Presenter from './presenter'
 import Button from '../button'
 import Link from '../shared/text_link'
 import Date from '../shared/date'
-import { Checkbox, Field, Hint, Textarea, WordCount } from '../form'
+import { Checkbox, Errors, Field, Hint, Textarea, WordCount } from '../form'
 
-const Presenters = ({ pitch, onChange }) => {
+const Presenters = ({ pitch, errors, onChange }) => {
   const {
     festival,
     presenters,
@@ -14,7 +14,7 @@ const Presenters = ({ pitch, onChange }) => {
     bio,
     presentedBefore,
     availability,
-    codeOfConductAccepted,
+    codeOfConduct,
   } = pitch
 
   const presenterChanged = (index, presenter) => {
@@ -70,6 +70,7 @@ const Presenters = ({ pitch, onChange }) => {
           onChange={e => onChange('company', e.target.value)}
         />
         <Hint>Leave blank if you’re applying as an individual.</Hint>
+        <Errors from={errors} name="company" />
       </Field>
 
       <Field className="pitch__field">
@@ -84,6 +85,7 @@ const Presenters = ({ pitch, onChange }) => {
           max={100}
           onChange={e => onChange('bio', e.target.value)}
         />
+        <Errors from={errors} name="bio" />
       </Field>
 
       <Field className="pitch__field">
@@ -97,6 +99,7 @@ const Presenters = ({ pitch, onChange }) => {
           onChange={e => onChange('presentedBefore', e.target.value)}
         />
         <Hint>Leave blank if this is your first time.</Hint>
+        <Errors from={errors} name="presentedBefore" />
       </Field>
 
       <Field className="pitch__field">
@@ -115,6 +118,7 @@ const Presenters = ({ pitch, onChange }) => {
             <Date date={[festival.startDate, festival.endDate]} />.
           </Hint>
         )}
+        <Errors from={errors} name="availability" />
       </Field>
 
       <h2 className="section-title pitch-section__title">Code of conduct</h2>
@@ -125,10 +129,11 @@ const Presenters = ({ pitch, onChange }) => {
           even if you’ve been to NZIF before.
         </p>
         <Checkbox
-          checked={!!codeOfConductAccepted}
-          onChange={e => onChange('codeOfConductAccepted', e.target.checked)}
+          checked={!!codeOfConduct}
+          onChange={e => onChange('codeOfConduct', e.target.checked)}
         >
-          I agree to abide by the NZIF Code of Conduct
+          <div>I agree to abide by the NZIF Code of Conduct</div>
+          <Errors from={errors} name="codeOfConduct" />
         </Checkbox>
       </Field>
     </section>
@@ -139,6 +144,7 @@ Presenters.propTypes = {
   pitch: PropTypes.shape({
     presenters: PropTypes.array.isRequired
   }).isRequired,
+  errors: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
 }
 

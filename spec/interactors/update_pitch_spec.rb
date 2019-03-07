@@ -6,14 +6,16 @@ RSpec.describe UpdatePitch, type: :interactor do
   end
 
   let(:festival) { create(:festival) }
-  let(:current_user) { create(:admin) }
+  let(:current_user) { user }
+  let(:user) { create(:user) }
+  let(:password) { attributes_for(:password)[:password] }
   let(:attributes) do
     {
       presenters: [
         {
-          id: current_user.id,
-          name: current_user.name,
-          email: current_user.email,
+          id: user.id,
+          name: user.name,
+          email: user.email,
           city: 'Melbourne',
           country: 'Australia',
         },
@@ -57,6 +59,49 @@ RSpec.describe UpdatePitch, type: :interactor do
       it 'does not save the pitch' do
         expect { result }.to raise_error(ActiveRecord::RecordInvalid)
         expect(pitch).to have_exactly(1).error_on(:code_of_conduct)
+      end
+    end
+
+    context 'for a new user' do
+      let(:user) { build(:user) }
+      let(:current_user) { nil }
+
+      before do
+        attributes[:presenters].first[:password] = password
+      end
+
+      it 'saves the pitch' do
+        expect { result }
+          .to change(Pitch, :count).by(1)
+          .and change(User, :count).by(1)
+          .and change { pitch.persisted? }.from(false).to(true)
+      end
+    end
+
+    context 'for an existing user who has not logged in' do
+      let(:user) { create(:user, :with_password) }
+      let(:current_user) { nil }
+
+      before do
+        attributes[:presenters].first[:password] = password
+      end
+
+      it 'saves the pitch' do
+        expect { result }
+          .to change(Pitch, :count).by(1)
+          .and change(User, :count).by(0)
+          .and change { pitch.persisted? }.from(false).to(true)
+      end
+
+      context 'with the wrong password' do
+        before do
+          attributes[:presenters].first[:password] = 'bad password'
+        end
+
+        it 'does not save the pitch' do
+          expect { result }.to raise_error(ActiveRecord::RecordInvalid)
+          expect(pitch).to have_exactly(1).error_on(:user)
+        end
       end
     end
   end

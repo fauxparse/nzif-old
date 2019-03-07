@@ -18,6 +18,7 @@ class Pitch < ApplicationRecord
     declined: 'declined',
   }.freeze
 
+  validates_associated :user
   validates :bio, :availability, presence: true
   validates :code_of_conduct, acceptance: true
 

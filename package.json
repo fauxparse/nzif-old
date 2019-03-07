@@ -43,6 +43,7 @@
     "react": "16.8.3",
     "react-activestorage-provider": "^0.7.0",
     "react-apollo": "^2.2.4",
+    "react-apollo-hooks": "^0.4.3",
     "react-dom": "16.8.3",
     "react-google-maps": "^9.4.5",
     "react-highlight-words": "^0.16.0",

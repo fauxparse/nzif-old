@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
 import client from '../lib/client'
@@ -21,30 +22,32 @@ export default class Application extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <Fragment>
-          <Router>
-            <CurrentUserProvider>
-              <LastLocationProvider>
-                <Route
-                  render={({ location }) => (
-                    <PageTransition pageKey={getPageKey(location)}>
-                      <Switch location={location}>
-                        <AdminRoute
-                          path="/admin/:year(\d{4})"
-                          component={Admin}
-                        />
-                        <Route path="/:year(\d{4})" component={Festival} />
-                        <Route path="/:login(login|signup)" component={LogIn} />
-                        <Route path="/" exact component={CurrentFestival} />
-                      </Switch>
-                    </PageTransition>
-                  )}
-                />
-              </LastLocationProvider>
-            </CurrentUserProvider>
-          </Router>
-          <Environment />
-        </Fragment>
+        <ApolloHooksProvider client={client}>
+          <Fragment>
+            <Router>
+              <CurrentUserProvider>
+                <LastLocationProvider>
+                  <Route
+                    render={({ location }) => (
+                      <PageTransition pageKey={getPageKey(location)}>
+                        <Switch location={location}>
+                          <AdminRoute
+                            path="/admin/:year(\d{4})"
+                            component={Admin}
+                          />
+                          <Route path="/:year(\d{4})" component={Festival} />
+                          <Route path="/:login(login|signup)" component={LogIn} />
+                          <Route path="/" exact component={CurrentFestival} />
+                        </Switch>
+                      </PageTransition>
+                    )}
+                  />
+                </LastLocationProvider>
+              </CurrentUserProvider>
+            </Router>
+            <Environment />
+          </Fragment>
+        </ApolloHooksProvider>
       </ApolloProvider>
     )
   }

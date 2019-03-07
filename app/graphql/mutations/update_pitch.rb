@@ -12,7 +12,7 @@ module Mutations
         pitch: pitch(year: year, id: attributes.id),
         attributes: attributes.to_h,
         current_user: current_user
-      ).pitch
+      ).pitch.tap { |pitch| log_in_with(pitch.user) }
     end
 
     private
@@ -31,6 +31,10 @@ module Mutations
       else
         ::Festival.last!
       end
+    end
+
+    def log_in_with(user)
+      context[:environment].current_user ||= user
     end
   end
 end

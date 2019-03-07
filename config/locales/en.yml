@@ -1,8 +1,12 @@
 en:
+  attributes:
+    code_of_conduct: 'Code of Conduct'
   errors:
     attributes:
       country:
         blank: 'is invalid'
+      code_of_conduct:
+        accepted: 'must be accepted before proceeding'
     messages:
       blank: 'can’t be blank'
       email: 'must be a valid email address'
