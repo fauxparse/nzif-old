@@ -6,7 +6,10 @@
 
   [type="checkbox"],
   [type="radio"] {
-    display: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
 
     &:disabled {
       ~ * {
@@ -18,10 +21,12 @@
 
 .checkbox__icon {
   flex: 0 0 auto;
-  margin-right: $spacing;
+  width: 2rem;
+  height: 2rem;
+  margin: -0.25rem ($spacing - 0.25rem) -0.25rem -0.25rem;
   cursor: pointer;
 
-  .check {
+  .checkbox__check {
     stroke-dasharray: 13;
     stroke-dashoffset: -13;
 
@@ -30,14 +35,29 @@
     }
   }
 
+  .checkbox__focus {
+    stroke: none;
+    fill: none;
+  }
+
   :checked ~ & {
-    .circle {
+    .checkbox__circle {
       fill: currentColor;
     }
 
-    .check {
+    .checkbox__check {
       transition: transition(stroke-dashoffset);
       stroke-dashoffset: 0;
+    }
+  }
+
+  :focus ~ & {
+    .checkbox__focus {
+      stroke-width: 4px;
+
+      @include themify {
+        stroke: themed(outline);
+      }
     }
   }
 }
