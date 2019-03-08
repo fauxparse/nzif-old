@@ -1,11 +1,13 @@
 .checkbox,
 .switch {
   display: flex;
+  position: relative;
   align-items: flex-start;
   padding: 0.5rem 0;
 
   [type="checkbox"],
   [type="radio"] {
+    position: absolute;
     width: 0;
     height: 0;
     opacity: 0;
@@ -48,6 +50,13 @@
     .checkbox__check {
       transition: transition(stroke-dashoffset);
       stroke-dashoffset: 0;
+    }
+
+    @include themify {
+      color: themed(accent);
+
+      .checkbox__circle {
+      }
     }
   }
 

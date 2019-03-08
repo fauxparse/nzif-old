@@ -7,7 +7,6 @@ import gql from 'graphql-tag'
 import omit from 'lodash/omit'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from '../shared/loader'
-import noTransition from '../page_transition/none'
 import PitchForm from './form'
 
 const PITCH_FRAGMENT = gql`
@@ -64,31 +63,38 @@ const EditPitch = ({ match, history, className }) => {
   const [errors, setErrors] = useState({})
 
   const save = useMutation(UPDATE_PITCH_MUTATION)
-  const savePitch = (attributes) => new Promise((resolve, reject) => {
-    save({
-      variables: {
-        attributes: omit(attributes, ['festival']),
-      },
-      update: (proxy, { data: { updatePitch } }) => {
-        const { id } = updatePitch
-        proxy.writeQuery({
-          query: PITCH_QUERY,
-          data: { pitch: updatePitch },
-          variables: { year, id },
-        })
-        history.replace(match.url.replace(/[^/]+$/, id), { transition: noTransition })
-      },
-      errorPolicy: 'all',
-    }).then(({ errors = [] }) => {
+  const savePitch = (attributes, newLocation) => new Promise((resolve, reject) => {
+    Promise.all([
+      save({
+        variables: {
+          attributes: omit(attributes, ['festival']),
+        },
+        update: (proxy, { data: { updatePitch } }) => {
+          const { id } = updatePitch
+          proxy.writeQuery({
+            query: PITCH_QUERY,
+            data: { pitch: updatePitch },
+            variables: { year, id },
+          })
+          if (!match.params.id) {
+            newLocation.pathname = newLocation.pathname.replace(/[^/]+$/, id)
+          }
+        },
+        errorPolicy: 'all',
+      }),
+      new Promise(resolve => setTimeout(resolve, 1000)),
+    ]).then(([{ errors = [] }]) => {
       if (errors.length) {
         setErrors(errors[0].detail || {})
-        reject()
+        reject(errors)
       } else {
         setErrors({})
-        resolve()
+        resolve(newLocation)
       }
     })
   })
+
+  const goBack = () => history.push(match.url.replace(/\/[^/]+$/, ''))
 
   return (
     <section className={classNames('public-page', 'edit-pitch', className)}>
@@ -105,7 +111,12 @@ const EditPitch = ({ match, history, className }) => {
       {loading ? (
         <Loader />
       ) : (
-        <PitchForm pitch={pitch} errors={errors} onSave={savePitch} />
+        <PitchForm
+          pitch={pitch}
+          errors={errors}
+          onSave={savePitch}
+          onClose={goBack}
+        />
       )}
     </section>
   )

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import dotProp from 'dot-prop-immutable'
+import { withRouter } from 'react-router-dom'
 import PitchSteps from './steps'
 import { STEPS } from './constants'
-import PageTransition, { slideLeft, slideRight, none } from '../page_transition'
+import PageTransition, { slideLeft, slideRight } from '../page_transition'
 import Button from '../button'
 import Loader from '../shared/loader'
 
@@ -13,39 +15,41 @@ const useNestedState = (initialValue) => {
   return [state, setState, update]
 }
 
-const PitchForm = ({ pitch, errors, onSave }) => {
-  const [step, setStep] = useState(STEPS[0])
-  const [previousStep, setPreviousStep] = useState(STEPS[0])
-  const goToStep = newStep => {
-    setPreviousStep(step)
-    setStep(newStep)
-  }
-  const StepComponent = step.controller
-  const previousIndex = STEPS.indexOf(previousStep)
-  const index = STEPS.indexOf(step)
-  const transition =
-    index < previousIndex
-      ? slideRight
-      : index > previousIndex
-        ? slideLeft
-        : none
-
+const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
+  const [saving, setSaving] = useState(false)
   const [state, setState, valueChanged] = useNestedState(pitch)
   useEffect(() => setState(pitch), [setState, pitch])
 
-  const [saving, setSaving] = useState(false)
+  const step = STEPS.find(step => location.hash === `#${step.name}`) || STEPS[0]
+  const index = STEPS.indexOf(step)
+  const transition = location.state && location.state.transition || slideLeft
+  const StepComponent = step.controller
 
-  const save = (callback) => {
+  const save = (newLocation, { replace = false } = {}) => {
     setSaving(true)
-    return Promise.all([
-      new Promise(resolve => setTimeout(resolve, 1000)),
-      onSave(state)
-    ]).then(callback).finally(() => setSaving(false))
+    onSave(state, newLocation)
+      .then((location) => {
+        setSaving(false)
+        history[replace ? 'replace' : 'push'](location)
+      })
+      .catch(() => setSaving(false))
   }
 
-  const saveAndGoToStep = step => save(() => goToStep(step))
+  const saveAndGoToStep = (newStep) => {
+    const newIndex = STEPS.indexOf(newStep)
+    const transition = newIndex < index ? slideRight : slideLeft
+    save({ ...location, hash: `#${newStep.name}`, state: { transition } }, { replace: true })
+  }
 
-  const submit = e => e && e.preventDefault() || saveAndGoToStep(STEPS[index + 1])
+  const saveForLater = e => {
+    e && e.preventDefault()
+    save({ ...location, pathname: location.pathname.replace(/\/[^/]+$/, '') })
+  }
+
+  const submit = e => {
+    e && e.preventDefault()
+    saveAndGoToStep(STEPS[index + 1])
+  }
 
   return (
     <form className="pitch__form" onSubmit={submit} disabled={saving}>
@@ -61,19 +65,24 @@ const PitchForm = ({ pitch, errors, onSave }) => {
 
       <Loader />
 
-      <Button primary type="submit" text="Next" />
+      <footer className="pitch__buttons">
+        <Button primary type="submit" icon="arrow-right" text="Next" />
+        {onClose && <Button icon="clock" text="Save for later" onClick={saveForLater} />}
+      </footer>
     </form>
   )
 }
 
 PitchForm.propTypes = {
+  location: ReactRouterPropTypes.location.isRequired,
   pitch: PropTypes.shape({}).isRequired,
   errors: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
 }
 
 PitchForm.defaultProps = {
   errors: {},
 }
 
-export default PitchForm
+export default withRouter(PitchForm)

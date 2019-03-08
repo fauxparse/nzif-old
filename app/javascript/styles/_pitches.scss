@@ -43,6 +43,16 @@
     margin: ($spacing * 2) 0;
   }
 
+  &__buttons {
+    padding: ($spacing * 2) 0 $spacing;
+
+    @include media(medium) {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+  }
+
   &__presenters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
@@ -97,8 +107,8 @@
 
     .button__icon {
       align-self: center;
-      font-size: 2.5rem;
       margin-bottom: $spacing;
+      font-size: 2.5rem;
     }
   }
 

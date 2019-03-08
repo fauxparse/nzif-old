@@ -1,11 +1,13 @@
 export default [
   'add',
   'admin',
+  'arrow-right',
   'back',
   'calendar',
   'check',
   'checkbox',
   'chevron-down',
+  'clock',
   'close',
   'code-of-conduct',
   'copy',
