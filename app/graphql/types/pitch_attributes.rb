@@ -3,6 +3,8 @@ module Types
     description 'Attributes for a pitch'
     argument :id, ID, required: false
     argument :presenters, [Types::Pitch::PresenterAttributes], required: false
+    argument :state, String, required: false
+    argument :name, String, required: false
     argument :bio, String, required: false
     argument :company, String, required: false
     argument :bio, String, required: false

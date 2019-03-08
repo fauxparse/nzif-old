@@ -3,6 +3,8 @@ class UpdatePitch < Interaction
     access_denied! unless can? :update, pitch
 
     pitch.user = update_user_details(owner)
+    pitch.name = attributes[:name]
+    pitch.state = attributes[:state]
     pitch.info = updated_info
     pitch.save!
   end
@@ -41,7 +43,7 @@ class UpdatePitch < Interaction
   end
 
   def updated_info
-    pitch.info.merge(strip_passwords(attributes.except(:id)))
+    pitch.info.merge(strip_passwords(attributes.except(:id, :state, :name)))
   end
 
   def strip_passwords(attributes)

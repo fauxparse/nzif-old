@@ -3,6 +3,7 @@ module Types
     field :id, ID, null: true
     field :festival, Types::Festival, null: false
     field :state, String, null: false
+    field :name, String, null: true
     field :presenters, [Types::Pitch::PitchPresenter], null: false
     field :company, String, null: true
     field :bio, String, null: true

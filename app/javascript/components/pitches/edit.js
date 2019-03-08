@@ -18,6 +18,8 @@ const PITCH_FRAGMENT = gql`
       startDate
       endDate
     }
+    state
+    name
     presenters {
       id
       name

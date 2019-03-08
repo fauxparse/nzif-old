@@ -5,6 +5,7 @@ export default gql`
     pitches(year: $year) {
       id
       state
+      name
       presenters {
         id
         name

@@ -34,6 +34,8 @@ const Pitch = ({ className, pitch, url }) => {
 Pitch.propTypes = {
   pitch: PropTypes.shape({
     id: CommonProps.id.isRequired,
+    name: PropTypes.string,
+    state: PropTypes.string,
   }),
   url: PropTypes.string.isRequired,
 }
