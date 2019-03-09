@@ -9,26 +9,28 @@ import PageTransition, { slideLeft, slideRight } from '../page_transition'
 import Button from '../button'
 import Loader from '../shared/loader'
 
-const useNestedState = (initialValue) => {
+const useNestedState = initialValue => {
   const [state, setState] = useState(initialValue)
   const update = (path, value) => setState(dotProp.set(state, path, value))
   return [state, setState, update]
 }
 
 const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
+  const step =
+    STEPS.find(step => location.hash === `#${step.name}`) || STEPS[0]
+  const index = STEPS.indexOf(step)
+  const finalStep = index === STEPS.length - 1
+  const transition = (location.state && location.state.transition) || slideLeft
+  const StepComponent = step.controller
+
   const [saving, setSaving] = useState(false)
   const [state, setState, valueChanged] = useNestedState(pitch)
   useEffect(() => setState(pitch), [setState, pitch])
 
-  const step = STEPS.find(step => location.hash === `#${step.name}`) || STEPS[0]
-  const index = STEPS.indexOf(step)
-  const transition = location.state && location.state.transition || slideLeft
-  const StepComponent = step.controller
-
-  const save = (newLocation, { replace = false } = {}) => {
+  const save = (newLocation, { replace = false, extras = {} } = {}) => {
     setSaving(true)
-    onSave(state, newLocation)
-      .then((location) => {
+    onSave({ ...state, ...extras }, newLocation)
+      .then(location => {
         setSaving(false)
         history[replace ? 'replace' : 'push'](location)
       })
@@ -38,7 +40,10 @@ const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
   const saveAndGoToStep = (newStep) => {
     const newIndex = STEPS.indexOf(newStep)
     const transition = newIndex < index ? slideRight : slideLeft
-    save({ ...location, hash: `#${newStep.name}`, state: { transition } }, { replace: true })
+    save(
+      { ...location, hash: `#${newStep.name}`, state: { transition } },
+      { replace: true }
+    )
   }
 
   const saveForLater = e => {
@@ -48,7 +53,14 @@ const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
 
   const submit = e => {
     e && e.preventDefault()
-    saveAndGoToStep(STEPS[index + 1])
+    if (finalStep) {
+      save(
+        { ...location, pathname: location.pathname.replace(/\/[^/]+$/, '') },
+        { extras: { state: finalStep ? 'submitted' : pitch.state } }
+      )
+    } else {
+      saveAndGoToStep(STEPS[index + 1])
+    }
   }
 
   return (
@@ -58,7 +70,11 @@ const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
       <div className="pitch__step-contents">
         <PageTransition {...transition} pageKey={step.name}>
           {StepComponent && (
-            <StepComponent pitch={state} errors={errors} onChange={valueChanged} />
+            <StepComponent
+              pitch={state}
+              errors={errors}
+              onChange={valueChanged}
+            />
           )}
         </PageTransition>
       </div>
@@ -66,8 +82,14 @@ const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
       <Loader />
 
       <footer className="pitch__buttons">
-        <Button primary type="submit" icon="arrow-right" text="Next" />
-        {onClose && <Button icon="clock" text="Save for later" onClick={saveForLater} />}
+        {finalStep ? (
+          <Button primary type="submit" icon="send" text="Submit my pitch" />
+        ) : (
+          <Button primary type="submit" icon="arrow-right" text="Next" />
+        )}
+        {onClose && (
+          <Button icon="clock" text="Save for later" onClick={saveForLater} />
+        )}
       </footer>
     </form>
   )

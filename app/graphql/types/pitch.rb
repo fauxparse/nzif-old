@@ -21,6 +21,14 @@ module Types
       end
     end
 
+    def state
+      if can?(:update, Pitch)
+        object.state
+      else
+        object.draft? ? 'draft' : 'submitted'
+      end
+    end
+
     delegate :company, :bio, :availability, :presented_before, :code_of_conduct, to: :info
     delegate :info, to: :object
 

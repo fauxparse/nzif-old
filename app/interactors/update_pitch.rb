@@ -7,6 +7,7 @@ class UpdatePitch < Interaction
     pitch.state = attributes[:state]
     pitch.info = updated_info
     pitch.save!
+    send_pitch_notification if pitch_just_submitted?
   end
 
   delegate :pitch, :attributes, :current_user, to: :context
@@ -50,5 +51,13 @@ class UpdatePitch < Interaction
     return attributes if attributes[:presenters].blank?
 
     attributes.merge(presenters: attributes[:presenters].map { |p| p.except(:password) })
+  end
+
+  def pitch_just_submitted?
+    pitch.saved_change_to_state? && pitch.submitted?
+  end
+
+  def send_pitch_notification
+    # TODO: send email notification to Jen
   end
 end
