@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Markdown from '../shared/markdown'
 import { Checkbox } from '../form'
 import { ACTIVITY_TYPES } from './constants'
 
-const ActivityDetails = () => {
-  const [activityType, setActivityType] = useState(ACTIVITY_TYPES[0].name)
-  const { title, lookingFor } = ACTIVITY_TYPES.find(({ name }) => name === activityType)
+const ActivityDetails = ({ pitch, errors, onChange }) => {
+  const { activityType = ACTIVITY_TYPES[0].name } = pitch
+  const { controller: Controller } = ACTIVITY_TYPES.find(({ name }) => name === activityType)
 
   return (
     <section className="pitch-section pitch-section--activity">
@@ -26,18 +26,25 @@ const ActivityDetails = () => {
               'pitch__activity-type',
               { 'pitch__activity-type--selected': activityType === name }
             )}
-            onChange={() => setActivityType(name)}
+            onChange={() => onChange('activityType', name)}
           >
             <b>{title}</b>
             <small>{description}</small>
           </Checkbox>
         ))}
       </div>
-      <h2 className="section-title pitch-section__title">{title}</h2>
-      <Markdown text={lookingFor} className="pitch__looking-for" />
 
+      {Controller && <Controller pitch={pitch} errors={errors} onChange={onChange} />}
     </section>
   )
+}
+
+ActivityDetails.propTypes = {
+  pitch: PropTypes.shape({
+    activityType: PropTypes.string,
+  }).isRequired,
+  errors: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default ActivityDetails

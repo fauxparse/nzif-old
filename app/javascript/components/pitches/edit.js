@@ -31,6 +31,15 @@ const PITCH_FRAGMENT = gql`
     presentedBefore
     availability
     codeOfConduct
+    workshopDescription
+    workshopRequirements
+    participantCount
+    taughtBefore
+    otherInfo
+    showDescription
+    castSize
+    performedBefore
+    experience
   }
 `
 

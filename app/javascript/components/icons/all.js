@@ -1,6 +1,7 @@
 export default [
   'add',
   'admin',
+  'arrow-left',
   'arrow-right',
   'back',
   'calendar',

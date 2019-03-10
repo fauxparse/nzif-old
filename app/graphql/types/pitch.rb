@@ -10,6 +10,17 @@ module Types
     field :availability, String, null: true
     field :presented_before, String, null: true
     field :code_of_conduct, Boolean, null: true
+    field :activity_type, String, null: false
+    field :workshop_description, String, null: true
+    field :workshop_requirements, String, null: true
+    field :activity_levels, [Types::WorkshopLevel], null: false
+    field :participant_count, Integer, null: true
+    field :taught_before, String, null: true
+    field :other_info, String, null: true
+    field :show_description, String, null: true
+    field :cast_size, Integer, null: true
+    field :performed_before, String, null: true
+    field :experience, String, null: true
 
     def id
       object.to_param if object.persisted?
@@ -29,7 +40,25 @@ module Types
       end
     end
 
-    delegate :company, :bio, :availability, :presented_before, :code_of_conduct, to: :info
+    delegate(
+      :company,
+      :bio,
+      :availability,
+      :presented_before,
+      :code_of_conduct,
+      :activity_type,
+      :workshop_description,
+      :workshop_requirements,
+      :activity_levels,
+      :participant_count,
+      :taught_before,
+      :other_info,
+      :show_description,
+      :cast_size,
+      :performed_before,
+      :experience,
+      to: :info
+    )
     delegate :info, to: :object
 
     private

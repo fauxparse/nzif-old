@@ -46,6 +46,11 @@ const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
     )
   }
 
+  const goBack = (e) => {
+    e && e.preventDefault()
+    saveAndGoToStep(STEPS[index - 1])
+  }
+
   const saveForLater = e => {
     e && e.preventDefault()
     save({ ...location, pathname: location.pathname.replace(/\/[^/]+$/, '') })
@@ -85,8 +90,14 @@ const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
         {finalStep ? (
           <Button primary type="submit" icon="send" text="Submit my pitch" />
         ) : (
-          <Button primary type="submit" icon="arrow-right" text="Next" />
+          <Button
+            primary
+            type="submit"
+            icon="arrow-right"
+            text={`Next: ${STEPS[index + 1].title}`}
+          />
         )}
+        {index > 0 && <Button type="submit" icon="arrow-left" text="Go back" onClick={goBack} />}
         {onClose && (
           <Button icon="clock" text="Save for later" onClick={saveForLater} />
         )}

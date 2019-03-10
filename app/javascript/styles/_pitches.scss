@@ -33,6 +33,27 @@
         animation: none;
       }
     }
+
+    .form__input--number {
+      display: block;
+      width: 10em;
+      margin: 0 0 1em;
+      padding: 0.5em 1rem;
+      border: 0;
+      border-radius: $border-radius;
+      color: inherit;
+      font: inherit;
+      line-height: line-height(normal);
+      box-shadow: none;
+
+      @include themify {
+        background: themed(panel);
+
+        &:focus {
+          box-shadow: 0 0 0 .25em themed(outline);
+        }
+      }
+    }
   }
 
   &__step-contents {
@@ -46,10 +67,30 @@
   &__buttons {
     padding: ($spacing * 2) 0 $spacing;
 
+    .button {
+      width: 100%;
+      margin: 0 0 $spacing 0;
+    }
+
     @include media(medium) {
       display: flex;
       flex-direction: row-reverse;
-      justify-content: space-between;
+      justify-content: start;
+
+      &::after {
+        content: "";
+        flex: 1;
+      }
+
+      .button {
+        width: auto;
+        margin-left: $spacing;
+
+        &:last-child {
+          order: 1;
+          margin-left: 0;
+        }
+      }
     }
   }
 
@@ -175,6 +216,44 @@
       }
     }
   }
+
+  &__levels {
+    @include media(medium) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: $spacing;
+
+      .pitch-level__experience {
+        display: block;
+        margin-left: 0;
+      }
+    }
+
+    @include media(large) {
+      .pitch-level__experience {
+        display: inline;
+        margin-left: 0.5em;
+      }
+    }
+  }
+
+  &-level {
+    &__experience {
+      margin-left: 0.5em;
+      font-size: 100%;
+    }
+
+    &__description {
+      font-size: font-size(-1);
+    }
+
+    @include themify {
+      &__experience,
+      &__description {
+        color: themed(secondary);
+      }
+    }
+  }
 }
 
 .pitches {
@@ -204,11 +283,11 @@
   padding: ($padding / 2) 0;
   color: inherit;
   text-decoration: none;
-  grid-template-columns: 1.5rem auto auto;
+  grid-template-columns: 1.5rem auto;
   grid-column-gap: $spacing;
 
   &__icon {
-    grid-row: 1 / span 2;
+    grid-row: 1 / span 3;
   }
 
   &__name,
@@ -217,12 +296,33 @@
   }
 
   &__state {
+    grid-column: 2;
+  }
+
+  &__state {
     font-size: font-size(-1);
     line-height: calc(#{font-size(0)} * #{line-height(normal)});
-    text-align: right;
     text-transform: uppercase;
-    grid-column: 3;
-    grid-row: 1;
+  }
+
+  @include media(medium) {
+    grid-template-columns: 1.5rem auto auto;
+    grid-column-gap: $spacing;
+
+    &__icon {
+      grid-row: 1 / span 2;
+    }
+
+    &__name,
+    &__presenters {
+      grid-column: 2;
+    }
+
+    &__state {
+      text-align: right;
+      grid-column: 3;
+      grid-row: 1;
+    }
   }
 
   @include themify {
