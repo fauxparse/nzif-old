@@ -287,15 +287,13 @@
   grid-column-gap: $spacing;
 
   &__icon {
-    grid-row: 1 / span 3;
+    grid-row: 1 / span 4;
   }
 
   &__name,
-  &__presenters {
-    grid-column: 2;
-  }
-
-  &__state {
+  &__presenters,
+  &__state,
+  &__actions {
     grid-column: 2;
   }
 
@@ -303,6 +301,16 @@
     font-size: font-size(-1);
     line-height: calc(#{font-size(0)} * #{line-height(normal)});
     text-transform: uppercase;
+  }
+
+  &__actions {
+    display: flex;
+    padding-top: 0.5rem;
+
+    .button {
+      margin-right: 0.5rem;
+      font-size: font-size(-1);
+    }
   }
 
   @include media(medium) {

@@ -6,6 +6,7 @@ module Types
     field :update_session, mutation: Mutations::UpdateSession
     field :delete_session, mutation: Mutations::DeleteSession
     field :update_pitch, mutation: Mutations::UpdatePitch
+    field :delete_pitch, mutation: Mutations::DeletePitch
     field :update_user, mutation: Mutations::UpdateUser
     field :log_in, mutation: Mutations::LogIn
     field :log_out, mutation: Mutations::LogOut

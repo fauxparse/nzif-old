@@ -99,7 +99,7 @@ class Timetable extends Component {
       mutation: DELETE_SESSION_MUTATION,
       variables,
       errorPolicy: 'all',
-      optimisticResponse: true,
+      optimisticResponse: { deleteSession: true },
       update: this.updateCachedSessions((sessions) =>
         sessions.filter(session => session.id !== id)
       ),

@@ -10,10 +10,11 @@ import Pitch from './pitch'
 
 const PitchList = ({ match, className }) => {
   const { year } = match.params
+  const variables = { year }
   const {
     loading,
     data: { pitches }
-  } = useQuery(PITCHES_QUERY, { variables: { year } })
+  } = useQuery(PITCHES_QUERY, { variables })
 
   return (
     <section className={classNames('public-page', 'pitches', className)}>

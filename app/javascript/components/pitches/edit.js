@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import omit from 'lodash/omit'
+import { PITCHES_QUERY } from '../../queries'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from '../shared/loader'
 import PitchForm from './form'
@@ -86,7 +87,20 @@ const EditPitch = ({ match, history, className }) => {
             variables: { year, id },
           })
           if (!match.params.id) {
-            newLocation.pathname = newLocation.pathname.replace(/[^/]+$/, id)
+            proxy.writeQuery({
+              query: PITCHES_QUERY,
+              data: {
+                pitches: [
+                  updatePitch,
+                  ...proxy.readQuery({ query: PITCHES_QUERY, variables: { year } }).pitches
+                ],
+              },
+              variables: { year },
+            })
+
+            if (!newLocation.pathname.match(/pitches$/)) {
+              newLocation.pathname = newLocation.pathname.replace(/[^/]+$/, id)
+            }
           }
         },
         errorPolicy: 'all',
