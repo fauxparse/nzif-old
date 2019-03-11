@@ -1,39 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { useMutation } from 'react-apollo-hooks'
-import gql from 'graphql-tag'
-import { PITCHES_QUERY } from '../../queries'
 import CommonProps from '../../lib/common_props'
 import Icon from '../icons'
 import Button from '../button'
 import Sentence from '../shared/sentence'
 import Link from '../shared/ripple/link'
 import { left as transition } from '../page_transition/slide'
-import DeleteButton from './delete_button'
-
-const DELETE_PITCH_MUTATION = gql`
-  mutation DeletePitch($id: ID!) {
-    deletePitch(id: $id)
-  }
-`
 
 const Pitch = ({ className, pitch, url, onDelete }) => {
-  const variables = { year: pitch.festival.year }
-  const deletePitch = useMutation(DELETE_PITCH_MUTATION, {
-    update: (proxy) => {
-      const { pitches } = proxy.readQuery({ query: PITCHES_QUERY, variables })
-      proxy.writeQuery({
-        query: PITCHES_QUERY,
-        variables,
-        data: {
-          pitches: pitches.filter(({ id }) => pitch.id !== id)
-        }
-      })
-    },
-    optimisticResponse: { deletePitch: true },
-  })
-
   return (
     <div
       className={classNames('pitch-row', className)}
@@ -62,7 +37,11 @@ const Pitch = ({ className, pitch, url, onDelete }) => {
             <Button.Icon name="edit" />
             <Button.Text>Edit</Button.Text>
           </Link>
-          <DeleteButton onClick={() => deletePitch({ variables: { id: pitch.id } })} />
+          <Button
+            icon="trash"
+            text="Delete"
+            onClick={() => onDelete(pitch.id)}
+          />
         </div>
       }
     </div>
@@ -76,6 +55,7 @@ Pitch.propTypes = {
     state: PropTypes.string,
   }),
   url: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default Pitch
