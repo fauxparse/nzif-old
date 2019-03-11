@@ -33,6 +33,3 @@ class Activity < ApplicationRecord
     errors.add(:type, 'must not be a vanilla Activity') if self.class == Activity
   end
 end
-
-require_dependency 'show'
-require_dependency 'workshop'
