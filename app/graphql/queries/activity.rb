@@ -2,7 +2,7 @@ module Types
   class QueryType
     field :activity, Activity, null: false do
       description 'Get an activity by URL parameters'
-      argument :year, Integer, required: true
+      argument :year, ID, required: true
       argument :type, ActivityType, required: true
       argument :slug, String, required: true
     end

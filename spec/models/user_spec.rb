@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
     context 'with a bad country code' do
       let(:user) { build(:user, country_code: 'zz') }
 
-      it 'should not be valid' do
+      it 'is invalid' do
         expect(user).not_to be_valid
         expect(user).to have_exactly(1).error_on(:country)
       end

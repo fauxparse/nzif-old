@@ -9,9 +9,9 @@ import { USERS_QUERY } from '../../../queries'
 import Autocomplete from '../../autocomplete'
 import Avatar from '../../shared/avatar'
 
-const MenuItem = ({ label, selected, selectedText, value: { name }, ...props }) => (
+const MenuItem = ({ label, selected, selectedText, value, ...props }) => (
   <li className="add-presenter__presenter" aria-selected={selected || undefined} {...props}>
-    <Avatar name={name} />
+    <Avatar {...value} />
     <Highlighter
       className="highlight"
       textToHighlight={label}
@@ -21,14 +21,23 @@ const MenuItem = ({ label, selected, selectedText, value: { name }, ...props }) 
   </li>
 )
 
+MenuItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  selected: PropTypes.bool,
+  selectedText: PropTypes.string,
+  value: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  })
+}
+
 class AddPresenter extends Component {
   static propTypes = {
     data: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
-      users: PropTypes.arrayOf(CommonProps.user.isRequired),
+      users: PropTypes.arrayOf(CommonProps.user.isRequired)
     }),
     presenters: PropTypes.arrayOf(CommonProps.user.isRequired),
-    onSelect: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired
   }
 
   add = ({ value }) => {
@@ -37,25 +46,38 @@ class AddPresenter extends Component {
 
   search = (text, options) => {
     if (text) {
-      const re = new RegExp(deburr(text).trim().split(/\s+/).map(w => `(?=.*${w})`).join(''), 'i')
+      const re = new RegExp(
+        deburr(text)
+          .trim()
+          .split(/\s+/)
+          .map(w => `(?=.*${w})`)
+          .join(''),
+        'i'
+      )
       const ids = this.props.presenters.map(({ id }) => id)
-      return options.filter(({ value: { name, id } }) => (
-        deburr(name).match(re) &&
-        ids.indexOf(id) === -1
-      ))
+      return options.filter(
+        ({ value: { name, id } }) =>
+          deburr(name).match(re) && ids.indexOf(id) === -1
+      )
     } else {
       return []
     }
   }
 
   render() {
-    const { data: { users } } = this.props
+    const {
+      data: { users }
+    } = this.props
 
     if (users) {
       return (
         <div className="add-presenter">
           <Autocomplete
-            options={users.map(u => ({ id: u.id, label: u.name, value: pick(u, ['id', 'name']) }))}
+            options={users.map(u => ({
+              id: u.id,
+              label: u.name,
+              value: pick(u, ['id', 'name', 'image'])
+            }))}
             menuItemComponent={MenuItem}
             search={this.search}
             placeholder="Type someone’s name…"

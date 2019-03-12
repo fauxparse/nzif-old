@@ -54,8 +54,7 @@ class NewSession extends React.Component {
     if (activity.id) {
       this.createSession(activity)
     } else {
-      const { match } = this.props
-      const year = parseInt(match.params.year, 10)
+      const { year } = this.props.match.params
       this.createActivity(year, activity.type, activity.name)
     }
   }

@@ -6,6 +6,8 @@ export default gql`
       id
       name
       email
+      city
+      country
       roles
       notificationsCount
 

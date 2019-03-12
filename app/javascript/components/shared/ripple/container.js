@@ -1,4 +1,5 @@
-import React, { createRef } from 'react'
+import React, { useState, useEffect, useRef, forwardRef } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import mojs from 'mo-js'
 import CommonProps from '../../../lib/common_props'
@@ -16,7 +17,7 @@ const trueClientPosition = (coordinates, element) => {
   return { x, y }
 }
 
-const transformCoordinates = (element) => {
+const transformCoordinates = element => {
   const style = getComputedStyle(element)
   if (style.transform) {
     const m = style.transform.match(/matrix(?:3d)?\(([^)]+)\)/)
@@ -26,7 +27,7 @@ const transformCoordinates = (element) => {
       return {
         x: values[0],
         y: values[1],
-        z: values[2] || 0,
+        z: values[2] || 0
       }
     }
   }
@@ -34,85 +35,86 @@ const transformCoordinates = (element) => {
   return { x: 0, y: 0 }
 }
 
-class Ripple extends React.Component {
-  static propTypes = {
-    as: CommonProps.component,
-  }
+const Ripple = forwardRef(
+  (
+    { as: Container, className, onMouseDown, onTouchStart, children, ...props },
+    ref
+  ) => {
+    const container = ref || useRef()
 
-  static defaultProps = {
-    as: 'div',
-  }
+    const [playing, setPlaying] = useState(false)
 
-  constructor(props) {
-    super(props)
-    this.container = this.props.forwardref || createRef()
-  }
+    let mounted = false
 
-  ripple = (x, y) => {
-    if (!this.playing) {
-      const el = this.container.current
-      const size = Math.max(el.offsetWidth, el.offsetHeight)
-      const { x: left, y: top } = trueClientPosition({ x, y }, el)
-      const shape = new mojs.Shape({
-        parent: this.container.current,
-        shape: 'circle',
-        opacity: { 0.25: 0 },
-        left,
-        top,
-        fill: 'currentColor',
-        radius: size,
-        scale: { 0: 1 },
-        isShowEnd: false,
-        isForce3d: true,
-        duration: Math.max(500, 50 * Math.sqrt(size)),
-        easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
-        onComplete: () => {
-          shape.el.remove()
-          this.playing = false;
-        },
-      })
-      shape.play()
-      this.playing = true
+    useEffect(() => {
+      mounted = true
+      return () => {
+        mounted = false
+      }
+    })
+
+    const ripple = (x, y) => {
+      if (!playing) {
+        const el = container.current
+        const size = Math.max(el.offsetWidth, el.offsetHeight)
+        const { x: left, y: top } = trueClientPosition({ x, y }, el)
+        const shape = new mojs.Shape({
+          parent: container.current,
+          shape: 'circle',
+          opacity: { 0.25: 0 },
+          left,
+          top,
+          fill: 'currentColor',
+          radius: size,
+          scale: { 0: 1 },
+          isShowEnd: false,
+          isForce3d: true,
+          duration: Math.max(500, 50 * Math.sqrt(size)),
+          easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
+          onComplete: () => {
+            shape.el.remove()
+            mounted && setPlaying(false)
+          }
+        })
+        shape.play()
+        mounted && setPlaying(true)
+      }
     }
-  }
 
-  mouseDown = (e) => {
-    this.ripple(e.clientX, e.clientY)
-    if (this.props.onMouseDown) {
-      this.props.onMouseDown(e)
+    const mouseDown = e => {
+      ripple(e.clientX, e.clientY)
+      onMouseDown && onMouseDown(e)
     }
-  }
 
-  touchStart = (e) => {
-    const touch = e.touches[0]
-    this.ripple(touch.clientX, touch.clientY)
-    if (this.props.onTouchStart) {
-      this.props.onTouchStart(e)
+    const touchStart = e => {
+      const touch = e.touches[0]
+      ripple(touch.clientX, touch.clientY)
+      onTouchStart && onTouchStart(e)
     }
-  }
-
-  render() {
-    const {
-      as: Container,
-      className,
-      forwardref,
-      onMouseDown,
-      onTouchStart,
-      ...props
-    } = this.props
 
     return (
       <Container
-        ref={this.container}
+        ref={container}
         className={classNames('ripple', className)}
-        onMouseDown={this.mouseDown}
-        onTouchStart={this.touchStart}
+        onMouseDown={mouseDown}
+        onTouchStart={touchStart}
         {...props}
       >
-        {this.props.children}
+        {children}
       </Container>
     )
   }
+)
+
+Ripple.propTypes = {
+  as: CommonProps.component,
+  className: CommonProps.className,
+  onMouseDown: PropTypes.func,
+  onTouchStart: PropTypes.func
 }
 
-export default React.forwardRef((props, ref) => <Ripple {...props} forwardref={ref} />)
+Ripple.defaultProps = {
+  as: 'div'
+}
+
+export default Ripple

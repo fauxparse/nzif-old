@@ -62,6 +62,10 @@ gem 'geokit-rails'
 # Countries
 gem 'countries'
 
+# Pitches
+gem 'hashie'
+gem 'to_bool'
+
 gem 'jwt'
 
 gem 'acts_as_list'

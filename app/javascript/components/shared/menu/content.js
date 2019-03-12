@@ -7,4 +7,6 @@ const Content = forwardRef(({ className, children, ...props }, ref) => (
   </nav>
 ))
 
+Content.displayName = 'Menu.Content'
+
 export default Content

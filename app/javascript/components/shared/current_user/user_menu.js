@@ -80,6 +80,7 @@ class UserMenu extends React.Component {
                 to={`/admin${year ? `/${year}` : ''}`}
               />
             )}
+            <Menu.Item icon="pitch" text="Your pitches" to={`${match.url}/pitches`} />
             <Menu.Item icon="user" text="Profile" to={`${match.url}/profile`} />
             <Menu.Separator />
             <LogOutLink />

@@ -2,5 +2,8 @@
   @include themify {
     color: themed(error);
   }
+
+  margin: $spacing 0;
+  font-size: font-size(-1);
 }
 

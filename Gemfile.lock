@@ -161,6 +161,7 @@ GEM
       activerecord (>= 4.0)
       hashids (~> 1.0)
     hashids (1.0.4)
+    hashie (3.6.0)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -336,6 +337,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
+    to_bool (1.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.4.1)
@@ -381,6 +383,7 @@ DEPENDENCIES
   guard-rubocop
   haml-rails
   hashid-rails
+  hashie
   interactor-rails
   jbuilder (~> 2.5)
   jwt
@@ -406,6 +409,7 @@ DEPENDENCIES
   stringex
   stub_env
   timecop
+  to_bool
   web-console (>= 3.3.0)
   webpacker (~> 4.0.0.rc3)
 

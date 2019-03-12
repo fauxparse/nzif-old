@@ -77,6 +77,46 @@
   &--closing::before {
     opacity: 0;
   }
+
+  &__header {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: $padding;
+
+    .button {
+      border-color: transparent;
+
+      @include themify {
+        color: themed(secondary);
+      }
+    }
+  }
+
+  &__title {
+    align-self: start;
+    margin: 0;
+    font-size: font-size(3);
+    font-weight: font-weight(normal);
+  }
+
+  &__body {
+    padding: 0 $padding;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: $padding;
+
+    .button {
+      &:not(:last-child) {
+        margin-left: $spacing;
+      }
+    }
+  }
 }
 
 .ReactModalPortal + div:not(.ReactModalPortal) > div > div {

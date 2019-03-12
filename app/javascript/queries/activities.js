@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query Activities($year: Int!, $type: ActivityType!) {
+  query Activities($year: ID!, $type: ActivityType!) {
     festival(year: $year) {
       year
 

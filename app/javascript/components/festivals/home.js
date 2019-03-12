@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
+import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import PageContent from '../../components/page_content'
 import Background from '../../components/shared/background'
@@ -16,7 +17,7 @@ export const HOMEPAGE_FRAGMENT = gql`
 `
 
 export const HOMEPAGE_QUERY = gql`
-  query Festival($year: Int!) {
+  query Festival($year: ID!) {
     festival(year: $year) {
       ...HomepageFragment
     }
@@ -25,7 +26,7 @@ export const HOMEPAGE_QUERY = gql`
 `
 
 const Home = ({ match }) => {
-  const year = parseInt(match.params.year, 10)
+  const { year } = match.params
 
   return (
     <PageContent className="page-content--no-padding">
@@ -41,6 +42,8 @@ const Home = ({ match }) => {
                   <Date date={[festival.startDate, festival.endDate]} />
                 </h2>
               </Background>
+
+              <Link to={`${match.url}/pitches`}>Pitches</Link>
             </Fragment>
           )
         }

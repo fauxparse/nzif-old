@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { graphql } from 'react-apollo'
+import ReactRouterPropTypes from 'react-router-prop-types'
+import { withRouter } from 'react-router-dom'
+import { withApollo, compose } from 'react-apollo'
+import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import Icon from '../../icons'
 import Ripple from '../ripple'
@@ -12,23 +15,34 @@ const LOG_OUT_MUTATION = gql`
   }
 `
 
-const LogOutLink = ({ mutate }) =>
-  <Ripple className="menu__item" onClick={mutate}>
-    <Icon className="menu__icon" name="log-out" />
-    <span className="menu__text">Log out</span>
-  </Ripple>
-
-LogOutLink.propTypes = {
-  mutate: PropTypes.func.isRequired,
-}
-
-export default graphql(LOG_OUT_MUTATION, {
-  options: {
+const LogOutLink = ({ client, history }) => {
+  const logOut = useMutation(LOG_OUT_MUTATION, {
     optimisticResponse: { logOut: null },
     update: proxy =>
       proxy.writeQuery({
         query: CURRENT_USER_QUERY,
         data: { currentUser: null }
       }),
-  }
-})(LogOutLink)
+  })
+
+  const logOutClicked = () =>
+    logOut()
+      .then(client.resetStore)
+      .then(() => history.push('/'))
+
+  return (
+    <Ripple className="menu__item" onClick={logOutClicked}>
+      <Icon className="menu__icon" name="log-out" />
+      <span className="menu__text">Log out</span>
+    </Ripple>
+  )
+}
+
+LogOutLink.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+  client: PropTypes.shape({
+    resetStore: PropTypes.func.isRequired,
+  }),
+}
+
+export default compose(withApollo, withRouter)(LogOutLink)

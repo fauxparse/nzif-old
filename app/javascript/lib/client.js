@@ -1,6 +1,6 @@
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
-import { split } from 'apollo-link'
+import { ApolloLink, split } from 'apollo-link'
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -9,6 +9,7 @@ import {
 import ActionCable from 'actioncable'
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
 import { getMainDefinition } from 'apollo-utilities'
+import stripTypenames from './strip_typenames'
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData: {
@@ -35,8 +36,10 @@ const cache = new InMemoryCache({
   fragmentMatcher,
   dataIdFromObject: object => {
     switch (object.__typename) {
-      case 'Festival': return `Festival:${object.year}`
-      default: return defaultDataIdFromObject(object)
+      case 'Festival':
+        return `Festival:${object.year}`
+      default:
+        return defaultDataIdFromObject(object)
     }
   }
 })
@@ -51,6 +54,14 @@ const httpLink = createHttpLink({
 const cable = ActionCable.createConsumer('ws://localhost:3000/subscriptions')
 const actionCableLink =  new ActionCableLink({ cable })
 
+const stripTypenameLink = new ApolloLink((operation, forward) => {
+  if (operation.variables) {
+    operation.variables = stripTypenames(operation.variables)
+  }
+
+  return forward(operation)
+})
+
 const link = split(
   ({ query }) => {
     const { kind, operation } = getMainDefinition(query)
@@ -62,7 +73,7 @@ const link = split(
 
 const client = new ApolloClient({
   cache,
-  link,
+  link: ApolloLink.from([stripTypenameLink, link]),
 })
 
 export default client

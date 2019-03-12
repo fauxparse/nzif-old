@@ -166,7 +166,7 @@ export default compose(
     options: ({ match }) => {
       const { year, type, slug } = match.params
       return {
-        variables: { year: parseInt(year, 10), type: singular(type), slug },
+        variables: { year, type: singular(type), slug },
       }
     },
   })

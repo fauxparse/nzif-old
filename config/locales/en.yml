@@ -1,8 +1,12 @@
 en:
+  attributes:
+    code_of_conduct: 'Code of Conduct'
   errors:
     attributes:
       country:
         blank: 'is invalid'
+      code_of_conduct:
+        accepted: 'must be accepted before proceeding'
     messages:
       blank: 'can’t be blank'
       email: 'must be a valid email address'
@@ -19,5 +23,8 @@ en:
         at_or_before: 'must be at or before %{time}'
         at_or_after: 'must be at or after %{time}'
         at: 'must be %{time}'
+      word_count:
+        too_short: 'is too short (%{count}/%{minimum} words)'
+        too_long: 'is too long (%{count}/%{maximum} words)'
       invalid_level: 'cannot include ‘%{level}’'
       invalid_role: 'cannot include ‘%{role}’'

@@ -8,7 +8,7 @@ RSpec.describe Mutations::CreateActivity, type: :mutation do
   let(:festival) { create(:festival) }
   let(:query) do
     <<~QUERY
-      mutation test($year: Int!, $type: ActivityType!, $attributes: ActivityAttributes!) {
+      mutation test($year: ID!, $type: ActivityType!, $attributes: ActivityAttributes!) {
         createActivity(year: $year, type: $type, attributes: $attributes) {
           name
           slug

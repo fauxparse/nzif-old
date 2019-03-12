@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import difference from 'lodash/difference'
@@ -26,5 +27,10 @@ const CountrySelect = ({ value, disabled, ...props }) => (
     )}
   </Query>
 )
+
+CountrySelect.propTypes = {
+  value: PropTypes.string,
+  disabled: PropTypes.bool,
+}
 
 export default CountrySelect

@@ -1,6 +1,8 @@
 import React, { forwardRef } from 'react'
+import PropTypes from 'prop-types'
 import { Picture } from 'react-responsive-picture'
 import classNames from 'classnames'
+import CommonProps from '../../lib/common_props'
 
 const COLORS = ['tomato', 'mandarin', 'grape', 'plum', 'apple', 'mint']
 
@@ -20,12 +22,12 @@ const colorFromString = str => COLORS[hashCode(str) % COLORS.length]
 const initials = str => str.split(/\s+/).map(s => s[0]).join('').toUpperCase().substr(0, 3)
 
 const Avatar = forwardRef(
-  ({ id, name, origin, bio, image, className, ...props }, ref) => (
+  ({ id, name, origin, bio, image, className, children, ...props }, ref) => (
     <span
       className={classNames('avatar', className)}
       ref={ref}
       title={name}
-      data-color={colorFromString(name)}
+      data-color={name && colorFromString(name)}
       {...props}
     >
       {image ? (
@@ -35,10 +37,20 @@ const Avatar = forwardRef(
           alt={name}
         />
       ) : (
-        initials(name)
+        children || initials(name)
       )}
     </span>
   )
 )
+
+Avatar.displayName = 'Avatar'
+
+Avatar.propTypes = {
+  id: CommonProps.id,
+  name: PropTypes.string.isRequired,
+  image: CommonProps.userImage,
+  origin: PropTypes.string,
+  bio: PropTypes.string,
+}
 
 export default Avatar

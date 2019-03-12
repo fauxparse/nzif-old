@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
 import pick from 'lodash/pick'
+import CommonProps from '../../../lib/common_props'
 import moment from '../../../lib/moment'
 import {
   TIMETABLE_QUERY,
@@ -20,6 +22,15 @@ import NewSession from './new'
 import SessionDetails from './session_details'
 
 class Timetable extends Component {
+  static propTypes = {
+    data: PropTypes.shape({
+      activityTypes: PropTypes.arrayOf(CommonProps.activityType.isRequired),
+      festival: PropTypes.shape({
+        activities: PropTypes.arrayOf(CommonProps.activity.isRequired),
+      }),
+    }),
+  }
+
   state = {
     newSession: undefined,
     selected: undefined,
@@ -88,7 +99,7 @@ class Timetable extends Component {
       mutation: DELETE_SESSION_MUTATION,
       variables,
       errorPolicy: 'all',
-      optimisticResponse: true,
+      optimisticResponse: { deleteSession: true },
       update: this.updateCachedSessions((sessions) =>
         sessions.filter(session => session.id !== id)
       ),
@@ -96,7 +107,7 @@ class Timetable extends Component {
   }
 
   updateCachedSessions = callback => (cache, { data }) => {
-    const year = parseInt(this.props.match.params.year, 10)
+    const { year } = this.props.match.params
     const { sessions, ...rest } = cache.readQuery({
       query: TIMETABLE_QUERY,
       variables: { year },
@@ -209,7 +220,7 @@ export default compose(
   withApollo,
   graphql(TIMETABLE_QUERY, {
     options: props => ({
-      variables: { year: parseInt(props.match.params.year, 10) },
+      variables: props.match.params,
     }),
   })
 )(Timetable)

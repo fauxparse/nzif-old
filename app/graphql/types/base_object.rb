@@ -6,6 +6,6 @@ module Types
       context[:environment]
     end
 
-    delegate :url_for, to: :environment
+    delegate :can?, :url_for, to: :environment
   end
 end

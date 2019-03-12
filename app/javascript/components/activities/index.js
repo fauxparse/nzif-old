@@ -22,7 +22,7 @@ const dummy = type =>
 
 const Activities = ({ match }) => {
   const type = match.params.type.replace(/s$/, '')
-  const year = parseInt(match.params.year, 10)
+  const { year } = match.params
 
   return (
     <PageContent className="section--activities">

@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import CommonProps from '../../lib/common_props'
 import Ripple from '../shared/ripple'
 import Text from './text'
 import Icon from './icon'
@@ -34,6 +35,9 @@ const Button = forwardRef(({
 
 Button.propTypes = {
   primary: PropTypes.bool,
+  as: CommonProps.component,
+  icon: CommonProps.icon,
+  text: PropTypes.string,
 }
 
 Button.defaultProps = {

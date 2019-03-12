@@ -9,6 +9,9 @@ class DropZone extends Component {
     file: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }),
+    handleUpload: PropTypes.func.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
   }
 
   static defaultProps = {

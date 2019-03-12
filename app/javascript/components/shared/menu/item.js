@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Icon, { ICONS } from '../../icons'
+import CommonProps from '../../../lib/common_props'
+import Icon from '../../icons'
 import { Link } from '../ripple'
 
 const Item = ({ as: Component, className, icon, text, children, ...props }) => (
@@ -18,7 +19,8 @@ Item.propTypes = {
     PropTypes.func.isRequired,
     PropTypes.symbol.isRequired,
   ]),
-  icon: PropTypes.oneOf(ICONS),
+  text: PropTypes.string,
+  icon: CommonProps.icon,
 }
 
 Item.defaultProps = {

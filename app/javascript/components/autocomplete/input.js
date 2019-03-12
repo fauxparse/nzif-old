@@ -1,8 +1,16 @@
 import React, { Component, createRef } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import deburr from 'lodash/deburr'
 
 class Input extends Component {
+  static propTypes = {
+    value: PropTypes.string,
+    placeholder: PropTypes.string,
+    type: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+  }
+
   state = {
     completing: false,
   }

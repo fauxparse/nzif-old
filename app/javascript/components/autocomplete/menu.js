@@ -1,58 +1,56 @@
-import React, { Component, forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import CommonProps from '../../lib/common_props'
 import MenuItem from './menu_item'
 
-class Menu extends Component {
-  static propTypes = {
-    options: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.any.isRequired,
-    }).isRequired).isRequired,
-    selectedIndex: PropTypes.number,
-    selectedText: PropTypes.string.isRequired,
-    menuItemComponent: PropTypes.func,
-    menuRef: CommonProps.ref,
-    onClick: PropTypes.func.isRequired,
-  }
+const Menu = forwardRef(({
+  className,
+  options,
+  selectedIndex,
+  selectedText,
+  menuItemComponent: MenuItemComponent,
+  menuRef,
+  onClick,
+  ...props
+}, ref) => {
+  return (
+    <ul
+      className={classNames('autocomplete__menu', className)}
+      ref={ref}
+      data-empty-text="(No matches)"
+      {...props}
+    >
+      {options.map((option, i) => (
+        <MenuItemComponent
+          key={option.id}
+          selected={selectedIndex === i}
+          selectedText={selectedText}
+          onClick={onClick}
+          {...option}
+        />
+      ))}
+    </ul>
+  )
+})
 
-  static defaultProps = {
-    menuItemComponent: MenuItem,
-    menuRef: undefined,
-  }
+Menu.displayName = 'Menu'
 
-  render() {
-    const {
-      className,
-      options,
-      selectedIndex,
-      selectedText,
-      menuItemComponent: MenuItemComponent,
-      menuRef,
-      onClick,
-      ...props
-    } = this.props
-
-    return (
-      <ul
-        className={classNames('autocomplete__menu', className)}
-        ref={menuRef}
-        data-empty-text="(No matches)"
-        {...props}
-      >
-        {options.map((option, i) => (
-          <MenuItemComponent
-            key={option.id}
-            selected={selectedIndex === i}
-            selectedText={selectedText}
-            onClick={onClick}
-            {...option}
-          />
-        ))}
-      </ul>
-    )
-  }
+Menu.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
+  }).isRequired).isRequired,
+  selectedIndex: PropTypes.number,
+  selectedText: PropTypes.string.isRequired,
+  menuItemComponent: CommonProps.component,
+  menuRef: CommonProps.ref,
+  onClick: PropTypes.func.isRequired,
 }
 
-export default forwardRef((props, ref) => <Menu menuRef={ref} {...props} />)
+Menu. defaultProps = {
+  menuItemComponent: MenuItem,
+  menuRef: undefined,
+}
+
+export default Menu

@@ -1,66 +1,54 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import AutosizeInput from 'react-input-autosize'
 import { IconField } from '../../form'
 
-class Slug extends Component {
-  state = {
-    value: this.props.value
-  }
+const Slug = ({ root, value, loading, onChange, onBlur, onKeyDown, ...props }) => {
+  const [current, setCurrent] = useState(value)
 
-  componentDidUpdate(prevProps) {
-    const { value } = this.props
-    if (value !== prevProps.value) {
-      this.setState({ value })
-    }
-  }
+  useEffect(() => setCurrent(value), [setCurrent, value])
 
-  changed = e => {
-    this.props.onChange(e)
-  }
+  const inputChanged = e => setCurrent(e.target.value)
 
-  inputChanged = e => {
-    const { value } = e.target
-    this.setState({ value })
-  }
-
-  inputBlurred = e => {
-    const { onChange, onBlur } = this.props
+  const inputBlurred = e => {
     onChange(e)
     onBlur && onBlur(e)
   }
 
-  inputKeyPressed = e => {
+  const inputKeyPressed = e => {
     if (e.which === 13) {
       e.target.blur()
     } else if (e.which === 27) {
-      this.setState({ value: this.props.value })
+      setCurrent(value)
     }
 
-    if (this.props.onKeyPress) {
-      this.props.onKeyPress(e)
-    }
+    onKeyDown && onKeyDown(e)
   }
 
-  render() {
-    const { value } = this.state
-    const { root, loading, onChange, onBlur, onKeyDown, ...props } = this.props
+  return (
+    <IconField icon="link" label="URL" loading={loading}>
+      <div className="slug">
+        <span className="slug__root">{root}</span>
+        <AutosizeInput
+          className="slug__input"
+          {...props}
+          value={current}
+          onChange={inputChanged}
+          onBlur={inputBlurred}
+          onKeyDown={inputKeyPressed}
+        />
+      </div>
+    </IconField>
+  )
+}
 
-    return (
-      <IconField icon="link" label="URL" loading={loading}>
-        <div className="slug">
-          <span className="slug__root">{root}</span>
-          <AutosizeInput
-            className="slug__input"
-            {...props}
-            value={value}
-            onChange={this.inputChanged}
-            onBlur={this.inputBlurred}
-            onKeyDown={this.inputKeyPressed}
-          />
-        </div>
-      </IconField>
-    )
-  }
+Slug.propTypes = {
+  root: PropTypes.string,
+  value: PropTypes.string,
+  loading: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  onKeyDown: PropTypes.func,
 }
 
 export default Slug

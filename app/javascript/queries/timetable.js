@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query Timetable($year: Int!) {
+  query Timetable($year: ID!) {
     festival(year: $year) {
       year
       startDate

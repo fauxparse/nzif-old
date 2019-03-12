@@ -13,6 +13,8 @@ const Breadcrumbs = forwardRef(({ className, back, children, ...props }, ref) =>
   </div>
 ))
 
+Breadcrumbs.displayName = 'Breadcrumbs'
+
 Breadcrumbs.propTypes = {
   back: PropTypes.oneOfType([
     ReactRouterPropTypes.location,

@@ -1,6 +1,6 @@
 module Types
   class Festival < Types::BaseObject
-    field :year, Integer, null: false
+    field :year, ID, null: false
     field :start_date, Types::Date, null: false
     field :end_date, Types::Date, null: false
     field :activities, [Types::Activity], null: false do

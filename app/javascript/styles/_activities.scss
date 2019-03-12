@@ -70,6 +70,7 @@
   }
 
   &__name {
+    position: relative;
     margin: 0;
     font-size: font-size(4);
     font-weight: font-weight(light);
@@ -77,6 +78,7 @@
   }
 
   &__presenters {
+    position: relative;
     margin: 0;
     color: change-opacity(white, primary);
     font-size: font-size(1);

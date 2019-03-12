@@ -8,6 +8,12 @@ import classNames from 'classnames'
 Link.propTypes.innerRef = PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object])
 
 class LinkWithCallbacks extends Component {
+  static propTypes = {
+    isActive: PropTypes.bool,
+    onActivate: PropTypes.func,
+    onDeactivate: PropTypes.func,
+  }
+
   componentDidUpdate(prevProps) {
     const { isActive, onActivate, onDeactivate } = this.props
 

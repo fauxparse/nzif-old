@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_050129) do
+ActiveRecord::Schema.define(version: 2019_03_08_015637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,19 @@ ActiveRecord::Schema.define(version: 2019_02_07_050129) do
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
+  create_table "pitches", force: :cascade do |t|
+    t.bigint "festival_id"
+    t.bigint "user_id"
+    t.string "state", default: "draft", null: false
+    t.text "data", default: "{}", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.index ["festival_id", "user_id", "state"], name: "index_pitches_on_festival_id_and_user_id_and_state"
+    t.index ["festival_id"], name: "index_pitches_on_festival_id"
+    t.index ["user_id"], name: "index_pitches_on_user_id"
+  end
+
   create_table "presenters", force: :cascade do |t|
     t.bigint "activity_id"
     t.bigint "user_id"
@@ -110,6 +123,8 @@ ActiveRecord::Schema.define(version: 2019_02_07_050129) do
 
   add_foreign_key "activities", "festivals", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
+  add_foreign_key "pitches", "festivals", on_delete: :cascade
+  add_foreign_key "pitches", "users", on_delete: :cascade
   add_foreign_key "presenters", "activities"
   add_foreign_key "presenters", "users"
   add_foreign_key "sessions", "activities", on_delete: :cascade

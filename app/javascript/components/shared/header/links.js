@@ -8,4 +8,6 @@ const HeaderLinks = forwardRef(({ className, children, ...props }, ref) => (
   </Menu.Content>
 ))
 
+HeaderLinks.displayName = 'HeaderLinks'
+
 export default HeaderLinks

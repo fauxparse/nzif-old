@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import PageTransition from './group'
 import none from './none'
@@ -37,6 +38,10 @@ const TransitionContainer = ({ className, children, ...props }) => (
 )
 
 class RootPageTransition extends React.Component {
+  static propTypes = {
+    pageKey: PropTypes.string,
+  }
+
   state = { pageKey: '', transition: none }
 
   static getDerivedStateFromProps({ pageKey }, state) {
