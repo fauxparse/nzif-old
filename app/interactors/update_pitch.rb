@@ -3,9 +3,7 @@ class UpdatePitch < Interaction
     access_denied! unless can? :update, pitch
 
     pitch.user = update_user_details(owner)
-    pitch.name = attributes[:name]
-    pitch.state = attributes[:state]
-    pitch.info = updated_info
+    pitch.attributes = attributes_for_update
     pitch.save!
     send_pitch_notification if pitch_just_submitted?
   end
@@ -41,6 +39,13 @@ class UpdatePitch < Interaction
       user.save if user.changed?
     end
     user
+  end
+
+  def attributes_for_update
+    {}.tap do |result|
+      %i[name state].each { |key| result[key] = attributes[key] if attributes.key?(key) }
+      result[:info] = updated_info
+    end
   end
 
   def updated_info
