@@ -17,6 +17,53 @@
   }
 }
 
+.homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 9rem);
+  padding: $padding;
+  text-align: center;
+
+  .logo {
+    display: block;
+    position: relative;
+    max-width: 30rem;
+    margin: ($spacing * 3) auto;
+    fill: currentColor;
+
+    &__nz,
+    &__subtitle {
+      opacity: 0.75;
+    }
+
+    &__dates {
+      opacity: 0.375;
+    }
+  }
+
+  &__purpose {
+    max-width: 30rem;
+    margin: 0 auto;
+    font-size: font-size(-1);
+    line-height: line-height(loose);
+
+    b {
+      text-transform: uppercase;
+    }
+  }
+
+  @include themify {
+    .logo {
+      color: themed(accent);
+    }
+
+    &__purpose {
+      color: themed(secondary);
+    }
+  }
+}
+
 .hero-section {
   padding: $padding;
   color: white;
