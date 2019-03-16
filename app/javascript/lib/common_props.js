@@ -56,7 +56,7 @@ export const activity = PropTypes.shape({
   url: PropTypes.string,
   levels: PropTypes.arrayOf(PropTypes.string),
   description: PropTypes.string,
-  presenters: PropTypes.arrayOf(user.isRequired).isRequired,
+  presenters: PropTypes.arrayOf(user.isRequired),
 })
 
 export const session = PropTypes.shape({
