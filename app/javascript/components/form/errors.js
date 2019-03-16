@@ -11,8 +11,12 @@ const Errors = ({ from, name }) => (
 )
 
 Errors.propTypes = {
-  from: PropTypes.object.isRequired,
+  from: PropTypes.object,
   name: PropTypes.string.isRequired,
+}
+
+Errors.defaultProps = {
+  from: {},
 }
 
 export default Errors
