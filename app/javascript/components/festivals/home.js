@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
-import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import PageContent from '../../components/page_content'
 import Background from '../../components/shared/background'
@@ -42,8 +41,6 @@ const Home = ({ match }) => {
                   <Date date={[festival.startDate, festival.endDate]} />
                 </h2>
               </Background>
-
-              <Link to={`${match.url}/pitches`}>Pitches</Link>
             </Fragment>
           )
         }

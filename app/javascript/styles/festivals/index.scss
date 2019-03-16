@@ -18,8 +18,7 @@
 }
 
 .hero-section {
-  @include constrained-width;
-
+  padding: $padding;
   color: white;
 
   h1 {
@@ -34,6 +33,10 @@
     margin: 0;
     font-size: font-size(3);
     font-weight: font-weight(normal);
+  }
+
+  @include media(medium) {
+    @include constrained-width($keyline, $padding);
   }
 }
 
