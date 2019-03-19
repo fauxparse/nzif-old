@@ -52,6 +52,10 @@ gem 'hashid-rails'
 # Service objects
 gem 'interactor-rails', github: 'fauxparse/interactor-rails', branch: 'rails6'
 
+# Authentication
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 # Authorization
 gem 'access-granted'
 
