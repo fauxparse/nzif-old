@@ -16,9 +16,16 @@ module OmniAuth
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :google_oauth2,
+    Rails.application.credentials.google[:key],
+    Rails.application.credentials.google[:secret],
+    name: :google
   provider :facebook,
     Rails.application.credentials.facebook[:key],
     Rails.application.credentials.facebook[:secret]
+  provider :twitter,
+    Rails.application.credentials.twitter[:key],
+    Rails.application.credentials.twitter[:secret]
   provider :developer unless Rails.env.production?
 end
 

@@ -1,5 +1,3 @@
 class Identity
-  class Facebook < Identity
-
-  end
+  class Facebook < Identity; end
 end

@@ -107,7 +107,9 @@ const LogInForm = ({ client, history, lastLocation, className }) => {
       </Field>
       <div className="login__buttons">
         <Button className="login__submit" primary type="submit" text="Log in" key="submit" />
+        <SocialLogin platform="google" returnTo={lastLocation} />
         <SocialLogin platform="facebook" returnTo={lastLocation} />
+        <SocialLogin platform="twitter" returnTo={lastLocation} />
       </div>
       <p>
         New here?{' '}

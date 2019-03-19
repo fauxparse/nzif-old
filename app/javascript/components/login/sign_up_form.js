@@ -9,6 +9,7 @@ import Form from './form'
 import TextLink from '../shared/text_link'
 import { slideRight } from '../page_transition'
 import { CURRENT_USER_QUERY } from '../../queries'
+import SocialLogin from './social_login'
 
 export const SIGN_UP_MUTATION = gql`
   mutation signUpMutation(
@@ -87,6 +88,7 @@ class SignUpForm extends React.Component {
   }
 
   render() {
+    const { lastLocation } = this.props
     const { loading, name, email, password, passwordConfirmation, errors } = this.state
 
     return (
@@ -147,14 +149,18 @@ class SignUpForm extends React.Component {
           />
           {this.errorMessageFor('passwordConfirmation')}
         </Field>
-        <Button
-          className="login__submit"
-          primary
-          type="submit"
-          text="Create
-          account"
-          key="submit"
-        />
+        <div className="login__buttons">
+          <Button
+            className="login__submit"
+            primary
+            type="submit"
+            text="Create account"
+            key="submit"
+          />
+          <SocialLogin platform="google" returnTo={lastLocation} />
+          <SocialLogin platform="facebook" returnTo={lastLocation} />
+          <SocialLogin platform="twitter" returnTo={lastLocation} />
+        </div>
         <p>
           Already signed up?{' '}
           <TextLink replace to={{ pathname: 'login', state: { transition: slideRight } }}>

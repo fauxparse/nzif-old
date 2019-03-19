@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   match '/auth/:provider/callback',
     to: 'oauth#callback',
-    via: %i[get post],
+    via: %i(get post),
     provider: %r{facebook|twitter|google}
 
   get '*path' => 'festivals#show', constraints: lambda { |req| req.path.exclude?('active_storage') }

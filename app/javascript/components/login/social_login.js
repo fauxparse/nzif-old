@@ -13,7 +13,7 @@ const SocialLogin = ({ platform, returnTo }) => (
 )
 
 SocialLogin.propTypes = {
-  platform: PropTypes.oneOf(['facebook']),
+  platform: PropTypes.oneOf(['google', 'facebook', 'twitter']),
   returnTo: PropTypes.oneOfType([ReactRouterPropTypes.location, PropTypes.string ]),
 }
 
