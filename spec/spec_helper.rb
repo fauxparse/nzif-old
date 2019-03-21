@@ -15,6 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'support/simplecov'
+require 'webmock/rspec'
 
 # Namespace for example classes created for testing only
 module Examples; end

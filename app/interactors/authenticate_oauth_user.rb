@@ -1,6 +1,8 @@
 class AuthenticateOauthUser < Interaction
   def call
-    context.user = identity.user
+    user = identity.user
+    attach_image_to(user)
+    context.user = user
   end
 
   private
@@ -26,5 +28,11 @@ class AuthenticateOauthUser < Interaction
     User.create!(name: name, email: email)
   rescue ActiveRecord::RecordInvalid
     User.find_by_email(email)
+  end
+
+  def attach_image_to(user)
+    if image.present? && !user.image.attached?
+      AttachImageFromUrl.call(subject: user, url: image)
+    end
   end
 end

@@ -95,6 +95,8 @@ group :development, :test do
   gem 'guard-rubocop', require: false
 
   gem 'parallel_tests'
+
+  gem 'webmock'
 end
 
 group :development do

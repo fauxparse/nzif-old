@@ -7,6 +7,8 @@ RSpec.describe AuthenticateOauthUser, type: :interactor do
     let(:name) { 'Test User' }
     let(:email) { 'test@example.com' }
     let(:uid) { '1234567890' }
+    let(:image_url) { 'http://example.com/avatar.jpg' }
+    let(:image_path) { File.expand_path('../support/files/avatar.jpg', __dir__) }
     let(:provider) { 'facebook' }
     let(:auth) do
       {
@@ -15,8 +17,13 @@ RSpec.describe AuthenticateOauthUser, type: :interactor do
         'info': {
           'email': email,
           'name': name,
+          'image': image_url,
         },
       }
+    end
+
+    before do
+      stub_request(:get, image_url).to_return(status: 200, body: File.new(image_path))
     end
 
     context 'for a new user' do
@@ -26,6 +33,10 @@ RSpec.describe AuthenticateOauthUser, type: :interactor do
 
       it 'creates a user' do
         expect { result }.to change(User, :count).by 1
+      end
+
+      it 'attaches the user’s image' do
+        expect(result.user.image).to be_attached
       end
 
       it 'creates an identity' do
