@@ -14,7 +14,7 @@ gem 'sass-rails', '~> 5.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0.0.rc3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', github: 'rails/jbuilder'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'foreman'
 
+gem 'haml', github: 'haml/haml'
 gem 'haml-rails', github: 'indirect/haml-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
