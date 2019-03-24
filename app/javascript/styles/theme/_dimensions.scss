@@ -36,6 +36,7 @@ $min-full-width: map-get($breakpoints, large) + $padding * 2;
 }
 
 @mixin constrained-width($extra-padding-left: 1rem, $extra-padding-right: $extra-padding-left) {
+  $min-full-width: map-get($breakpoints, large) + $extra-padding-left + $extra-padding-right;
   padding: $padding $extra-padding-right $padding $extra-padding-left;
 
   @include media($min-full-width) {

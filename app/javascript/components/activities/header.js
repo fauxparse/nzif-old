@@ -22,7 +22,7 @@ const ActivityHeader = ({ loading, activity }) => {
       useGetBoundingClientRect: true,
     })
     return () => sticky.current.cleanup()
-  }, [breadcrumbs])
+  }, [activity, breadcrumbs])
 
   const presenters = useMemo(() => {
     const { presenters = [] } = activity || {}
@@ -56,16 +56,17 @@ const ActivityHeader = ({ loading, activity }) => {
           />
         </Duotone>
       )}
-      <Breadcrumbs
-        ref={breadcrumbs}
-        className="activity-header__breadcrumbs"
-        back={`/${activity.festival.year}/${activity.type}s`}
-      >
-        <Breadcrumbs.Link to={`/${activity.festival.year}/${activity.type}s`}>
-          {pluralize(activity.type)}
-        </Breadcrumbs.Link>
-      </Breadcrumbs>
-      <EditButton activity={activity} />
+      <div className="activity-header__breadcrumbs">
+        <Breadcrumbs
+          ref={breadcrumbs}
+          back={`/${activity.festival.year}/${activity.type}s`}
+        >
+          <Breadcrumbs.Link to={`/${activity.festival.year}/${activity.type}s`}>
+            {pluralize(activity.type)}
+          </Breadcrumbs.Link>
+          <EditButton activity={activity} />
+        </Breadcrumbs>
+      </div>
       <Skeleton loading={loading} as="h1" className="activity-header__name">
         {activity.name}
       </Skeleton>

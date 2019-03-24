@@ -32,7 +32,7 @@
   position: relative;
   flex-direction: column;
   min-height: #{100vw / 16 * 9};
-  padding: $padding $padding $padding $keyline;
+  padding-top: 0;
   background: linear-gradient(to right bottom, color(mandarin, 500), color(tomato, 500));
   color: white;
   overflow: hidden;
@@ -42,14 +42,11 @@
   }
 
   @include media(medium) {
+    min-height: 25rem;
+
     .activity-header__name {
       font-size: font-size(8);
     }
-  }
-
-  &::before {
-    flex: 1;
-    content: "";
   }
 
   &__background {
@@ -91,9 +88,7 @@
   }
 
   &__edit {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    order: 1;
     padding: 0.5rem;
     border-radius: 50%;
 
@@ -102,18 +97,19 @@
     }
   }
 
-  .breadcrumbs {
-    position: absolute;
-    top: 0;
-    left: $keyline;
-    padding-top: 1rem;
+  &__breadcrumbs {
+    position: relative;
+    flex: 1;
 
-    &.js-is-stuck {
-      padding-top: 2rem;
+    .breadcrumbs {
+      position: relative;
+      width: calc(100vw - #{$keyline} - #{$padding});
+      max-width: map-get($breakpoints, large) - $keyline + $padding;
+      padding-top: $padding;
     }
 
-    &__link,
-    &__back {
+    .breadcrumbs__link,
+    .breadcrumbs__back {
       color: color(tomato, 100, primary);
     }
   }

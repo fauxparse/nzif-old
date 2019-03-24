@@ -5,7 +5,7 @@ const Duotone = ({ children }) => {
   const id = `duotone-${uuid()}`
 
   return <>
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
       <filter id={id}>
         <feColorMatrix
           type="matrix"

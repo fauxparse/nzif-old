@@ -11,7 +11,7 @@ import Presenters from './presenters'
 const ActivityDetails = ({ match }) => {
   const type = match.params.type.replace(/s$/, '')
   const { slug, year } = match.params
-  const dummy = { type, slug, name: slug, festival: { year }, associated: [] }
+  const dummy = { type, slug, name: slug.replace('-', ' '), festival: { year }, associated: [] }
 
   return (
     <PageContent>
