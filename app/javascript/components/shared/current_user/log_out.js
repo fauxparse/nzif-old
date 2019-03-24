@@ -27,8 +27,10 @@ const LogOutLink = ({ client, history }) => {
 
   const logOutClicked = () =>
     logOut()
-      .then(client.resetStore)
-      .then(() => history.push('/'))
+      .then(() => {
+        client.resetStore()
+        setTimeout(() => history.push('/'), 50)
+      })
 
   return (
     <Ripple className="menu__item" onClick={logOutClicked}>
