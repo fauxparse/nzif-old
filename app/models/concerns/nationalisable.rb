@@ -19,21 +19,13 @@ module Nationalisable
   def origin
     case country_code
     when nil then nil
-    when 'NZ' then origin_city || 'NZ'
+    when 'NZ' then city || 'NZ'
     when 'AU' then city || 'Aus'
     else country
     end
   end
 
-  def origin_city
-    case city&.downcase&.upcase_first
-    when nil then nil
-    when 'Wellington' then 'WLG'
-    when 'Auckland' then 'AKL'
-    when 'Chrischurch' then 'CHC'
-    when 'Nelson' then 'NEL'
-    when 'Dunedin' then 'DUN'
-    else city
-    end
+  def city
+    super&.downcase&.upcase_first
   end
 end
