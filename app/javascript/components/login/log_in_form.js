@@ -12,6 +12,7 @@ import Form from './form'
 import TextLink from '../shared/text_link'
 import { slideLeft } from '../page_transition'
 import { CURRENT_USER_QUERY } from '../../queries'
+import SocialLogin from './social_login'
 
 export const LOG_IN_MUTATION = gql`
   mutation logInMutation($email: String!, $password: String!) {
@@ -104,7 +105,12 @@ const LogInForm = ({ client, history, lastLocation, className }) => {
           onChange={fieldChanged}
         />
       </Field>
-      <Button className="login__submit" primary type="submit" text="Log in" key="submit" />
+      <div className="login__buttons">
+        <Button className="login__submit" primary type="submit" text="Log in" key="submit" />
+        <SocialLogin platform="google" returnTo={lastLocation} />
+        <SocialLogin platform="facebook" returnTo={lastLocation} />
+        <SocialLogin platform="twitter" returnTo={lastLocation} />
+      </div>
       <p>
         New here?{' '}
         <TextLink replace to={{ pathname: 'signup', state: { transition: slideLeft } }}>
@@ -119,7 +125,7 @@ const LogInForm = ({ client, history, lastLocation, className }) => {
 LogInForm.propTypes = {
   className: CommonProps.className,
   history: ReactRouterPropTypes.history.isRequired,
-  lastLocation: ReactRouterPropTypes.location,
+  lastLocation: PropTypes.oneOfType([ReactRouterPropTypes.location, PropTypes.string ]),
   client: PropTypes.shape({
     resetStore: PropTypes.func.isRequired,
   }).isRequired,

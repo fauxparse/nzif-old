@@ -43,7 +43,7 @@ class UpdatePitch < Interaction
 
   def attributes_for_update
     {}.tap do |result|
-      %i[name state].each { |key| result[key] = attributes[key] if attributes.key?(key) }
+      %i(name state).each { |key| result[key] = attributes[key] if attributes.key?(key) }
       result[:info] = updated_info
     end
   end

@@ -185,7 +185,16 @@
     }
   }
 
-  &__submit {
+  &__buttons {
+    display: flex;
     margin: 2rem 0;
+  }
+
+  &__submit {
+    margin-right: $spacing;
+  }
+
+  &__social {
+    border-color: transparent;
   }
 }

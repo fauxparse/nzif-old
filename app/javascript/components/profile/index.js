@@ -43,7 +43,7 @@ class ProfileSection extends Component {
 
     return (
       <section className={classNames('my-profile', className)}>
-        <Query query={EDIT_USER_QUERY}>
+        <Query query={EDIT_USER_QUERY} errorPolicy="all">
           {({ loading, data: { user } = {} }) =>
             loading ? (
               <Loader />

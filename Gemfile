@@ -52,6 +52,12 @@ gem 'hashid-rails'
 # Service objects
 gem 'interactor-rails', github: 'fauxparse/interactor-rails', branch: 'rails6'
 
+# Authentication
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
+
 # Authorization
 gem 'access-granted'
 
@@ -89,6 +95,8 @@ group :development, :test do
   gem 'guard-rubocop', require: false
 
   gem 'parallel_tests'
+
+  gem 'webmock'
 end
 
 group :development do
