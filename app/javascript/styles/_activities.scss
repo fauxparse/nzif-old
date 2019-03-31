@@ -27,51 +27,16 @@
 }
 
 .activity-header {
-  @include constrained-width($keyline, $padding);
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  min-height: #{100vw / 16 * 9};
-  padding-top: 0;
-  background: linear-gradient(to right bottom, color(mandarin, 500), color(tomato, 500));
-  color: white;
-  overflow: hidden;
-
-  @include media(small) {
-    min-height: map-get($breakpoints, small) * 9 / 16;
-  }
-
-  @include media(medium) {
-    min-height: 25rem;
-
-    .activity-header__name {
-      font-size: font-size(8);
-    }
-  }
-
-  &__background {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-
-    ~ * {
-      position: relative;
-      text-shadow: 0 0 0.5em color(tomato, 600);
-    }
-  }
-
   &__name {
     position: relative;
     margin: 0;
     font-size: font-size(4);
     font-weight: font-weight(light);
     line-height: line-height(tight);
+
+    @include media(medium) {
+      font-size: font-size(8);
+    }
   }
 
   &__presenters {
@@ -93,23 +58,6 @@
     border-radius: 50%;
 
     .icon {
-      color: color(tomato, 100, primary);
-    }
-  }
-
-  &__breadcrumbs {
-    position: relative;
-    flex: 1;
-
-    .breadcrumbs {
-      position: relative;
-      width: calc(100vw - #{$keyline} - #{$padding});
-      max-width: map-get($breakpoints, large) - $keyline + $padding;
-      padding-top: $padding;
-    }
-
-    .breadcrumbs__link,
-    .breadcrumbs__back {
       color: color(tomato, 100, primary);
     }
   }
