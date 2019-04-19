@@ -4,16 +4,16 @@
     color: themed(text);
   }
 
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: stretch;
-  min-height: 100vh;
+  // display: flex;
+  // position: relative;
+  // flex-direction: column;
+  // align-items: stretch;
+  // min-height: 100vh;
 
   .page {
     position: relative;
     flex: 1 0 auto;
-    overflow-x: hidden;
+    // overflow-x: hidden;
   }
 }
 

@@ -1,22 +1,24 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Query } from 'react-apollo'
+import { useQuery } from 'react-apollo-hooks'
 import PageContent from '../page_content'
-import Activity from './activity'
-import Skeleton from '../shared/skeleton_text'
-import Date from '../shared/date'
 import moment from '../../lib/moment'
 import ACTIVITIES_QUERY from '../../queries/activities_by_day'
+import ActivityDay from './day'
 
 const dummy = type =>
   new Array(8).fill(0).map((_, i) => ({
     date: moment().add(i, 'day'),
-    activities: new Array(3).fill(0).map((_, id) => ({
+    activities: new Array(6).fill(0).map((_, id) => ({
       id,
       type,
       name: 'Workshop or show name',
       description: 'Short description of the workshop or show (10–15 words max)',
-      presenters: []
+      presenters: [],
+      sessions: [{
+        startsAt: moment().add(i, 'day').startOf('day').add((id % 2) * 4 + 10, 'hours'),
+        endsAt: moment().add(i, 'day').startOf('day').add((id % 2) * 4 + 13, 'hours'),
+      }],
     }))
   }))
 
@@ -24,27 +26,38 @@ const Activities = ({ match }) => {
   const type = match.params.type.replace(/s$/, '')
   const { year } = match.params
 
+  const { loading, data } = useQuery(ACTIVITIES_QUERY, { variables: { year, type } })
+
+  const days = useMemo(() => {
+    if (loading) {
+      return dummy(type)
+    } else {
+      return data.festival.days.map(({ date, activities }) => {
+        const day = moment(date)
+        return {
+          date: day,
+          activities: activities.map((activity) => {
+            const sessions = activity.sessions.map((session) => {
+              const startsAt = moment(session.startsAt)
+              const endsAt = moment(session.endsAt)
+              if (startsAt.isSame(day, 'day')) {
+                return { ...session, startsAt, endsAt }
+              } else {
+                return null
+              }
+            }).filter(Boolean)
+            return { ...activity, sessions }
+          })
+        }
+      })
+    }
+  }, [loading, data, type])
+
   return (
     <PageContent className="section--activities">
-      <Query query={ACTIVITIES_QUERY} variables={{ year, type }}>
-        {({ loading, data }) =>
-          (loading ? dummy(type) : data.festival.days).map(
-            ({ date, activities }) =>
-              !activities.length ? null : (
-                <section key={date} className="activities__day">
-                  <Skeleton as="h2" className="activities__date" loading={loading}>
-                    <Date date={date} />
-                  </Skeleton>
-                  <div className="activities__list">
-                    {activities.map(activity => (
-                      <Activity key={activity.id} activity={activity} loading={loading} />
-                    ))}
-                  </div>
-                </section>
-              )
-          )
-        }
-      </Query>
+      {days.map(({ date, activities }) => activities.length > 0 &&
+        <ActivityDay key={date} date={moment(date)} activities={activities} loading={loading} />
+      )}
     </PageContent>
   )
 }

@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
-import stickybits from 'stickybits'
 import { Picture } from 'react-responsive-picture'
 import Breadcrumbs from './breadcrumbs'
-import Duotone from '../shared/duotone'
+import Duotone from './duotone'
+import { useSticky } from '../../lib/hooks'
 
 const PageHeader = ({
   loading,
@@ -18,16 +18,9 @@ const PageHeader = ({
   children,
   ...props
 }) => {
-  const sticky = useRef()
-  const stickySection = useRef()
-
-  useEffect(() => {
-    sticky.current && sticky.current.cleanup()
-    sticky.current = stickybits(stickySection.current, {
-      useFixed: true,
-      useGetBoundingClientRect: true,
-    })
-    return () => sticky.current.cleanup()
+  const sticky = useSticky({
+    useFixed: true,
+    useGetBoundingClientRect: true,
   }, [loading, breadcrumbs])
 
   const pictureSources = useMemo(() => background && [
@@ -57,7 +50,7 @@ const PageHeader = ({
       )}
       <div className="page-header__top">
         <div
-          ref={stickySection}
+          ref={sticky}
           className="page-header__sticky"
         >
           <Breadcrumbs className="page-header--breadcrumbs" back={back}>

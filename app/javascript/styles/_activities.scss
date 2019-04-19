@@ -1,12 +1,45 @@
 .section--activities {
-
-}
-
-.activities__day {
   padding: $padding;
 
   @include media(medium) {
-    @include constrained-width($keyline, $padding);
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.activities {
+  &__date {
+    margin: 0;
+    padding: ($padding / 2) 0;
+    background: color(white, $opacity: translucent);
+    font-size: font-size(3);
+    font-weight: font-weight(light);
+    line-height: line-height(tight);
+    z-index: 1;
+  }
+
+  &__day {
+    position: relative;
+    margin-bottom: $spacing;
+  }
+
+  &__time {
+    margin: 0 0 $spacing;
+    font: font-weight(black) font-size(2) font-family(branding);
+    text-transform: uppercase;
+  }
+
+  &__time-slot {
+    position: relative;
+    padding-top: 0;
+  }
+
+  @include media(medium) {
+    &__date,
+    &__time-slot {
+      @include constrained-width($keyline, $padding);
+      padding-bottom: $spacing / 2;
+    }
   }
 }
 

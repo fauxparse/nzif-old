@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-const SkeletonText = ({ as: Component, loading, className, children, ...props }) => (
+const SkeletonText = forwardRef(({
+  as: Component,
+  loading,
+  className,
+  children,
+  ...props
+}, ref) => (
   <Component
+    ref={ref}
     className={classNames('skeleton--text', className, { 'skeleton--loading': loading })}
     aria-busy={loading || undefined}
     aria-hidden={loading || undefined}
@@ -12,7 +19,9 @@ const SkeletonText = ({ as: Component, loading, className, children, ...props })
   >
     {children}
   </Component>
-)
+))
+
+SkeletonText.displayName = 'Skeleton'
 
 SkeletonText.propTypes = {
   loading: PropTypes.bool.isRequired,
