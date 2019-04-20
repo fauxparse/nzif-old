@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { withLastLocation } from 'react-router-last-location'
@@ -7,58 +7,50 @@ import SignUpForm from './sign_up_form'
 import LogInPage from './page'
 import PageTransition, { slideLeft } from '../page_transition'
 
-class LogIn extends React.Component {
-  state = { lastLocation: '/' }
+const LogIn = ({ history, lastLocation }) => {
+  const [returnTo, setReturnTo] = useState('/')
 
-  static getDerivedStateFromProps(props) {
-    const { lastLocation } = props
-
-    if (lastLocation) {
-      const pathname = lastLocation.pathname || lastLocation
-      if (!/^\/(login|signup)/.test(pathname)) {
-        return { lastLocation }
+  useEffect(
+    () => {
+      if (lastLocation) {
+        const pathname = lastLocation.pathname || lastLocation
+        if (!/^\/(login|signup)/.test(pathname)) {
+          setReturnTo(lastLocation)
+        }
       }
-    }
-    return {}
-  }
+    },
+    [lastLocation]
+  )
 
-  close = () => {
-    const { history } = this.props
-    const { lastLocation } = this.state
-    history.push(lastLocation)
-  }
+  const close = () => history.push(returnTo)
 
-  renderLogIn = () => <LogInForm lastLocation={this.state.lastLocation} />
-
-  renderSignUp = () => <SignUpForm lastLocation={this.state.lastLocation} />
-
-  render() {
-    return (
-      <LogInPage onClose={this.close}>
-        <Route render={({ location }) => {
+  return (
+    <LogInPage onClose={close}>
+      <Route
+        render={({ location }) => {
           const { state: { transition = {} } = {} } = location
 
           return (
             <PageTransition pageKey={location.key} {...slideLeft} {...transition}>
               <Switch location={location}>
-                <Route path="/login" render={this.renderLogIn} />
-                <Route path="/signup" render={this.renderSignUp} />
+                <Route path="/login" render={() => <LogInForm lastLocation={returnTo} />} />
+                <Route path="/signup" render={() => <SignUpForm lastLocation={returnTo} />} />
               </Switch>
             </PageTransition>
           )
-        }} />
-      </LogInPage>
-    )
-  }
+        }}
+      />
+    </LogInPage>
+  )
 }
 
 LogIn.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  lastLocation: ReactRouterPropTypes.location,
+  lastLocation: ReactRouterPropTypes.location
 }
 
 LogIn.defaultProps = {
-  lastLocation: null,
+  lastLocation: null
 }
 
 export default withLastLocation(withRouter(LogIn))

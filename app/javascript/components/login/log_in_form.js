@@ -67,6 +67,8 @@ const LogInForm = ({ client, history, lastLocation, className }) => {
   const submit = (e) => {
     e.preventDefault()
 
+    setState({ ...state, errors: [], loading: true })
+
     logIn({ variables: { email, password } })
       .then(() => client.resetStore())
       .then(() => history.push(lastLocation || '/'))
