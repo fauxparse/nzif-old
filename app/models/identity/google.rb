@@ -1,3 +1,3 @@
 class Identity
-  class Google < Identity; end
+  class Google < Oauth; end
 end

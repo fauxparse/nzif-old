@@ -10,7 +10,7 @@ module FontsHelper
             @font-face {
               font-family: '#{font}';
               src: url(#{font_url("#{font.underscore}.woff2")}) format('woff2'),
-                    url(#{font_url("#{font.underscore}.woff")}) format('woff');
+                   url(#{font_url("#{font.underscore}.woff")}) format('woff');
               font-weight: 700;
               font-style: normal;
             }

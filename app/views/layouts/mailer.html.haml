@@ -1,8 +1,24 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
-    :css
-      /* Email styles need to be inline */
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Work+Sans:400,600'
+    = stylesheet_link_tag 'email'
   %body
-    = yield
+    %table{width: '100%', border: 0, cellspacing: 0, cellpadding: 0}
+      = email_section class_name: 'section--header' do
+        %p
+          = inline_image 'email_header.png', width: 300, height: 64
+
+      = yield
+
+      = email_section class_name: 'section--footer' do
+        %p
+          You are receiving this email because you have registered
+          as a participant at the New Zealand Improv Festival.
+        %p
+          You can #{link_to('update your preferences', front_end_url('profile'))} on
+          #{link_to 'the NZIF website', root_url}.

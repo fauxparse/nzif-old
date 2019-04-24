@@ -1,0 +1,63 @@
+@import "./theme/index";
+@import "./typography";
+
+body {
+  margin: 0;
+  padding: 0;
+  background: white;
+  color: color(grey, 900);
+  font-family: "Work Sans", sans-serif;
+}
+
+p {
+  margin: 0 0 1em;
+  line-height: 1.75;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: color(tomato, 500);
+}
+
+.section {
+  width: 100%;
+  max-width: 30rem;
+
+  td {
+    padding: 1em;
+  }
+
+  &--highlight {
+    background: color(tomato, 500);
+    color: color(tomato, 100);
+
+    a {
+      color: white;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 0.5em 1em;
+      border: 1px solid currentColor;
+      border-radius: 0.25em;
+      text-decoration: none;
+    }
+  }
+
+  &--footer {
+    background: color(grey, 100);
+    color: color(grey, 700);
+    font-size: font-size(-1);
+
+    td {
+      padding-bottom: 4em;
+    }
+  }
+}

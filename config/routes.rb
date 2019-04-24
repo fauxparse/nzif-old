@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     via: %i(get post),
     provider: %r{facebook|twitter|google}
 
-  get '*path' => 'festivals#show', constraints: lambda { |req| req.path.exclude?('active_storage') }
+  get '*path' => 'festivals#show',
+    constraints: lambda { |req| req.path.exclude?('active_storage') },
+    as: :front_end
   root to: 'festivals#show'
 end

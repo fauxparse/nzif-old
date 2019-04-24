@@ -19,7 +19,7 @@ class AuthenticateOauthUser < Interaction
   end
 
   def identity
-    @identity ||= Identity.create_or_find_by!(type: identity_class.name, uid: uid) do |identity|
+    @identity ||= Identity.create_or_find_by(type: identity_class.name, uid: uid) do |identity|
       create_or_find_user.identities << identity
     end
   end

@@ -73,6 +73,9 @@ gem 'countries'
 gem 'hashie'
 gem 'to_bool'
 
+# Emails
+gem 'premailer-rails'
+
 gem 'jwt'
 
 gem 'acts_as_list'
@@ -110,12 +113,13 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
+  gem 'letter_opener'
   gem 'graphiql-rails'
-
   gem 'pry-rails', '~> 0.3.9'
 end
 
 group :test do
+  gem 'email_spec'
   gem 'shoulda-matchers', '4.0.0.rc1'
   gem 'simplecov', require: false
   gem 'stub_env', require: false

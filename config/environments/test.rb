@@ -47,4 +47,6 @@ Rails.application.configure do
 
   # Prevent expensive template finalization at end of test suite runs.
   # config.action_view.finalize_compiled_template_methods = false
+
+  Rails.application.default_url_options = { host: 'https://nzif.test' }
 end

@@ -1,3 +1,3 @@
 class Identity
-  class Twitter < Identity; end
+  class Twitter < Oauth; end
 end

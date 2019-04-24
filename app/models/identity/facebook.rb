@@ -1,3 +1,3 @@
 class Identity
-  class Facebook < Identity; end
+  class Facebook < Oauth; end
 end
