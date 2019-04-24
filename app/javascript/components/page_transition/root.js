@@ -8,7 +8,7 @@ import { push, pop } from './push'
 import popOver from './pop_over'
 
 const GROUPS = [
-  ['login', /^(login|signup)/],
+  ['login', /^(login|signup|password)/],
   ['admin', /^admin/],
   ['misc', /.*/],
 ]

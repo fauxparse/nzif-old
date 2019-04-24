@@ -4,6 +4,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import { withLastLocation } from 'react-router-last-location'
 import LogInForm from './log_in_form'
 import SignUpForm from './sign_up_form'
+import ForgotPasswordForm from './forgot_password_form'
 import LogInPage from './page'
 import PageTransition, { slideLeft } from '../page_transition'
 
@@ -14,7 +15,7 @@ const LogIn = ({ history, lastLocation }) => {
     () => {
       if (lastLocation) {
         const pathname = lastLocation.pathname || lastLocation
-        if (!/^\/(login|signup)/.test(pathname)) {
+        if (!/^\/(login|signup|password)/.test(pathname)) {
           setReturnTo(lastLocation)
         }
       }
@@ -35,6 +36,7 @@ const LogIn = ({ history, lastLocation }) => {
               <Switch location={location}>
                 <Route path="/login" render={() => <LogInForm lastLocation={returnTo} />} />
                 <Route path="/signup" render={() => <SignUpForm lastLocation={returnTo} />} />
+                <Route path="/password/forgot" render={() => <ForgotPasswordForm lastLocation={returnTo} />} />
               </Switch>
             </PageTransition>
           )

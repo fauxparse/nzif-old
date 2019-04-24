@@ -36,7 +36,7 @@ export default class Application extends React.Component {
                             component={Admin}
                           />
                           <Route path="/:year(\d{4})" component={Festival} />
-                          <Route path="/:login(login|signup)" component={LogIn} />
+                          <Route path="/:login(login|signup|password)" component={LogIn} />
                           <Route path="/" exact component={CurrentFestival} />
                         </Switch>
                       </PageTransition>

@@ -6,7 +6,7 @@ import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import CommonProps from '../../lib/common_props'
-import { Label, Input, Field } from '../form'
+import { Label, Input, Field, Hint } from '../form'
 import Button from '../button'
 import Form from './form'
 import TextLink from '../shared/text_link'
@@ -106,6 +106,11 @@ const LogInForm = ({ client, history, lastLocation, className }) => {
           autoComplete="current-password"
           onChange={fieldChanged}
         />
+        <Hint>
+          <TextLink to={{ pathname: 'password/forgot', state: { transition: slideLeft } }}>
+            Forgot your password?
+          </TextLink>
+        </Hint>
       </Field>
       <div className="login__buttons">
         <Button className="login__submit" primary type="submit" text="Log in" key="submit" />
