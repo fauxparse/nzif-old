@@ -17,4 +17,15 @@ class Festival < ApplicationRecord
   def days
     (start_date..end_date).map { |date| Day.new(festival: self, date: date) }
   end
+
+  def pitches_open?
+    pitches_open_at.present? &&
+      pitches_open_at <= Time.now &&
+      (pitches_close_at.blank? || pitches_close_at > Time.now)
+  end
+
+  def programme_launched?
+    programme_launched_at.present? &&
+      programme_launched_at < Time.now
+  end
 end

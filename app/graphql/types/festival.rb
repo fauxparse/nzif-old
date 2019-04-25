@@ -8,12 +8,22 @@ module Types
       argument :slug, String, 'Restrict activities by slug', required: false
     end
     field :days, [Types::Day], null: false
+    field :pitches_open, GraphQL::Types::Boolean, null: false
+    field :programme_launched, GraphQL::Types::Boolean, null: false
 
     def activities(type: nil, slug: nil)
       scope = object.activities.with_attached_image.order(:id)
       scope = scope.of_type(type) if type.present?
       scope = scope.where(slug: slug) if slug.present?
       scope
+    end
+
+    def pitches_open
+      object.pitches_open?
+    end
+
+    def programme_launched
+      object.programme_launched?
     end
   end
 end

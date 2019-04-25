@@ -16,4 +16,52 @@ RSpec.describe Festival, type: :model do
 
     it { is_expected.to eq '2018' }
   end
+
+  describe '#pitches_open?' do
+    subject { festival.pitches_open? }
+
+    it { is_expected.to be false }
+
+    context 'when pitches open in the future' do
+      before { festival.pitches_open_at = Time.now + 1.day }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when pitches have opened' do
+      before { festival.pitches_open_at = Time.now - 1.week }
+
+      it { is_expected.to be true }
+
+      context 'and not yet closed' do
+        before { festival.pitches_close_at = Time.now + 1.week }
+
+        it { is_expected.to be true }
+      end
+
+      context 'and closed' do
+        before { festival.pitches_close_at = Time.now - 1.day }
+
+        it { is_expected.to be false }
+      end
+    end
+  end
+
+  describe '#programme_launched?' do
+    subject { festival.programme_launched? }
+
+    it { is_expected.to be false }
+
+    context 'when the programme will launch tomorrow' do
+      before { festival.programme_launched_at = Time.now + 1.day }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the programme launched last week' do
+      before { festival.programme_launched_at = Time.now - 1.week }
+
+      it { is_expected.to be true }
+    end
+  end
 end
