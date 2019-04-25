@@ -5,6 +5,7 @@ import { withLastLocation } from 'react-router-last-location'
 import LogInForm from './log_in_form'
 import SignUpForm from './sign_up_form'
 import ForgotPasswordForm from './forgot_password_form'
+import ResetPasswordForm from './reset_password_form'
 import LogInPage from './page'
 import PageTransition, { slideLeft } from '../page_transition'
 
@@ -30,13 +31,21 @@ const LogIn = ({ history, lastLocation }) => {
       <Route
         render={({ location }) => {
           const { state: { transition = {} } = {} } = location
+          const pageKey = location.key || location.pathname
 
           return (
-            <PageTransition pageKey={location.key} {...slideLeft} {...transition}>
+            <PageTransition pageKey={pageKey} {...slideLeft} {...transition}>
               <Switch location={location}>
                 <Route path="/login" render={() => <LogInForm lastLocation={returnTo} />} />
                 <Route path="/signup" render={() => <SignUpForm lastLocation={returnTo} />} />
-                <Route path="/password/forgot" render={() => <ForgotPasswordForm lastLocation={returnTo} />} />
+                <Route
+                  path="/password/forgot"
+                  render={() => <ForgotPasswordForm lastLocation={returnTo} />}
+                />
+                <Route
+                  path="/password/reset/:token"
+                  render={() => <ResetPasswordForm lastLocation={returnTo} />}
+                />
               </Switch>
             </PageTransition>
           )

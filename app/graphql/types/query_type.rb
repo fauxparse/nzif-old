@@ -10,6 +10,7 @@ module Types
     include Queries::Sessions
     include Queries::User
     include Queries::Users
+    include Queries::ValidatePasswordReset
     include Queries::Venues
   end
 end

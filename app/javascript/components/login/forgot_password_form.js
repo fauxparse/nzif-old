@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { withApollo, compose } from 'react-apollo'
 import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
@@ -9,10 +8,6 @@ import CommonProps from '../../lib/common_props'
 import { Label, Input, Field } from '../form'
 import Button from '../button'
 import Form from './form'
-import TextLink from '../shared/text_link'
-import { slideLeft } from '../page_transition'
-import { CURRENT_USER_QUERY } from '../../queries'
-import SocialLogin from './social_login'
 
 export const FORGOT_PASSWORD_MUTATION = gql`
   mutation forgotPasswordMutation($email: String!) {
@@ -20,7 +15,7 @@ export const FORGOT_PASSWORD_MUTATION = gql`
   }
 `
 
-const ForgotPasswordForm = ({ client, history, lastLocation, className }) => {
+const ForgotPasswordForm = ({ className }) => {
   const [state, setState] = useState({
     email: '',
     loading: false,
@@ -116,9 +111,6 @@ ForgotPasswordForm.propTypes = {
   className: CommonProps.className,
   history: ReactRouterPropTypes.history.isRequired,
   lastLocation: PropTypes.oneOfType([ReactRouterPropTypes.location, PropTypes.string ]),
-  client: PropTypes.shape({
-    resetStore: PropTypes.func.isRequired,
-  }).isRequired,
 }
 
-export default compose(withApollo, withRouter)(ForgotPasswordForm)
+export default withRouter(ForgotPasswordForm)

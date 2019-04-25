@@ -11,29 +11,17 @@ import Button from '../button'
 import Form from './form'
 import TextLink from '../shared/text_link'
 import { slideLeft } from '../page_transition'
-import { CURRENT_USER_QUERY } from '../../queries'
+import CURRENT_USER_QUERY, { CURRENT_USER_FIELDS } from '../../queries/current_user'
 import SocialLogin from './social_login'
 
 export const LOG_IN_MUTATION = gql`
   mutation logInMutation($email: String!, $password: String!) {
     logIn(email: $email, password: $password) {
-      id
-      name
-      roles
-      email
-      city
-      country
-      notificationsCount
-
-      image {
-        name
-        thumbnail
-        small
-        medium
-        full
-      }
+      ...CurrentUserFields
     }
   }
+
+  ${CURRENT_USER_FIELDS}
 `
 
 const LogInForm = ({ client, history, lastLocation, className }) => {

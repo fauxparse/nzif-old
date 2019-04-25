@@ -63,5 +63,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.hosts << 'nzif.ngrok.io'
-  Rails.application.default_url_options = { host: 'https://nzif.ngrok.io' }
+  # Rails.application.default_url_options = { host: 'https://nzif.ngrok.io' }
+  Rails.application.default_url_options = { host: 'http://localhost:3000' }
 end
