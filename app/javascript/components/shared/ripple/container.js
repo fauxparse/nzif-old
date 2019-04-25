@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react'
+import React, { useRef, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import mojs from 'mo-js'
@@ -36,49 +36,31 @@ const transformCoordinates = element => {
 }
 
 const Ripple = forwardRef(
-  (
-    { as: Container, className, onMouseDown, onTouchStart, children, ...props },
-    ref
-  ) => {
+  ({ as: Container, className, onMouseDown, onTouchStart, children, ...props }, ref) => {
     const container = ref || useRef()
 
-    const [playing, setPlaying] = useState(false)
-
-    let mounted = false
-
-    useEffect(() => {
-      mounted = true
-      return () => {
-        mounted = false
-      }
-    })
-
     const ripple = (x, y) => {
-      if (!playing) {
-        const el = container.current
-        const size = Math.max(el.offsetWidth, el.offsetHeight)
-        const { x: left, y: top } = trueClientPosition({ x, y }, el)
-        const shape = new mojs.Shape({
-          parent: container.current,
-          shape: 'circle',
-          opacity: { 0.25: 0 },
-          left,
-          top,
-          fill: 'currentColor',
-          radius: size,
-          scale: { 0: 1 },
-          isShowEnd: false,
-          isForce3d: true,
-          duration: Math.max(500, 50 * Math.sqrt(size)),
-          easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
-          onComplete: () => {
-            shape.el.remove()
-            mounted && setPlaying(false)
-          }
-        })
-        shape.play()
-        mounted && setPlaying(true)
-      }
+      const el = container.current
+      const size = Math.max(el.offsetWidth, el.offsetHeight)
+      const { x: left, y: top } = trueClientPosition({ x, y }, el)
+      const shape = new mojs.Shape({
+        parent: container.current,
+        shape: 'circle',
+        opacity: { 0.25: 0 },
+        left,
+        top,
+        fill: 'currentColor',
+        radius: size,
+        scale: { 0: 1 },
+        isShowEnd: false,
+        isForce3d: true,
+        duration: Math.max(500, 50 * Math.sqrt(size)),
+        easing: mojs.easing.bezier(0.4, 0.0, 0.2, 1),
+        onComplete: () => {
+          shape.el.remove()
+        }
+      })
+      shape.play()
     }
 
     const mouseDown = e => {
