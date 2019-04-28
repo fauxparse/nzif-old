@@ -84,5 +84,38 @@
   }
 }
 
+.homepage__pitches {
+  max-width: breakpoint(medium);
+  margin: 0 auto $spacing;
+  padding: $padding;
+  border-radius: $border-radius;
+
+  .section-title {
+    margin-top: 0;
+  }
+
+  :last-child {
+    margin-bottom: 0;
+  }
+
+  .button {
+    width: 12rem;
+    margin: $spacing auto 0;
+  }
+
+  @include themify {
+    background: themed(panel);
+  }
+
+  @include media(medium) {
+    .countdown {
+      &__digits,
+      &__separator {
+        font-size: font-size(6);
+      }
+    }
+  }
+}
+
 .page-content {
 }

@@ -28,7 +28,9 @@ $themes: (
     step-active-background: color(tomato, 500),
     step-active-foreground: white,
     step-completed-background: color(tomato, 500),
-    step-completed-foreground: white
+    step-completed-foreground: white,
+    digit-background: color(grey, 800),
+    digit-foreground: color(grey, 100)
   ),
   dark: (
     background: color(grey, 800),
@@ -59,7 +61,9 @@ $themes: (
     step-active-background: color(tomato, 500),
     step-active-foreground: white,
     step-completed-background: color(tomato, 500),
-    step-completed-foreground: white
+    step-completed-foreground: white,
+    digit-background: color(grey, 900),
+    digit-foreground: color(grey, 100)
   )
 );
 

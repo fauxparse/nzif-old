@@ -6,6 +6,7 @@ export const HOMEPAGE_FRAGMENT = gql`
     startDate
     endDate
     pitchesOpen
+    pitchesCloseAt
     programmeLaunched
   }
 `

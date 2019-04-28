@@ -1,0 +1,122 @@
+.digit {
+  position: relative;
+  width: 1em;
+  height: 1.5em;
+  transform-style: preserve-3d;
+  font-family: font-family(brand);
+  font-weight: font-weight(black);
+  text-align: center;
+  perspective-origin: 50% 50%;
+  perspective: 300px;
+
+  &__top,
+  &__bottom {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform-origin: 50% 50%;
+    transition: transition(transform, $duration: 500ms);
+    border-radius: 0.25rem;
+    backface-visibility: hidden;
+
+    @include themify {
+      background: themed(digit-background);
+      color: themed(digit-foreground);
+    }
+  }
+
+  &__top {
+    clip: rect(0, auto, calc(0.75em), auto);
+  }
+
+  &__bottom {
+    clip: rect(calc(0.75em), auto, auto, auto);
+    user-select: none;
+  }
+
+  &__number {
+    &--exit {
+      .digit__top {
+        transform: rotateX(0deg);
+      }
+
+      &-active {
+        .digit__top {
+          transform: rotateX(-180deg);
+        }
+
+        .digit__bottom {
+          z-index: -1;
+        }
+      }
+    }
+
+    &--enter {
+      .digit__bottom {
+        transform: rotateX(180deg);
+      }
+
+      &-active {
+        z-index: 1;
+
+        .digit__bottom {
+          transform: rotateX(0);
+        }
+
+        .digit__top {
+          z-index: -1;
+        }
+      }
+    }
+  }
+}
+
+.digits {
+  display: flex;
+
+  .digit {
+    margin: 0 0.125rem;
+    transform-style: unset;
+    perspective-origin: unset;
+    perspective: unset;
+  }
+}
+
+.countdown {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transform-style: preserve-3d;
+  perspective-origin: 50% 50%;
+  perspective: 500px;
+
+  &:group {
+  }
+
+  &__digits,
+  &__separator {
+    font-family: font-family(brand);
+    font-size: font-size(4);
+    font-weight: font-weight(black);
+  }
+
+  &__separator {
+    min-width: 0.5em;
+    transform: translate3d(0, 0, 0);
+    text-align: center;
+  }
+
+  &__label {
+    margin: 0.125rem 0;
+    transform: translate3d(0, 0, 0);
+    font-size: font-size(-2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+}

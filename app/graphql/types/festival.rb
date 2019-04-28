@@ -9,6 +9,7 @@ module Types
     end
     field :days, [Types::Day], null: false
     field :pitches_open, GraphQL::Types::Boolean, null: false
+    field :pitches_close_at, Types::Time, null: true
     field :programme_launched, GraphQL::Types::Boolean, null: false
 
     def activities(type: nil, slug: nil)
@@ -20,6 +21,10 @@ module Types
 
     def pitches_open
       object.pitches_open?
+    end
+
+    def pitches_close_at
+      object.pitches_open_at && object.pitches_close_at
     end
 
     def programme_launched
