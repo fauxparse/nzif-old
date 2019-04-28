@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
-import { HOMEPAGE_QUERY, HOMEPAGE_FRAGMENT } from './home'
+import { HOMEPAGE_QUERY, HOMEPAGE_FRAGMENT } from '../../queries/homepage'
 
 const CURRENT_FESTIVAL_QUERY = gql`
   {

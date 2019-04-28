@@ -1,37 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useQuery } from 'react-apollo-hooks'
-import gql from 'graphql-tag'
+import React, { useContext } from 'react'
 import PageContent from '../../components/page_content'
 import Loader from '../../components/shared/loader'
 import Logo from '../../components/shared/logo'
+import Context from './context'
 
-export const HOMEPAGE_FRAGMENT = gql`
-  fragment HomepageFragment on Festival {
-    year
-    startDate
-    endDate
-    pitchesOpen
-    programmeLaunched
-  }
-`
-
-export const HOMEPAGE_QUERY = gql`
-  query Festival($year: ID!) {
-    festival(year: $year) {
-      ...HomepageFragment
-    }
-  }
-  ${HOMEPAGE_FRAGMENT}
-`
-
-const Home = ({ match }) => {
-  const { year } = match.params
-  const { loading } = useQuery(HOMEPAGE_QUERY, { variables: { year } })
+const Home = () => {
+  const festival = useContext(Context)
 
   return (
     <PageContent className="homepage page-content--no-padding">
-      {loading ? (
+      {!festival ? (
         <Loader />
       ) : (
         <>
@@ -54,10 +32,6 @@ const Home = ({ match }) => {
       )}
     </PageContent>
   )
-}
-
-Home.propTypes = {
-  match: PropTypes.object.isRequired
 }
 
 export default Home
