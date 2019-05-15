@@ -4,6 +4,7 @@ import Presenter from './presenter'
 import Button from '../button'
 import Link from '../shared/text_link'
 import Date from '../shared/date'
+import Icon from '../icons';
 import { Checkbox, Errors, Field, Hint, Textarea, WordCount } from '../form'
 
 const Presenters = ({ pitch, errors, onChange }) => {
@@ -40,6 +41,17 @@ const Presenters = ({ pitch, errors, onChange }) => {
         <p>
           If you already have an account, you can{' '}
           <Link to="/login">log in</Link>.
+        </p>
+      )}
+      {errors && errors.user && (
+        <p className="pitch__error">
+          <Icon name="error" />
+          <span>
+            Sorry, doesn’t look like that password was correct.{' '}
+            <Link to="/password/forgot">
+              Did you forget your password?
+            </Link>
+          </span>
         </p>
       )}
       <div className="pitch__presenters">

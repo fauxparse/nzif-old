@@ -16,6 +16,7 @@ export default [
   'development',
   'edit',
   'email',
+  'error',
   'facebook',
   'google',
   'home',

@@ -56,6 +56,25 @@
     }
   }
 
+  &__error {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: $spacing;
+    padding: $padding;
+
+    @include themify {
+      background: themed(panel);
+
+      .icon {
+        color: themed(error);
+      }
+    }
+
+    .icon {
+      margin-right: $spacing;
+    }
+  }
+
   &__step-contents {
     position: relative;
   }
