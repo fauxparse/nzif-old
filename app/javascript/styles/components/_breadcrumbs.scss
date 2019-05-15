@@ -10,7 +10,12 @@
 
   &__link {
     @include themify {
+      background: none;
       color: themed(secondary);
+
+      &:focus {
+        background: linear-gradient(transparent 87.5%, themed(hover) 87.5%);
+      }
     }
 
     letter-spacing: 0.1em;
@@ -20,11 +25,17 @@
   &__back {
     @include themify {
       color: themed(secondary);
+
+      &:focus {
+        outline: none;
+        background: themed(hover);
+      }
     }
 
-    flex: 0 0 3.5rem;
-    margin: 0 0.5rem 0 -4rem;
+    flex: 0 0 2.5rem;
+    margin: 0 1.5rem 0 -4rem;
     padding: 0.5rem;
+    border-radius: 50%;
     font-size: font-size(0);
 
     .icon {
