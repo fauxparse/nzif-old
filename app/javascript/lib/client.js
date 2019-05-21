@@ -51,7 +51,7 @@ const httpLink = createHttpLink({
   },
 })
 
-const cable = ActionCable.createConsumer('ws://localhost:3000/subscriptions')
+const cable = ActionCable.createConsumer(`ws://${window.location.host}/subscriptions`)
 const actionCableLink =  new ActionCableLink({ cable })
 
 const stripTypenameLink = new ApolloLink((operation, forward) => {
