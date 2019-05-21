@@ -25,7 +25,9 @@
 
   &__time {
     margin: 0 0 $spacing;
-    font: font-weight(black) font-size(2) font-family(branding);
+    font-family: font-family(branding);
+    font-size: font-size(2);
+    font-weight: font-weight(black);
     text-transform: uppercase;
   }
 
