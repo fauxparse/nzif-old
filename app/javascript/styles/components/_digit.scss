@@ -3,7 +3,7 @@
   width: 1em;
   height: 1.5em;
   transform-style: preserve-3d;
-  font-family: font-family(brand);
+  font-family: font-family(brand), $system-font-stack;
   font-weight: font-weight(black);
   text-align: center;
   perspective-origin: 50% 50%;
@@ -97,7 +97,7 @@
 
   &__digits,
   &__separator {
-    font-family: font-family(brand);
+    font-family: font-family(brand), $system-font-stack;
     font-size: font-size(4);
     font-weight: font-weight(black);
   }

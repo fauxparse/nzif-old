@@ -111,7 +111,7 @@ $header-theme: map-merge(map-get($themes, dark), (
 
     span {
       flex: 1;
-      font-family: font-family(branding);
+      font-family: font-family(branding), $system-font-stack;
       font-size: font-size(3);
       font-weight: font-weight(black);
       text-overflow: ellipsis;

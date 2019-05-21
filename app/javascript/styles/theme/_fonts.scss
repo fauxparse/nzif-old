@@ -42,7 +42,7 @@ $line-heights: (
 );
 
 @function font-family($family: normal) {
-  @return unquote("#{map-get($font-families, $family)}, #{$system-font-stack}");
+  @return map-get($font-families, $family);
 }
 
 @function font-size($scale: 0) {
