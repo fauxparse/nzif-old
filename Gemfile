@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0.beta3'
+gem 'rails', '~> 6.0.0.rc1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -38,7 +38,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'scavenger', github: 'fauxparse/scavenger', branch: 'ignore_meta_files'
 
 # GraphQL
-gem 'goldiloader'
+gem 'goldiloader', '>= 3.1.1'
 gem 'graphql'
 gem 'graphql-batch'
 
@@ -91,6 +91,7 @@ group :development, :test do
 
   gem 'rubocop', '~> 0.62'
   gem 'rubocop-airbnb', github: 'mcamara/ruby'
+  gem 'rubocop-rspec'
 
   gem 'growl', require: false
   gem 'guard', require: false

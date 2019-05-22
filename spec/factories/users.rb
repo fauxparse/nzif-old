@@ -11,7 +11,7 @@ FactoryBot.define do
     end
 
     factory :admin do
-      roles %w(admin)
+      roles { %w(admin) }
     end
   end
 end
