@@ -16,7 +16,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'has the correct recipient' do
-      expect(email).to deliver_to(%Q{"#{user.name}" <#{user.email}>})
+      expect(email).to deliver_to(%Q("#{user.name}" <#{user.email}>))
     end
   end
 end

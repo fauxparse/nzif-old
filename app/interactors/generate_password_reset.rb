@@ -23,7 +23,7 @@ class GeneratePasswordReset < Interaction
   end
 
   def reset_token
-    reset_token ||= random_token
+    @reset_token ||= random_token
   end
 
   def random_token
