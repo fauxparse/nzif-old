@@ -76,6 +76,9 @@ gem 'to_bool'
 # Emails
 gem 'premailer-rails'
 
+# Static content
+gem 'paper_trail'
+
 gem 'jwt'
 
 gem 'acts_as_list'
@@ -121,7 +124,7 @@ end
 
 group :test do
   gem 'email_spec'
-  gem 'shoulda-matchers', '4.0.0.rc1'
+  gem 'shoulda-matchers', '4.0.1'
   gem 'simplecov', require: false
   gem 'stub_env', require: false
   gem 'timecop', require: false
