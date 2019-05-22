@@ -7,10 +7,12 @@ RSpec.describe GeneratePasswordReset, type: :interactor do
 
   let(:token) { '0123456789abcdef' }
   let(:identity) { user.identities.where(type: 'Identity::Password').last }
+  let(:email) { double('email', deliver_later: true) }
 
   before do
     allow(SecureRandom).to receive(:hex).and_call_original
     allow(SecureRandom).to receive(:hex).with(32).and_return(token)
+    allow(UserMailer).to receive(:password_reset).and_return(email)
   end
 
   describe 'for a user with an existing password' do
@@ -24,7 +26,7 @@ RSpec.describe GeneratePasswordReset, type: :interactor do
     end
 
     it 'sends a reset email' do
-      expect(UserMailer).to receive(:password_reset).and_call_original
+      expect(UserMailer).to receive(:password_reset)
       result
     end
   end
