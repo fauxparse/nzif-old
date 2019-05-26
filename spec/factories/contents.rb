@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :content do
-    slug 'lipsum'
-    raw 'Lorem ipsum dolor sit amet'
+    title { 'Lorem ipsum' }
+    raw { 'Lorem ipsum dolor sit amet' }
   end
 end

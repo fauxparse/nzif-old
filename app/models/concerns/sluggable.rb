@@ -6,14 +6,14 @@ module Sluggable
       Enumerator.new { |enum| loop { enum.yield rand(10_000..99_999) } }
     end
 
-    def sluggable(options = {})
-      acts_as_url :name, sluggable_options
-      auto_strip_attributes :name
-      validates :name, :slug, presence: true
+    def sluggable(name = :name, **options)
+      acts_as_url name, sluggable_options
+      auto_strip_attributes name
+      validates name, :slug, presence: true
       after_validation :ensure_unique_url, if: :slug?
       alias_method :to_param, :slug
 
-      acts_as_url :name, sluggable_options.merge(options)
+      acts_as_url name, sluggable_options.merge(options)
     end
 
     def sluggable_options

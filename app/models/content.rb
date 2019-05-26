@@ -1,9 +1,6 @@
 class Content < ApplicationRecord
-  has_paper_trail
+  include Sluggable
 
-  validates :slug, presence: true, uniqueness: true
-
-  def to_param
-    slug
-  end
+  has_paper_trail if: Proc.new { |t| t.saved_changes? }
+  sluggable :title
 end
