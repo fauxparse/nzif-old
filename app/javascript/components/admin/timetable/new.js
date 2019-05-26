@@ -118,6 +118,7 @@ class NewSession extends React.Component {
       this._newActivities = activityTypes.map(type => ({
         label: name,
         value: { type, name },
+        id: `__${type}`,
       }))
     }
 

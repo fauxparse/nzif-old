@@ -5,6 +5,7 @@ export default gql`
     createActivity(year: $year, type: $type, attributes: $attributes) {
       id
       name
+      url
       type
     }
   }
