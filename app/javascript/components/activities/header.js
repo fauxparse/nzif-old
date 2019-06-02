@@ -33,7 +33,7 @@ const ActivityHeader = ({ loading, activity }) => {
         </Breadcrumbs.Link>
       )}
     >
-        <Skeleton loading={loading} as="h1" className="activity-header__name">
+        <Skeleton loading={loading} as="h1" className="page-header__title activity-header__name">
           {activity.name}
         </Skeleton>
         <Skeleton

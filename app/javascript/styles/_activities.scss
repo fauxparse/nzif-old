@@ -62,18 +62,6 @@
 }
 
 .activity-header {
-  &__name {
-    position: relative;
-    margin: 0;
-    font-size: font-size(4);
-    font-weight: font-weight(light);
-    line-height: line-height(tight);
-
-    @include media(medium) {
-      font-size: font-size(8);
-    }
-  }
-
   &__presenters {
     position: relative;
     margin: 0;

@@ -69,7 +69,7 @@ const PageHeader = ({
 }
 
 PageHeader.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   title: PropTypes.string.isRequired,
   back: PropTypes.oneOfType([
     ReactRouterPropTypes.location,
@@ -89,6 +89,7 @@ PageHeader.defaultProps = {
   breadcrumbs: null,
   controls: null,
   background: null,
+  loading: false,
 }
 
 export default PageHeader

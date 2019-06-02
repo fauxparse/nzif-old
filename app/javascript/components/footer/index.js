@@ -8,6 +8,7 @@ const Footer = ({ match, children }) => (
       <Link to={`${match.url}/workshops`} icon="workshop">Workshops</Link>
       <Link to={`${match.url}/shows`} icon="show">Shows</Link>
       <Link to={`${match.url}/map`} icon="venue">Map</Link>
+      <Link to={`${match.url}/code-of-conduct`} icon="code-of-conduct">Code of Conduct</Link>
     </div>
 
     {children}

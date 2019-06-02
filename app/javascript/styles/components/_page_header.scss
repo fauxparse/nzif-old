@@ -1,10 +1,9 @@
 .page-header {
-  @include constrained-width($keyline, $padding);
   display: flex;
   position: relative;
   flex-direction: column;
   min-height: #{100vw / 16 * 9};
-  padding-top: 0;
+  padding: 0 $padding $padding;
   background: linear-gradient(to right bottom, color(mandarin, 500), color(tomato, 500));
   color: white;
   overflow: hidden;
@@ -14,6 +13,7 @@
   }
 
   @include media(medium) {
+    @include constrained-width($keyline, $padding);
     min-height: 25rem;
   }
 
@@ -53,6 +53,18 @@
     .breadcrumbs__link,
     .breadcrumbs__back {
       color: color(tomato, 100, primary);
+    }
+  }
+
+  &__title {
+    position: relative;
+    margin: 0;
+    font-size: font-size(4);
+    font-weight: font-weight(light);
+    line-height: line-height(tight);
+
+    @include media(medium) {
+      font-size: font-size(8);
     }
   }
 }

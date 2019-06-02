@@ -1,0 +1,126 @@
+.static-content {
+  font-size: font-size(-1);
+  line-height: line-height(relaxed);
+
+  @include media(medium) {
+    font-size: font-size(0);
+  }
+
+  &__header {
+    min-height: #{100vw / 4};
+
+    @include media(small) {
+      min-height: map-get($breakpoints, small) / 4;
+    }
+
+    @include media(medium) {
+      min-height: 12rem;
+    }
+  }
+
+  &__container {
+    padding: 0 $padding $padding;
+
+    @include media(medium) {
+      @include constrained-width($keyline, $padding);
+    }
+  }
+
+  h2 {
+    margin: ($spacing * 2) 0 $spacing;
+    padding: 0 0 $padding;
+    font-size: font-size(4);
+    font-weight: font-weight(light);
+    line-height: line-height(tight);
+
+    @include themify {
+      border-bottom: 1px solid themed(border);
+    }
+  }
+
+  h3 {
+    margin: ($spacing * 2) 0 $spacing;
+    font-size: font-size(3);
+    font-weight: font-weight(normal);
+  }
+
+  > blockquote {
+    margin: 0 0 $spacing;
+    padding: $padding;
+
+    :last-child {
+      margin-bottom: 0;
+    }
+
+    blockquote {
+      margin: 0 0 0 $spacing;
+      padding: 0;
+    }
+
+    @include themify {
+      border-width: 0 0 0 0.25rem;
+      border-style: solid;
+      background: themed(panel);
+      border-image: linear-gradient(to bottom, color(mandarin), color(tomato)) 1 100%;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0 0 $spacing;
+      padding-left: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 24 24' preserveAspectRatio='xMidYMid meet'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23ef4134' /%3E%3Cpath d='M17 9l-6 6l-3-3' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 0 0.125em;
+      background-size: 1.5rem 1.5rem;
+    }
+  }
+
+  > ol {
+    margin: 0 0 $spacing;
+    padding: 0;
+    list-style: none;
+    counter-reset: ordered-list;
+
+    li {
+      position: relative;
+      margin: 0 0 $spacing;
+      padding: 0 0 0 2.5rem;
+      counter-increment: ordered-list;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: line-height(relaxed) * 1em;
+        border-radius: line-height(relaxed) * 0.5em;
+        background: color(tomato);
+        color: color(tomato, 100);
+        font-weight: font-weight(bold);
+        text-align: center;
+        content: counter(ordered-list);
+      }
+    }
+
+    ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: ordered-sublist;
+
+      li {
+        counter-increment: ordered-sublist;
+
+        &::before {
+          background: color(tomato, 100);
+          color: color(tomato);
+          content: counter(ordered-sublist, lower-alpha);
+        }
+      }
+    }
+  }
+}

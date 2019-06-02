@@ -10,6 +10,7 @@ import ActivityDetails from '../activities/activity_details'
 import Profile from '../profile'
 import Map from '../map'
 import Pitches from '../pitches'
+import StaticContent from '../static_content'
 import NotFound from '../not_found'
 import Home from './home'
 import Context from './context'
@@ -45,6 +46,7 @@ const Festival = ({ match }) => {
                   <Route path={`${match.path}/pitches`} component={Pitches} />
                   <Route path={`${match.path}/map`} exact component={Map} />
                   <Route path={`${match.path}/`} exact component={Home} />
+                  <Route path={`${match.path}/:slug`} exact component={StaticContent} />
                   <Route component={NotFound} />
                 </Switch>
               </PageTransition>

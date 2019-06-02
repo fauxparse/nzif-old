@@ -21,7 +21,7 @@ class CurrentFestival extends React.Component {
   }
 
   redirect = ({ data: { festival } }) => {
-    const { client, history } = this.props
+    const { client, history, location } = this.props
     const { year } = festival
 
     client.writeQuery({
@@ -29,7 +29,7 @@ class CurrentFestival extends React.Component {
       data: { festival },
       variables: { year },
     })
-    history.replace(`/${year}`)
+    history.replace(`/${year}${location.pathname}`.replace(/\/$/, ''))
   }
 
   render() {
