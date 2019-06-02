@@ -138,7 +138,8 @@ const Presenters = ({ pitch, errors, onChange }) => {
       <h2 className="section-title pitch-section__title">Code of conduct</h2>
       <Field className="pitch__field">
         <p>
-          We ask all participants to adhere to the Festival’s Code of Conduct.
+          We ask all participants to adhere to the
+          Festival’s <Link external to="/code-of-conduct">Code of Conduct</Link>.
           Please take a moment now to familiarise yourself with the Code now,
           even if you’ve been to NZIF before.
         </p>
@@ -146,7 +147,10 @@ const Presenters = ({ pitch, errors, onChange }) => {
           checked={!!codeOfConduct}
           onChange={e => onChange('codeOfConduct', e.target.checked)}
         >
-          <div>I agree to abide by the NZIF Code of Conduct</div>
+          <div>
+            I agree to abide by
+            the <Link external to="/code-of-conduct">NZIF Code of Conduct</Link>
+          </div>
           <Errors from={errors} name="codeOfConduct" />
         </Checkbox>
       </Field>
