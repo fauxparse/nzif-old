@@ -1,0 +1,50 @@
+.content {
+  &__list {
+    @include constrained-width($keyline, $padding);
+  }
+
+  &__page {
+    @include constrained-width($keyline, $padding);
+
+    .editable-title {
+      border-bottom: 0;
+    }
+  }
+
+  &__slug {
+    .form__field-contents {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing;
+
+      .form__input {
+        flex: 1;
+        margin-bottom: 0;
+      }
+
+      .button {
+        margin-left: $spacing;
+      }
+    }
+  }
+
+  &__editor {
+    padding: $padding 0;
+  }
+
+  &__preview {
+    padding: $padding;
+  }
+
+  &__textarea {
+    @include themify {
+      border-radius: 0;
+      background: none;
+      font-family: monospace;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}

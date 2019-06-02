@@ -55,6 +55,8 @@ $loader-duration: 1400ms;
 
   svg {
     display: block;
+    width: 100%;
+    height: 100%;
     animation: loader-rotator $loader-duration linear infinite;
   }
 
@@ -68,5 +70,19 @@ $loader-duration: 1400ms;
     stroke-dashoffset: 0;
     animation: loader-dash $loader-duration ease-in-out infinite,
       loader-rainbow ($loader-duration * 5) ease-in-out infinite;
+  }
+
+  &.button__loader {
+    position: static;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0;
+
+    svg {
+      circle {
+        stroke: currentColor;
+        animation: loader-dash $loader-duration ease-in-out infinite;
+      }
+    }
   }
 }

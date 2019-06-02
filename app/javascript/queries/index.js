@@ -1,5 +1,6 @@
 export { default as ACTIVITY_QUERY } from './activity'
 export { default as ACTIVITIES_QUERY } from './activities'
+export { default as CONTENTS_QUERY } from './contents'
 export { default as CURRENT_USER_QUERY } from './current_user'
 export { default as EDIT_USER_QUERY } from './edit_user'
 export { default as PITCHES_QUERY } from './pitches'

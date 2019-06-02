@@ -2,6 +2,7 @@ module Types
   class MutationType < Types::BaseObject
     field :create_activity, mutation: Mutations::CreateActivity
     field :update_activity, mutation: Mutations::UpdateActivity
+    field :update_content, mutation: Mutations::UpdateContent
     field :create_session, mutation: Mutations::CreateSession
     field :update_session, mutation: Mutations::UpdateSession
     field :delete_session, mutation: Mutations::DeleteSession

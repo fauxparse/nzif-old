@@ -11,6 +11,7 @@ export default [
   'clock',
   'close',
   'code-of-conduct',
+  'content',
   'copy',
   'country',
   'development',

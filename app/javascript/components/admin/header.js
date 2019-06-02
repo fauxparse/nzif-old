@@ -7,6 +7,7 @@ const AdminHeader = ({ match }) => (
   <Header>
     <Menu.Item icon="show" text="Activities" to={`${match.url}/activities`} />
     <Menu.Item icon="user" text="People" to={`${match.url}/people`} />
+    <Menu.Item icon="content" text="Content" to={`${match.url}/content`} />
   </Header>
 )
 

@@ -10,9 +10,13 @@ module Queries
       end
 
       def content(slug:, timestamp: nil)
-        content = ::Content.find_by!(slug: slug)
-        content = content.paper_trail.version_at(timestamp) if timestamp.present?
-        content
+        if slug == 'new'
+          ::Content.new(slug: '')
+        else
+          content = ::Content.find_by!(slug: slug)
+          content = content.paper_trail.version_at(timestamp) if timestamp.present?
+          content
+        end
       end
     end
   end
