@@ -15,7 +15,7 @@ const ActivityDetails = ({ pitch, errors, onChange }) => {
         What are you pitching for NZIF? Choose from the following activities:
       </p>
       <div className="pitch__activity-types">
-        {ACTIVITY_TYPES.map(({ name, title, description }) => (
+        {ACTIVITY_TYPES.map(({ name, category, title, description }) => (
           <Checkbox
             key={name}
             name="type"
@@ -28,6 +28,7 @@ const ActivityDetails = ({ pitch, errors, onChange }) => {
             )}
             onChange={() => onChange('activityType', name)}
           >
+            <i>{category}</i>
             <b>{title}</b>
             <small>{description}</small>
           </Checkbox>

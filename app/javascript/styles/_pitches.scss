@@ -183,11 +183,25 @@
     border-color: transparent;
   }
 
-  &__activity-types {
-    @include media(medium) {
+  @include media(medium) {
+    &__activity-types {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(6em, 1fr));
+      align-items: stretch;
+      grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
       grid-column-gap: $spacing;
+    }
+
+    &__activity-type {
+      &,
+      .checkbox__label {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .checkbox__label,
+      b {
+        flex: 1;
+      }
     }
   }
 
@@ -197,9 +211,17 @@
     border: 1px solid transparent;
     border-radius: $border-radius;
 
+    i,
     b,
     small {
       display: block;
+    }
+
+    i {
+      font-size: font-size(-2);
+      font-style: normal;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     b {
@@ -210,12 +232,17 @@
       font-size: font-size(-1);
     }
 
+    .checkbox__icon {
+      margin-top: 0.875rem;
+    }
+
     @include themify {
       &.checkbox--checked {
         border-color: themed(border);
         background: themed(panel);
       }
 
+      i,
       small {
         color: themed(secondary);
       }
@@ -232,6 +259,21 @@
       .checkbox__icon {
         align-self: center;
         margin: 0 0 ($spacing / 2);
+      }
+    }
+  }
+
+  &__slot {
+    b,
+    small {
+      display: block;
+      font-size: font-size(0);
+      font-weight: font-weight(normal);
+    }
+
+    @include themify {
+      small {
+        color: themed(secondary);
       }
     }
   }

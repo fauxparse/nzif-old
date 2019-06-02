@@ -2,6 +2,7 @@ class Festival < ApplicationRecord
   has_many :activities, dependent: :destroy
   has_many :sessions, through: :activities
   has_many :pitches, dependent: :destroy
+  has_many :slots, dependent: :destroy
 
   validates :start_date, :end_date, presence: true
   validates :end_date, date: { on_or_after: :start_date }, if: %i(start_date end_date)

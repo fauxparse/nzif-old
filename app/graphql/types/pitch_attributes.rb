@@ -17,10 +17,13 @@ module Types
     argument :activity_levels, [Types::WorkshopLevel], required: false
     argument :participant_count, Integer, required: false
     argument :taught_before, String, required: false
+    argument :teens, Boolean, required: false
     argument :other_info, String, required: false
     argument :show_description, String, required: false
     argument :cast_size, Integer, required: false
     argument :performed_before, String, required: false
+    argument :casting, String, required: false
     argument :experience, String, required: false
+    argument :slots, [Types::Time], required: false
   end
 end

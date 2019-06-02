@@ -8,6 +8,7 @@ module Types
       argument :slug, String, 'Restrict activities by slug', required: false
     end
     field :days, [Types::Day], null: false
+    field :slots, [Types::Slot], null: false
     field :pitches_open, GraphQL::Types::Boolean, null: false
     field :pitches_close_at, Types::Time, null: true
     field :programme_launched, GraphQL::Types::Boolean, null: false

@@ -17,6 +17,11 @@ const PITCH_FRAGMENT = gql`
       year
       startDate
       endDate
+      slots {
+        startsAt
+        endsAt
+        activityType
+      }
     }
     state
     name
@@ -32,6 +37,7 @@ const PITCH_FRAGMENT = gql`
     presentedBefore
     availability
     codeOfConduct
+    activityType
     workshopDescription
     workshopRequirements
     participantCount
@@ -41,6 +47,7 @@ const PITCH_FRAGMENT = gql`
     castSize
     performedBefore
     experience
+    slots
   }
 `
 
@@ -86,23 +93,14 @@ const EditPitch = ({ match, history, className }) => {
             data: { pitch: updatePitch },
             variables: { year, id },
           })
-          if (!match.params.id) {
-            proxy.writeQuery({
-              query: PITCHES_QUERY,
-              data: {
-                pitches: [
-                  updatePitch,
-                  ...proxy.readQuery({ query: PITCHES_QUERY, variables: { year } }).pitches
-                ],
-              },
-              variables: { year },
-            })
-
-            if (!newLocation.pathname.match(/pitches$/)) {
-              newLocation.pathname = newLocation.pathname.replace(/[^/]+$/, id)
-            }
+          if (!match.params.id && !newLocation.pathname.match(/pitches$/)) {
+            newLocation.pathname = newLocation.pathname.replace(/[^/]+$/, id)
           }
         },
+        refetchQueries: [{
+          query: PITCHES_QUERY,
+          variables: { year },
+        }],
         errorPolicy: 'all',
       }),
       new Promise(resolve => setTimeout(resolve, 1000)),

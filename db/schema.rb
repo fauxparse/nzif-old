@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_26_005738) do
+ActiveRecord::Schema.define(version: 2019_06_02_212356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,15 @@ ActiveRecord::Schema.define(version: 2019_05_26_005738) do
     t.index ["venue_id"], name: "index_sessions_on_venue_id"
   end
 
+  create_table "slots", force: :cascade do |t|
+    t.bigint "festival_id", null: false
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.string "activity_type"
+    t.index ["festival_id", "activity_type", "starts_at"], name: "index_slots_on_festival_id_and_activity_type_and_starts_at", unique: true
+    t.index ["festival_id"], name: "index_slots_on_festival_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -155,4 +164,5 @@ ActiveRecord::Schema.define(version: 2019_05_26_005738) do
   add_foreign_key "presenters", "users"
   add_foreign_key "sessions", "activities", on_delete: :cascade
   add_foreign_key "sessions", "venues", on_delete: :cascade
+  add_foreign_key "slots", "festivals", on_delete: :cascade
 end

@@ -19,7 +19,7 @@ class Pitch < ApplicationRecord
   }.freeze
 
   validates_associated :user
-  validates :bio, :availability, presence: true
+  validates :bio, presence: true
   validates :code_of_conduct, acceptance: true
 
   scope :newest_first, -> { order(created_at: :desc) }

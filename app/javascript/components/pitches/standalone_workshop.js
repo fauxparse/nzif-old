@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TextLink from '../shared/text_link'
-import { Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
+import { Checkbox, Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
 import ActivityLevels from './levels'
 
 const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
@@ -11,6 +11,7 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
     workshopRequirements,
     participantCount,
     taughtBefore,
+    teens,
     otherInfo,
   } = pitch
 
@@ -26,14 +27,6 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
         <li>Company specific expertise in a shareable form</li>
         <li>Something new we haven’t thought of!</li>
       </ul>
-
-      <p>
-        <TextLink to="http://nzimprovfestival.co.nz/news/2018/6/5/ten-years-of-moments-nzif-2018">
-          Check out this blog post
-        </TextLink>
-        {' '}
-        for more about what we’re after (and what we can offer you).
-      </p>
 
       <h2 className="section-title pitch-section__title">Your workshop</h2>
       <Field className="pitch__field">
@@ -113,6 +106,19 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
           Leave blank if you haven’t taught it before.
         </Hint>
         <Errors from={errors} name="taughtBefore" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>Would you be able to teach this workshop to teens during 7–9 October?</p>
+        <Checkbox
+          checked={!!teens}
+          onChange={e => onChange('teens', e.target.checked)}
+        >
+          <div>
+            Sure, that sounds great!
+          </div>
+          <Errors from={errors} name="teens" />
+        </Checkbox>
       </Field>
 
       <Field className="pitch__field">

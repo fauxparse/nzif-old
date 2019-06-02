@@ -116,25 +116,6 @@ const Presenters = ({ pitch, errors, onChange }) => {
         <Errors from={errors} name="presentedBefore" />
       </Field>
 
-      <Field className="pitch__field">
-        <p>
-          Do you plan to be in Wellington for all of NZIF, or are there
-          restrictions on when you can participate?
-        </p>
-        <Textarea
-          value={availability}
-          minRows={3}
-          onChange={e => onChange('availability', e.target.value)}
-        />
-        {festival && (
-          <Hint>
-            Festival dates are{' '}
-            <Date date={[festival.startDate, festival.endDate]} />.
-          </Hint>
-        )}
-        <Errors from={errors} name="availability" />
-      </Field>
-
       <h2 className="section-title pitch-section__title">Code of conduct</h2>
       <Field className="pitch__field">
         <p>

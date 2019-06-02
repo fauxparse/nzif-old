@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import TextLink from '../shared/text_link'
 import { Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
 
-const DirectedPerformance = ({ pitch, errors, onChange }) => {
+const KidsPerformance = ({ pitch, errors, onChange }) => {
   const {
     name,
     showDescription,
-    castSize,
+    casting,
     performedBefore,
     workshopDescription,
     taughtBefore,
@@ -15,19 +16,24 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
 
   return (
     <>
-      <h2 className="section-title pitch-section__title">New works</h2>
+      <h2 className="section-title pitch-section__title">Improv for young audiences</h2>
       <ul className="pitch__checklist">
         <li>
-          50–75 minute performances for a black box theatre (the Heyday Dome or Random Stage at
-          BATS) led by one or two directors
+          Daytime performances during the second week of the school holidays
+          (first week of the festival)
         </li>
         <li>
-          Recently developed shows that have not been performed at NZIF previously, that would suit
-          intermediate improvisors
+          40–50 minute performance for a black box theatre (the Random Stage at BATS)
         </li>
         <li>
-          An accompanying workshop teaching participants the relevant skills and techniques needed
-          (from which you will cast the performance)
+          New or existing work specifically for primary aged children
+        </li>
+        <li>
+          May consist of casts from existing companies, or an ensemble cast from festival
+          participants
+        </li>
+        <li>
+          May include an accompanying workshop
         </li>
       </ul>
 
@@ -60,23 +66,6 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
       </Field>
 
       <Field className="pitch__field">
-        <p>What is the ideal cast size?</p>
-        <Input
-          type="number"
-          className="form__input--number"
-          value={castSize}
-          min={1}
-          max={100}
-          required
-          onChange={e => onChange('castSize', e.target.value)}
-        />
-        <Hint>
-          We will favour shows with at least 6–8 players
-        </Hint>
-        <Errors from={errors} name="castSize" />
-      </Field>
-
-      <Field className="pitch__field">
         <p>
           Will you have directed or performed this show/format prior to the Festival?
           If so, please give details (quotes or links to reviews are helpful here if you have them)
@@ -89,7 +78,24 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
         <Errors from={errors} name="performedBefore" />
       </Field>
 
+      <Field className="pitch__field">
+        <p>
+          How will you cast the show? Will you bring an existing ensemble,
+          find a cast at the festival, or a mix of the two?
+        </p>
+        <Textarea
+          value={casting}
+          minRows={3}
+          onChange={e => onChange('casting', e.target.value)}
+        />
+        <Errors from={errors} name="casting" />
+      </Field>
+
       <h2 className="section-title pitch-section__title">Your workshop</h2>
+      <p>
+        <b>Note:</b> This section is only required if you plan to run an accompanying
+        workshop to teach your show to new players.
+      </p>
       <Field className="pitch__field">
         <p>
           Please describe the accompanying workshop.
@@ -142,7 +148,7 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
   )
 }
 
-DirectedPerformance.propTypes = {
+KidsPerformance.propTypes = {
   pitch: PropTypes.shape({
     name: PropTypes.string,
   }).isRequired,
@@ -150,4 +156,4 @@ DirectedPerformance.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-export default DirectedPerformance
+export default KidsPerformance

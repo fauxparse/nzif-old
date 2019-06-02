@@ -16,11 +16,14 @@ module Types
     field :activity_levels, [Types::WorkshopLevel], null: false
     field :participant_count, Integer, null: true
     field :taught_before, String, null: true
+    field :teens, Boolean, null: true
     field :other_info, String, null: true
     field :show_description, String, null: true
     field :cast_size, Integer, null: true
     field :performed_before, String, null: true
+    field :casting, String, null: true
     field :experience, String, null: true
+    field :slots, [Types::Time], null: false
 
     def id
       object.to_param if object.persisted?
@@ -52,11 +55,14 @@ module Types
       :activity_levels,
       :participant_count,
       :taught_before,
+      :teens,
       :other_info,
       :show_description,
       :cast_size,
       :performed_before,
+      :casting,
       :experience,
+      :slots,
       to: :info
     )
     delegate :info, to: :object
