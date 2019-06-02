@@ -32,7 +32,6 @@ const Pitch = ({ className, pitch, url, onDelete }) => {
               pathname: url,
               state: { transition }
             }}
-            onClick={onDelete}
           >
             <Button.Icon name="edit" />
             <Button.Text>Edit</Button.Text>
