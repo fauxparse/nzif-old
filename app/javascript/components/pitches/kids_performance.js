@@ -133,7 +133,6 @@ const KidsPerformance = ({ pitch, errors, onChange }) => {
         <Textarea
           value={otherInfo}
           minRows={3}
-          required
           onChange={e => onChange('otherInfo', e.target.value)}
         />
         <Hint>

@@ -27,11 +27,14 @@ const formatRange = (startDate, endDate) => {
 }
 
 const Date = ({ date, format }) => {
+  const dates = (isArray(date) ? date : [date]).map(d => moment(d))
+  if (dates.length > 1 && dates[0].isSame(dates[1], 'day')) dates.pop()
+
   return (
     <Fragment>
-      {isArray(date)
-        ? formatRange(...date.map(d => moment(d)))
-        : moment(date).format(DATE_FORMATS[format])}
+      {dates.length > 1
+        ? formatRange(...dates)
+        : dates[0].format(DATE_FORMATS[format])}
     </Fragment>
   )
 }
