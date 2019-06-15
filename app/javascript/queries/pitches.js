@@ -9,9 +9,14 @@ export default gql`
       }
       state
       name
+      activityType
       presenters {
         id
         name
+        image {
+          small
+          medium
+        }
       }
     }
   }

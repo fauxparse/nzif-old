@@ -1,0 +1,51 @@
+.pitches {
+  .pitch {
+    padding: 0.5rem 0;
+
+    &__type {
+      font-size: font-size(-1);
+      letter-spacing: 0.1rem;
+      line-height: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    &__name {
+      margin: 0 0 0.5rem;
+      font-size: font-size(1);
+      line-height: 1.5rem;
+    }
+
+    &__people {
+      .person {
+        display: inline-flex;
+
+        .avatar {
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-right: 0.5rem;
+          padding: 0;
+          font-size: font-size(-2);
+          line-height: 1.5rem;
+        }
+      }
+    }
+
+    .list__link {
+      margin-left: -3.5rem;
+    }
+
+    .list__icon {
+      align-self: flex-start;
+      margin-top: 1.5rem;
+    }
+
+    @include themify {
+      border-top: 1px solid themed(border);
+
+      &__type,
+      &__people {
+        color: themed(secondary);
+      }
+    }
+  }
+}
