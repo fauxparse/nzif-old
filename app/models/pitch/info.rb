@@ -20,8 +20,11 @@ class Pitch
     property :show_description, coerce: String
     property :cast_size, coerce: Integer, default: 6
     property :casting, coerce: String
+    property :cast_details, coerce: String
+    property :cast_requirements, coerce: String
     property :performed_before, coerce: String
     property :experience, coerce: String
+    property :accessibility, coerce: String
     property :slots, coerce: Array[Time], default: []
   end
 end

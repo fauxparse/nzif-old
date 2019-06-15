@@ -38,11 +38,11 @@ export const STEP_NAMES = STEPS.map(({ name }) => name)
 
 export const ACTIVITY_TYPES = [
   {
-    name: 'young',
-    category: 'Performance',
-    title: 'Improv for young audiences',
-    description: 'Daytime children’s show',
-    controller: KidsPerformance,
+    name: 'workshop',
+    category: 'Workshops',
+    title: 'Standalone workshop',
+    description: 'Single 3-hour slot',
+    controller: StandaloneWorkshop,
   },
   {
     name: 'directed',
@@ -59,10 +59,10 @@ export const ACTIVITY_TYPES = [
     controller: MiniSeason,
   },
   {
-    name: 'workshop',
-    category: 'Workshops',
-    title: 'Standalone workshop',
-    description: 'Single 3-hour slot',
-    controller: StandaloneWorkshop,
+    name: 'young',
+    category: 'Performance',
+    title: 'Improv for young audiences',
+    description: 'Daytime children’s show',
+    controller: KidsPerformance,
   },
 ]

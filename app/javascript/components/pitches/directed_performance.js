@@ -10,6 +10,7 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
     performedBefore,
     workshopDescription,
     taughtBefore,
+    accessibility,
     otherInfo,
   } = pitch
 
@@ -121,6 +122,20 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
       </Field>
 
       <h2 className="section-title pitch-section__title">Other info</h2>
+
+      <Field className="pitch__field">
+        <p>Do you or any of your cast require accessibility assistance to participate at NZIF?</p>
+        <Textarea
+          value={accessibility}
+          minRows={3}
+          required
+          onChange={e => onChange('accessibility', e.target.value)}
+        />
+        <Hint>
+          e.g. travel assistance, childcare, physical access?
+        </Hint>
+        <Errors from={errors} name="accessibility" />
+      </Field>
 
       <Field className="pitch__field">
         <p>Anything else we should know about this show and workshop?</p>

@@ -12,6 +12,7 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
     participantCount,
     taughtBefore,
     teens,
+    accessibility,
     otherInfo,
   } = pitch
 
@@ -119,6 +120,22 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
           </div>
           <Errors from={errors} name="teens" />
         </Checkbox>
+      </Field>
+
+      <Field className="pitch__field">
+        <p>
+          Do you or any of your teachers require accessibility assistance to participate at NZIF?
+        </p>
+        <Textarea
+          value={accessibility}
+          minRows={3}
+          required
+          onChange={e => onChange('accessibility', e.target.value)}
+        />
+        <Hint>
+          e.g. travel assistance, childcare, physical access?
+        </Hint>
+        <Errors from={errors} name="accessibility" />
       </Field>
 
       <Field className="pitch__field">

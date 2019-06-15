@@ -22,7 +22,10 @@ module Types
     field :cast_size, Integer, null: true
     field :performed_before, String, null: true
     field :casting, String, null: true
+    field :cast_details, String, null: true
+    field :cast_requirements, String, null: true
     field :experience, String, null: true
+    field :accessibility, String, null: true
     field :slots, [Types::Time], null: false
 
     def id
@@ -61,7 +64,10 @@ module Types
       :cast_size,
       :performed_before,
       :casting,
+      :cast_details,
+      :cast_requirements,
       :experience,
+      :accessibility,
       :slots,
       to: :info
     )

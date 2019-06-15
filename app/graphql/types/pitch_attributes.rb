@@ -23,7 +23,10 @@ module Types
     argument :cast_size, Integer, required: false
     argument :performed_before, String, required: false
     argument :casting, String, required: false
+    argument :cast_details, String, required: false
+    argument :cast_requirements, String, required: false
     argument :experience, String, required: false
+    argument :accessibility, String, required: true
     argument :slots, [Types::Time], required: false
   end
 end

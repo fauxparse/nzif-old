@@ -8,9 +8,12 @@ const KidsPerformance = ({ pitch, errors, onChange }) => {
     name,
     showDescription,
     casting,
+    castDetails,
+    castRequirements,
     performedBefore,
     workshopDescription,
     taughtBefore,
+    accessibility,
     otherInfo,
   } = pitch
 
@@ -91,6 +94,30 @@ const KidsPerformance = ({ pitch, errors, onChange }) => {
         <Errors from={errors} name="casting" />
       </Field>
 
+      <Field className="pitch__field">
+        <p>
+          If you are bringing a cast, how many people will you bring, and what are their names?
+        </p>
+        <Textarea
+          value={castDetails}
+          minRows={3}
+          onChange={e => onChange('castDetails', e.target.value)}
+        />
+        <Errors from={errors} name="cast_details" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>
+          Will you and/or your cast need accommodation?
+        </p>
+        <Textarea
+          value={castRequirements}
+          minRows={3}
+          onChange={e => onChange('castRequirements', e.target.value)}
+        />
+        <Errors from={errors} name="cast_requirements" />
+      </Field>
+
       <h2 className="section-title pitch-section__title">Your workshop</h2>
       <p>
         <b>Note:</b> This section is only required if you plan to run an accompanying
@@ -127,6 +154,20 @@ const KidsPerformance = ({ pitch, errors, onChange }) => {
       </Field>
 
       <h2 className="section-title pitch-section__title">Other info</h2>
+
+      <Field className="pitch__field">
+        <p>Do you or any of your cast require accessibility assistance to participate at NZIF?</p>
+        <Textarea
+          value={accessibility}
+          minRows={3}
+          required
+          onChange={e => onChange('accessibility', e.target.value)}
+        />
+        <Hint>
+          e.g. travel assistance, childcare, physical access?
+        </Hint>
+        <Errors from={errors} name="accessibility" />
+      </Field>
 
       <Field className="pitch__field">
         <p>Anything else we should know about this show and workshop?</p>

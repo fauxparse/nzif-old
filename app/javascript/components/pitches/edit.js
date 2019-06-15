@@ -45,8 +45,12 @@ const PITCH_FRAGMENT = gql`
     otherInfo
     showDescription
     castSize
+    casting
+    castDetails
+    castRequirements
     performedBefore
     experience
+    accessibility
     slots
   }
 `
