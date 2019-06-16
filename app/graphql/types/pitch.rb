@@ -27,6 +27,9 @@ module Types
     field :experience, String, null: true
     field :accessibility, String, null: true
     field :slots, [Types::Time], null: false
+    field :pile, String, null: true
+    field :gender, String, null: true
+    field :origin, String, null: true
 
     def id
       object.to_param if object.persisted?
@@ -69,6 +72,9 @@ module Types
       :experience,
       :accessibility,
       :slots,
+      :pile,
+      :gender,
+      :origin,
       to: :info
     )
     delegate :info, to: :object

@@ -1,50 +1,77 @@
-.pitches {
-  .pitch {
-    padding: 0.5rem 0;
+.pitch {
+  &__admin,
+  &__details {
+    @include constrained-width($keyline, $padding);
 
-    &__type {
-      font-size: font-size(-1);
-      letter-spacing: 0.1rem;
-      line-height: 1.5rem;
-      text-transform: uppercase;
+    .editable-title {
+      border-bottom: 0;
     }
+  }
 
-    &__name {
-      margin: 0 0 0.5rem;
-      font-size: font-size(1);
-      line-height: 1.5rem;
-    }
+  &__admin {
+    .pitch {
+      padding: 0.5rem 0;
 
-    &__people {
-      .person {
-        display: inline-flex;
+      &__type {
+        font-size: font-size(-1);
+        letter-spacing: 0.1rem;
+        line-height: 1.5rem;
+        text-transform: uppercase;
+      }
 
-        .avatar {
-          width: 1.5rem;
-          height: 1.5rem;
-          margin-right: 0.5rem;
-          padding: 0;
-          font-size: font-size(-2);
-          line-height: 1.5rem;
+      &__name {
+        margin: 0 0 0.5rem;
+        font-size: font-size(1);
+        line-height: 1.5rem;
+      }
+
+      &__people {
+        .person {
+          display: inline-flex;
+
+          .avatar {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.5rem;
+            padding: 0;
+            font-size: font-size(-2);
+            line-height: 1.5rem;
+          }
+        }
+      }
+
+      .list__link {
+        margin-left: -3.5rem;
+      }
+
+      .list__icon {
+        align-self: flex-start;
+        margin-top: 1.5rem;
+      }
+
+      @include themify {
+        border-top: 1px solid themed(border);
+
+        &__type,
+        &__people {
+          color: themed(secondary);
         }
       }
     }
+  }
 
-    .list__link {
-      margin-left: -3.5rem;
+  &__details {
+    .presenters {
+      margin: 0 0 $spacing;
     }
 
-    .list__icon {
-      align-self: flex-start;
-      margin-top: 1.5rem;
+    .tags {
+      margin: 0;
     }
 
-    @include themify {
-      border-top: 1px solid themed(border);
-
-      &__type,
-      &__people {
-        color: themed(secondary);
+    .pitch__field {
+      .markdown {
+        margin: ($spacing / 2) 0;
       }
     }
   }

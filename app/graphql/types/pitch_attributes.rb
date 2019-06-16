@@ -28,5 +28,8 @@ module Types
     argument :experience, String, required: false
     argument :accessibility, String, required: true
     argument :slots, [Types::Time], required: false
+    argument :pile, String, required: false
+    argument :gender, String, required: false
+    argument :origin, String, required: false
   end
 end

@@ -6,74 +6,11 @@ import { useQuery, useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import omit from 'lodash/omit'
 import { PITCHES_QUERY } from '../../queries'
+import { PITCH_QUERY, UPDATE_PITCH_MUTATION } from '../../queries/pitch'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from '../shared/loader'
 import PitchForm from './form'
 
-const PITCH_FRAGMENT = gql`
-  fragment PitchFragment on Pitch {
-    id
-    festival {
-      year
-      startDate
-      endDate
-      slots {
-        startsAt
-        endsAt
-        activityType
-      }
-    }
-    state
-    name
-    presenters {
-      id
-      name
-      email
-      city
-      country
-    }
-    company
-    bio
-    presentedBefore
-    availability
-    codeOfConduct
-    activityType
-    workshopDescription
-    workshopRequirements
-    participantCount
-    taughtBefore
-    otherInfo
-    showDescription
-    castSize
-    casting
-    castDetails
-    castRequirements
-    performedBefore
-    experience
-    accessibility
-    slots
-  }
-`
-
-const PITCH_QUERY = gql`
-  query ($year: ID!, $id: ID) {
-    pitch(year: $year, id: $id) {
-      ...PitchFragment
-    }
-  }
-
-  ${PITCH_FRAGMENT}
-`
-
-const UPDATE_PITCH_MUTATION = gql`
-  mutation UpdatePitch($year: ID, $attributes: PitchAttributes!) {
-    updatePitch(year: $year, attributes: $attributes) {
-      ...PitchFragment
-    }
-  }
-
-  ${PITCH_FRAGMENT}
-`
 const EditPitch = ({ match, history, className }) => {
   const { year, id } = match.params
 

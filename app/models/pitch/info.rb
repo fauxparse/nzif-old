@@ -26,5 +26,8 @@ class Pitch
     property :experience, coerce: String
     property :accessibility, coerce: String
     property :slots, coerce: Array[Time], default: []
+    property :pile, coerce: String
+    property :gender, coerce: String
+    property :origin, coerce: String
   end
 end

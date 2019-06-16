@@ -10,6 +10,9 @@ export default gql`
       state
       name
       activityType
+      pile
+      gender
+      origin
       presenters {
         id
         name

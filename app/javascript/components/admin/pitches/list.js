@@ -15,7 +15,7 @@ const PitchList = ({ match }) => {
   )
 
   return (
-    <div className="content__list">
+    <div className="pitch__admin">
       <header>
         <h1 className="page-title">Pitches</h1>
       </header>
