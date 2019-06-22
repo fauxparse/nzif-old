@@ -33,14 +33,14 @@ RSpec.describe Mutations::UpdateSession, type: :mutation do
     end
 
     it 'calls the UpdateSession service' do
-      expect(UpdateSession).
-        to receive(:call).
-        with(
+      expect(UpdateSession)
+        .to receive(:call)
+        .with(
           current_user: user,
           session: session,
           attributes: { starts_at: starts_at, ends_at: ends_at }
-        ).
-        and_return(Interactor::Context.build(session: updated_session))
+        )
+        .and_return(Interactor::Context.build(session: updated_session))
       expect(result.dig(:data, :update_session, :starts_at)).to eq starts_at.iso8601
     end
   end

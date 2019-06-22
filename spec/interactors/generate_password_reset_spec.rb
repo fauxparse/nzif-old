@@ -19,10 +19,10 @@ RSpec.describe GeneratePasswordReset, type: :interactor do
     let(:user) { create(:user, :with_password) }
 
     it 'generates a reset token' do
-      expect { result }.
-        to change { identity.reload.reset_token }.
-        from(nil).
-        to(token)
+      expect { result }
+        .to change { identity.reload.reset_token }
+        .from(nil)
+        .to(token)
     end
 
     it 'sends a reset email' do
@@ -35,9 +35,9 @@ RSpec.describe GeneratePasswordReset, type: :interactor do
     let(:user) { create(:user) }
 
     it 'adds a password identity' do
-      expect { result }.
-        to change(Identity::Password, :count).
-        by(1)
+      expect { result }
+        .to change(Identity::Password, :count)
+        .by(1)
       expect(identity.reset_token).to eq token
     end
   end

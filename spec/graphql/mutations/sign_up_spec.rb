@@ -40,10 +40,10 @@ RSpec.describe Mutations::SignUp, type: :mutation do
   let(:user) { double(:user, name: name, email: email) }
 
   it 'calls the AuthenticateUser service' do
-    expect(CreateUser).
-      to receive(:call).
-      with(a_hash_including(variables)).
-      and_return(Interactor::Context.build(user: user))
+    expect(CreateUser)
+      .to receive(:call)
+      .with(a_hash_including(variables))
+      .and_return(Interactor::Context.build(user: user))
     expect(environment).to receive(:current_user=).with(user).and_return(user)
     expect(result.dig(:data, :sign_up)).to be_present
   end

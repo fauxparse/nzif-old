@@ -44,9 +44,9 @@ RSpec.describe UpdateActivity, type: :interactor do
         let(:attributes) { { presenters: [teacher2.id] } }
 
         it 'removes the presenter' do
-          expect { result }.
-            to change { activity.reload.presenters.count }.by(-1).
-            and change(Presenter, :count).by(-1)
+          expect { result }
+            .to change { activity.reload.presenters.count }.by(-1)
+            .and change(Presenter, :count).by(-1)
         end
       end
 
@@ -55,9 +55,9 @@ RSpec.describe UpdateActivity, type: :interactor do
         let(:teacher3) { create(:user) }
 
         it 'adds the presenter' do
-          expect { result }.
-            to change { activity.reload.presenters.count }.by(1).
-            and change(Presenter, :count).by(1)
+          expect { result }
+            .to change { activity.reload.presenters.count }.by(1)
+            .and change(Presenter, :count).by(1)
         end
       end
 
@@ -66,10 +66,10 @@ RSpec.describe UpdateActivity, type: :interactor do
         let(:teacher3) { create(:user) }
 
         it 'adds the presenter' do
-          expect { result }.
-            to change { activity.reload.presenters.map(&:user) }.
-            from([teacher1, teacher2]).
-            to([teacher3, teacher1])
+          expect { result }
+            .to change { activity.reload.presenters.map(&:user) }
+            .from([teacher1, teacher2])
+            .to([teacher3, teacher1])
           expect(Presenter.count).to eq 2
         end
       end

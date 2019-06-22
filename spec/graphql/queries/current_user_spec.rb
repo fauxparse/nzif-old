@@ -31,8 +31,8 @@ RSpec.describe Types::QueryType, type: :query do
       let(:current_user) { build_stubbed(:user) }
 
       it 'is blank' do
-        expect(result[:data][:current_user]).
-          to match a_hash_including(id: current_user.id.to_s)
+        expect(result[:data][:current_user])
+          .to match a_hash_including(id: current_user.id.to_s)
       end
     end
   end

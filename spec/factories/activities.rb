@@ -18,9 +18,9 @@ FactoryBot.define do
     end
 
     after(:create) do |activity, evaluator|
-      [evaluator.presenter, *evaluator.presenters].
-        compact.
-        each { |user| activity.presenters.create(user: user) }
+      [evaluator.presenter, *evaluator.presenters]
+        .compact
+        .each { |user| activity.presenters.create(user: user) }
     end
   end
 end

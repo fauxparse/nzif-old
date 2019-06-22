@@ -25,10 +25,10 @@ RSpec.describe Mutations::LogIn, type: :mutation do
   let(:environment) { double(:environment) }
 
   it 'calls the AuthenticateUser service' do
-    expect(AuthenticateUser).
-      to receive(:call).
-      with(a_hash_including(variables)).
-      and_return(Interactor::Context.build(user: user))
+    expect(AuthenticateUser)
+      .to receive(:call)
+      .with(a_hash_including(variables))
+      .and_return(Interactor::Context.build(user: user))
     expect(environment).to receive(:current_user=).with(user).and_return(user)
     expect(result.dig(:data, :log_in)).to be_present
   end
@@ -37,13 +37,13 @@ RSpec.describe Mutations::LogIn, type: :mutation do
     let(:failure) { double(:context, :success? => false) }
 
     it 'raises an error' do
-      expect(AuthenticateUser).
-        to receive(:call).
-        with(a_hash_including(variables)).
-        and_return(failure)
+      expect(AuthenticateUser)
+        .to receive(:call)
+        .with(a_hash_including(variables))
+        .and_return(failure)
       expect(result[:data]).to eq({ log_in: nil })
-      expect(result[:errors]).
-        to include a_hash_including(message: 'Invalid email or password.')
+      expect(result[:errors])
+        .to include a_hash_including(message: 'Invalid email or password.')
     end
   end
 end

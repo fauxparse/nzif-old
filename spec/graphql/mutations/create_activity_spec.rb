@@ -27,10 +27,10 @@ RSpec.describe Mutations::CreateActivity, type: :mutation do
   let(:activity) { create(:workshop, name: 'My Workshop', festival: festival) }
 
   it 'calls the CreateActivity service' do
-    expect(CreateActivity).
-      to receive(:call).
-      with(a_hash_including(festival: festival, attributes: attributes.merge(type: 'Workshop'))).
-      and_return(Interactor::Context.build(activity: activity))
+    expect(CreateActivity)
+      .to receive(:call)
+      .with(a_hash_including(festival: festival, attributes: attributes.merge(type: 'Workshop')))
+      .and_return(Interactor::Context.build(activity: activity))
     expect(result.dig(:data, :create_activity)).to be_present
   end
 end

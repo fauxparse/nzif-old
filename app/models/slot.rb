@@ -1,7 +1,7 @@
 class Slot < ApplicationRecord
   belongs_to :festival
 
-  validates :starts_at, uniqueness: { scope: %i[festival_id activity_type] }
+  validates :starts_at, uniqueness: { scope: %i(festival_id activity_type) }
   validates :starts_at, :ends_at,
     presence: true,
     date: {

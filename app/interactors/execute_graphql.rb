@@ -89,9 +89,9 @@ class ExecuteGraphql < Interaction
   end
 
   def format_validation_errors(errors)
-    errors.keys.
-      reject { |key| key.to_s.include?('.') }.
-      inject({}) do |hash, key|
+    errors.keys
+      .reject { |key| key.to_s.include?('.') }
+      .inject({}) do |hash, key|
         hash.merge(key.to_s.camelize(:lower).to_sym => errors.full_messages_for(key))
       end
   end

@@ -30,8 +30,8 @@ RSpec.describe Types::QueryType, type: :query do
         let!(:festival) { create(:festival) }
 
         it 'returns the festival' do
-          expect(result[:data][:festival]).
-            to match a_hash_including(start_date: '2018-10-20', end_date: '2018-10-27')
+          expect(result[:data][:festival])
+            .to match a_hash_including(start_date: '2018-10-20', end_date: '2018-10-27')
         end
       end
     end
@@ -41,8 +41,8 @@ RSpec.describe Types::QueryType, type: :query do
       let(:festival) { create(:festival) }
 
       it 'returns the festival' do
-        expect(result[:data][:festival]).
-          to match a_hash_including(start_date: '2018-10-20', end_date: '2018-10-27')
+        expect(result[:data][:festival])
+          .to match a_hash_including(start_date: '2018-10-20', end_date: '2018-10-27')
       end
     end
 

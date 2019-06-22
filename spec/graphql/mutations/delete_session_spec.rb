@@ -26,10 +26,10 @@ RSpec.describe Mutations::DeleteSession, type: :mutation do
     end
 
     it 'calls the DeleteSession service and returns true' do
-      expect(DeleteSession).
-        to receive(:call).
-        with(current_user: user, session: session).
-        and_return(Interactor::Context.build)
+      expect(DeleteSession)
+        .to receive(:call)
+        .with(current_user: user, session: session)
+        .and_return(Interactor::Context.build)
       expect(result.dig(:data, :delete_session)).to be true
     end
   end

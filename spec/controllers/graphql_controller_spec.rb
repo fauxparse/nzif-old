@@ -18,10 +18,10 @@ RSpec.describe GraphqlController, type: :request do
     end
 
     before do
-      allow(ExecuteGraphql).
-        to receive(:call).
-        with(a_hash_including(context)).
-        and_return(graphql_response)
+      allow(ExecuteGraphql)
+        .to receive(:call)
+        .with(a_hash_including(context))
+        .and_return(graphql_response)
 
       post graphql_path,
         params: { graphql: { query: query, variables: variables, operationName: operation_name } }

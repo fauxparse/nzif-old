@@ -12,9 +12,9 @@ RSpec.describe Content, type: :model do
   context 'when updated' do
     it 'creates a version' do
       expect(content).to be_persisted
-      expect { content.update(raw: 'Updated') }.
-        to change { content.versions.length }.
-        by 1
+      expect { content.update(raw: 'Updated') }
+        .to change { content.versions.length }
+        .by 1
     end
 
     context 'without changes' do

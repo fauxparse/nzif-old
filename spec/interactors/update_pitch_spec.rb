@@ -39,15 +39,15 @@ RSpec.describe UpdatePitch, type: :interactor do
       it { is_expected.to be_success }
 
       it 'saves the pitch' do
-        expect { result }.
-          to change(Pitch, :count).by(1).
-          and change(pitch, :persisted?).from(false).to(true)
+        expect { result }
+          .to change(Pitch, :count).by(1)
+          .and change(pitch, :persisted?).from(false).to(true)
       end
 
       it 'updates the current user’s information' do
-        expect { result }.
-          to change { current_user.reload.city }.to('Melbourne').
-          and change { current_user.reload.country }.to('Australia')
+        expect { result }
+          .to change { current_user.reload.city }.to('Melbourne')
+          .and change { current_user.reload.country }.to('Australia')
       end
     end
 
@@ -71,10 +71,10 @@ RSpec.describe UpdatePitch, type: :interactor do
       end
 
       it 'saves the pitch' do
-        expect { result }.
-          to change(Pitch, :count).by(1).
-          and change(User, :count).by(1).
-          and change(pitch, :persisted?).from(false).to(true)
+        expect { result }
+          .to change(Pitch, :count).by(1)
+          .and change(User, :count).by(1)
+          .and change(pitch, :persisted?).from(false).to(true)
       end
     end
 
@@ -87,10 +87,10 @@ RSpec.describe UpdatePitch, type: :interactor do
       end
 
       it 'saves the pitch' do
-        expect { result }.
-          to change(Pitch, :count).by(1).
-          and change(User, :count).by(0).
-          and change(pitch, :persisted?).from(false).to(true)
+        expect { result }
+          .to change(Pitch, :count).by(1)
+          .and change(User, :count).by(0)
+          .and change(pitch, :persisted?).from(false).to(true)
       end
 
       context 'with the wrong password' do
@@ -136,7 +136,7 @@ RSpec.describe UpdatePitch, type: :interactor do
         pitch.update!(state: 'submitted')
       end
 
-      it 'should not send another email' do
+      it 'does not send another email' do
         UpdatePitch.call(
           current_user: current_user,
           pitch: pitch,

@@ -7,8 +7,8 @@ class CreateUser < Interaction
   private
 
   def user
-    @user ||= User.new(name: context.name, email: context.email).
-      tap { |user| build_password(user) }
+    @user ||= User.new(name: context.name, email: context.email)
+      .tap { |user| build_password(user) }
   end
 
   def build_password(user)

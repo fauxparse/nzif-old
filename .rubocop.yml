@@ -14,15 +14,22 @@ Airbnb/ClassOrModuleDeclaredInWrongFile:
   Exclude:
     - 'app/graphql/**/*'
 
+Airbnb/ContinuationSlash:
+  Enabled: false
+
 Airbnb/ModuleMethodInWrongFile:
   Exclude:
     - 'app/graphql/**/*'
 
-Airbnb/ContinuationSlash:
+Airbnb/OptArgParameters:
   Enabled: false
 
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
+
+Layout/DotPosition:
+  Enabled: true
+  EnforcedStyle: leading
 
 Metrics/LineLength:
   Max: 100

@@ -25,15 +25,15 @@ RSpec.describe ExecuteGraphql, type: :interactor do
 
     context 'for a valid GraphQL query' do
       before do
-        allow(schema).
-          to receive(:execute).
-          with(
+        allow(schema)
+          .to receive(:execute)
+          .with(
             query,
             variables: parsed_variables,
             context: a_hash_including(environment: environment),
             operation_name: operation_name
-          ).
-          and_return graphql_result
+          )
+          .and_return graphql_result
       end
 
       it { is_expected.to be_a_success }
@@ -85,8 +85,8 @@ RSpec.describe ExecuteGraphql, type: :interactor do
 
       it 'returns an error' do
         expect(result.response[:errors]).to have_exactly(1).item
-        expect(result.response[:errors].first).
-          to match a_hash_including(
+        expect(result.response[:errors].first)
+          .to match a_hash_including(
             message: '[message]',
             status: 'NOT_FOUND',
             detail: a_hash_including(
@@ -121,8 +121,8 @@ RSpec.describe ExecuteGraphql, type: :interactor do
 
       it 'returns an error' do
         expect(result.response[:errors]).to have_exactly(1).item
-        expect(result.response[:errors].first).
-          to match a_hash_including(
+        expect(result.response[:errors].first)
+          .to match a_hash_including(
             message: 'Validation failed',
             status: 'UNPROCESSABLE_ENTITY',
             detail: {
