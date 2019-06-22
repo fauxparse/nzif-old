@@ -15,6 +15,10 @@ class Festival < ApplicationRecord
     year&.to_s
   end
 
+  def to_s
+    "NZIF #{year}"
+  end
+
   def days
     (start_date..end_date).map { |date| Day.new(festival: self, date: date) }
   end

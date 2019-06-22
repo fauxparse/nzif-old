@@ -1,0 +1,23 @@
+= email_section do
+  %p
+    Kia ora NZIF admin,
+
+  %p
+    A new pitch has been submitted for #{@pitch.festival.to_s}.
+
+= email_section class_name: 'section--highlight' do
+  %p
+    = t(@pitch.info.activity_type, scope: 'pitch.type')
+    %br
+    = link_to @pitch.name, @url, class: 'title'
+    %br
+    = @pitch.info.presenters.map(&:name).to_sentence
+
+  %p
+    = link_to 'View pitch', @url, class: 'button'
+
+= email_section do
+  %p
+    Ngā mihi nui,
+    %br/
+    The NZIF Team

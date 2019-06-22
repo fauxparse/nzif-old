@@ -113,4 +113,37 @@ RSpec.describe UpdatePitch, type: :interactor do
       it { is_expected.to be_success }
     end
   end
+
+  context 'when a pitch is submitted' do
+    let(:pitch) { create(:pitch, festival: festival, user: current_user) }
+    let(:email) { double('email', deliver_later: true) }
+
+    before do
+      allow(AdminMailer).to receive(:pitch_notification).and_return(email)
+    end
+
+    it 'sends a notification email' do
+      UpdatePitch.call(
+        current_user: current_user,
+        pitch: pitch,
+        attributes: attributes.merge(state: 'submitted')
+      )
+      expect(AdminMailer).to have_received(:pitch_notification).exactly(1).times
+    end
+
+    context 'when it has already been submitted' do
+      before do
+        pitch.update!(state: 'submitted')
+      end
+
+      it 'should not send another email' do
+        UpdatePitch.call(
+          current_user: current_user,
+          pitch: pitch,
+          attributes: attributes.merge(state: 'submitted')
+        )
+        expect(AdminMailer).not_to have_received(:pitch_notification)
+      end
+    end
+  end
 end

@@ -13,6 +13,8 @@ module Authorisable
       define_method :"#{role}?" do
         has_role?(role)
       end
+
+      scope :"#{role}", -> { where %Q('#{role}' = ANY(authorised_roles)) }
     end
   end
 

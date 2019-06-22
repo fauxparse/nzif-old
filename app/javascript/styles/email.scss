@@ -61,3 +61,11 @@ a {
     }
   }
 }
+
+.title {
+  font-size: font-size(2);
+
+  &[href] {
+    text-decoration: none;
+  }
+}

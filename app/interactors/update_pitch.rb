@@ -63,6 +63,6 @@ class UpdatePitch < Interaction
   end
 
   def send_pitch_notification
-    # TODO: send email notification to Jen
+    AdminMailer.pitch_notification(pitch).deliver_later
   end
 end

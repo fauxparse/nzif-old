@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :pitch do
     festival
     user
+    name { 'Test activity' }
     info do
       {
         presenters: [user.attributes.slice(:id, :name, :email, :city, :country)],

@@ -28,3 +28,10 @@ en:
         too_long: 'is too long (%{count}/%{maximum} words)'
       invalid_level: 'cannot include ‘%{level}’'
       invalid_role: 'cannot include ‘%{role}’'
+
+  pitch:
+    type:
+      workshop: 'Workshop'
+      directed: 'New works'
+      season: 'Mini season'
+      young: 'Improv for young audiences'
