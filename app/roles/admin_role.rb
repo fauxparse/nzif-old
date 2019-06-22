@@ -4,6 +4,7 @@ class AdminRole < AccessGranted::Role
   end
 
   def configure
+    can :process, Pitch
     can :manage, Object
   end
 end

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
@@ -6,6 +6,7 @@ import { PITCHES_QUERY } from '../../queries'
 import { Link } from '../shared/ripple'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from '../shared/loader'
+import { CurrentUserContext } from '../shared/current_user'
 import Button from '../button'
 import Modal from '../modals'
 import Pitch from './pitch'
@@ -18,7 +19,8 @@ const DELETE_PITCH_MUTATION = gql`
 
 const PitchList = ({ match, className }) => {
   const { year } = match.params
-  const variables = { year }
+  const currentUser = useContext(CurrentUserContext)
+  const variables = { year, userId: currentUser.id }
   const {
     loading,
     data: { pitches }

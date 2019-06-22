@@ -24,6 +24,14 @@ class Pitch < ApplicationRecord
 
   scope :newest_first, -> { order(created_at: :desc) }
 
+  def self.for_user(user)
+    user.blank? ? all : where(user: user)
+  end
+
+  def self.in_state(states)
+    states.blank? ? all : where('state in (?)', Array(states))
+  end
+
   def belongs_to?(user)
     user == self.user || info.presenters.any? { |presenter| presenter == user }
   end

@@ -7,7 +7,8 @@ import { PITCHES_QUERY } from '../../../queries'
 
 const PitchList = ({ match }) => {
   const { year } = match.params
-  const { loading, data } = useQuery(PITCHES_QUERY, { variables: { year } })
+  const states = ['submitted']
+  const { loading, data } = useQuery(PITCHES_QUERY, { variables: { year, states } })
 
   const pitches = useMemo(
     () => !loading && data.pitches,
