@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import CommonProps from '../../lib/common_props'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 
 const Detail = ({ icon, className, children }) => (
   <div className="detail">

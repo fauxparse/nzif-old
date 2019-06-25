@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import Presenter from './presenter'
 import Button from '../button'
 import Link from '../shared/text_link'
-import Date from '../shared/date'
-import Icon from '../icons';
+import Icon from '../../atoms/icon';
 import { Checkbox, Errors, Field, Hint, Textarea, WordCount } from '../form'
 
 const Presenters = ({ pitch, errors, onChange }) => {

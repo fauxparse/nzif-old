@@ -4,7 +4,7 @@ import CommonProps from '../../../lib/common_props'
 import Link from '../../shared/ripple/link'
 import Avatar from '../../shared/avatar'
 import Sentence from '../../shared/sentence'
-import Icon from '../../icons'
+import Icon from '../../../atoms/icon'
 import { ACTIVITY_TYPES } from '../../pitches/constants'
 
 const ListItem = ({ baseUrl, pitch }) => {

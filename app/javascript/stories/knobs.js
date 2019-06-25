@@ -1,12 +1,12 @@
 import { select } from '@storybook/addon-knobs'
-import icons from '../components/icons/all'
+import ICONS from '../atoms/icon/all'
 
-const iconOptions = () => icons.reduce(
+const iconOptions = () => ICONS.reduce(
   (options, name) => ({ ...options, [name]: name }),
   { '(none)': null }
 )
 
-export const icon = (label = 'Icon', defaultValue = icons[0]) =>
+export const icon = (label = 'Icon', defaultValue = ICONS[0]) =>
   select(label, iconOptions(), defaultValue)
 
 export const PALETTE = {

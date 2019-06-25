@@ -1,8 +1,11 @@
+/* global module */
 /* eslint-disable react/display-name */
 
 import React from 'react'
-import Icon from '../../components/icons'
-import ICONS from '../../components/icons/all'
+import { storiesOf } from '@storybook/react'
+import { icon } from '../../stories/knobs'
+import Icon from './index'
+import ICONS from './all'
 
 class IconList extends React.Component {
   render() {
@@ -30,4 +33,6 @@ class IconList extends React.Component {
   }
 }
 
-export default () => <IconList />
+storiesOf('Atoms/Icon', module)
+.add('Single', () => <Icon name={icon('Icon', 'add')} />)
+  .add('All', () => <IconList />)

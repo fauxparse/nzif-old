@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { WithPermission } from '../../lib/permissions'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 import Link from '../shared/ripple/link'
 
 const EditButton = ({ match: { params: { year, type, slug } }, activity }) => activity && (

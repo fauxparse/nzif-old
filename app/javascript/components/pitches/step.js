@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import CommonProps from '../../lib/common_props'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 import { STEP_NAMES } from './constants'
 
 const Step = ({ name, title, icon, active, completed, nextStep, onClick }) => {

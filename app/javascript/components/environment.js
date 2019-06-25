@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from './icons'
+import Icon from '../atoms/icon'
 
 const Environment = () => {
   const environmentTag = document.querySelector('meta[name="environment"]')

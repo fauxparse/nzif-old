@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CommonProps from '../../lib/common_props'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 
 const Venue = ({ id, name, address, selected, onClick }) => (
   <li

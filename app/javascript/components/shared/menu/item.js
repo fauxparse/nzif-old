@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import CommonProps from '../../../lib/common_props'
-import Icon from '../../icons'
+import Icon from '../../../atoms/icon'
 import { Link } from '../ripple'
 
 const Item = ({ as: Component, className, icon, text, children, ...props }) => (

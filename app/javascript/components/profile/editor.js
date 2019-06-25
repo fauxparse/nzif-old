@@ -7,7 +7,7 @@ import { ROLES, ROLE_DESCRIPTIONS } from '../../lib/roles'
 import { WithPermission } from '../../lib/permissions'
 import { CurrentUserContext } from '../shared/current_user'
 import { CountrySelect, Errors, IconField, ImageUpload, Input, Switch, Textarea } from '../form'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 import Button from '../button'
 
 class ProfileEditor extends Component {

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { withApollo, compose } from 'react-apollo'
 import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
-import Icon from '../../icons'
+import Icon from '../../../atoms/icon'
 import Ripple from '../ripple'
 import { CURRENT_USER_QUERY } from '../../../queries'
 

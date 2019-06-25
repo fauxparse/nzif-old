@@ -11,7 +11,7 @@ import {
   TIMETABLE_QUERY,
   CREATE_ACTIVITY_MUTATION,
 } from '../../../queries'
-import Icon from '../../icons'
+import Icon from '../../../atoms/icon'
 import Autocomplete from '../../autocomplete'
 
 const MenuItem = ({ label, selected, selectedText, value: { id, type }, ...props }) => (

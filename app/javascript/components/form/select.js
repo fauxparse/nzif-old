@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import RelativePortal from 'react-relative-portal'
 import ThemeContext from '../../lib/theme_context'
 import CommonProps from '../../lib/common_props'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 
 const KEYS = {
   UP: 38,

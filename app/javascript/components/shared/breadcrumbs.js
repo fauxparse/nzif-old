@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 import { Link } from './ripple'
 import TextLink from './text_link'
 

@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Button from '../../button'
-import Icon from '../../icons'
+import Icon from '../../../atoms/icon'
 
 const MenuButton = forwardRef(({ className, open, ...props }, ref) => (
   <Button

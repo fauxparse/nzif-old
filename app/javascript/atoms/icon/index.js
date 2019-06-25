@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import CommonProps from '../../lib/common_props'
 import ICONS from './all'
+import './index.scss'
 
 class Icon extends React.PureComponent {
   render() {
