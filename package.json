@@ -23,7 +23,6 @@
     "graphql-tag": "^2.10.0",
     "inflection": "^1.12.0",
     "lodash": "^4.17.13",
-    "lyft-coloralgorithm": "https://github.com/lyft/coloralgorithm.git#soffes/fix-package",
     "markdown-react-js": "^1.0.2",
     "minisearch": "^1.2.0",
     "mo-js": "^0.288.2",
