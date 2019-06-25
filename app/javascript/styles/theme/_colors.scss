@@ -110,3 +110,12 @@ $activity-colors: (
 @function change-opacity($color, $opacity: 1) {
   @return change-color($color, $alpha: opacity($opacity));
 }
+
+:export {
+  @each $color, $shades in $palette {
+    @each $shade, $value in $shades {
+      #{$color}#{$shade}: $value;
+    }
+  }
+}
+
