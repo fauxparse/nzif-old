@@ -4,11 +4,6 @@ import { withKnobs, select } from '@storybook/addon-knobs'
 
 import '../app/javascript/styles/application.scss'
 
-const req = require.context('../app/javascript/stories', true, /(\.stories|index)\.js$/)
-function loadStories() {
-  req.keys().forEach(filename => req(filename))
-}
-
 addDecorator(withKnobs)
 
 addDecorator(story => (
@@ -19,4 +14,5 @@ addDecorator(story => (
   </div>
 ))
 
-configure(loadStories, module)
+const req = require.context('../app/javascript', true, /\.stories\.js$/)
+configure(() => req.keys().forEach(filename => req(filename)), module)
