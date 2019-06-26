@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions'
 import Button from './index'
 import { icon } from '../../stories/knobs'
 
-storiesOf('Atoms/Button', module)
+storiesOf('Atoms|Button', module)
   .add('Normal', () => (
     <Button
       icon={icon('Icon', null)}

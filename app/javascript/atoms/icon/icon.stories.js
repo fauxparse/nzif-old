@@ -33,6 +33,6 @@ class IconList extends React.Component {
   }
 }
 
-storiesOf('Atoms/Icon', module)
+storiesOf('Atoms|Icon', module)
 .add('Single', () => <Icon name={icon('Icon', 'add')} />)
   .add('All', () => <IconList />)

@@ -9,7 +9,7 @@ import Avatar from './index'
 import small from './avatar_small.jpg'
 import medium from './avatar_medium.jpg'
 
-storiesOf('Atoms/Avatar', module)
+storiesOf('Atoms|Avatar', module)
   .add('Text', () => (
     <Avatar name={text('Name', 'Kiki Hohnen')}/>
   ))
