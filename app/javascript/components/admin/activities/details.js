@@ -12,7 +12,7 @@ import {
   UPDATE_ACTIVITY_MUTATION,
 } from '../../../queries'
 import moment from '../../../lib/moment'
-import Loader from '../../shared/loader'
+import Loader from 'atoms/loader'
 import { Tab, TabBar } from '../../shared/tabs'
 import Breadcrumbs from '../../shared/breadcrumbs'
 import noTransition from '../../page_transition/none'

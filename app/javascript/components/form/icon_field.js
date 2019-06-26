@@ -4,7 +4,7 @@ import { Transition } from 'react-transition-group'
 import classNames from 'classnames'
 import Icon, { ICONS } from '../../atoms/icon'
 import Tooltip from '../shared/tooltip'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 
 const transitionStyles = {
   entering: { opacity: 0 },

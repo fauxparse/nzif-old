@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 import Venue from './venue'
 
 const VenueList = ({ loading, venues, selection, onVenueClick }) => (

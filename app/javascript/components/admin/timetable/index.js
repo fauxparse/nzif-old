@@ -12,7 +12,7 @@ import {
   UPDATE_SESSION_MUTATION,
   DELETE_SESSION_MUTATION,
 } from '../../../queries'
-import Loader from '../../shared/loader'
+import Loader from 'atoms/loader'
 import Modal from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'

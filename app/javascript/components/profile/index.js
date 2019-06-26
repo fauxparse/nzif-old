@@ -3,7 +3,7 @@ import PropTypes from 'lib/proptypes'
 import { Query, withApollo } from 'react-apollo'
 import classNames from 'classnames'
 import { EDIT_USER_QUERY, UPDATE_USER_MUTATION } from '../../queries'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 import NotFound from '../not_found'
 import Editor from './editor'
 

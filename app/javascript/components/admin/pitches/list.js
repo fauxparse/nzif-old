@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery } from 'react-apollo-hooks'
-import Loader from '../../shared/loader'
+import Loader from 'atoms/loader'
 import ListItem from './list_item'
 import { PITCHES_QUERY } from '../../../queries'
 

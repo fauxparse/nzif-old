@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import PageContent from '../page_content'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 import Logo from '../shared/logo'
 import Countdown from '../shared/countdown'
 import { Link } from '../shared/ripple'

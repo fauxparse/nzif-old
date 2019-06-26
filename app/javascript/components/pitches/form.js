@@ -7,7 +7,7 @@ import PitchSteps from './steps'
 import { STEPS } from './constants'
 import PageTransition, { slideLeft, slideRight } from '../page_transition'
 import Button from '../../atoms/button'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 
 const useNestedState = initialValue => {
   const [state, setState] = useState(initialValue)

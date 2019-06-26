@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import Button from 'atoms/button'
-import Loader from './loader'
+import Loader from 'atoms/loader'
 
 const SaveButton = ({ className, saving, text, disabled, savingText, ...props }) => (
   <Button
