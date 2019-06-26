@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import isArray from 'lodash/isArray'
-import moment from '../../lib/moment'
+import moment from 'lib/moment'
 
 export const TIME_FORMATS = {
   default: 'h:mm A',

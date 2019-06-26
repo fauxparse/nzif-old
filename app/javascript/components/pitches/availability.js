@@ -2,9 +2,9 @@ import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 import { Checkbox, Errors, Field, Hint,  Textarea } from '../form'
-import Date from '../shared/date'
-import Time from '../shared/time'
-import moment from '../../lib/moment'
+import Date from 'atoms/date'
+import Time from 'atoms/time'
+import moment from 'lib/moment'
 
 const Availability = ({ pitch, errors, onChange }) => {
   const { activityType, slots, availability, festival } = pitch

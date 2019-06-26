@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import moment from '../../lib/moment'
 import isArray from 'lodash/isArray'
+import moment from 'lib/moment'
 
 export const DATE_FORMATS = {
   default: 'dddd D MMMM',
@@ -34,7 +34,7 @@ const Date = ({ date, format }) => {
     <Fragment>
       {dates.length > 1
         ? formatRange(...dates)
-        : dates[0].format(DATE_FORMATS[format])}
+        : dates[0].format(DATE_FORMATS[format] || format)}
     </Fragment>
   )
 }
