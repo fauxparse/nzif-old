@@ -7,7 +7,7 @@ import { Link } from '../shared/ripple'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from '../shared/loader'
 import { CurrentUserContext } from '../shared/current_user'
-import Button from '../button'
+import Button from '../../atoms/button'
 import Modal from '../modals'
 import Pitch from './pitch'
 

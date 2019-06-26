@@ -5,8 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { withApollo, compose } from 'react-apollo'
 import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
-import Icon from '../../../atoms/icon'
-import Ripple from '../ripple'
+import Menu from '../menu'
 import { CURRENT_USER_QUERY } from '../../../queries'
 
 const LOG_OUT_MUTATION = gql`
@@ -33,10 +32,13 @@ const LogOutLink = ({ client, history }) => {
       })
 
   return (
-    <Ripple className="menu__item" onClick={logOutClicked}>
-      <Icon className="menu__icon" name="log-out" />
-      <span className="menu__text">Log out</span>
-    </Ripple>
+    <Menu.Item
+      as="div"
+      className="menu__item"
+      icon="log-out"
+      text="Log out"
+      onClick={logOutClicked}
+    />
   )
 }
 

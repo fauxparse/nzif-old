@@ -6,7 +6,7 @@ import CURRENT_USER_QUERY, { CURRENT_USER_FIELDS } from '../../queries/current_u
 import { Label, Input, Field } from '../form'
 import Loader from '../shared/loader'
 import TextLink from '../shared/text_link'
-import Button from '../button'
+import Button from '../../atoms/button'
 import Form from './form'
 
 const VALIDATE_TOKEN_QUERY = gql`

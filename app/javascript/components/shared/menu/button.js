@@ -1,25 +1,27 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Icon from '../../../atoms/icon'
-import Ripple from '../ripple'
+import Button from '../../../atoms/button'
+import Ripple from '../../../effects/ripple'
 
-const Button = React.forwardRef(({ className, open, children, ...props }, ref) => (
-  <Ripple
+const MenuButton = forwardRef(({ className, open, children, ...props }, ref) => (
+  <Button
     ref={ref}
     className={classNames('menu__button', className)}
     aria-expanded={open || undefined}
     {...props}
   >
+    <Ripple />
     {children}
     <Icon className="menu__chevron" name="chevron-down" />
-  </Ripple>
+  </Button>
 ))
 
-Button.propTypes = {
+MenuButton.propTypes = {
   open: PropTypes.bool,
 }
 
-Button.displayName = 'Menu.Button'
+MenuButton.displayName = 'Menu.Button'
 
-export default Button
+export default MenuButton

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Button from '../button'
+import Button from '../../atoms/button'
 
 const Page = ({ className, onClose, children, ...props }) => (
   <section className={classNames('login', className)} {...props}>

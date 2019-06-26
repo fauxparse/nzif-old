@@ -6,7 +6,7 @@ import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 import CommonProps from '../../lib/common_props'
 import { Label, Input, Field } from '../form'
-import Button from '../button'
+import Button from '../../atoms/button'
 import Form from './form'
 
 export const FORGOT_PASSWORD_MUTATION = gql`

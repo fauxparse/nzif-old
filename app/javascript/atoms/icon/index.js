@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
+import PropTypes from '../../lib/proptypes'
 import ICONS from './all'
 import './index.scss'
 
@@ -34,7 +33,7 @@ class Icon extends React.PureComponent {
 
 Icon.propTypes = {
   className: PropTypes.string,
-  name: CommonProps.icon,
+  name: PropTypes.icon,
   viewBox: PropTypes.string,
 }
 

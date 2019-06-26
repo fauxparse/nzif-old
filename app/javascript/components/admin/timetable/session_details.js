@@ -6,7 +6,7 @@ import CommonProps from '../../../lib/common_props'
 import Date from '../../shared/date'
 import Time from '../../shared/time'
 import Icon from '../../../atoms/icon'
-import Button from '../../button'
+import Button from '../../../atoms/button'
 import VenuePicker from '../activities/venue_picker'
 import { IconField } from '../../form'
 

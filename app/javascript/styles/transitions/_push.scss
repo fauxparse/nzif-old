@@ -24,6 +24,8 @@
 
 .push,
 .pop {
+  transform-origin: 0 0;
+
   &-enter,
   &-exit {
     @include elevation(24);

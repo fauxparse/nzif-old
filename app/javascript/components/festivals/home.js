@@ -4,7 +4,7 @@ import Loader from '../shared/loader'
 import Logo from '../shared/logo'
 import Countdown from '../shared/countdown'
 import { Link } from '../shared/ripple'
-import Button from '../button'
+import Button from '../../atoms/button'
 import Context from './context'
 
 const Home = () => {

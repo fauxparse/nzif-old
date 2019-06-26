@@ -1,12 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import CommonProps from '../../../lib/common_props'
+import PropTypes from '../../../lib/proptypes'
 import Icon from '../../../atoms/icon'
-import { Link } from '../ripple'
+import Ripple from '../../../effects/ripple'
+import Link from '../link'
 
 const Item = ({ as: Component, className, icon, text, children, ...props }) => (
   <Component className={classNames('menu__item', className)} {...props}>
+    <Ripple />
     {icon && <Icon className="menu__icon" name={icon} />}
     {text && <span className="menu__text">{text}</span>}
     {children}
@@ -14,13 +15,9 @@ const Item = ({ as: Component, className, icon, text, children, ...props }) => (
 )
 
 Item.propTypes = {
-  as: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.func.isRequired,
-    PropTypes.symbol.isRequired,
-  ]),
+  as: PropTypes.component,
   text: PropTypes.string,
-  icon: CommonProps.icon,
+  icon: PropTypes.icon,
 }
 
 Item.defaultProps = {

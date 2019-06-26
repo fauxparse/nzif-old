@@ -11,10 +11,16 @@
     }
 
     display: flex;
+    position: relative;
     align-items: center;
     padding: 0.5em 1em;
     transition: transition(background-color);
+    border: 0;
     cursor: pointer;
+
+    .button__text {
+      color: inherit;
+    }
   }
 
   &__chevron {
@@ -60,10 +66,12 @@
     }
 
     display: flex;
+    position: relative;
     align-items: center;
     padding: 0.5em 1em;
     transition: transition(background-color);
     color: inherit;
+    text-decoration: none;
     cursor: pointer;
   }
 

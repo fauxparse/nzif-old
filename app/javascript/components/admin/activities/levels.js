@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CommonProps from '../../../lib/common_props'
-import Button from '../../button'
+import Button from '../../../atoms/button'
 
 const LEVELS = ['beginner', 'intermediate', 'advanced']
 

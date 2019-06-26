@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import PitchSteps from './steps'
 import { STEPS } from './constants'
 import PageTransition, { slideLeft, slideRight } from '../page_transition'
-import Button from '../button'
+import Button from '../../atoms/button'
 import Loader from '../shared/loader'
 
 const useNestedState = initialValue => {
