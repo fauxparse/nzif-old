@@ -6,4 +6,8 @@
 
 .root-transition-container {
   background: linear-gradient(to bottom, #{color(grey, 300)}, #{color(grey, 600)});
+
+  > * {
+    transform-origin: 50% 0;
+  }
 }

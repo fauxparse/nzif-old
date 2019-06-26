@@ -1,9 +1,9 @@
 @keyframes push-in {
   0% {
-    transform: translate3d(100vw, 0, 0) scale(0.9);
+    transform: translate3d(100vw, 5vh, 0) scale(0.9);
   }
   50% {
-    transform: translate3d(0, 0, 0) scale(0.9);
+    transform: translate3d(0, 5vh, 0) scale(0.9);
   }
   100% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -15,17 +15,15 @@
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(0, 0, 0) scale(0.9);
+    transform: translate3d(0, 5vh, 0) scale(0.9);
   }
   100% {
-    transform: translate3d(-100vw, 0, 0) scale(0.9);
+    transform: translate3d(-100vw, 5vh, 0) scale(0.9);
   }
 }
 
 .push,
 .pop {
-  transform-origin: 0 0;
-
   &-enter,
   &-exit {
     @include elevation(24);
