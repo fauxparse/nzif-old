@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Link from '../../shared/ripple/link'
 import Avatar from '../../shared/avatar'
 import Sentence from '../../shared/sentence'
-import Icon from '../../../atoms/icon'
+import Icon from 'atoms/icon'
 import { ACTIVITY_TYPES } from '../../pitches/constants'
 
 const ListItem = ({ baseUrl, pitch }) => {
@@ -46,7 +45,7 @@ const ListItem = ({ baseUrl, pitch }) => {
 ListItem.propTypes = {
   baseUrl: PropTypes.string.isRequired,
   pitch: PropTypes.shape({
-    id: CommonProps.id.isRequired,
+    id: PropTypes.id.isRequired,
     name: PropTypes.string.isRequired,
   }),
 }

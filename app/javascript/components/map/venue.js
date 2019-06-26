@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Icon from '../../atoms/icon'
 
 const Venue = ({ id, name, address, selected, onClick }) => (
@@ -19,7 +18,7 @@ const Venue = ({ id, name, address, selected, onClick }) => (
 )
 
 Venue.propTypes = {
-  id: CommonProps.id.isRequired,
+  id: PropTypes.id.isRequired,
   name: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,

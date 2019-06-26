@@ -1,8 +1,7 @@
 import React, { forwardRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { Picture } from 'react-responsive-picture'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
 
 const COLORS = ['tomato', 'mandarin', 'grape', 'plum', 'apple', 'mint']
 
@@ -46,9 +45,9 @@ const Avatar = forwardRef(
 Avatar.displayName = 'Avatar'
 
 Avatar.propTypes = {
-  id: CommonProps.id,
+  id: PropTypes.id,
   name: PropTypes.string.isRequired,
-  image: CommonProps.userImage,
+  image: PropTypes.userImage,
   origin: PropTypes.string,
   bio: PropTypes.string,
 }

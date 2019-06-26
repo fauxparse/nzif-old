@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Menu from '../menu'
 import Button from '../../../atoms/button'
 import Avatar from './avatar'
@@ -15,7 +14,7 @@ const User = forwardRef(({ user, notificationsCount, ...props }, ref) => (
 User.displayName = 'User'
 
 User.propTypes = {
-  user: CommonProps.user,
+  user: PropTypes.user,
   notificationsCount: PropTypes.number,
 }
 

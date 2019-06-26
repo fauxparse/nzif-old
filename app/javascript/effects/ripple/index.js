@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import classNames from 'classnames'
-import PropTypes from '../../lib/proptypes'
+import PropTypes from 'lib/proptypes'
 import './index.scss'
 
 const trueClientPosition = (coordinates, element) => {

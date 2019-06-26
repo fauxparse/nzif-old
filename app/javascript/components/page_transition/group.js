@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import CommonProps from '../../lib/common_props'
 import none from './none'
 
 const childFactoryCreator = props => child => React.cloneElement(child, props)
@@ -18,7 +17,7 @@ const PageTransition = ({ transition, duration, pageKey, component, children, ..
 )
 
 PageTransition.propTypes = {
-  component: CommonProps.component,
+  component: PropTypes.component,
   transition: PropTypes.string.isRequired,
   duration: PropTypes.number.isRequired,
   pageKey: PropTypes.string.isRequired

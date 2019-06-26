@@ -1,10 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../../lib/common_props'
-import { WithPermission } from '../../../lib/permissions'
+import { WithPermission } from 'lib/permissions'
 import Avatar from '../../shared/avatar'
-import Button from '../../../atoms/button'
+import Button from 'atoms/button'
 
 const Presenter = ({ id, name, image, activity, className, onRemove }) => {
   return (
@@ -23,14 +22,14 @@ const Presenter = ({ id, name, image, activity, className, onRemove }) => {
 }
 
 Presenter.propTypes = {
-  id: CommonProps.id.isRequired,
+  id: PropTypes.id.isRequired,
   name: PropTypes.string.isRequired,
   image: PropTypes.shape({
     small: PropTypes.string.isRequired,
     medium: PropTypes.string.isRequired,
   }),
-  activity: CommonProps.activity.isRequired,
-  className: CommonProps.className,
+  activity: PropTypes.activity.isRequired,
+  className: PropTypes.className,
   onRemove: PropTypes.func.isRequired,
 }
 

@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Loader from '../shared/loader'
 import Venue from './venue'
 
@@ -27,8 +26,8 @@ const VenueList = ({ loading, venues, selection, onVenueClick }) => (
 
 VenueList.propTypes = {
   loading: PropTypes.bool.isRequired,
-  venues: PropTypes.arrayOf(CommonProps.venue.isRequired),
-  selection: CommonProps.venue,
+  venues: PropTypes.arrayOf(PropTypes.venue.isRequired),
+  selection: PropTypes.venue,
   onVenueClick: PropTypes.func.isRequired
 }
 

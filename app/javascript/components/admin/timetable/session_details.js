@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import upperFirst from 'lodash/upperFirst'
-import CommonProps from '../../../lib/common_props'
 import Date from '../../shared/date'
 import Time from '../../shared/time'
 import Icon from '../../../atoms/icon'
@@ -12,7 +11,7 @@ import { IconField } from '../../form'
 
 class SessionDetails extends Component {
   static propTypes = {
-    session: CommonProps.session,
+    session: PropTypes.session,
     onDelete: PropTypes.func.isRequired,
     onDuplicate: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
-import moment from '../../lib/moment'
+import PropTypes from 'lib/proptypes'
+import moment from 'lib/moment'
 import Digit from './digit'
 
 const NumberGroup = ({ number, label = '', digits = 2 }) => {

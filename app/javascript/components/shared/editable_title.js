@@ -1,8 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import Textarea from 'react-textarea-autosize'
-import CommonProps from '../../lib/common_props'
 
 const EditableTitle = ({ className, value, live, onChange, onBlur, onKeyDown, ...props }) => {
   const [current, setCurrent] = useState(value)
@@ -43,7 +42,7 @@ const EditableTitle = ({ className, value, live, onChange, onBlur, onKeyDown, ..
 }
 
 EditableTitle.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
   live: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,

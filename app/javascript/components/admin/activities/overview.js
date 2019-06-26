@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import pick from 'lodash/pick'
-import CommonProps from '../../../lib/common_props'
 import { IconField, Textarea } from '../../form'
-import Button from '../../../atoms/button'
+import Button from 'atoms/button'
 import Presenters from './presenters'
 import Levels from './levels'
 import { ImageUpload } from '../../form'
 
 class Overview extends Component {
   static propTypes = {
-    activity: CommonProps.activity,
+    activity: PropTypes.activity,
     onChange: PropTypes.func.isRequired,
     saving: PropTypes.bool,
   }

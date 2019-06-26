@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Picture } from 'react-responsive-picture'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import TextLink from '../../components/shared/text_link'
 import Skeleton from '../shared/skeleton_text'
 import Sentence from '../shared/sentence'
@@ -49,7 +48,7 @@ const Activity = ({ activity = {}, loading }) => (
 )
 
 Activity.propTypes = {
-  activity: CommonProps.activity,
+  activity: PropTypes.activity,
   loading: PropTypes.bool.isRequired,
 }
 

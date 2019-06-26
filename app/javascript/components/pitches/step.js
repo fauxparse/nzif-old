@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
-import Icon from '../../atoms/icon'
+import Icon from 'atoms/icon'
 import { STEP_NAMES } from './constants'
 
 const Step = ({ name, title, icon, active, completed, nextStep, onClick }) => {
@@ -30,7 +29,7 @@ const Step = ({ name, title, icon, active, completed, nextStep, onClick }) => {
 Step.propTypes = {
   name: PropTypes.oneOf(STEP_NAMES).isRequired,
   title: PropTypes.string.isRequired,
-  icon: CommonProps.icon.isRequired,
+  icon: PropTypes.icon.isRequired,
   active: PropTypes.bool,
   completed: PropTypes.bool,
   nextStep: PropTypes.bool,

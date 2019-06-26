@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
-import Button from '../../atoms/button'
+import Button from 'atoms/button'
 import Loader from './loader'
 
 const SaveButton = ({ className, saving, text, disabled, savingText, ...props }) => (
@@ -17,7 +16,7 @@ const SaveButton = ({ className, saving, text, disabled, savingText, ...props })
 )
 
 SaveButton.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
   saving: PropTypes.bool,
   text: PropTypes.string,
   savingText: PropTypes.string,

@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
-import CommonProps from '../../lib/common_props'
 import { Label, Input, Field } from '../form'
 import Button from '../../atoms/button'
 import Form from './form'
@@ -108,7 +107,7 @@ const ForgotPasswordForm = ({ className }) => {
 }
 
 ForgotPasswordForm.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
   history: ReactRouterPropTypes.history.isRequired,
   lastLocation: PropTypes.oneOfType([ReactRouterPropTypes.location, PropTypes.string ]),
 }

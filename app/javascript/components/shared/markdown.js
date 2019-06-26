@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import MDReactComponent from 'markdown-react-js'
 import TextLink from './text_link'
-import CommonProps from '../../lib/common_props'
 
 const handleIterate = (Tag, tagProps, children, _level) => {
   if (Tag === 'a') {
@@ -32,7 +31,7 @@ const Markdown = ({ className, component = 'div', text, ...props }) => (
 Markdown.propTypes = {
   component: PropTypes.string,
   text: PropTypes.string.isRequired,
-  className: CommonProps.className,
+  className: PropTypes.className,
 }
 
 Markdown.defaultProps = {

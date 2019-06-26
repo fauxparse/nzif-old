@@ -1,10 +1,9 @@
 import React, { Component, createRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import RelativePortal from 'react-relative-portal'
-import ThemeContext from '../../lib/theme_context'
-import CommonProps from '../../lib/common_props'
-import Icon from '../../atoms/icon'
+import ThemeContext from 'lib/theme_context'
+import Icon from 'atoms/icon'
 
 const KEYS = {
   UP: 38,
@@ -26,7 +25,7 @@ const SelectMenuSeparator = () => <li className="select__menu-separator" />
 
 class Select extends Component {
   static propTypes = {
-    className: CommonProps.className,
+    className: PropTypes.className,
     value: PropTypes.any,
     options: PropTypes.array.isRequired,
     placeholder: PropTypes.string,

@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import pick from 'lodash/pick'
-import CommonProps from '../../lib/common_props'
 import { ROLES, ROLE_DESCRIPTIONS } from '../../lib/roles'
 import { WithPermission } from '../../lib/permissions'
 import { CurrentUserContext } from '../shared/current_user'
 import { CountrySelect, Errors, IconField, ImageUpload, Input, Switch, Textarea } from '../form'
-import Icon from '../../atoms/icon'
-import Button from '../../atoms/button'
+import Icon from 'atoms/icon'
+import Button from 'atoms/button'
 
 class ProfileEditor extends Component {
   static propTypes = {
-    className: CommonProps.className,
+    className: PropTypes.className,
     user: PropTypes.shape({
-      id: CommonProps.id.isRequired,
+      id: PropTypes.id.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       image: PropTypes.shape({}),

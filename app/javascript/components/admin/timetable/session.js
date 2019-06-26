@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Block from './block'
 import Context from './context'
 
@@ -8,7 +7,7 @@ const startOf = (time, startHour) => time.clone().startOf('day').hour(startHour)
 
 class Session extends Component {
   static propTypes = {
-    session: CommonProps.session.isRequired,
+    session: PropTypes.session.isRequired,
     onClick: PropTypes.func.isRequired,
   }
 

@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
 import Icon from '../../atoms/icon'
 import Button from '../../atoms/button'
 import Sentence from '../shared/sentence'
@@ -49,7 +48,7 @@ const Pitch = ({ className, pitch, url, onDelete }) => {
 
 Pitch.propTypes = {
   pitch: PropTypes.shape({
-    id: CommonProps.id.isRequired,
+    id: PropTypes.id.isRequired,
     name: PropTypes.string,
     state: PropTypes.string,
   }),

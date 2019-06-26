@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import pluralize from 'pluralize'
-import CommonProps from '../../lib/common_props'
 import PageHeader from '../shared/page_header'
 import Skeleton from '../shared/skeleton_text'
 import Presenter from '../shared/presenter'
@@ -68,7 +67,7 @@ ActivityHeader.propTypes = {
       full: PropTypes.string.isRequired,
     }),
     festival: PropTypes.shape({
-      year: CommonProps.id.isRequired
+      year: PropTypes.id.isRequired
     }).isRequired
   })
 }

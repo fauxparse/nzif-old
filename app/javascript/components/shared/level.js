@@ -1,5 +1,5 @@
 import React from 'react'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Tooltip from './tooltip'
 
 export const LEVELS = {
@@ -26,7 +26,7 @@ const Level = ({ level }) => (
 )
 
 Level.propTypes = {
-  level: CommonProps.activityLevel.isRequired,
+  level: PropTypes.activityLevel.isRequired,
 }
 
 export default Level

@@ -1,9 +1,9 @@
 import React, { forwardRef, useRef } from 'react'
-import PropTypes from '../../lib/proptypes'
 import classNames from 'classnames'
+import PropTypes from 'lib/proptypes'
+import Ripple from 'effects/ripple'
 import Text from './text'
 import Icon from './icon'
-import Ripple from '../../effects/ripple'
 import './index.scss'
 
 const Button = forwardRef(({

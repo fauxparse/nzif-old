@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react'
-import PropTypes from 'prop-types'
 import partition from 'lodash/partition'
 import MomentPropTypes from 'react-moment-proptypes'
+import PropTypes from 'lib/proptypes'
 import Skeleton from '../shared/skeleton_text'
 import Date from '../shared/date'
 import TimeSlot from './time_slot'
-import { useSticky } from '../../lib/hooks'
+import { useSticky } from 'lib/hooks'
 
 const ActivityDay = ({ date, activities, loading }) => {
   const sticky = useSticky()

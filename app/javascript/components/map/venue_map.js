@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { graphql } from 'react-apollo'
-import CommonProps from '../../lib/common_props'
 import { VENUES_QUERY } from '../../queries'
 import VenueList from './venue_list'
 import Map from './map'
@@ -10,7 +9,7 @@ class VenueMap extends Component {
   static propTypes = {
     data: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
-      venues: PropTypes.arrayOf(CommonProps.venue.isRequired)
+      venues: PropTypes.arrayOf(PropTypes.venue.isRequired)
     })
   }
 

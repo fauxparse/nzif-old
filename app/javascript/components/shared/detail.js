@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
-import Icon from '../../atoms/icon'
+import PropTypes from 'lib/proptypes'
+import Icon from 'atoms/icon'
 
 const Detail = ({ icon, className, children }) => (
   <div className="detail">
@@ -13,8 +13,8 @@ const Detail = ({ icon, className, children }) => (
 )
 
 Detail.propTypes = {
-  icon: CommonProps.icon.isRequired,
-  className: CommonProps.className,
+  icon: PropTypes.icon.isRequired,
+  className: PropTypes.className,
 }
 
 export default Detail

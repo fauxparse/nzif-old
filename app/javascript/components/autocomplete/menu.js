@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
 import MenuItem from './menu_item'
 
 const Menu = forwardRef(({
@@ -43,8 +42,8 @@ Menu.propTypes = {
   }).isRequired).isRequired,
   selectedIndex: PropTypes.number,
   selectedText: PropTypes.string.isRequired,
-  menuItemComponent: CommonProps.component,
-  menuRef: CommonProps.ref,
+  menuItemComponent: PropTypes.component,
+  menuRef: PropTypes.ref,
   onClick: PropTypes.func.isRequired,
 }
 

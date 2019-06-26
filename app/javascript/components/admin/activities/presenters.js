@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../../lib/common_props'
-import { WithPermission } from '../../../lib/permissions'
-import Button from '../../../atoms/button'
+import PropTypes from 'lib/proptypes'
+import { WithPermission } from 'lib/permissions'
+import Button from 'atoms/button'
 import Modal from '../../modals'
 import Presenter from './presenter'
 import AddPresenter from './add_presenter'
 
 class Presenters extends Component {
   static propTypes = {
-    activity: CommonProps.activity.isRequired,
-    presenters: PropTypes.arrayOf(CommonProps.user.isRequired).isRequired,
+    activity: PropTypes.activity.isRequired,
+    presenters: PropTypes.arrayOf(PropTypes.user.isRequired).isRequired,
     onChange: PropTypes.func.isRequired,
   }
 

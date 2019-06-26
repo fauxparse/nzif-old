@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
+import Icon from 'atoms/icon'
+import moment from 'lib/moment'
 import Link from '../../shared/ripple/link'
-import Icon from '../../../atoms/icon'
-import moment from '../../../lib/moment'
 
 const ListItem = ({ baseUrl, content, now }) => {
   const displayTime = useMemo(() => {

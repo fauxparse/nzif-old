@@ -1,5 +1,5 @@
 import React from 'react'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import VenueMap from './venue_map'
 
 const MapSection = ({ className }) => (
@@ -9,7 +9,7 @@ const MapSection = ({ className }) => (
 )
 
 MapSection.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
 }
 
 export default MapSection

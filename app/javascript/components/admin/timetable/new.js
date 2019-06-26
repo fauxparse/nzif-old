@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import { compose, withApollo } from 'react-apollo'
@@ -7,6 +6,7 @@ import { withRouter } from 'react-router'
 import deburr from 'lodash/deburr'
 import upperFirst from 'lodash/upperFirst'
 import Highlighter from 'react-highlight-words'
+import PropTypes from 'lib/proptypes'
 import {
   TIMETABLE_QUERY,
   CREATE_ACTIVITY_MUTATION,

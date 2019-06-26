@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Context from './context'
 import Times from './times'
 import List from './list'
@@ -12,9 +11,9 @@ import Session from './session'
 class Day extends React.Component {
   static propTypes = {
     date: MomentPropTypes.momentObj.isRequired,
-    selection: CommonProps.session,
-    sessions: PropTypes.arrayOf(CommonProps.session.isRequired).isRequired,
-    selectedId: CommonProps.id,
+    selection: PropTypes.session,
+    sessions: PropTypes.arrayOf(PropTypes.session.isRequired).isRequired,
+    selectedId: PropTypes.id,
     onSessionClick: PropTypes.func.isRequired,
   }
 

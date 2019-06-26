@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import PropTypes from '../../lib/proptypes'
+import PropTypes from 'lib/proptypes'
 import ICONS from './all'
 import './index.scss'
 

@@ -1,12 +1,11 @@
 /* global google */
 
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { compose, withProps } from 'recompose'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import uniqBy from 'lodash/uniqBy'
 import throttle from 'lodash/throttle'
-import CommonProps from '../../lib/common_props'
 import styles from './styles.json'
 
 const MAPS = 'https://maps.googleapis.com/maps/api/js'
@@ -24,8 +23,8 @@ const MarkerIcon = {
 
 class Map extends Component {
   static propTypes = {
-    venues: PropTypes.arrayOf(CommonProps.venue.isRequired),
-    selection: CommonProps.venue,
+    venues: PropTypes.arrayOf(PropTypes.venue.isRequired),
+    selection: PropTypes.venue,
     onVenueClick: PropTypes.func.isRequired
   }
 

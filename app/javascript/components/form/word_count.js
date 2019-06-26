@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import words from 'lodash/words'
-import CommonProps from '../../lib/common_props'
 import Textarea from './textarea'
 
 const WordCount = ({ min, max, value, as: Component = Textarea, ...props }) => {
@@ -38,7 +37,7 @@ WordCount.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   value: PropTypes.string,
-  as: CommonProps.component,
+  as: PropTypes.component,
 }
 
 export default WordCount

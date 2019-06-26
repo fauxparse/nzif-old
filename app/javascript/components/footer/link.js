@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
-import Icon from '../../atoms/icon'
+import PropTypes from 'lib/proptypes'
+import Icon from 'atoms/icon'
 
 const FooterLink = ({ icon, className, children, ...props }) => (
   <NavLink
@@ -16,7 +16,7 @@ const FooterLink = ({ icon, className, children, ...props }) => (
 )
 
 FooterLink.propTypes = {
-  icon: CommonProps.icon,
+  icon: PropTypes.icon,
 }
 
 export default FooterLink

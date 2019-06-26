@@ -1,8 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
-import PropTypes from '../../../lib/proptypes'
-import Icon from '../../../atoms/icon'
-import Ripple from '../../../effects/ripple'
+import PropTypes from 'lib/proptypes'
+import Icon from 'atoms/icon'
+import Ripple from 'effects/ripple'
 import Link from '../link'
 
 const Item = ({ as: Component, className, icon, text, children, ...props }) => (
