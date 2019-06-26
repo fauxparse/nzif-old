@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import Avatar from '../../shared/avatar'
+import Avatar from 'atoms/avatar'
 
 const Person = ({ value: user, selected, onClick }) => {
   const { name, email } = user

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import mojs from 'mo-js'
-import Avatar from '../avatar'
+import Avatar from 'atoms/avatar'
 
 class AvatarWithNotifications extends React.Component {
   avatar = React.createRef()

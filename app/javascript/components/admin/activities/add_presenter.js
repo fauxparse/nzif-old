@@ -6,7 +6,7 @@ import deburr from 'lodash/deburr'
 import Highlighter from 'react-highlight-words'
 import { USERS_QUERY } from '../../../queries'
 import Autocomplete from '../../autocomplete'
-import Avatar from '../../shared/avatar'
+import Avatar from 'atoms/avatar'
 
 const MenuItem = ({ label, selected, selectedText, value, ...props }) => (
   <li className="add-presenter__presenter" aria-selected={selected || undefined} {...props}>

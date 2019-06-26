@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import { WithPermission } from 'lib/permissions'
-import Avatar from '../../shared/avatar'
+import Avatar from 'atoms/avatar'
 import Button from 'atoms/button'
 
 const Presenter = ({ id, name, image, activity, className, onRemove }) => {

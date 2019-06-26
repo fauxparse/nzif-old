@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'lib/proptypes'
 import Markdown from '../shared/markdown'
 import Presenter from '../shared/presenter'
-import Avatar from '../shared/avatar'
+import Avatar from 'atoms/avatar'
 
 const Presenters = ({ presenters }) => (
   <section className="activity-presenters">

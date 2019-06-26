@@ -2,10 +2,11 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'lib/proptypes'
 import { Picture } from 'react-responsive-picture'
 import classNames from 'classnames'
+import './index.scss'
 
 const COLORS = ['tomato', 'mandarin', 'grape', 'plum', 'apple', 'mint']
 
-function hashCode(str) {
+const hashCode = (str) => {
   let hash = 0
 
   for (let i = 0; i < str.length; i++) {

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import Link from '../../shared/ripple/link'
-import Avatar from '../../shared/avatar'
+import Avatar from 'atoms/avatar'
 import Sentence from '../../shared/sentence'
 import Icon from 'atoms/icon'
 import { ACTIVITY_TYPES } from '../../pitches/constants'
