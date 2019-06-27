@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'lib/proptypes'
 import ListItem from './list_item'
+import ListLink from './list_link'
 import './index.scss'
 
 const List = ({
@@ -23,5 +24,6 @@ List.defaultProps = {
 }
 
 List.Item = ListItem
+List.Link = ListLink
 
 export default List

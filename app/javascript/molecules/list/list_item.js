@@ -16,8 +16,8 @@ const ListItem = ({
   children,
   ...props
 }) => (
-  <li className="list-item">
-    <Component className={classNames('list-item__wrapper', className)} {...props}>
+  <li className={classNames('list-item', className)}>
+    <Component className="list-item__wrapper" {...props}>
       {avatar && <Avatar className="list-item__avatar" {...avatar} />}
       {icon !== undefined && <Icon className="list-item__icon" name={icon} />}
       <span className="list-item__content">

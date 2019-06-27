@@ -1,27 +1,26 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
+import ReactRouterPropTypes from 'react-router-prop-types'
+import { withRouter } from 'react-router-dom'
 import Loader from 'atoms/loader'
 import List from 'molecules/list'
-import Ripple from 'effects/ripple'
 
-const VenueList = ({ loading, venues, selection, onVenueClick }) => (
+const VenueList = ({ loading, venues, selection }) => (
   <aside className="venue-list">
     {loading ? (
       <Loader />
     ) : (
       <List className="venue-list__venues">
         {venues.map(venue => (
-          <List.Item
+          <List.Link
             key={venue.id}
+            to={`#${venue.id}`}
             data-id={venue.id}
             icon="venue"
             primary={venue.name}
             secondary={venue.address}
-            aria-selected={(selection && selection.id === venue.id) || undefined}
-            onClick={() => onVenueClick(venue)}
-          >
-            <Ripple />
-          </List.Item>
+            active={(selection && selection.id === venue.id) || undefined}
+          />
         ))}
       </List>
     )}
@@ -30,9 +29,9 @@ const VenueList = ({ loading, venues, selection, onVenueClick }) => (
 
 VenueList.propTypes = {
   loading: PropTypes.bool.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
   venues: PropTypes.arrayOf(PropTypes.venue.isRequired),
   selection: PropTypes.venue,
-  onVenueClick: PropTypes.func.isRequired
 }
 
-export default VenueList
+export default withRouter(VenueList)

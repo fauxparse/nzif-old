@@ -6,26 +6,6 @@
 }
 
 .venue-list {
-  @include themify {
-    background: change-opacity(themed(background), 0.9);
-
-    .venue__address {
-      color: themed(secondary);
-    }
-
-    &__venue {
-      &[aria-selected] {
-        background: themed(highlight);
-        color: themed(highlight-text);
-
-        .venue__address,
-        .icon {
-          color: change-opacity(themed(highlight-text), secondary);
-        }
-      }
-    }
-  }
-
   @include elevation(4);
   position: absolute;
   right: 0;
@@ -37,11 +17,15 @@
   @include media(medium) {
     top: 0;
     right: auto;
-    max-width: 24rem;
+    width: 24rem;
   }
 
   .list-item {
     cursor: pointer;
+  }
+
+  @include themify {
+    background: change-opacity(themed(background), 0.9);
   }
 }
 

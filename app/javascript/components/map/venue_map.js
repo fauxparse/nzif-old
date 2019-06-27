@@ -1,46 +1,42 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import { graphql } from 'react-apollo'
-import { VENUES_QUERY } from '../../queries'
+import { VENUES_QUERY } from 'queries'
 import VenueList from './venue_list'
 import Map from './map'
 
-class VenueMap extends Component {
-  static propTypes = {
-    data: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      venues: PropTypes.arrayOf(PropTypes.venue.isRequired)
-    })
-  }
+const VenueMap = ({ data: { loading, venues } }) => {
+  const [selection, setSelection] = useState()
 
-  state = {
-    selection: undefined
-  }
+  const hash = location.hash.replace(/^#/, '')
 
-  venueClicked = venue => this.setState({ selection: venue })
+  useEffect(() => {
+    if (hash && venues) {
+      setSelection(venues.find(v => v.id.toString() === hash))
+    }
+  }, [venues, hash, setSelection])
 
-  render() {
-    const {
-      data: { loading, venues }
-    } = this.props
-    const { selection } = this.state
+  return (
+    <div className="venues-with-map">
+      <VenueList
+        loading={loading}
+        venues={loading ? [] : venues}
+        selection={selection}
+      />
+      <Map
+        venues={loading ? [] : venues}
+        selection={selection}
+        onVenueClick={({ id }) => location.hash = id}
+      />
+    </div>
+  )
+}
 
-    return (
-      <div className="venues-with-map">
-        <VenueList
-          loading={loading}
-          venues={venues}
-          onVenueClick={this.venueClicked}
-          selection={selection}
-        />
-        <Map
-          venues={loading ? [] : venues}
-          selection={selection}
-          onVenueClick={this.venueClicked}
-        />
-      </div>
-    )
-  }
+VenueMap.propTypes = {
+  data: PropTypes.shape({
+    loading: PropTypes.bool,
+    venues: PropTypes.arrayOf(PropTypes.venue),
+  }).isRequired,
 }
 
 export default graphql(VENUES_QUERY)(VenueMap)

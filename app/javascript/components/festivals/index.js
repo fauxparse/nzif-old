@@ -44,7 +44,7 @@ const Festival = ({ match }) => {
                   />
                   <Route path={`${match.path}/profile`} exact component={Profile} />
                   <Route path={`${match.path}/pitches`} component={Pitches} />
-                  <Route path={`${match.path}/map`} exact component={Map} />
+                  <Route path={`${match.path}/map`} component={Map} />
                   <Route path={`${match.path}/`} exact component={Home} />
                   <Route path={`${match.path}/:slug`} exact component={StaticContent} />
                   <Route component={NotFound} />
