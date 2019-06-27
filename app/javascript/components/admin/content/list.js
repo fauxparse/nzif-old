@@ -3,10 +3,10 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import sortBy from 'lodash/sortBy'
 import { useQuery } from 'react-apollo-hooks'
 import Loader from 'atoms/loader'
+import ListItem from 'molecules/list_item'
 import Link from '../../shared/ripple/link'
-import Icon from '../../../atoms/icon'
 import moment from '../../../lib/moment'
-import ListItem from './list_item'
+import Content from './list_item'
 import { CONTENTS_QUERY } from '../../../queries'
 
 const ContentList = ({ match }) => {
@@ -35,21 +35,20 @@ const ContentList = ({ match }) => {
       {loading ? <Loader /> : (
         <ul className="list">
           {contents.map(content => (
-            <ListItem
+            <Content
               key={content.slug}
               content={content}
               now={now}
               baseUrl={match.url}
             />
           ))}
-          <li className="list__item">
-            <Link to={`${match.url}/new`} className="list__link">
-              <Icon name="add" className="list__icon" />
-              <span className="list__details">
-                <span className="list__title">New content</span>
-              </span>
-            </Link>
-          </li>
+          <ListItem
+            as={Link}
+            to={`${match.url}/new`}
+            className="list-item__link"
+            icon="add"
+            primary="New content"
+          />
         </ul>
       )}
     </div>

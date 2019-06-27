@@ -10,6 +10,8 @@ $padding: 1rem;
 $spacing: 1rem;
 $keyline: 4.5rem;
 $min-full-width: map-get($breakpoints, large) + $padding * 2;
+$icon-size: 1.5rem;
+$avatar-size: 2.5rem;
 
 @function breakpoint($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {

@@ -8,6 +8,7 @@ export default [
   'check',
   'checkbox',
   'chevron-down',
+  'chevron-right',
   'clock',
   'close',
   'code-of-conduct',
