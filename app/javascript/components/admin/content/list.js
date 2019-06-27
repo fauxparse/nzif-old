@@ -3,7 +3,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import sortBy from 'lodash/sortBy'
 import { useQuery } from 'react-apollo-hooks'
 import Loader from 'atoms/loader'
-import ListItem from 'molecules/list_item'
+import List from 'molecules/list'
 import Link from '../../shared/ripple/link'
 import moment from '../../../lib/moment'
 import Content from './list_item'
@@ -33,7 +33,7 @@ const ContentList = ({ match }) => {
       </header>
 
       {loading ? <Loader /> : (
-        <ul className="list">
+        <List>
           {contents.map(content => (
             <Content
               key={content.slug}
@@ -42,14 +42,14 @@ const ContentList = ({ match }) => {
               baseUrl={match.url}
             />
           ))}
-          <ListItem
+          <List.Item
             as={Link}
             to={`${match.url}/new`}
             className="list-item__link"
             icon="add"
             primary="New content"
           />
-        </ul>
+        </List>
       )}
     </div>
   )

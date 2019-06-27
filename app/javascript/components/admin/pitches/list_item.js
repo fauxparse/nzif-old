@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import Link from '../../shared/ripple/link'
 import Avatar from 'atoms/avatar'
-import ListItem from 'molecules/list_item'
+import List from 'molecules/list'
 import Sentence from '../../shared/sentence'
 import { ACTIVITY_TYPES } from '../../pitches/constants'
 
@@ -12,7 +12,7 @@ const PitchItem = ({ baseUrl, pitch }) => {
   ), [pitch])
 
   return (
-    <ListItem
+    <List.Item
       as={Link}
       to={`${baseUrl}/${pitch.id}`}
       className="list-item__link pitch"
@@ -35,7 +35,7 @@ const PitchItem = ({ baseUrl, pitch }) => {
           ))}
         </Sentence>
       </span>
-    </ListItem>
+    </List.Item>
   )
 }
 
