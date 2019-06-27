@@ -1,0 +1,82 @@
+@import "../../styles/base";
+
+@keyframes digit-enter {
+  0% {
+    transform: rotateX(90deg);
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes digit-exit {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  font-family: "Brother";
+  font-weight: font-weight(black);
+
+  &__group {
+    display: flex;
+    align-items: center;
+  }
+
+  &__slot {
+    position: relative;
+    width: 1em;
+    height: 1.5em;
+    margin: 0 0.0625em;
+    border-radius: 0.125em;
+    overflow: hidden;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: inherit;
+      background: linear-gradient(to bottom, $key-umbra, $transparent 15%, transparent 85%, $key-umbra);
+      content: "";
+    }
+
+    @include themify {
+      background: themed(foreground);
+      color: themed(background);
+    }
+  }
+
+  &__digit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform-origin: 50% 50% 1em;
+    text-align: center;
+
+    &--enter {
+      animation: digit-enter 0.3s easing(standard) forwards;
+    }
+
+    &--exit {
+      animation: digit-exit 0.3s easing(standard) forwards;
+    }
+  }
+
+  &__text {
+    &[data-text=":"] {
+      transform: translateY(-0.1em);
+    }
+  }
+}

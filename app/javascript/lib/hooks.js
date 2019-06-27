@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import stickybits from 'stickybits'
 
 export const useSticky = (options = {}, dependencies = []) => {
@@ -6,7 +6,7 @@ export const useSticky = (options = {}, dependencies = []) => {
   const stickySection = useRef()
   const [width, setWidth] = useState()
 
-  const onResize = () => setWidth(stickySection.current.offsetWidth)
+  const onResize = useCallback(() => setWidth(stickySection.current.offsetWidth), [setWidth])
 
   useEffect(() => {
     window.addEventListener('resize', onResize)
@@ -20,4 +20,21 @@ export const useSticky = (options = {}, dependencies = []) => {
   }, [options, width, ...dependencies]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return stickySection
+}
+
+export const useClock = () => {
+  const ticker = useRef()
+
+  const [time, setTime] = useState(Date.now())
+
+  const tick = useCallback(() => {
+    setTime(Date.now())
+  }, [setTime])
+
+  useEffect(() => {
+    ticker.current = setInterval(tick, 1000)
+    return () => clearInterval(ticker.current)
+  }, [tick])
+
+  return time
 }
