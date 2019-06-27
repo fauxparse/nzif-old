@@ -1,0 +1,33 @@
+@import "../../styles/base";
+
+.divider {
+  display: block;
+  margin: ($spacing / 2) 0;
+  padding: 0;
+
+  &--inset {
+    margin-left: $keyline;
+  }
+
+  &--middle {
+    margin-right: $padding;
+    margin-left: $padding;
+  }
+
+  &--accent {
+    width: 1.5rem;
+    margin-top: $spacing;
+    margin-right: auto;
+    margin-bottom: $spacing;
+  }
+
+  @include themify {
+    border: 1px solid themed(border);
+    border-width: 1px 0 0;
+
+    &--accent {
+      border-top-width: 0.25rem;
+      border-color: themed(accent);
+    }
+  }
+}
