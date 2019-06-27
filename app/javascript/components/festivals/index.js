@@ -53,7 +53,6 @@ const Festival = ({ match }) => {
             )}
           />
         </div>
-        <Footer />
       </div>
     </Context.Provider>
   )
