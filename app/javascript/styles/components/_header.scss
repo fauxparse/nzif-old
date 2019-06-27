@@ -110,13 +110,11 @@ $header-theme: map-merge(map-get($themes, dark), (
     min-width: 1%;
 
     span {
+      @include ellipsis;
       flex: 1;
       font-family: font-family(branding), $system-font-stack;
       font-size: font-size(3);
       font-weight: font-weight(black);
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
     }
   }
 
@@ -160,10 +158,8 @@ $header-theme: map-merge(map-get($themes, dark), (
     }
 
     .link__text {
+      @include ellipsis;
       flex: 1;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
     }
 
     .link__icon {

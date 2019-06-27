@@ -63,11 +63,9 @@
 
     .venue__name,
     .venue__address {
+      @include ellipsis;
       display: block;
       line-height: line-height(tight);
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
     }
 
     .venue__address {

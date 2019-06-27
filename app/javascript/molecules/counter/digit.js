@@ -3,7 +3,7 @@ import PropTypes from 'lib/proptypes'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const Digit = ({ digit }) => (
-  <TransitionGroup className="counter__slot">
+  <TransitionGroup component="span" className="counter__slot">
     <CSSTransition key={digit} classNames="counter__digit-" timeout={300}>
       <span className="counter__digit">{digit}</span>
     </CSSTransition>

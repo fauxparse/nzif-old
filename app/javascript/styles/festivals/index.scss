@@ -103,16 +103,17 @@
     margin: $spacing auto 0;
   }
 
+  .counter {
+    font-size: font-size(4);
+  }
+
   @include themify {
     background: themed(panel);
   }
 
   @include media(medium) {
-    .countdown {
-      &__digits,
-      &__separator {
-        font-size: font-size(6);
-      }
+    .counter {
+      font-size: font-size(6);
     }
   }
 }

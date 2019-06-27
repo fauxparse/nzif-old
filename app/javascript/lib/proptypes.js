@@ -73,6 +73,12 @@ export const session = PropTypes.shape({
   venueId: id,
 })
 
+export const time = PropTypes.oneOfType([
+  MomentPropTypes.momentObj,
+  PropTypes.string,
+  PropTypes.number,
+])
+
 export const venue = PropTypes.shape({
   id,
   name: PropTypes.string.isRequired,
@@ -93,6 +99,7 @@ export default {
   id,
   ref,
   session,
+  time,
   user,
   userImage,
   venue,

@@ -137,12 +137,10 @@
   }
 
   .highlight {
+    @include ellipsis;
     color: color(grey, 100);
     font-size: font-size(1);
     line-height: line-height(normal);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 
     mark {
       background: none;
@@ -161,19 +159,17 @@
   overflow: hidden;
 
   &__root {
-    @include themify {
-      color: themed(secondary);
-    }
-
+    @include ellipsis;
     flex: 0 1 auto;
     padding: 0.25rem 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
     direction: rtl;
 
     &::before {
       content: "/";
+    }
+
+    @include themify {
+      color: themed(secondary);
     }
   }
 

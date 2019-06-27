@@ -6,6 +6,8 @@ import moment from 'lib/moment'
 import { useClock } from 'lib/hooks'
 import Counter from './'
 
+const LABELS = ['hour', 'minute', 'second']
+
 const CounterDemo = () => {
   const time = useClock()
 
@@ -16,7 +18,7 @@ const CounterDemo = () => {
       {groups.map((digits, i) => (
         <>
           {i > 0 && <Counter.Text>:</Counter.Text>}
-          <Counter.Group key={i} digits={digits} pad={2} />
+          <Counter.Group key={i} digits={digits} pad={2} label={LABELS[i]} />
         </>
       ))}
     </Counter>
