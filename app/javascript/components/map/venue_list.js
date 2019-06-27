@@ -1,25 +1,29 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
 import Loader from 'atoms/loader'
-import Venue from './venue'
+import List from 'molecules/list'
+import Ripple from 'effects/ripple'
 
 const VenueList = ({ loading, venues, selection, onVenueClick }) => (
   <aside className="venue-list">
     {loading ? (
       <Loader />
     ) : (
-      <ul className="venue-list__venues">
+      <List className="venue-list__venues">
         {venues.map(venue => (
-          <Venue
+          <List.Item
             key={venue.id}
-            id={venue.id}
-            name={venue.name}
-            address={venue.address}
-            selected={selection ? selection.address === venue.address : false}
+            data-id={venue.id}
+            icon="venue"
+            primary={venue.name}
+            secondary={venue.address}
+            aria-selected={(selection && selection.id === venue.id) || undefined}
             onClick={() => onVenueClick(venue)}
-          />
+          >
+            <Ripple />
+          </List.Item>
         ))}
-      </ul>
+      </List>
     )}
   </aside>
 )

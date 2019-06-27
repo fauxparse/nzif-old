@@ -19,6 +19,7 @@
 
   &__content {
     flex: 1;
+    min-width: 1px;
 
     span {
       @include ellipsis;
@@ -54,9 +55,28 @@
   &__secondary {
     font-size: font-size(-1);
     font-weight: font-weight(light);
+  }
 
-    @include themify {
+  @include themify {
+    &__secondary {
       color: themed(secondary);
+    }
+
+    &__wrapper {
+      &[aria-selected] {
+        transition: transition(background, $duration: 500ms);
+        background: themed(highlight);
+        color: themed(highlight-text);
+
+        .icon,
+        .list-item__secondary {
+          color: change-opacity(themed(highlight-text), secondary);
+        }
+
+        .ripple__container {
+          color: themed(highlight);
+        }
+      }
     }
   }
 }
