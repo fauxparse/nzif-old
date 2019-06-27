@@ -60,7 +60,7 @@ const Ripple = ({ className, disabled, ...props }) => {
   const [ripples, addRipple, removeRipple] = useList()
 
   useEffect(() => {
-    setParent(ref.current.parentElement)
+    setParent(ref.current.offsetParent)
   }, [])
 
   const start = useCallback((coordinates) => {

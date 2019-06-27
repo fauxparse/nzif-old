@@ -2,6 +2,7 @@
 
 .list-item {
   display: block;
+  position: relative;
 
   &__wrapper {
     display: flex;

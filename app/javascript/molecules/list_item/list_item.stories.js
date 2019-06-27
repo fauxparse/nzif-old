@@ -3,6 +3,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Divider from 'atoms/divider'
+import Ripple from 'effects/ripple'
 import ListItem from './index'
 
 storiesOf('Molecules|ListItem', module)
@@ -21,13 +22,17 @@ storiesOf('Molecules|ListItem', module)
         secondary="Festival director"
         avatar={{ name: 'Jennifer O’Sullivan' }}
         icon="chevron-right"
-      />
+      >
+        <Ripple />
+      </ListItem>
       <Divider inset as="li" />
       <ListItem
         primary="Matt Powell"
         secondary="Registration co-ordinator"
         avatar={{ name: 'Matt Powell' }}
         icon="chevron-right"
-      />
+      >
+        <Ripple />
+      </ListItem>
     </ul>
   ))
