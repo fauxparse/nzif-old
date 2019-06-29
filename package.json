@@ -4,6 +4,7 @@
   "dependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@rails/ujs": "^6.0.0-alpha",
     "@rails/webpacker": "rails/webpacker",
     "actioncable": "^5.2.1",
     "apollo-cache-inmemory": "^1.3.10",

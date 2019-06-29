@@ -9,6 +9,7 @@ const SocialLogin = ({ platform, returnTo }) => (
     className="login__social"
     href={`/auth/${platform}?origin=${returnTo.pathname || returnTo}`}
     icon={platform}
+    data-method="post"
   />
 )
 
