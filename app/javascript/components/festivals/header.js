@@ -11,11 +11,11 @@ const FestivalHeader = () => {
     <Header>
       {programmeLaunched && (
         <>
-          <Menu.Item icon="workshop" text="Workshops" to={`${festival.year}/workshops`} />
-          <Menu.Item icon="show" text="Shows" to={`${festival.year}/shows`} />
+          <Menu.Item icon="workshop" text="Workshops" to={`/${festival.year}/workshops`} />
+          <Menu.Item icon="show" text="Shows" to={`/${festival.year}/shows`} />
         </>
       )}
-      {pitchesOpen && <Menu.Item icon="pitch" text="Pitches" to={`${festival.year}/pitches`} />}
+      {pitchesOpen && <Menu.Item icon="pitch" text="Pitches" to={`/${festival.year}/pitches`} />}
     </Header>
   )
 }

@@ -1,0 +1,49 @@
+@import "../../styles/base";
+
+.app-bar {
+  @include elevation-element(app-bar);
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  background: themed(background, $header-theme);
+  color: themed(foreground, $header-theme);
+  z-index: z-index(header);
+
+  .hamburger {
+    align-self: center;
+    margin-right: $keyline - 3rem - $icon-size;
+    margin-left: 0.5rem;
+  }
+
+  .logo {
+    padding: 0 1rem;
+  }
+
+  .user-menu {
+    order: 1;
+
+    &__log-in {
+      margin: 0.5rem;
+    }
+
+    &__current-user {
+      margin: 0;
+      padding: 0.5rem;
+      border: 0;
+      color: inherit;
+    }
+
+    &__button {
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &::after {
+    flex: 1;
+    align-self: stretch;
+    content: "";
+  }
+}

@@ -29,10 +29,14 @@ const Button = forwardRef(({
 
   return (
     <Component className={classes} {...props} ref={buttonRef}>
-      <Ripple className="button__ripple" disabled={props.disabled || undefined} />
-      {children}
+      <Ripple
+        className="button__ripple"
+        disabled={props.disabled || undefined}
+        center={classes.indexOf('--icon') > -1}
+      />
       {icon && <Icon name={icon} />}
       {text && <Text>{text}</Text>}
+      {children}
     </Component>
   )
 })

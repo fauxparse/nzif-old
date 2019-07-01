@@ -14,9 +14,10 @@ const ListItem = ({
   primary,
   secondary,
   children,
+  role,
   ...props
 }) => (
-  <li className={classNames('list-item', className)}>
+  <li className={classNames('list-item', className)} role={role || undefined}>
     <Component className="list-item__wrapper" {...props}>
       {avatar && <Avatar className="list-item__avatar" {...avatar} />}
       {icon !== undefined && <Icon className="list-item__icon" name={icon} />}
@@ -40,6 +41,7 @@ ListItem.propTypes = {
   secondaryIcon: PropTypes.icon,
   primary: PropTypes.string,
   secondary: PropTypes.string,
+  role: PropTypes.string,
 }
 
 ListItem.defaultProps = {
@@ -50,6 +52,7 @@ ListItem.defaultProps = {
   secondaryIcon: undefined,
   primary: undefined,
   secondary: undefined,
+  role: undefined,
 }
 
 export default ListItem

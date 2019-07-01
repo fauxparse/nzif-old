@@ -52,7 +52,7 @@ const useList = () => {
   return [list, add, remove]
 }
 
-const Ripple = ({ className, disabled, ...props }) => {
+const Ripple = ({ className, center, disabled, ...props }) => {
   const ref = useRef()
 
   const [parent, setParent] = useState()
@@ -66,14 +66,15 @@ const Ripple = ({ className, disabled, ...props }) => {
   const start = useCallback((coordinates) => {
     if (disabled) return
 
-    const { x, y } = trueClientPosition(coordinates, parent)
     const { width, height } = parent.getBoundingClientRect()
+    const { x, y } =
+      center ? { x: width / 2, y: height / 2 } : trueClientPosition(coordinates, parent)
     const rx = Math.max(Math.abs(width - x), x) * 2 + 2
     const ry = Math.max(Math.abs(height - y), y) * 2 + 2
     const r = Math.sqrt(rx ** 2 + ry ** 2)
 
     addRipple({ x, y, r, key: Date.now().toString() })
-  }, [parent, addRipple])
+  }, [parent, center, disabled, addRipple])
 
   const mouseDown = useCallback(e => start({ x: e.clientX, y: e.clientY }), [start])
 
@@ -119,10 +120,12 @@ const Ripple = ({ className, disabled, ...props }) => {
 }
 
 Ripple.propTypes = {
+  center: PropTypes.bool,
   disabled: PropTypes.bool,
 }
 
 Ripple.defaultProps = {
+  center: false,
   disabled: undefined,
 }
 

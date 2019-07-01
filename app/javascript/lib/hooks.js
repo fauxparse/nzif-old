@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import stickybits from 'stickybits'
+import { v4 as uuid } from 'uuid'
 
 export const useSticky = (options = {}, dependencies = []) => {
   const sticky = useRef()
@@ -37,4 +38,9 @@ export const useClock = () => {
   }, [tick])
 
   return time
+}
+
+export const useUUID = () => {
+  const id = useRef(uuid())
+  return id.current
 }

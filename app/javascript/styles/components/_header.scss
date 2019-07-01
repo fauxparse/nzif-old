@@ -1,15 +1,3 @@
-$header-theme: map-merge(map-get($themes, dark), (
-  background: color(grey, 900),
-  foreground: color(white),
-  text: color(white),
-  secondary: color(white, $opacity: secondary),
-  disabled: color(white, $opacity: disabled),
-  border: color(black, $opacity: 0.875),
-  hover: color(black, $opacity: hover),
-  unhover: color(black, $opacity: 0),
-  menu: color(grey, 900, $opacity: 0.875)
-));
-
 .header {
   @include elevation-element(app-bar);
   display: flex;

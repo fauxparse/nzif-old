@@ -1,0 +1,74 @@
+@import "../../styles/base";
+
+.hamburger {
+  padding: 0.5em;
+  border: 0;
+  border-radius: 0;
+  appearance: none;
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+  .icon {
+    color: inherit;
+  }
+
+  line {
+    stroke: currentColor;
+  }
+
+  g,
+  line {
+    transform-origin: 0 0;
+    transition: transition(transform, $duration: half, $delay: half);
+  }
+
+  &:not(.hamburger--open) {
+    line {
+      transition-delay: 0ms;
+    }
+  }
+
+  g:nth-child(1) {
+    transform: translate3d(0, -6px, 0);
+  }
+
+  g:nth-child(2) line {
+    transition: opacity 0s linear duration(half);
+    opacity: 1;
+  }
+
+  g:nth-child(3) {
+    transform: translate3d(0, 6px, 0);
+  }
+
+  &.hamburger--open {
+    g {
+      transform: translate3d(0, 0, 0);
+      transition-delay: 0ms;
+    }
+
+    g:nth-child(1) line {
+      transform: rotate(45deg);
+    }
+
+    g:nth-child(2) line {
+      opacity: 0;
+    }
+
+    g:nth-child(3) line {
+      transform: rotate(-45deg);
+    }
+  }
+
+  @include themify {
+    color: themed(foreground);
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
