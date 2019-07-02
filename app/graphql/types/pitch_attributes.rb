@@ -26,7 +26,7 @@ module Types
     argument :cast_details, String, required: false
     argument :cast_requirements, String, required: false
     argument :experience, String, required: false
-    argument :accessibility, String, required: true
+    argument :accessibility, String, required: false
     argument :slots, [Types::Time], required: false
     argument :pile, String, required: false
     argument :gender, String, required: false
