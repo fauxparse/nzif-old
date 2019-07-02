@@ -1,6 +1,20 @@
 @import "../../styles/base";
 
 .user-menu {
+  &__button {
+    .avatar {
+      margin-right: $padding / 2;
+    }
+
+    .button__text {
+      display: none;
+
+      @include media(small) {
+        display: initial;
+      }
+    }
+  }
+
   &__content {
     .menu__list {
       border-top-left-radius: 0;

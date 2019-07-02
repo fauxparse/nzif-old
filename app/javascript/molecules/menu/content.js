@@ -44,9 +44,13 @@ const MenuContent = forwardRef(({ className, open, children, onClose, ...props }
   }, [open, onClose])
 
   const focusOutside = useCallback((e) => {
-    if (mountedRef.current && !listRef.current.contains(e.target)) {
-      onClose()
-    }
+    if (!mountedRef.current) return
+    if (listRef.current.contains(e.target)) return
+
+    const buttonId = listRef.current.closest('[aria-labelledby]').getAttribute('aria-labelledby')
+    if (e.target.closest(`#${buttonId}`)) return
+
+    onClose()
   }, [listRef, mountedRef, onClose])
 
   useEffect(() => {

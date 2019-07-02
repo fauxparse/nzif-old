@@ -5,11 +5,11 @@ import Menu from 'molecules/menu'
 import CurrentUser from './current_user'
 import './index.scss'
 
-const UserMenu = ({ user, onLoginClick }) => (
+const UserMenu = ({ user, onLoginClick, children }) => (
   <div className="user-menu">
     {user ? (
       <Menu className="user-menu" button={CurrentUser} user={user}>
-        <Menu.Item icon="user">Hullo</Menu.Item>
+        {children}
       </Menu>
     ) : (
       <Button

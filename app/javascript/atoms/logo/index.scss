@@ -18,10 +18,4 @@
       display: unset;
     }
   }
-
-  @include themify {
-    &:focus {
-      text-shadow: 0 0 .5em themed(accent);
-    }
-  }
 }
