@@ -22,21 +22,11 @@
   padding: $padding;
   text-align: center;
 
-  .logo {
+  .masthead {
     display: block;
     position: relative;
     max-width: 30rem;
     margin: ($spacing * 3) auto;
-    fill: currentColor;
-
-    &__nz,
-    &__subtitle {
-      opacity: 0.75;
-    }
-
-    &__dates {
-      opacity: 0.375;
-    }
   }
 
   &__purpose {
@@ -51,7 +41,7 @@
   }
 
   @include themify {
-    .logo {
+    .masthead {
       color: themed(accent);
     }
 

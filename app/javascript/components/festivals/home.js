@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import PageContent from '../page_content'
 import Loader from 'atoms/loader'
-import Logo from '../shared/logo'
+import Masthead from 'atoms/masthead'
 import Countdown from './countdown'
 import { Link } from '../shared/ripple'
 import Button from '../../atoms/button'
@@ -14,7 +14,7 @@ const Home = () => {
     <PageContent className="homepage page-content--no-padding">
       {festival ? (
         <>
-          <Logo />
+          <Masthead festival={festival} />
           {festival.pitchesCloseAt && (
             <section className="homepage__pitches">
               <h2 className="section-title">What’s up, pitches?</h2>

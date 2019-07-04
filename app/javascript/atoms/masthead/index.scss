@@ -1,0 +1,23 @@
+@import "../../styles/base";
+
+.masthead {
+  fill: currentColor;
+
+  &__nz,
+  &__subtitle {
+    opacity: 0.75;
+  }
+
+  &__dates {
+    font-family: font-family(branding);
+    font-size: 62px;
+    font-weight: font-weight(black);
+    text-align: right;
+    text-transform: uppercase;
+    opacity: 0.375;
+  }
+
+  @include themify {
+    color: themed(accent);
+  }
+}
