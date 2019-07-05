@@ -10,6 +10,7 @@
   z-index: z-index(header);
 
   .hamburger {
+    position: static;
     align-self: center;
     margin-right: $keyline - 3rem - $icon-size;
     margin-left: 0.5rem;

@@ -21,27 +21,36 @@ const colorFromString = str => COLORS[hashCode(str) % COLORS.length]
 
 const initials = str => str.split(/\s+/).map(s => s[0]).join('').toUpperCase().substr(0, 3)
 
-const Avatar = forwardRef(
-  ({ id, name, origin, bio, image, className, children, ...props }, ref) => (
-    <span
-      className={classNames('avatar', className)}
-      ref={ref}
-      title={name}
-      data-color={name && colorFromString(name)}
-      {...props}
-    >
-      {image ? (
-        <Picture
-          className="avatar__image"
-          sources={[{ srcSet: `${image.small}, ${image.medium} 2x` }]}
-          alt={name}
-        />
-      ) : (
-        children || initials(name)
-      )}
-    </span>
-  )
-)
+const Avatar = forwardRef(({
+  id,
+  name,
+  origin,
+  bio,
+  image,
+  className,
+  notificationsCount,
+  children,
+  ...props
+}, ref) => (
+  <span
+    className={classNames('avatar', className)}
+    ref={ref}
+    title={name}
+    data-color={name && colorFromString(name)}
+    data-notifications-count={notificationsCount}
+    {...props}
+  >
+    {image ? (
+      <Picture
+        className="avatar__image"
+        sources={[{ srcSet: `${image.small}, ${image.medium} 2x` }]}
+        alt={name}
+      />
+    ) : (
+      children || initials(name)
+    )}
+  </span>
+))
 
 Avatar.displayName = 'Avatar'
 
@@ -51,6 +60,11 @@ Avatar.propTypes = {
   image: PropTypes.userImage,
   origin: PropTypes.string,
   bio: PropTypes.string,
+  notificationsCount: PropTypes.number,
+}
+
+Avatar.defaultProps = {
+  notificationsCount: undefined,
 }
 
 export default Avatar

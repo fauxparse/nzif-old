@@ -9,7 +9,6 @@ const Hamburger = ({ as: Component, className, open, ...props }) => (
   <Component
     className={classNames(
       'hamburger',
-      'button--icon',
       open && 'hamburger--open',
       className
     )}

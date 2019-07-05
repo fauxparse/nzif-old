@@ -61,6 +61,12 @@
         background: themed(menu-highlight);
         color: themed(menu-highlight-text);
       }
+
+      &--link {
+        .ripple__container {
+          color: inherit;
+        }
+      }
     }
   }
 }

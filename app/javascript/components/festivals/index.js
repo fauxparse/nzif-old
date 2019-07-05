@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Header from './header'
-import Footer from '../../components/footer'
 import Activities from '../activities'
 import ActivityDetails from '../activities/activity_details'
 import Profile from '../profile'
@@ -19,14 +18,18 @@ import { HOMEPAGE_QUERY } from '../../queries/homepage'
 
 export { default as CurrentFestival } from './current'
 
-const Festival = ({ match }) => {
+const Festival = ({ match, history }) => {
   const { year } = match.params
   const { data = {} } = useQuery(HOMEPAGE_QUERY, { variables: { year } })
+
+  const logIn = useCallback(() => {
+    history.push('/login')
+  }, [history])
 
   return (
     <Context.Provider value={data.festival}>
       <div className="public-section">
-        <Header />
+        <Header onLogin={logIn} />
 
         <div className="page">
           <Route
@@ -59,7 +62,8 @@ const Festival = ({ match }) => {
 }
 
 Festival.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 }
 
 export default Festival

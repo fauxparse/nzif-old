@@ -4,12 +4,19 @@ import { Reference, Popper } from 'react-popper'
 import Proptypes from 'lib/proptypes'
 import { useUUID } from 'lib/hooks'
 import MenuItem from './item'
+import MenuLink from './link'
 import MenuButton from './button'
 import MenuContent from './content'
 import Portal from './portal'
 import './index.scss'
 
-const Menu = ({ button: Button, content: Content, className, children, ...props }) => {
+const Menu = ({
+  button: Button,
+  content: Content,
+  className,
+  children,
+  ...props
+}) => {
   const container = useRef()
 
   const themeParent = useRef()
@@ -55,6 +62,7 @@ const Menu = ({ button: Button, content: Content, className, children, ...props 
               aria-labelledby={`menu-button-${id}`}
               data-placement={placement}
               data-theme={themeParent.current && themeParent.current.dataset.theme}
+              onClick={close}
             >
               {children}
             </Content>
@@ -79,5 +87,6 @@ Menu.defaultProps = {
 Menu.Button = MenuButton
 Menu.Content = MenuContent
 Menu.Item = MenuItem
+Menu.Link = MenuLink
 
 export default Menu

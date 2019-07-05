@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import stickybits from 'stickybits'
 import { v4 as uuid } from 'uuid'
+import { CurrentUserContext } from '../components/shared/current_user/context'
 
 export const useSticky = (options = {}, dependencies = []) => {
   const sticky = useRef()
@@ -44,3 +45,5 @@ export const useUUID = () => {
   const id = useRef(uuid())
   return id.current
 }
+
+export const useCurrentUser = () => useContext(CurrentUserContext)
