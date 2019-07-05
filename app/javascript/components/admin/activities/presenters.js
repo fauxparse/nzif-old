@@ -1,60 +1,59 @@
-import React, { Component } from 'react'
+import React, { Fragment, useCallback, useState } from 'react'
 import PropTypes from 'lib/proptypes'
-import { WithPermission } from 'lib/permissions'
+import { usePermission } from 'lib/permissions'
 import Button from 'atoms/button'
+import Chip from 'molecules/chip'
 import Modal from '../../modals'
-import Presenter from './presenter'
 import AddPresenter from './add_presenter'
 
-class Presenters extends Component {
-  static propTypes = {
-    activity: PropTypes.activity.isRequired,
-    presenters: PropTypes.arrayOf(PropTypes.user.isRequired).isRequired,
-    onChange: PropTypes.func.isRequired,
-  }
+const Presenters = ({ activity, presenters, onChange }) => {
+  const editable = usePermission('update', activity)
 
-  state ={
-    adding: false,
-  }
+  const [adding, setAdding] = useState(false)
 
-  addPresenter = (presenter) => {
-    const { presenters, onChange } = this.props
-    this.closeDialog()
+  const openDialog = useCallback(() => setAdding(true), [setAdding])
+
+  const closeDialog = useCallback(() => setAdding(false), [setAdding])
+
+  const addPresenter = useCallback((presenter) => {
+    closeDialog()
     onChange([...presenters, presenter])
-  }
+  }, [presenters, onChange])
 
-  openDialog = () => this.setState({ adding: true })
+  const deletePresenter = useCallback((presenter) => {
+    onChange(presenters.filter(p => p !== presenter))
+  }, [presenters, onChange])
 
-  closeDialog = () => this.setState({ adding: false })
-
-  render() {
-    const { activity, presenters, onChange } = this.props
-    const { adding } = this.state
-
-    return (
-      <div className="presenters">
-        {presenters.map(presenter => (
-          <Presenter
-            key={presenter.id}
-            activity={activity}
-            {...presenter}
-            onRemove={id => onChange(presenters.filter(p => p.id !== id))}
-          />
-        ))}
-        <WithPermission to="update" subject={activity}>
+  return (
+    <div className="presenters">
+      {presenters.map(presenter => (
+        <Chip
+          key={presenter.id}
+          user={presenter}
+          onDelete={editable ? deletePresenter : null}
+        />
+      ))}
+      {editable && (
+        <Fragment>
           <Button
             className="presenters__add"
             icon="add"
             text="Add presenter"
-            onClick={this.openDialog}
+            onClick={openDialog}
           />
-          <Modal isOpen={adding} className="modal--autocomplete" onRequestClose={this.closeDialog}>
-            <AddPresenter presenters={presenters} onSelect={this.addPresenter} />
+          <Modal isOpen={adding} className="modal--autocomplete" onRequestClose={closeDialog}>
+            <AddPresenter presenters={presenters} onSelect={addPresenter} />
           </Modal>
-        </WithPermission>
-      </div>
-    )
-  }
+        </Fragment>
+      )}
+    </div>
+  )
+}
+
+Presenters.propTypes = {
+  activity: PropTypes.activity.isRequired,
+  presenters: PropTypes.arrayOf(PropTypes.user.isRequired).isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default Presenters

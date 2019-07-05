@@ -6,6 +6,7 @@ import omit from 'lodash/omit'
 import Breadcrumbs from '../../shared/breadcrumbs'
 import Loader from 'atoms/loader'
 import Avatar from 'atoms/avatar'
+import Chip from 'molecules/chip'
 import EditableTitle from '../../shared/editable_title'
 import Tags from './tags'
 import Answer from './answer'
@@ -93,10 +94,7 @@ const Details = ({ match }) => {
         />
         <div className="presenters">
           {pitch.presenters && pitch.presenters.map(presenter => (
-            <div key={presenter.id} className="presenter">
-              <Avatar name={presenter.name} image={presenter.image} />
-              <span className="presenter__name">{presenter.name}</span>
-            </div>
+            <Chip key={presenter} user={presenter} />
           ))}
         </div>
         <div className="pitch__tags">

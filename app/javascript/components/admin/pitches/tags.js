@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames';
-import Tag from '../../shared/tag'
+import Tag from 'atoms/tag'
 
 const Tags = ({ className, tags, selected, onSelect }) => {
   const clicked = useCallback((e) => {

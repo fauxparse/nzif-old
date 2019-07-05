@@ -49,8 +49,7 @@
     z-index: 1;
   }
 
-  &__ripple {
-    border-radius: calc(#{$border-radius} - 1px);
+  &__ripple { border-radius: calc(#{$border-radius} - 1px);
   }
 
   &__text {
@@ -76,7 +75,7 @@
     border-radius: 50%;
 
     .button__ripple {
-      border-radius: 50%;
+      border-radius: inherit;
     }
   }
 

@@ -63,9 +63,10 @@ const Ripple = ({ className, center, disabled, ...props }) => {
     setParent(ref.current.offsetParent)
   }, [])
 
-  const start = useCallback((coordinates) => {
-    if (disabled) return
+  const start = useCallback((e, coordinates) => {
+    if (disabled || e.defaultPrevented) return
 
+    e.stopPropagation()
     const { width, height } = parent.getBoundingClientRect()
     const { x, y } =
       center ? { x: width / 2, y: height / 2 } : trueClientPosition(coordinates, parent)
@@ -76,11 +77,11 @@ const Ripple = ({ className, center, disabled, ...props }) => {
     addRipple({ x, y, r, key: Date.now().toString() })
   }, [parent, center, disabled, addRipple])
 
-  const mouseDown = useCallback(e => start({ x: e.clientX, y: e.clientY }), [start])
+  const mouseDown = useCallback(e => start(e, { x: e.clientX, y: e.clientY }), [start])
 
   const touchStart = useCallback((e) => {
     const touch = e.touches[0]
-    start({ x: touch.clientX, y: touch.clientY })
+    start(e, { x: touch.clientX, y: touch.clientY })
   }, [start])
 
   useEffect(() => {

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useContext, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { CurrentUserContext } from '../components/shared/current_user'
 
-const can = (user, action, object) => {
+export const can = (user, action, object) => {
   const roles = new Set(user && user.roles || [])
   switch (action) {
     case 'update':
@@ -18,6 +18,11 @@ const can = (user, action, object) => {
 }
 
 export default can
+
+export const usePermission = (action, object) => {
+  const user = useContext(CurrentUserContext)
+  return useMemo(() => can(user, action, object), [user, action, object])
+}
 
 export const WithPermission = ({ to: action = 'update', subject, children }) => (
   <CurrentUserContext.Consumer>
