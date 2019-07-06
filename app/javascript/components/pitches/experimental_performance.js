@@ -94,7 +94,7 @@ const ExperimentalPerformance = ({ pitch, errors, onChange }) => {
           min={1}
           max={100}
           required
-          onChange={e => onChange('castSize', e.target.value)}
+          onChange={e => onChange('castSize', parseInt(e.target.value, 10))}
         />
         <Hint>
           We will favour shows with at least 6–8 players

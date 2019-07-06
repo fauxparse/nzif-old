@@ -87,7 +87,7 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
           min={6}
           max={100}
           required
-          onChange={e => onChange('participantCount', e.target.value)}
+          onChange={e => onChange('participantCount', parseInt(e.target.value, 10))}
         />
         <Hint>
           We recommend 16 but are open to smaller or larger class sizes if appropriate for the
