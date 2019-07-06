@@ -9,7 +9,7 @@ import Loader from '../shared/loader'
 const Pitches = ({ match }) => {
   const currentUser = useContext(CurrentUserContext)
 
-  return currentUser ? (
+  return (
     <Route
       render={({ location }) => (
         <PageTransition pageKey={location.pathname}>
@@ -21,7 +21,7 @@ const Pitches = ({ match }) => {
         </PageTransition>
       )}
     />
-  ) : <Loader />
+  )
 }
 
 export default Pitches

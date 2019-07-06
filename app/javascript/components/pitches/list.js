@@ -20,7 +20,7 @@ const DELETE_PITCH_MUTATION = gql`
 const PitchList = ({ match, className }) => {
   const { year } = match.params
   const currentUser = useContext(CurrentUserContext)
-  const variables = { year, userId: currentUser.id }
+  const variables = { year, userId: currentUser && currentUser.id }
   const {
     loading,
     data: { pitches }
