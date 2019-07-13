@@ -1,12 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router-dom'
 
 const DetectLocationChange = ({ location, onChange }) => {
+  const [currentLocation, setCurrentLocation] = useState(location)
+
   useEffect(() => {
-    location && onChange(location)
-  }, [location, onChange])
+    const { key: oldKey } = currentLocation
+    const { key: newKey } = location
+
+    if (newKey !== oldKey) {
+      setCurrentLocation(location)
+      onChange(location)
+    }
+  }, [location, currentLocation, setCurrentLocation, onChange])
+
   return null
 }
 

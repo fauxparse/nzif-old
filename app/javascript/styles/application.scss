@@ -17,6 +17,12 @@
 @import "./admin/index";
 @import "./environment";
 
+@each $scale, $size in $font-sizes {
+  [data-font-scale="#{$scale}"] {
+    font-size: font-size($scale);
+  }
+}
+
 *,
 *::before,
 *::after {

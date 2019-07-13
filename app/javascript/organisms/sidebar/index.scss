@@ -1,0 +1,53 @@
+@import "../../styles/base";
+
+.sidebar {
+  @include elevation(0);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: $sidebar-width;
+  padding: $padding 0;
+  transform: translateX(-100%);
+  transition: transition(box-shadow), transition(transform, $easing: easing(accelerate));
+  z-index: z-index(sidebar);
+  overflow-y: auto;
+
+  &--open {
+    @include elevation-element(nav-drawer);
+    transform: translateX(0);
+    transition-timing-function: easing(standard), easing(decelerate);
+  }
+
+  &__pin {
+    align-self: flex-end;
+    margin-right: $padding;
+    padding: 0.5rem;
+    border: 0;
+  }
+
+  @include themify {
+    background: themed(panel);
+    color: themed(foreground);
+
+    .list-item--link {
+      .ripple__container {
+        color: themed(secondary);
+      }
+    }
+
+    &__pin {
+      color: themed(icon);
+    }
+
+    &--pinned {
+      border-right: 1px solid themed(border);
+      box-shadow: none;
+
+      .sidebar__pin {
+        background: themed(sidebar-pin-background);
+        color: themed(sidebar-pin-foreground);
+      }
+    }
+  }
+}

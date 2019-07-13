@@ -7,20 +7,27 @@ import './index.scss'
 
 const List = forwardRef(({
   className,
+  compact,
   children,
   ...props
 }, ref) => (
-  <ul ref={ref} className={classNames('list', className)} {...props}>
+  <ul
+    ref={ref}
+    className={classNames('list', compact && 'list--compact', className)}
+    {...props}
+  >
     {children}
   </ul>
 ))
 
 List.propTypes = {
   className: PropTypes.className,
+  compact: PropTypes.bool,
 }
 
 List.defaultProps = {
   className: undefined,
+  compact: false,
 }
 
 List.displayName = 'List'

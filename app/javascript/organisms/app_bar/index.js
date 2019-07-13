@@ -7,10 +7,10 @@ import Logo from 'atoms/logo'
 import UserMenu from 'molecules/user_menu'
 import './index.scss'
 
-const AppBar = ({ user, children }) => {
+const AppBar = ({ user, menuOpen, onHamburgerClick, children }) => {
   return (
     <header className="app-bar" data-theme="dark">
-      <Hamburger />
+      <Hamburger open={menuOpen} onClick={onHamburgerClick} />
       <Logo as={Link} to="/" />
       <Subcomponent type={AppBar.UserMenu} as={UserMenu} user={user} renderDefault>
         {children}
@@ -21,6 +21,13 @@ const AppBar = ({ user, children }) => {
 
 AppBar.propTypes = {
   user: PropTypes.user,
+  menuOpen: PropTypes.bool,
+  onHamburgerClick: PropTypes.func,
+}
+
+AppBar.defaultProps = {
+  menuOpen: false,
+  onHamburgerClick: undefined,
 }
 
 AppBar.UserMenu = props => props

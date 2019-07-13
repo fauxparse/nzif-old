@@ -70,9 +70,3 @@ $line-heights: (
   font-weight: font-weight(black);
   text-transform: uppercase;
 }
-
-@each $scale, $size in $font-sizes {
-  [data-font-scale="#{$scale}"] {
-    font-size: font-size($scale);
-  }
-}

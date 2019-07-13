@@ -31,6 +31,9 @@ $themes: (
     step-active-foreground: white,
     step-completed-background: color(tomato, 500),
     step-completed-foreground: white,
+    sidebar-background: color(grey, 100),
+    sidebar-pin-background: color(grey, 200),
+    sidebar-pin-foreground: color(grey, 400)
   ),
   dark: (
     background: color(grey, 800),
@@ -64,6 +67,9 @@ $themes: (
     step-active-foreground: white,
     step-completed-background: color(tomato, 500),
     step-completed-foreground: white,
+    sidebar-background: color(grey, 900),
+    sidebar-pin-background: color(grey, 800),
+    sidebar-pin-foreground: color(grey, 600)
   )
 );
 

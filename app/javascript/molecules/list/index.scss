@@ -61,6 +61,24 @@
     font-weight: font-weight(light);
   }
 
+  .list--compact & {
+    font-size: font-size(-1);
+
+    .list-item__wrapper {
+      padding: ($padding / 4) $padding;
+    }
+
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      margin: 0.25rem ($keyline - $padding - $icon-size + 0.25rem) 0.25rem 0.25rem;
+    }
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+
   @include themify {
     &__secondary {
       color: themed(secondary);

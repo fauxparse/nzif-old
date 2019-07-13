@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Header from './header'
+import Sidebar from './sidebar'
 import Activities from '../activities'
 import ActivityDetails from '../activities/activity_details'
 import Profile from '../profile'
@@ -13,6 +14,7 @@ import StaticContent from '../static_content'
 import NotFound from '../not_found'
 import Home from './home'
 import Context from './context'
+import DetectLocationChange from 'lib/detect_location_change'
 
 import { HOMEPAGE_QUERY } from '../../queries/homepage'
 
@@ -26,10 +28,34 @@ const Festival = ({ match, history }) => {
     history.push('/login')
   }, [history])
 
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen(!sidebarOpen)
+  }, [sidebarOpen, setSidebarOpen])
+
+  const closeSidebar = useCallback((e) => {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    setSidebarOpen(false)
+  }, [setSidebarOpen])
+
+  const locationChanged = useCallback(() => {
+    if (sidebarOpen) {
+      setSidebarOpen(false)
+    }
+  }, [sidebarOpen, setSidebarOpen])
+
   return (
     <Context.Provider value={data.festival}>
       <div className="public-section">
-        <Header onLogin={logIn} />
+        <Header
+          menuOpen={sidebarOpen}
+          onLogin={logIn}
+          onHamburgerClick={toggleSidebar}
+        />
 
         <div className="page">
           <Route
@@ -56,6 +82,13 @@ const Festival = ({ match, history }) => {
             )}
           />
         </div>
+
+        <Sidebar
+          festival={data.festival}
+          open={sidebarOpen}
+          onClickOutside={closeSidebar}
+        />
+        <DetectLocationChange onChange={locationChanged} />
       </div>
     </Context.Provider>
   )

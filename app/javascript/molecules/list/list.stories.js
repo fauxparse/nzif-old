@@ -15,6 +15,13 @@ storiesOf('Molecules|List', module)
       <List.Item primary="Text only" />
     </List>
   ))
+  .add('Compact', () => (
+    <List compact style={{ maxWidth: '24rem' }}>
+      <List.Item icon="google" primary="Google" />
+      <List.Item icon="twitter" primary="Twitter" />
+      <List.Item icon="facebook" primary="Facebook" />
+    </List>
+  ))
   .add('Avatar', () => (
     <List style={{ maxWidth: '24rem' }}>
       <List.Item
