@@ -47,8 +47,10 @@ const cache = new InMemoryCache({
 const httpLink = createHttpLink({
   uri: `/graphql`,
   headers: {
+    'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').content,
   },
+  credentials: 'same-origin',
 })
 
 const protocol = window.location.protocol.replace(/^http/, 'ws')
