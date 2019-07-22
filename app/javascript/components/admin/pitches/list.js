@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery } from 'react-apollo-hooks'
-import Loader from '../../shared/loader'
+import Loader from 'atoms/loader'
+import List from 'molecules/list'
 import ListItem from './list_item'
 import { PITCHES_QUERY } from '../../../queries'
 
@@ -22,7 +23,7 @@ const PitchList = ({ match }) => {
       </header>
 
       {loading ? <Loader /> : (
-        <ul className="list pitches">
+        <List className="pitches">
           {pitches.map(pitch => (
             <ListItem
               key={pitch.id}
@@ -30,7 +31,7 @@ const PitchList = ({ match }) => {
               baseUrl={match.url}
             />
           ))}
-        </ul>
+        </List>
       )}
     </div>
   )

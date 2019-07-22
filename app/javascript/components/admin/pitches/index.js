@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { withRouter, Switch, Route } from 'react-router-dom'
-import CommonProps from '../../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Details from './details'
 import List from './list'
 
@@ -15,7 +15,7 @@ const Pitches = ({ className, match }) => (
 )
 
 Pitches.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
 }
 
 export default withRouter(Pitches)

@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { graphql } from 'react-apollo'
 import pick from 'lodash/pick'
 import deburr from 'lodash/deburr'
 import Highlighter from 'react-highlight-words'
-import CommonProps from '../../../lib/common_props'
 import { USERS_QUERY } from '../../../queries'
 import Autocomplete from '../../autocomplete'
-import Avatar from '../../shared/avatar'
+import Avatar from 'atoms/avatar'
 
 const MenuItem = ({ label, selected, selectedText, value, ...props }) => (
   <li className="add-presenter__presenter" aria-selected={selected || undefined} {...props}>
@@ -34,9 +33,9 @@ class AddPresenter extends Component {
   static propTypes = {
     data: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
-      users: PropTypes.arrayOf(CommonProps.user.isRequired)
+      users: PropTypes.arrayOf(PropTypes.user.isRequired)
     }),
-    presenters: PropTypes.arrayOf(CommonProps.user.isRequired),
+    presenters: PropTypes.arrayOf(PropTypes.user.isRequired),
     onSelect: PropTypes.func.isRequired
   }
 

@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
 
 const Tag = ({ className, selected, children, ...props }) => (
   <span className={classNames('tag', selected && 'tag--selected', className)} {...props}>
@@ -10,7 +9,7 @@ const Tag = ({ className, selected, children, ...props }) => (
 )
 
 Tag.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
   selected: PropTypes.bool,
 }
 

@@ -71,10 +71,8 @@
   }
 
   &__highlight {
+    @include ellipsis;
     display: block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 
     mark {
       font-weight: font-weight(bold);

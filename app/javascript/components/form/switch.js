@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Icon from '../icons'
+import Icon from '../../atoms/icon'
 
 const Switch = ({ checked, className, children, ...props }) => (
   <label className={classNames('switch', className)}>

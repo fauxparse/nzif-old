@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
 
 const TextLink = ({ className, external, rel, children, target, ...props }) => (
   <Link
@@ -16,7 +15,7 @@ const TextLink = ({ className, external, rel, children, target, ...props }) => (
 )
 
 TextLink.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
   external: PropTypes.bool,
   rel: PropTypes.string,
   target: PropTypes.string,

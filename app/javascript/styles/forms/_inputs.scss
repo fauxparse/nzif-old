@@ -126,12 +126,10 @@
   }
 
   &__current-value {
+    @include ellipsis;
     flex: 1;
     margin-bottom: -1px;
     padding: 0.5rem 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 
     @include themify {
       color: themed(text);
@@ -172,6 +170,15 @@
   }
 
   &__menu-item {
+    @include ellipsis;
+    display: block;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+
     @include themify {
       &[aria-selected] {
         background: themed(panel);
@@ -183,15 +190,6 @@
         background: themed(highlight);
       }
     }
-
-    display: block;
-    max-width: 100%;
-    margin: 0;
-    padding: 0.5rem 1rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-    overflow: hidden;
   }
 
   &__menu-separator {

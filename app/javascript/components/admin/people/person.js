@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../../lib/common_props'
-import Avatar from '../../shared/avatar'
+import Avatar from 'atoms/avatar'
 
 const Person = ({ value: user, selected, onClick }) => {
   const { name, email } = user
@@ -20,7 +19,7 @@ const Person = ({ value: user, selected, onClick }) => {
 }
 
 Person.propTypes = {
-  value: CommonProps.user,
+  value: PropTypes.user,
   selected: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 }

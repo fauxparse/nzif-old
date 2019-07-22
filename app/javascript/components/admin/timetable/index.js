@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
 import pick from 'lodash/pick'
-import CommonProps from '../../../lib/common_props'
 import moment from '../../../lib/moment'
 import {
   TIMETABLE_QUERY,
@@ -13,7 +12,7 @@ import {
   UPDATE_SESSION_MUTATION,
   DELETE_SESSION_MUTATION,
 } from '../../../queries'
-import Loader from '../../shared/loader'
+import Loader from 'atoms/loader'
 import Modal from '../../modals'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
@@ -24,9 +23,9 @@ import SessionDetails from './session_details'
 class Timetable extends Component {
   static propTypes = {
     data: PropTypes.shape({
-      activityTypes: PropTypes.arrayOf(CommonProps.activityType.isRequired),
+      activityTypes: PropTypes.arrayOf(PropTypes.activityType.isRequired),
       festival: PropTypes.shape({
-        activities: PropTypes.arrayOf(CommonProps.activity.isRequired),
+        activities: PropTypes.arrayOf(PropTypes.activity.isRequired),
       }),
     }),
   }

@@ -1,9 +1,7 @@
-@import "./layers";
-@import "./theme/index";
+@import "./base";
+@import "./theme/effects";
 @import "./transitions/index";
 @import "./typography";
-@import "./icons";
-@import "./lists";
 @import "./tooltips";
 @import "./forms/index";
 
@@ -18,6 +16,12 @@
 @import "./log_in/index";
 @import "./admin/index";
 @import "./environment";
+
+@each $scale, $size in $font-sizes {
+  [data-font-scale="#{$scale}"] {
+    font-size: font-size($scale);
+  }
+}
 
 *,
 *::before,
@@ -35,7 +39,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: font-family(normal), $system-font-stack;
-  font-size: #{$font-size-base}px;
   line-height: line-height(normal);
   overflow-x: hidden;
 }

@@ -30,6 +30,7 @@ module.exports = function(api) {
         {
           forceAllTransforms: true,
           useBuiltIns: 'entry',
+          corejs: 3,
           modules: false,
           exclude: ['transform-typeof-symbol']
         }
@@ -38,7 +39,8 @@ module.exports = function(api) {
         require('@babel/preset-react').default,
         {
           development: isDevelopmentEnv || isTestEnv,
-          useBuiltIns: true
+          useBuiltIns: true,
+          corejs: 3
         }
       ]
     ].filter(Boolean),

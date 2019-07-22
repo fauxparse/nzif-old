@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { graphql } from 'react-apollo'
 import { Select } from '../../form'
-import CommonProps from '../../../lib/common_props'
 import { VENUES_QUERY } from '../../../queries'
 
 const VenuePicker = ({ value, data: { venues = [] }, onChange }) => (
@@ -15,9 +14,9 @@ const VenuePicker = ({ value, data: { venues = [] }, onChange }) => (
 )
 
 VenuePicker.propTypes = {
-  value: CommonProps.venue,
+  value: PropTypes.venue,
   data: PropTypes.shape({
-    venues: PropTypes.arrayOf(CommonProps.venue.isRequired),
+    venues: PropTypes.arrayOf(PropTypes.venue.isRequired),
   }),
   onChange: PropTypes.func.isRequired,
 }

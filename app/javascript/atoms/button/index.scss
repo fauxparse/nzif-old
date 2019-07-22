@@ -1,0 +1,89 @@
+@import "../../styles/base";
+
+.button {
+  @include themify {
+    color: themed(accent);
+    box-shadow: 0 0 0 0 themed(unfocused);
+
+    &:focus {
+      box-shadow: 0 0 0 .25em themed(outline);
+    }
+
+    &__icon {
+      color: inherit;
+    }
+
+    &--primary {
+      background-color: themed(accent);
+      color: white;
+    }
+  }
+
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin: 0;
+  padding: calc(0.5em - 1px);
+  transition: transition(all);
+  border: 1px solid currentColor;
+  border-radius: $border-radius;
+  outline: none;
+  background: none;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  appearance: none;
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  + & {
+    margin-left: .5em;
+  }
+
+  > :not(.button__ripple) {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__ripple { border-radius: calc(#{$border-radius} - 1px);
+  }
+
+  &__text {
+    flex: 1;
+    padding: 0 .5em;
+    text-align: center;
+  }
+
+  &__icon {
+    display: block;
+  }
+
+  &--primary {
+    padding: 0.5em;
+    border: 0;
+
+    .button__ripple {
+      border-radius: inherit;
+    }
+  }
+
+  &--icon {
+    border-radius: 50%;
+
+    .button__ripple {
+      border-radius: inherit;
+    }
+  }
+
+  .avatar {
+    order: -1;
+  }
+}
+
+::-moz-focus-inner {
+  border: 0;
+}

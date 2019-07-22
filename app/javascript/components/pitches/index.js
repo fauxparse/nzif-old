@@ -4,7 +4,7 @@ import EditPitch from './edit'
 import PitchList from './list'
 import { SubPageTransition as PageTransition } from '../page_transition'
 import { CurrentUserContext } from '../shared/current_user'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 
 const Pitches = ({ match }) => {
   const currentUser = useContext(CurrentUserContext)

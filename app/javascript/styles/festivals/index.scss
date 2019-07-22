@@ -1,20 +1,16 @@
 .public-section {
-  @include themify {
-    background: themed(background);
-    color: themed(text);
-  }
-
-  // display: flex;
-  // position: relative;
-  // flex-direction: column;
-  // align-items: stretch;
-  // min-height: 100vh;
+  position: relative;
+  min-height: 100vh;
 
   .page {
     position: relative;
     flex: 1 0 auto;
     min-height: calc(100vh - 15.5rem);
-    // overflow-x: hidden;
+  }
+
+  @include themify {
+    background: themed(background);
+    color: themed(text);
   }
 }
 
@@ -22,21 +18,11 @@
   padding: $padding;
   text-align: center;
 
-  .logo {
+  .masthead {
     display: block;
     position: relative;
     max-width: 30rem;
     margin: ($spacing * 3) auto;
-    fill: currentColor;
-
-    &__nz,
-    &__subtitle {
-      opacity: 0.75;
-    }
-
-    &__dates {
-      opacity: 0.375;
-    }
   }
 
   &__purpose {
@@ -51,7 +37,7 @@
   }
 
   @include themify {
-    .logo {
+    .masthead {
       color: themed(accent);
     }
 
@@ -103,16 +89,17 @@
     margin: $spacing auto 0;
   }
 
+  .counter {
+    font-size: font-size(4);
+  }
+
   @include themify {
     background: themed(panel);
   }
 
   @include media(medium) {
-    .countdown {
-      &__digits,
-      &__separator {
-        font-size: font-size(6);
-      }
+    .counter {
+      font-size: font-size(6);
     }
   }
 }

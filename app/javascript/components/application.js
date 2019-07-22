@@ -1,13 +1,15 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
+import { Manager } from 'react-popper'
 import client from '../lib/client'
 import { RootPageTransition as PageTransition } from './page_transition'
 import Admin from './admin'
 import Festival, { CurrentFestival } from './festivals'
 import LogIn from './login'
+import LogOut from './log_out'
 import Environment from './environment'
 import { CurrentUserProvider } from './shared/current_user'
 import { AdminRoute } from './authorised_route'
@@ -23,7 +25,7 @@ export default class Application extends React.Component {
     return (
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
-          <Fragment>
+          <Manager>
             <Router>
               <CurrentUserProvider>
                 <LastLocationProvider>
@@ -37,6 +39,7 @@ export default class Application extends React.Component {
                           />
                           <Route path="/:year(\d{4})" component={Festival} />
                           <Route path="/:login(login|signup|password)" component={LogIn} />
+                          <Route path="/logout" component={LogOut} />
                           <Route path="/:path*" component={CurrentFestival} />
                         </Switch>
                       </PageTransition>
@@ -46,7 +49,7 @@ export default class Application extends React.Component {
               </CurrentUserProvider>
             </Router>
             <Environment />
-          </Fragment>
+          </Manager>
         </ApolloHooksProvider>
       </ApolloProvider>
     )

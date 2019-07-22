@@ -7,7 +7,7 @@ import omit from 'lodash/omit'
 import { PITCHES_QUERY } from '../../queries'
 import { PITCH_QUERY, UPDATE_PITCH_MUTATION } from '../../queries/pitch'
 import Breadcrumbs from '../shared/breadcrumbs'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 import PitchForm from './form'
 
 const EditPitch = ({ match, history, className }) => {

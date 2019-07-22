@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import stickybits from 'stickybits'
+import { v4 as uuid } from 'uuid'
+import { CurrentUserContext } from '../components/shared/current_user/context'
 
 export const useSticky = (options = {}, dependencies = []) => {
   const sticky = useRef()
   const stickySection = useRef()
   const [width, setWidth] = useState()
 
-  const onResize = () => setWidth(stickySection.current.offsetWidth)
+  const onResize = useCallback(() => setWidth(stickySection.current.offsetWidth), [setWidth])
 
   useEffect(() => {
     window.addEventListener('resize', onResize)
@@ -21,3 +23,27 @@ export const useSticky = (options = {}, dependencies = []) => {
 
   return stickySection
 }
+
+export const useClock = () => {
+  const ticker = useRef()
+
+  const [time, setTime] = useState(Date.now())
+
+  const tick = useCallback(() => {
+    setTime(Date.now())
+  }, [setTime])
+
+  useEffect(() => {
+    ticker.current = setInterval(tick, 1000)
+    return () => clearInterval(ticker.current)
+  }, [tick])
+
+  return time
+}
+
+export const useUUID = () => {
+  const id = useRef(uuid())
+  return id.current
+}
+
+export const useCurrentUser = () => useContext(CurrentUserContext)

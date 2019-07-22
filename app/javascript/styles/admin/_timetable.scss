@@ -189,12 +189,10 @@
   }
 
   &__activity-name {
+    @include ellipsis;
     max-width: 100%;
     padding: 0 0.5em;
     font-size: font-size(-1);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
   }
 
   &__session-details {
@@ -300,13 +298,11 @@
     flex: 1;
 
     .highlight {
+      @include ellipsis;
       display: block;
       flex: 1;
       font-size: font-size(1);
       line-height: 1.5rem;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
 
       mark {
         background: none;

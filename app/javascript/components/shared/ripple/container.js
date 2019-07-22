@@ -1,8 +1,7 @@
 import React, { useRef, forwardRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import mojs from 'mo-js'
-import CommonProps from '../../../lib/common_props'
 
 const trueClientPosition = (coordinates, element) => {
   let { x, y } = coordinates
@@ -89,8 +88,8 @@ const Ripple = forwardRef(
 )
 
 Ripple.propTypes = {
-  as: CommonProps.component,
-  className: CommonProps.className,
+  as: PropTypes.component,
+  className: PropTypes.className,
   onMouseDown: PropTypes.func,
   onTouchStart: PropTypes.func
 }

@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
+import PropTypes from 'lib/proptypes'
 import { Query, withApollo } from 'react-apollo'
 import classNames from 'classnames'
 import { EDIT_USER_QUERY, UPDATE_USER_MUTATION } from '../../queries'
-import CommonProps from '../../lib/common_props'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 import NotFound from '../not_found'
 import Editor from './editor'
 
 class ProfileSection extends Component {
   static propTypes = {
-    className: CommonProps.className,
+    className: PropTypes.className,
   }
 
   state = {

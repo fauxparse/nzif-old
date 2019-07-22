@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
-import Icon from '../icons'
-import Button from '../button'
+import Icon from '../../atoms/icon'
+import Button from '../../atoms/button'
 import Sentence from '../shared/sentence'
 import Link from '../shared/ripple/link'
 import { left as transition } from '../page_transition/slide'
@@ -49,7 +48,7 @@ const Pitch = ({ className, pitch, url, onDelete }) => {
 
 Pitch.propTypes = {
   pitch: PropTypes.shape({
-    id: CommonProps.id.isRequired,
+    id: PropTypes.id.isRequired,
     name: PropTypes.string,
     state: PropTypes.string,
   }),

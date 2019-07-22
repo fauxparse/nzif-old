@@ -23,14 +23,17 @@ $themes: (
     advanced: color(plum, 500),
     icon: color(grey, 400),
     menu-background: white,
+    menu-highlight: color(grey, 100),
+    menu-highlight-text: color(grey, 900),
     step-pending-background: color(grey, 300),
     step-pending-foreground: color(grey, 100),
     step-active-background: color(tomato, 500),
     step-active-foreground: white,
     step-completed-background: color(tomato, 500),
     step-completed-foreground: white,
-    digit-background: color(grey, 800),
-    digit-foreground: color(grey, 100)
+    sidebar-background: color(grey, 100),
+    sidebar-pin-background: color(grey, 200),
+    sidebar-pin-foreground: color(grey, 400)
   ),
   dark: (
     background: color(grey, 800),
@@ -55,17 +58,32 @@ $themes: (
     intermediate: color(grape, 500),
     advanced: color(plum, 500),
     icon: color(grey, 600),
-    menu-background: color(grey, 900),
+    menu-background: color(grey, 900, 0.875),
+    menu-highlight: black,
+    menu-highlight-text: white,
     step-pending-background: color(grey, 300),
     step-pending-foreground: color(grey, 100),
     step-active-background: color(tomato, 500),
     step-active-foreground: white,
     step-completed-background: color(tomato, 500),
     step-completed-foreground: white,
-    digit-background: color(grey, 900),
-    digit-foreground: color(grey, 100)
+    sidebar-background: color(grey, 900),
+    sidebar-pin-background: color(grey, 800),
+    sidebar-pin-foreground: color(grey, 600)
   )
 );
+
+$header-theme: map-merge(map-get($themes, dark), (
+  background: color(grey, 900),
+  foreground: color(white),
+  text: color(white),
+  secondary: color(white, $opacity: secondary),
+  disabled: color(white, $opacity: disabled),
+  border: color(black, $opacity: 0.875),
+  hover: color(black, $opacity: hover),
+  unhover: color(black, $opacity: 0),
+  menu: color(grey, 900, $opacity: 0.875)
+));
 
 $levels: (
   beginner: mint,

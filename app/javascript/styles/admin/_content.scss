@@ -1,5 +1,6 @@
 .content {
-  &__list, {
+  &__list,
+  &__page {
     @include constrained-width($keyline, $padding);
 
     .editable-title {

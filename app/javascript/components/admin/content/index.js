@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { withRouter, Switch, Route } from 'react-router-dom'
-import CommonProps from '../../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import List from './list'
 import Page from './page'
 
@@ -15,7 +15,7 @@ const Content = ({ className, match }) => (
 )
 
 Content.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
 }
 
 export default withRouter(Content)

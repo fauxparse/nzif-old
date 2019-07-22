@@ -1,0 +1,90 @@
+@import "../../styles/base";
+
+$loader-offset: 202;
+$loader-duration: 1400ms;
+
+@keyframes loader-rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes loader-dash {
+  0% {
+    stroke-dashoffset: $loader-offset;
+  }
+  50% {
+    transform: rotate(135deg);
+    stroke-dashoffset: $loader-offset / 4;
+  }
+  100% {
+    transform: rotate(450deg);
+    stroke-dashoffset: $loader-offset;
+  }
+}
+
+@keyframes loader-rainbow {
+  0% {
+    stroke: color(tomato);
+  }
+  17% {
+    stroke: color(mandarin);
+  }
+  33% {
+    stroke: color(apple);
+  }
+  50% {
+    stroke: color(mint);
+  }
+  67% {
+    stroke: color(grape);
+  }
+  83% {
+    stroke: color(plum);
+  }
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5em;
+  height: 5em;
+  margin: -2.5em;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: loader-rotator $loader-duration linear infinite;
+  }
+
+  circle {
+    transform-origin: 0 0;
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke: color(tomato);
+    stroke-dasharray: $loader-offset;
+    stroke-dashoffset: 0;
+    animation: loader-dash $loader-duration ease-in-out infinite,
+      loader-rainbow ($loader-duration * 5) ease-in-out infinite;
+  }
+
+  &.button__loader {
+    position: static;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0;
+
+    svg {
+      circle {
+        stroke: currentColor;
+        animation: loader-dash $loader-duration ease-in-out infinite;
+      }
+    }
+  }
+}

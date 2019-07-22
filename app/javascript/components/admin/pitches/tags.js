@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames';
-import CommonProps from '../../../lib/common_props'
-import Tag from '../../shared/tag'
+import Tag from 'atoms/tag'
 
 const Tags = ({ className, tags, selected, onSelect }) => {
   const clicked = useCallback((e) => {
@@ -27,7 +26,7 @@ const Tags = ({ className, tags, selected, onSelect }) => {
 }
 
 Tags.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
   tags: PropTypes.arrayOf(PropTypes.string.isRequired),
   selected: PropTypes.arrayOf(PropTypes.string.isRequired),
   onSelect: PropTypes.func,

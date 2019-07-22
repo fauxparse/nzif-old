@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Detail from '../shared/detail'
 import Level from '../shared/level'
-import Date from '../shared/date'
-import Time from '../shared/time'
+import Date from 'atoms/date'
+import Time from 'atoms/time'
 
 const ActivitySummary = ({ activity }) => (
   <aside className="activity-summary">

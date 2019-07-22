@@ -1,15 +1,3 @@
-$header-theme: map-merge(map-get($themes, dark), (
-  background: color(grey, 900),
-  foreground: color(white),
-  text: color(white),
-  secondary: color(white, $opacity: secondary),
-  disabled: color(white, $opacity: disabled),
-  border: color(black, $opacity: 0.875),
-  hover: color(black, $opacity: hover),
-  unhover: color(black, $opacity: 0),
-  menu: color(grey, 900, $opacity: 0.875)
-));
-
 .header {
   @include elevation-element(app-bar);
   display: flex;
@@ -110,13 +98,11 @@ $header-theme: map-merge(map-get($themes, dark), (
     min-width: 1%;
 
     span {
+      @include ellipsis;
       flex: 1;
       font-family: font-family(branding), $system-font-stack;
       font-size: font-size(3);
       font-weight: font-weight(black);
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
     }
   }
 
@@ -160,10 +146,8 @@ $header-theme: map-merge(map-get($themes, dark), (
     }
 
     .link__text {
+      @include ellipsis;
       flex: 1;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
     }
 
     .link__icon {
@@ -224,40 +208,42 @@ $header-theme: map-merge(map-get($themes, dark), (
       }
     }
   }
-}
 
-.current-user {
-  &__button {
-    order: 1;
-    padding: 0.5em;
-
-    .current-user__name,
-    .menu__chevron {
-      display: none;
-    }
-
-    @include media(medium) {
-      padding: 0.5rem 1rem;
+  .current-user {
+    &__button {
+      order: 1;
+      padding: 0.5em;
+      color: inherit;
 
       .current-user__name,
       .menu__chevron {
-        display: initial;
+        display: none;
+        color: inherit;
       }
 
-      .avatar {
-        margin-right: 1rem;
+      @include media(medium) {
+        padding: 0.5rem 1rem;
+
+        .current-user__name,
+        .menu__chevron {
+          display: initial;
+        }
+
+        .avatar {
+          margin-right: 1rem;
+        }
       }
     }
-  }
 
-  &__menu {
-    @include media(medium) {
-      left: auto;
+    &__menu {
+      @include media(medium) {
+        left: auto;
+      }
     }
-  }
 
-  &--not-logged-in {
-    order: 1;
-    transition: transition(background-color);
+    &--not-logged-in {
+      order: 1;
+      transition: transition(background-color);
+    }
   }
 }

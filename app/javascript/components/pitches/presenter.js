@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CountrySelect, Field, Label, Input } from '../form'
-import Button from '../button'
+import Button from '../../atoms/button'
 
 const Presenter = ({ presenter, disabled, passwordRequired, onChange, onDelete }) => {
   const changed = (name, value) => {

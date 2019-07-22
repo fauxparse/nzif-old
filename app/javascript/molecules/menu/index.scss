@@ -1,0 +1,72 @@
+@import "../../styles/base";
+
+.menu {
+  &__button {
+    &[aria-expanded] {
+      .menu__chevron {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__chevron {
+    transition: transition(transform);
+  }
+
+  &__content {
+    margin: -1rem;
+    padding: 1rem;
+    outline: none;
+    overflow: hidden;
+    z-index: z-index(menu);
+    pointer-events: none;
+    touch-action: none;
+    mask-image: linear-gradient(to bottom, transparent, white 1rem);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, white 1rem);
+
+    &--open {
+      pointer-events: auto;
+      touch-action: auto;
+
+      .menu__list {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  &__list {
+    @include elevation-element(menu);
+    min-width: 16rem;
+    transform: translateY(-100%);
+    transition: transition(transform opacity);
+    border-radius: $border-radius;
+    opacity: 0;
+  }
+
+  &__item {
+    cursor: pointer;
+  }
+
+  @include themify {
+    &__list {
+      background: themed(menu-background);
+      color: themed(foreground);
+    }
+
+    &__item {
+      > :hover,
+      > :focus {
+        outline: none;
+        background: themed(menu-highlight);
+        color: themed(menu-highlight-text);
+      }
+
+      &--link {
+        .ripple__container {
+          color: inherit;
+        }
+      }
+    }
+  }
+}

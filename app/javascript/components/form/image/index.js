@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import classNames from 'classnames'
-import CommonProps from '../../../lib/common_props'
 import DropZone from './drop_zone'
 import ProgressIcon from './progress_icon'
 import Preview from './preview'
@@ -10,7 +9,7 @@ import ClearButton from './clear_button'
 
 class ImageUpload extends Component {
   static propTypes = {
-    className: CommonProps.className,
+    className: PropTypes.className,
     image: PropTypes.shape({
       name: PropTypes.string.isRequired,
       thumbnail: PropTypes.string.isRequired,

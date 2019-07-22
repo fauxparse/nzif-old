@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Markdown from '../shared/markdown'
 import Presenter from '../shared/presenter'
-import Avatar from '../shared/avatar'
+import Avatar from 'atoms/avatar'
 
 const Presenters = ({ presenters }) => (
   <section className="activity-presenters">
@@ -23,7 +22,7 @@ const Presenters = ({ presenters }) => (
 
 Presenters.propTypes = {
   presenters: PropTypes.arrayOf(PropTypes.shape({
-    id: CommonProps.id.isRequired,
+    id: PropTypes.id.isRequired,
     name: PropTypes.string.isRequired,
     bio: PropTypes.string,
   }).isRequired),

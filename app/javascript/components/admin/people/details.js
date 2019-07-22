@@ -3,15 +3,15 @@ import { Query, withApollo, compose } from 'react-apollo'
 import { withRouter } from 'react-router-dom'
 import classNames from 'classnames'
 import { EDIT_USER_QUERY, UPDATE_USER_MUTATION } from '../../../queries'
-import CommonProps from '../../../lib/common_props'
-import Loader from '../../shared/loader'
+import PropTypes from 'lib/proptypes'
+import Loader from 'atoms/loader'
 import Breadcrumbs from '../../shared/breadcrumbs'
 import NotFound from '../../not_found'
 import Editor from '../../profile/editor'
 
 class PersonDetails extends Component {
   static propTypes = {
-    className: CommonProps.className,
+    className: PropTypes.className,
   }
 
   state = {

@@ -4,9 +4,9 @@ import { useMutation, useQuery } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import CURRENT_USER_QUERY, { CURRENT_USER_FIELDS } from '../../queries/current_user'
 import { Label, Input, Field } from '../form'
-import Loader from '../shared/loader'
+import Loader from 'atoms/loader'
 import TextLink from '../shared/text_link'
-import Button from '../button'
+import Button from '../../atoms/button'
 import Form from './form'
 
 const VALIDATE_TOKEN_QUERY = gql`

@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 import Link from '../shared/text_link'
-import Date from '../shared/date'
+import Date from 'atoms/date'
 
 const AssociatedShow = ({ name, url, session }) => (
   <>
@@ -14,7 +13,7 @@ const AssociatedShow = ({ name, url, session }) => (
 AssociatedShow.propTypes = {
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  session: CommonProps.session.isRequired,
+  session: PropTypes.session.isRequired,
 }
 
 const AssociatedWorkshop = ({ name, url, session }) => (
@@ -27,7 +26,7 @@ const AssociatedWorkshop = ({ name, url, session }) => (
 AssociatedWorkshop.propTypes = {
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  session: CommonProps.session.isRequired,
+  session: PropTypes.session.isRequired,
 }
 
 const Associated = ({ type, name, url, sessions }) => {
@@ -43,7 +42,7 @@ const Associated = ({ type, name, url, sessions }) => {
 }
 
 Associated.propTypes = {
-  type: CommonProps.activityType.isRequired,
+  type: PropTypes.activityType.isRequired,
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   sessions: PropTypes.array.isRequired

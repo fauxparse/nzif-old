@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import { Route } from 'react-router-dom'
 import { CurrentUserContext } from './shared/current_user'
-import CommonProps from '../lib/common_props'
 
 const AuthorisedRoute = ({ component: Component, authorise, ...props }) => (
   <CurrentUserContext.Consumer>
@@ -17,7 +16,7 @@ const AuthorisedRoute = ({ component: Component, authorise, ...props }) => (
 )
 
 AuthorisedRoute.propTypes = {
-  component: CommonProps.component.isRequired,
+  component: PropTypes.component.isRequired,
   authorise: PropTypes.func.isRequired,
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Bullet from '../shared/bullet'
+import Divider from 'atoms/divider'
 import Markdown from '../shared/markdown'
 import SkeletonText from '../shared/skeleton_text'
 import Detail from '../shared/detail'
@@ -17,7 +17,7 @@ need your help to get back to the year 1985.`
 
 const ActivityDescription = ({ loading, activity }) => (
   <div className="activity-description">
-    <Bullet />
+    <Divider accent />
     <Detail icon="info">
       <SkeletonText loading={loading}>
         <Markdown text={activity.description || FILLER} />

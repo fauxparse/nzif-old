@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withApollo, compose } from 'react-apollo'
 import { useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
-import CommonProps from '../../lib/common_props'
 import { Label, Input, Field, Hint } from '../form'
-import Button from '../button'
+import Button from '../../atoms/button'
 import Form from './form'
 import TextLink from '../shared/text_link'
 import { slideLeft } from '../page_transition'
@@ -118,7 +117,7 @@ const LogInForm = ({ client, history, lastLocation, className }) => {
 }
 
 LogInForm.propTypes = {
-  className: CommonProps.className,
+  className: PropTypes.className,
   history: ReactRouterPropTypes.history.isRequired,
   lastLocation: PropTypes.oneOfType([ReactRouterPropTypes.location, PropTypes.string ]),
   client: PropTypes.shape({

@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import Icon from '../../icons'
+import Icon from '../../../atoms/icon'
 import { Link } from '../ripple'
 
 const HeaderLink = ({ className, children, ...props }) => (

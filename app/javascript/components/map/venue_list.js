@@ -1,35 +1,37 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../lib/common_props'
-import Loader from '../shared/loader'
-import Venue from './venue'
+import PropTypes from 'lib/proptypes'
+import ReactRouterPropTypes from 'react-router-prop-types'
+import { withRouter } from 'react-router-dom'
+import Loader from 'atoms/loader'
+import List from 'molecules/list'
 
-const VenueList = ({ loading, venues, selection, onVenueClick }) => (
+const VenueList = ({ loading, venues, selection }) => (
   <aside className="venue-list">
     {loading ? (
       <Loader />
     ) : (
-      <ul className="venue-list__venues">
+      <List className="venue-list__venues">
         {venues.map(venue => (
-          <Venue
+          <List.Link
             key={venue.id}
-            id={venue.id}
-            name={venue.name}
-            address={venue.address}
-            selected={selection ? selection.address === venue.address : false}
-            onClick={() => onVenueClick(venue)}
+            to={`#${venue.id}`}
+            data-id={venue.id}
+            icon="venue"
+            primary={venue.name}
+            secondary={venue.address}
+            active={(selection && selection.id === venue.id) || undefined}
           />
         ))}
-      </ul>
+      </List>
     )}
   </aside>
 )
 
 VenueList.propTypes = {
   loading: PropTypes.bool.isRequired,
-  venues: PropTypes.arrayOf(CommonProps.venue.isRequired),
-  selection: CommonProps.venue,
-  onVenueClick: PropTypes.func.isRequired
+  location: ReactRouterPropTypes.location.isRequired,
+  venues: PropTypes.arrayOf(PropTypes.venue.isRequired),
+  selection: PropTypes.venue,
 }
 
-export default VenueList
+export default withRouter(VenueList)

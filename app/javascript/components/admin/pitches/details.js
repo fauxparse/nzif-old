@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useReducer } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import debounce from 'lodash/debounce'
 import omit from 'lodash/omit'
 import Breadcrumbs from '../../shared/breadcrumbs'
-import Loader from '../../shared/loader'
-import Avatar from '../../shared/avatar'
+import Loader from 'atoms/loader'
+import Chip from 'molecules/chip'
 import EditableTitle from '../../shared/editable_title'
 import Tags from './tags'
 import Answer from './answer'
@@ -78,6 +78,11 @@ const Details = ({ match }) => {
 
   useEffect(autosave, [pitch])
 
+  const presenters = useMemo(() => pitch.presenters && pitch.presenters.map((presenter) => ({
+    ...presenter,
+    id: presenter.id || presenter.name,
+  })) || [], [pitch])
+
   return loading ? <Loader /> : (
     <div className="pitch__details">
       <header>
@@ -92,11 +97,8 @@ const Details = ({ match }) => {
           placeholder="Title"
         />
         <div className="presenters">
-          {pitch.presenters && pitch.presenters.map(presenter => (
-            <div key={presenter.id} className="presenter">
-              <Avatar name={presenter.name} image={presenter.image} />
-              <span className="presenter__name">{presenter.name}</span>
-            </div>
+          {presenters.map(presenter => (
+            <Chip key={presenter.name} user={presenter} />
           ))}
         </div>
         <div className="pitch__tags">

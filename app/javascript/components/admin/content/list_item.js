@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
-import Link from '../../shared/ripple/link'
-import Icon from '../../icons'
-import moment from '../../../lib/moment'
+import List from 'molecules/list'
+import Ripple from 'effects/ripple'
+import moment from 'lib/moment'
+import Link from '../../shared/link'
 
-const ListItem = ({ baseUrl, content, now }) => {
+const ContentItem = ({ baseUrl, content, now }) => {
   const displayTime = useMemo(() => {
     const updated = moment(content.updatedAt)
     if (now.diff(updated, 'days') > 7) {
@@ -16,27 +17,21 @@ const ListItem = ({ baseUrl, content, now }) => {
   }, [content, now])
 
   return (
-    <li className="list__item">
-      <Link
-        to={`${baseUrl}/${content.slug}`}
-        className="list__link"
-        activeClassName="list__link--active"
-      >
-        <Icon name="text" className="list__icon" />
-        <span className="list__details">
-          <span className="list__title">
-            {content.title}
-          </span>
-          <span className="list__subtitle">
-            {displayTime}
-          </span>
-        </span>
-      </Link>
-    </li>
+    <List.Item
+      as={Link}
+      to={`${baseUrl}/${content.slug}`}
+      className="list-item__link"
+      activeClassName="list-item__link--active"
+      icon="text"
+      primary={content.title}
+      secondary={displayTime}
+    >
+      <Ripple />
+    </List.Item>
   )
 }
 
-ListItem.propTypes = {
+ContentItem.propTypes = {
   baseUrl: PropTypes.string.isRequired,
   content: PropTypes.shape({
     slug: PropTypes.string.isRequired,
@@ -46,4 +41,4 @@ ListItem.propTypes = {
   now: MomentPropTypes.momentObj.isRequired,
 }
 
-export default ListItem
+export default ContentItem

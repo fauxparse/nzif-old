@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
 import { generatePath } from 'react-router'
@@ -11,9 +11,8 @@ import {
   ACTIVITY_QUERY,
   UPDATE_ACTIVITY_MUTATION,
 } from '../../../queries'
-import CommonProps from '../../../lib/common_props'
 import moment from '../../../lib/moment'
-import Loader from '../../shared/loader'
+import Loader from 'atoms/loader'
 import { Tab, TabBar } from '../../shared/tabs'
 import Breadcrumbs from '../../shared/breadcrumbs'
 import noTransition from '../../page_transition/none'
@@ -28,9 +27,9 @@ class ActivityDetails extends Component {
     location: ReactRouterPropTypes.location.isRequired,
     data: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
-      activity: CommonProps.activity,
+      activity: PropTypes.activity,
     }),
-    className: CommonProps.className,
+    className: PropTypes.className,
   }
 
   static defaultProps = {

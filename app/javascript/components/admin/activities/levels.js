@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import CommonProps from '../../../lib/common_props'
-import Button from '../../button'
+import PropTypes from 'lib/proptypes'
+import Button from 'atoms/button'
 
 const LEVELS = ['beginner', 'intermediate', 'advanced']
 
@@ -18,7 +17,7 @@ const Level = ({ level, selected, ...props }) => (
 )
 
 Level.propTypes = {
-  level: CommonProps.activityLevel.isRequired,
+  level: PropTypes.activityLevel.isRequired,
   selected: PropTypes.bool,
 }
 
@@ -36,7 +35,7 @@ const Levels = ({ levels, onClick }) => (
 )
 
 Levels.propTypes = {
-  levels: PropTypes.arrayOf(CommonProps.activityLevel.isRequired).isRequired,
+  levels: PropTypes.arrayOf(PropTypes.activityLevel.isRequired).isRequired,
   onClick: PropTypes.func.isRequired,
 }
 

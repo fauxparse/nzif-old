@@ -1,0 +1,104 @@
+@import "../../styles/base";
+
+.list {
+  margin: 0;
+  padding: ($padding / 2) 0;
+  list-style: none;
+}
+
+.list-item {
+  display: block;
+  position: relative;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: ($padding / 2) $padding;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 1px;
+
+    span {
+      @include ellipsis;
+      display: block;
+    }
+  }
+
+  &__icon {
+    &:first-child {
+      margin-right: $keyline - $padding - $icon-size;
+    }
+
+    &:last-child {
+      margin-left: 1rem;
+    }
+  }
+
+  &__avatar {
+    margin-right: $keyline - $padding - $avatar-size;
+
+    ~ .icon {
+      order: 1;
+      margin-right: 0;
+      margin-left: $padding;
+    }
+  }
+
+  &--link {
+    .list-item__wrapper {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  &__secondary {
+    font-size: font-size(-1);
+    font-weight: font-weight(light);
+  }
+
+  .list--compact & {
+    font-size: font-size(-1);
+
+    .list-item__wrapper {
+      padding: ($padding / 4) $padding;
+    }
+
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      margin: 0.25rem ($keyline - $padding - $icon-size + 0.25rem) 0.25rem 0.25rem;
+    }
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+
+  @include themify {
+    &__secondary {
+      color: themed(secondary);
+    }
+
+    &--link {
+      .ripple__container {
+        color: themed(highlight);
+      }
+
+      [aria-selected] {
+        transition: transition(background, $duration: 500ms);
+        background: themed(highlight);
+        color: themed(highlight-text);
+
+        .icon,
+        .list-item__secondary {
+          color: change-opacity(themed(highlight-text), secondary);
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import classNames from 'classnames'
-import CommonProps from '../../lib/common_props'
+import PropTypes from 'lib/proptypes'
 
 const Input = forwardRef(({ as: Element = 'input', className, ...props }, ref) => (
   <Element ref={ref} className={classNames('form__input', className)} {...props} />
@@ -9,7 +9,7 @@ const Input = forwardRef(({ as: Element = 'input', className, ...props }, ref) =
 Input.displayName = 'Input'
 
 Input.propTypes = {
-  as: CommonProps.component,
+  as: PropTypes.component,
 }
 
 export default Input
