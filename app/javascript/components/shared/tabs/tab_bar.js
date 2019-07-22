@@ -1,6 +1,7 @@
-import React, { Children, Component, cloneElement, createRef } from 'react'
+import React, { Component, createRef } from 'react'
 import throttle from 'lodash/throttle'
 import classNames from 'classnames'
+import DetectLocationChange from 'lib/detect_location_change'
 
 export class TabBar extends Component {
   state = {
@@ -58,12 +59,13 @@ export class TabBar extends Component {
 
     return (
       <nav className={classNames('tabs', className)} ref={this.container} role="tabs" {...props}>
-        {Children.map(children, child => cloneElement(child, { onActivate: this.tabChanged }))}
+        {children}
         <hr className="tabs--highlight"
           ref={this.highlight}
           style={highlightStyle}
           data-animate={animate || undefined}
         />
+        <DetectLocationChange onChange={this.tabChanged} />
       </nav>
     )
   }

@@ -2,9 +2,7 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import List from 'molecules/list'
-import Ripple from 'effects/ripple'
 import moment from 'lib/moment'
-import Link from '../../shared/link'
 
 const ContentItem = ({ baseUrl, content, now }) => {
   const displayTime = useMemo(() => {
@@ -17,17 +15,12 @@ const ContentItem = ({ baseUrl, content, now }) => {
   }, [content, now])
 
   return (
-    <List.Item
-      as={Link}
+    <List.Link
       to={`${baseUrl}/${content.slug}`}
-      className="list-item__link"
-      activeClassName="list-item__link--active"
       icon="text"
       primary={content.title}
       secondary={displayTime}
-    >
-      <Ripple />
-    </List.Item>
+    />
   )
 }
 
