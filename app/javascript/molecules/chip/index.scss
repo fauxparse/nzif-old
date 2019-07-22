@@ -4,6 +4,7 @@
   display: inline-flex;
   position: relative;
   align-items: center;
+  margin-right: $spacing / 2;
   border-radius: 1.25rem;
 
   &__name {
