@@ -49,6 +49,13 @@ export const user = PropTypes.shape({
   image: userImage,
 })
 
+export const presenter = PropTypes.shape({
+  id: id,
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string,
+  image: userImage,
+})
+
 export const activity = PropTypes.shape({
   id: id.isRequired,
   name: PropTypes.string.isRequired,
@@ -97,6 +104,7 @@ export default {
   component,
   icon,
   id,
+  presenter,
   ref,
   session,
   time,

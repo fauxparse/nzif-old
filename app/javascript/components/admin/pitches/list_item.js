@@ -6,6 +6,8 @@ import List from 'molecules/list'
 import Sentence from '../../shared/sentence'
 import { ACTIVITY_TYPES } from '../../pitches/constants'
 
+const ACTIVITY_TYPE_NAMES = ACTIVITY_TYPES.map(type => type.name)
+
 const PitchItem = ({ baseUrl, pitch }) => {
   const activityType = useMemo(() => (
     ACTIVITY_TYPES.find(type => type.name === pitch.activityType)
@@ -44,8 +46,8 @@ PitchItem.propTypes = {
   pitch: PropTypes.shape({
     id: PropTypes.id.isRequired,
     name: PropTypes.string.isRequired,
-    activityType: PropTypes.activityType.isRequired,
-    presenters: PropTypes.arrayOf(PropTypes.user).isRequired,
+    activityType: PropTypes.oneOf(ACTIVITY_TYPE_NAMES).isRequired,
+    presenters: PropTypes.arrayOf(PropTypes.presenter).isRequired,
   }),
 }
 
