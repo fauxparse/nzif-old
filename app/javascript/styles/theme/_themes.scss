@@ -33,7 +33,8 @@ $themes: (
     step-completed-foreground: white,
     sidebar-background: color(grey, 100),
     sidebar-pin-background: color(grey, 200),
-    sidebar-pin-foreground: color(grey, 400)
+    sidebar-pin-foreground: color(grey, 400),
+    tab-focus: color(grey, 300, 0.25)
   ),
   dark: (
     background: color(grey, 800),
@@ -69,7 +70,8 @@ $themes: (
     step-completed-foreground: white,
     sidebar-background: color(grey, 900),
     sidebar-pin-background: color(grey, 800),
-    sidebar-pin-foreground: color(grey, 600)
+    sidebar-pin-foreground: color(grey, 600),
+    tab-focus: color(grey, 700, 0.25)
   )
 );
 

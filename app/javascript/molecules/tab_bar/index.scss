@@ -1,0 +1,29 @@
+@import "../../styles/base";
+
+.tab-bar {
+  display: flex;
+  position: relative;
+  align-items: stretch;
+
+  > .tab {
+    padding-bottom: calc(0.75rem - 1px);
+  }
+
+  &__highlight {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 0.25rem;
+    transform-origin: 0 100%;
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  @include themify {
+    border-bottom: 1px solid themed(border);
+
+    &__highlight {
+      background: themed(accent);
+    }
+  }
+}

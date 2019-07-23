@@ -1,0 +1,41 @@
+@import "../../styles/base";
+
+.tab {
+  display: flex;
+  position: relative;
+  min-width: 1%;
+  padding: 0.75rem $padding;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  appearance: none;
+
+  &:focus {
+    transition: transition(background-color, $delay: duration(standard));
+    outline: none;
+  }
+
+  &__text {
+    @include ellipsis;
+    flex: 1;
+    text-align: center;
+  }
+
+  @include themify {
+    color: themed(secondary);
+
+    &:focus {
+      background: themed(tab-focus);
+    }
+
+    &--selected {
+      color: themed(foreground);
+    }
+
+    &[disabled] {
+      color: themed(disabled);
+    }
+  }
+}
