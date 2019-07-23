@@ -2,11 +2,13 @@ import React, { useCallback, useState, useEffect } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from 'react-apollo-hooks'
+import { Link } from 'react-router-dom'
 import kebabCase from 'lodash/kebabCase'
 import Loader from 'atoms/loader'
+import Tab from 'atoms/tab'
+import TabBar from 'molecules/tab_bar'
 import Breadcrumbs from '../../shared/breadcrumbs'
 import EditableTitle from '../../shared/editable_title'
-import { Tab, TabBar } from '../../shared/tabs'
 import { IconField, Input } from '../../form'
 import SaveButton from 'molecules/save_button'
 import noTransition from '../../page_transition/none'
@@ -167,17 +169,19 @@ const ContentPage = ({ match, location, history }) => {
           </header>
           <TabBar>
             <Tab
+              as={Link}
               to={{ pathname: location.pathname, state: { tab: 'edit' } }}
-              isActive={() => tab === 'edit'}
-            >
-              Edit
-            </Tab>
+              replace
+              selected={tab === 'edit'}
+              text="Edit"
+            />
             <Tab
+              as={Link}
               to={{ pathname: location.pathname, state: { tab: 'preview' } }}
-              isActive={() => tab === 'preview'}
-            >
-              Preview
-            </Tab>
+              replace
+              selected={tab === 'preview'}
+              text="Preview"
+            />
           </TabBar>
           {tab === 'edit' && <Editor value={raw} onChange={rawChanged} />}
           {tab === 'preview' && <Preview text={raw} />}

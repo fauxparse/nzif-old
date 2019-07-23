@@ -3,7 +3,7 @@ import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
 import { generatePath } from 'react-router'
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { Link, Switch, Route, withRouter } from 'react-router-dom'
 import { graphql, compose, withApollo } from 'react-apollo'
 import sortBy from 'lodash/sortBy'
 import pluralize, { singular } from 'pluralize'
@@ -13,7 +13,8 @@ import {
 } from '../../../queries'
 import moment from '../../../lib/moment'
 import Loader from 'atoms/loader'
-import { Tab, TabBar } from '../../shared/tabs'
+import Tab from 'atoms/tab'
+import TabBar from 'molecules/tab_bar'
 import Breadcrumbs from '../../shared/breadcrumbs'
 import noTransition from '../../page_transition/none'
 import Name from './name'
@@ -105,6 +106,7 @@ class ActivityDetails extends Component {
       const { activity, slugLoading, saving } = this.state
       const { sessions } = activity
       const { year } = match.params
+      const selectedSessionId = location.pathname.replace(match.url, '').replace(/^\//, '')
 
       return (
         <>
@@ -124,11 +126,22 @@ class ActivityDetails extends Component {
             onChange={this.slugChanged}
           />
           <TabBar>
-            <Tab to={match.url}><span>Details</span></Tab>
+            <Tab
+              as={Link}
+              to={match.url}
+              replace
+              text="Details"
+              selected={!selectedSessionId}
+            />
             {sessions.map(session => (
-              <Tab to={`${match.url}/${session.id}`} key={session.id}>
-                <span>{session.startsAt.format('ddd h:mm A')}</span>
-              </Tab>
+              <Tab
+                key={session.id}
+                as={Link}
+                to={`${match.url}/${session.id}`}
+                replace
+                text={session.startsAt.format('ddd h:mm A')}
+                selected={selectedSessionId === session.id}
+              />
             ))}
           </TabBar>
           <Switch location={location}>
