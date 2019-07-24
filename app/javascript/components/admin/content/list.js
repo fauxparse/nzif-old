@@ -4,7 +4,6 @@ import sortBy from 'lodash/sortBy'
 import { useQuery } from 'react-apollo-hooks'
 import Loader from 'atoms/loader'
 import List from 'molecules/list'
-import Link from '../../shared/ripple/link'
 import moment from '../../../lib/moment'
 import Content from './list_item'
 import { CONTENTS_QUERY } from '../../../queries'
@@ -42,10 +41,8 @@ const ContentList = ({ match }) => {
               baseUrl={match.url}
             />
           ))}
-          <List.Item
-            as={Link}
+          <List.Link
             to={`${match.url}/new`}
-            className="list-item__link"
             icon="add"
             primary="New content"
           />

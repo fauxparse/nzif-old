@@ -2,13 +2,13 @@ import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
-import Icon from '../../atoms/icon'
-import { Link } from './ripple'
+import { Link } from 'react-router-dom'
+import Button from 'atoms/button'
 import TextLink from './text_link'
 
 const Breadcrumbs = forwardRef(({ className, back, children, ...props }, ref) => (
   <div ref={ref} className={classNames('breadcrumbs', className)} {...props}>
-    {back && <Link to={back} className="breadcrumbs__back"><Icon name="back" /></Link>}
+    {back && <Button as={Link} to={back} className="breadcrumbs__back" icon="back" />}
     {children}
   </div>
 ))

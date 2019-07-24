@@ -340,64 +340,106 @@
 }
 
 .pitch-row {
-  display: grid;
-  padding: ($padding / 2) 0;
-  color: inherit;
-  text-decoration: none;
-  grid-template-columns: 1.5rem auto;
-  grid-column-gap: $spacing;
-
-  &__icon {
-    grid-row: 1 / span 4;
-  }
-
-  &__name,
-  &__presenters,
-  &__state,
-  &__actions {
-    grid-column: 2;
-  }
-
-  &__state {
-    font-size: font-size(-1);
-    line-height: calc(#{font-size(0)} * #{line-height(normal)});
-    text-transform: uppercase;
+  &__content {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
   }
 
   &__actions {
     display: flex;
-    padding-top: 0.5rem;
+    align-items: center;
+    justify-content: flex-end;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 2;
 
     .button {
-      margin-right: 0.5rem;
-      font-size: font-size(-1);
+      margin-left: $padding / 2;
     }
   }
 
-  @include media(medium) {
-    grid-template-columns: 1.5rem auto auto;
-    grid-column-gap: $spacing;
+  &__state {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: $padding;
+    font-size: font-size(-1);
+    text-transform: uppercase;
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 1;
+  }
 
-    &__icon {
-      grid-row: 1 / span 2;
-    }
-
-    &__name,
-    &__presenters {
-      grid-column: 2;
-    }
-
-    &__state {
-      text-align: right;
-      grid-column: 3;
-      grid-row: 1;
-    }
+  .list-item__primary,
+  .list-item__secondary {
+    grid-column: 1 / span 1;
   }
 
   @include themify {
-    &__presenters,
     &__state {
       color: themed(secondary);
     }
   }
 }
+
+// .pitch-row {
+//   display: grid;
+//   padding: ($padding / 2) 0;
+//   color: inherit;
+//   text-decoration: none;
+//   grid-template-columns: 1.5rem auto;
+//   grid-column-gap: $spacing;
+
+//   &__icon {
+//     grid-row: 1 / span 4;
+//   }
+
+//   &__name,
+//   &__presenters,
+//   &__state,
+//   &__actions {
+//     grid-column: 2;
+//   }
+
+//   &__state {
+//     font-size: font-size(-1);
+//     line-height: calc(#{font-size(0)} * #{line-height(normal)});
+//     text-transform: uppercase;
+//   }
+
+//   &__actions {
+//     display: flex;
+//     padding-top: 0.5rem;
+
+//     .button {
+//       margin-right: 0.5rem;
+//       font-size: font-size(-1);
+//     }
+//   }
+
+//   @include media(medium) {
+//     grid-template-columns: 1.5rem auto auto;
+//     grid-column-gap: $spacing;
+
+//     &__icon {
+//       grid-row: 1 / span 2;
+//     }
+
+//     &__name,
+//     &__presenters {
+//       grid-column: 2;
+//     }
+
+//     &__state {
+//       text-align: right;
+//       grid-column: 3;
+//       grid-row: 1;
+//     }
+//   }
+
+//   @include themify {
+//     &__presenters,
+//     &__state {
+//       color: themed(secondary);
+//     }
+//   }
+// }

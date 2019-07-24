@@ -1,16 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { WithPermission } from '../../lib/permissions'
-import Icon from '../../atoms/icon'
-import Link from '../shared/ripple/link'
+import Button from 'atoms/button'
 
 const EditButton = ({ match: { params: { year, type, slug } }, activity }) => activity && (
   <WithPermission to="update" subject={activity}>
-    <Link className="activity-header__edit" to={`/admin/${year}/activities/${type}/${slug}`}>
-      <Icon name="edit" />
-    </Link>
+    <Button
+      as={Link}
+      to={`/admin/${year}/activities/${type}/${slug}`}
+      className="activity-header__edit"
+      icon="edit"
+    />
   </WithPermission>
 )
 

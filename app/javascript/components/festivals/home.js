@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import PageContent from '../page_content'
+import Button from 'atoms/button'
 import Loader from 'atoms/loader'
 import Masthead from 'atoms/masthead'
 import Countdown from './countdown'
-import { Link } from '../shared/ripple'
-import Button from '../../atoms/button'
 import Context from './context'
 
 const Home = () => {
@@ -21,12 +21,12 @@ const Home = () => {
               <p>Pitches for NZIF {festival.year} close in</p>
               <Countdown to={festival.pitchesCloseAt} />
               <p>
-                <Link
+                <Button
+                  as={Link}
                   to={`${festival.year}/pitches/new`}
-                  className="button"
-                >
-                  <Button.Text>Pitch us your idea!</Button.Text>
-                </Link>
+                  text="Pitch us your idea!"
+                  primary
+                />
               </p>
             </section>
           )}

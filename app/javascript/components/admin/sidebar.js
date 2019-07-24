@@ -18,6 +18,7 @@ const AdminSidebar = ({ match, history, location, staticContext, festival, ...pr
       <List>
         <List.Link to={match.url} icon="admin" primary="Dashboard" />
         <List.Link to={`${match.url}/pitches`} icon="pitch" primary="Pitches" />
+        <List.Link to={`${match.url}/content`} icon="content" primary="Static content" />
       </List>
     </Sidebar>
   )
@@ -32,6 +33,7 @@ AdminSidebar.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
+  staticContext: PropTypes.shape({}),
 }
 
 AdminSidebar.defaultProps = {
@@ -39,6 +41,7 @@ AdminSidebar.defaultProps = {
   festival: {
     pitchesOpen: false,
   },
+  staticContext: {},
 }
 
 export default withRouter(AdminSidebar)

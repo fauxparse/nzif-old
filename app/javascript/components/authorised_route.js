@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
 import { Route } from 'react-router-dom'
-import { CurrentUserContext } from './shared/current_user'
+import CurrentUserContext from 'contexts/current_user'
 
 const AuthorisedRoute = ({ component: Component, authorise, ...props }) => (
   <CurrentUserContext.Consumer>
