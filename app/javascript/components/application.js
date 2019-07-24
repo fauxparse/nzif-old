@@ -11,7 +11,7 @@ import Festival, { CurrentFestival } from './festivals'
 import LogIn from './login'
 import LogOut from './log_out'
 import Environment from './environment'
-import { CurrentUserProvider } from './shared/current_user'
+import { CurrentUserProvider } from 'contexts/current_user'
 import { AdminRoute } from './authorised_route'
 import '../styles/application'
 

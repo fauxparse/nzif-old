@@ -3,7 +3,7 @@ import PropTypes from 'lib/proptypes'
 import Sidebar from 'organisms/sidebar'
 import List from 'molecules/list'
 import Divider from 'atoms/divider'
-import { CurrentUserContext } from '../shared/current_user/context'
+import CurrentUserContext from 'contexts/current_user'
 
 const FestivalSidebar = ({ festival, ...props }) => {
   const user = useContext(CurrentUserContext)

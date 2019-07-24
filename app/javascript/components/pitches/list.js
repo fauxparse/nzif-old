@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import gql from 'graphql-tag'
+import { Link } from 'react-router-dom'
 import { PITCHES_QUERY } from '../../queries'
-import { Link } from '../shared/ripple'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from 'atoms/loader'
-import { CurrentUserContext } from '../shared/current_user'
+import CurrentUserContext from 'contexts/current_user'
 import Button from '../../atoms/button'
 import Modal from '../modals'
 import Pitch from './pitch'
@@ -54,14 +54,13 @@ const PitchList = ({ match, className }) => {
           <Breadcrumbs.Link to={`/${year}`}>NZIF {year}</Breadcrumbs.Link>
         </Breadcrumbs>
         <h1 className="page-title">Pitches for NZIF {year}</h1>
-        <Link
+        <Button
+          as={Link}
           to={`${match.url}/new`}
           className="button button--primary pitches__add"
-          role="button"
-        >
-          <Button.Icon name="add" />
-          <Button.Text>New pitch</Button.Text>
-        </Link>
+          icon="add"
+          text="New pitch"
+        />
       </header>
       <div className="pitches__list">
         {loading ? (

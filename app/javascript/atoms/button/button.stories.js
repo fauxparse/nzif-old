@@ -4,6 +4,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { boolean, text } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
+import { Link } from 'react-router-dom'
 import Button from './index'
 import { icon } from '../../stories/knobs'
 
@@ -31,6 +32,15 @@ storiesOf('Atoms|Button', module)
       icon={icon()}
       disabled={boolean('Disabled', false)}
       onClick={action('clicked')}
+    />
+  ))
+  .add('Link', () => (
+    <Button
+      as={Link}
+      to="/"
+      icon={icon('Icon', 'edit')}
+      text={text('Text', 'Edit')}
+      disabled={boolean('Disabled', false)}
     />
   ))
   .add('Custom', () => (

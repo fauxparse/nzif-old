@@ -1,6 +1,6 @@
-import React, { useContext, useMemo } from 'react'
+import React, { Fragment, useContext, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { CurrentUserContext } from '../components/shared/current_user'
+import CurrentUserContext from 'contexts/current_user'
 
 export const can = (user, action, object) => {
   const roles = new Set(user && user.roles || [])
@@ -24,11 +24,15 @@ export const usePermission = (action, object) => {
   return useMemo(() => can(user, action, object), [user, action, object])
 }
 
-export const WithPermission = ({ to: action = 'update', subject, children }) => (
-  <CurrentUserContext.Consumer>
-    {user => can(user, action, subject) && children}
-  </CurrentUserContext.Consumer>
-)
+export const WithPermission = ({ to: action = 'update', subject, children }) => {
+  const hasPermission = usePermission(action, subject)
+
+  if (hasPermission) {
+    return <Fragment>{children}</Fragment>
+  }
+
+  return null
+}
 
 WithPermission.propTypes = {
   to: PropTypes.string.isRequired,

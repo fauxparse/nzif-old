@@ -1,6 +1,6 @@
 import React, { createContext } from 'react'
 import { graphql } from 'react-apollo'
-import { CURRENT_USER_QUERY } from '../../../queries'
+import { CURRENT_USER_QUERY } from 'queries'
 
 export const CurrentUserContext = createContext(undefined)
 
@@ -14,3 +14,5 @@ export const CurrentUserProvider = graphql(CURRENT_USER_QUERY)(({ data, children
     </CurrentUserContext.Provider>
   )
 })
+
+export default CurrentUserContext

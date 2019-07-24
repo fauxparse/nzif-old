@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import stickybits from 'stickybits'
 import { v4 as uuid } from 'uuid'
-import { CurrentUserContext } from '../components/shared/current_user/context'
+import CurrentUserContext from 'contexts/current_user'
 
 export const useSticky = (options = {}, dependencies = []) => {
   const sticky = useRef()

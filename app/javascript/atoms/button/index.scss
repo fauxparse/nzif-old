@@ -19,7 +19,7 @@
     }
   }
 
-  display: flex;
+  display: inline-flex;
   position: relative;
   align-items: center;
   margin: 0;
@@ -72,6 +72,8 @@
   }
 
   &--icon {
+    padding: 0.5rem;
+    border: 0;
     border-radius: 50%;
 
     .button__ripple {

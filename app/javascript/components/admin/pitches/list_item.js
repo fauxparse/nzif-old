@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
-import Link from '../../shared/ripple/link'
 import Avatar from 'atoms/avatar'
 import List from 'molecules/list'
 import Sentence from '../../shared/sentence'
@@ -14,11 +13,9 @@ const PitchItem = ({ baseUrl, pitch }) => {
   ), [pitch])
 
   return (
-    <List.Item
-      as={Link}
+    <List.Link
       to={`${baseUrl}/${pitch.id}`}
       className="list-item__link pitch"
-      activeClassName="list-item__link--active"
       icon="pitch"
     >
       <span className="pitch__type">
@@ -37,7 +34,7 @@ const PitchItem = ({ baseUrl, pitch }) => {
           ))}
         </Sentence>
       </span>
-    </List.Item>
+    </List.Link>
   )
 }
 
