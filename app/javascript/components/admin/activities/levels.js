@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
 import Button from 'atoms/button'
-
-const LEVELS = ['beginner', 'intermediate', 'advanced']
+import { LEVELS } from 'atoms/level'
 
 const Level = ({ level, selected, ...props }) => (
   <Button
@@ -23,7 +22,7 @@ Level.propTypes = {
 
 const Levels = ({ levels, onClick }) => (
   <div className="activity-levels">
-    {LEVELS.map(level => (
+    {Object.keys(LEVELS).map(level => (
       <Level
         key={level}
         level={level}

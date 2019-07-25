@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Detail from '../shared/detail'
-import Level from '../shared/level'
+import Level from 'atoms/level'
 import Date from 'atoms/date'
 import Time from 'atoms/time'
 
