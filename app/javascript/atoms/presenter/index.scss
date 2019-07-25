@@ -1,0 +1,12 @@
+@import "../../styles/base";
+
+.presenter {
+  &__name {
+    font-size: font-size(1);
+  }
+
+  &__origin {
+    font-size: font-size(-1);
+    opacity: opacity(secondary);
+  }
+}
