@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
 import Tooltip from 'atoms/tooltip'
+import Tag from 'atoms/tag'
+
+import './index.scss'
 
 export const LEVELS = {
   beginner: {
@@ -17,11 +20,11 @@ export const LEVELS = {
   },
 }
 
-const Level = ({ level }) => (
+const Level = ({ level, ...props }) => (
   <Tooltip title={LEVELS[level].description}>
-    <div className="activity-level" data-level={level}>
+    <Tag className="activity-level" data-level={level} {...props}>
       {LEVELS[level].name}
-    </div>
+    </Tag>
   </Tooltip>
 )
 
