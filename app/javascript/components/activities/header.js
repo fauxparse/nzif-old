@@ -4,7 +4,7 @@ import pluralize from 'pluralize'
 import PageHeader from '../shared/page_header'
 import Skeleton from '../shared/skeleton_text'
 import Presenter from '../shared/presenter'
-import Sentence from '../shared/sentence'
+import Sentence from 'atoms/sentence'
 import Breadcrumbs from '../shared/breadcrumbs'
 import EditButton from './edit_button'
 
