@@ -14,16 +14,21 @@ const handleIterate = (Tag, tagProps, children, _level) => {
     )
   }
 
-  return <Tag {...tagProps}>{children}</Tag>
+  if (children === undefined) {
+    return <Tag {...tagProps} />
+  } else {
+    return <Tag {...tagProps}>{children}</Tag>
+  }
 }
 
-const Markdown = ({ className, component = 'div', text, ...props }) => (
+const Markdown = ({ className, component = 'div', text, options, ...props }) => (
   <MDReactComponent
+    key={options}
     className={classNames('markdown', className)}
     text={text}
     tags={{ html: component }}
     onIterate={handleIterate}
-    markdownOptions={{ typographer: true }}
+    markdownOptions={{ typographer: true, ...options }}
     {...props}
   />
 )
@@ -32,10 +37,21 @@ Markdown.propTypes = {
   component: PropTypes.string,
   text: PropTypes.string.isRequired,
   className: PropTypes.className,
+  options: PropTypes.shape({
+    html: PropTypes.bool,
+    xhtmlOut: PropTypes.bool,
+    breaks: PropTypes.bool,
+    langPrefix: PropTypes.string,
+    linkify: PropTypes.bool,
+    typographer: PropTypes.bool,
+    quotes: PropTypes.string,
+    highlight: PropTypes.func,
+  }),
 }
 
 Markdown.defaultProps = {
   className: null,
+  options: {},
 }
 
 export default Markdown
