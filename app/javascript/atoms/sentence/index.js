@@ -20,7 +20,7 @@ Sentence.propTypes = {
 
 Sentence.defaultProps = {
   separator: ', ',
-  final: ' and ',
+  final: ', and ',
 }
 
 export default Sentence

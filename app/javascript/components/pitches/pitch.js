@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import Button from 'atoms/button'
 import List from 'molecules/list'
-import Sentence from '../shared/sentence'
+import Sentence from 'atoms/sentence'
 import { left as transition } from '../page_transition/slide'
 
 const Pitch = ({ className, pitch, url, onDelete }) => {

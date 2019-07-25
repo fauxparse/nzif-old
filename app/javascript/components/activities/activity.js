@@ -3,7 +3,7 @@ import { Picture } from 'react-responsive-picture'
 import PropTypes from 'lib/proptypes'
 import TextLink from 'atoms/text_link'
 import Skeleton from '../shared/skeleton_text'
-import Sentence from '../shared/sentence'
+import Sentence from 'atoms/sentence'
 import Presenter from '../shared/presenter'
 
 const Activity = ({ activity = {}, loading }) => (

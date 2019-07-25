@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import Avatar from 'atoms/avatar'
 import List from 'molecules/list'
-import Sentence from '../../shared/sentence'
+import Sentence from 'atoms/sentence'
 import { ACTIVITY_TYPES } from '../../pitches/constants'
 
 const ACTIVITY_TYPE_NAMES = ACTIVITY_TYPES.map(type => type.name)
