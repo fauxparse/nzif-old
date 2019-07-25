@@ -5,7 +5,7 @@ import AppBar from 'organisms/app_bar'
 import Menu from 'molecules/menu'
 import { useCurrentUser } from 'lib/hooks'
 import Divider from 'atoms/divider'
-import Context from './context'
+import Context from 'contexts/festival'
 
 const FestivalHeader = ({ match, onLogin, ...props }) => {
   const user = useCurrentUser()
