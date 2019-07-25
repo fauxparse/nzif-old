@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Markdown from '../../shared/markdown'
+import Markdown from 'molecules/markdown'
 
 const Preview = ({ text }) => (
   <Markdown className="static-content content__preview" text={text} />

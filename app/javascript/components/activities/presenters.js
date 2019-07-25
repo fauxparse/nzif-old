@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
-import Markdown from '../shared/markdown'
+import Markdown from 'molecules/markdown'
 import Presenter from '../shared/presenter'
 import Avatar from 'atoms/avatar'
 
