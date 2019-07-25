@@ -4,7 +4,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
 import { Picture } from 'react-responsive-picture'
 import Breadcrumbs from './breadcrumbs'
-import Duotone from './duotone'
+import Duotone from 'effects/duotone'
 import { useSticky } from '../../lib/hooks'
 
 const PageHeader = ({
