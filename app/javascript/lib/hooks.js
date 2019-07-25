@@ -47,3 +47,8 @@ export const useUUID = () => {
 }
 
 export const useCurrentUser = () => useContext(CurrentUserContext)
+
+export const useResize = listener => useEffect(() => {
+  window.addEventListener('resize', listener)
+  return () => window.removeEventListener('resize', listener)
+}, [listener])

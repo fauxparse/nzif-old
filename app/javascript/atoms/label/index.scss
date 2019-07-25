@@ -1,0 +1,23 @@
+@import "../../styles/base";
+
+.label {
+  display: block;
+  font-size: font-size(-1);
+
+  &--required {
+    &::after {
+      font-weight: font-weight(bold);
+      content: " *";
+    }
+  }
+
+  @include themify {
+    color: themed(secondary);
+
+    &--required {
+      &::after {
+        color: themed(accent);
+      }
+    }
+  }
+}
