@@ -57,14 +57,14 @@ class Overview extends Component {
   }
 
   save = () => {
-    this.props.onChange(
-      pick(this.state, [
+    this.props.onChange({
+      ...pick(this.state, [
         'description',
-        'presenters',
         this.props.activity.levels && 'levels',
         this.state.hasOwnProperty('image') && 'image',
-      ].filter(Boolean))
-    )
+      ].filter(Boolean)),
+      presenters: this.state.presenters.map(p => pick(p, ['id']))
+    })
     this.setState({ changed: false })
   }
 
