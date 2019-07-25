@@ -4,7 +4,7 @@ import PropTypes from 'lib/proptypes'
 import TextLink from 'atoms/text_link'
 import Skeleton from '../shared/skeleton_text'
 import Sentence from 'atoms/sentence'
-import Presenter from '../shared/presenter'
+import Presenter from 'atoms/presenter'
 
 const Activity = ({ activity = {}, loading }) => (
   <article className="card activity activities__activity">

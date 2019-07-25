@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
 import Markdown from 'molecules/markdown'
-import Presenter from '../shared/presenter'
+import Presenter from 'atoms/presenter'
 import Avatar from 'atoms/avatar'
 
 const Presenters = ({ presenters }) => (
