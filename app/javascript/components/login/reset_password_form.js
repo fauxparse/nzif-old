@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import CURRENT_USER_QUERY, { CURRENT_USER_FIELDS } from '../../queries/current_user'
 import { Label, Input, Field } from '../form'
 import Loader from 'atoms/loader'
-import TextLink from '../shared/text_link'
+import TextLink from 'atoms/text_link'
 import Button from '../../atoms/button'
 import Form from './form'
 

@@ -4,7 +4,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import Button from 'atoms/button'
-import TextLink from './text_link'
+import TextLink from 'atoms/text_link'
 
 const Breadcrumbs = forwardRef(({ className, back, children, ...props }, ref) => (
   <div ref={ref} className={classNames('breadcrumbs', className)} {...props}>

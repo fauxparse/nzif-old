@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import MDReactComponent from 'markdown-react-js'
-import TextLink from './text_link'
+import TextLink from 'atoms/text_link'
 
 const handleIterate = (Tag, tagProps, children, _level) => {
   if (Tag === 'a') {
