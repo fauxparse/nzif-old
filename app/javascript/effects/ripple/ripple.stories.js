@@ -5,8 +5,8 @@ import { storiesOf } from '@storybook/react'
 import { boolean } from '@storybook/addon-knobs'
 import Ripple from './index'
 
-storiesOf('Effects', module)
-  .add('Ripple', () => (
+storiesOf('Effects|Ripple', module)
+  .add('Basic', () => (
     <Ripple
       center={boolean('Center', false)}
       style={{
