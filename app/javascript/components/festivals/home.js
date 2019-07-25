@@ -4,8 +4,8 @@ import PageContent from '../page_content'
 import Button from 'atoms/button'
 import Loader from 'atoms/loader'
 import Masthead from 'atoms/masthead'
+import Context from 'contexts/festival'
 import Countdown from './countdown'
-import Context from './context'
 
 const Home = () => {
   const festival = useContext(Context)

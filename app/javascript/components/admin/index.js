@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import DetectLocationChange from 'lib/detect_location_change'
 import ThemeContext from 'lib/theme_context'
 import { HOMEPAGE_QUERY } from 'queries/homepage'
+import Context from 'contexts/festival'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Header from './header'
 import Sidebar from './sidebar'
@@ -17,7 +18,6 @@ import Person from './people/details'
 import Content from './content'
 import Pitches from './pitches'
 import Profile from '../profile'
-import Context from '../festivals/context'
 
 const getPageKey = path => path.split('/').slice(0, 6).join('/')
 
