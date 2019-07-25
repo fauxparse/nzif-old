@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import TextLink from '../shared/text_link'
+import TextLink from 'atoms/text_link'
 import { Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
 
 const KidsPerformance = ({ pitch, errors, onChange }) => {

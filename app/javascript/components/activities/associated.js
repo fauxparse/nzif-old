@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'lib/proptypes'
-import Link from '../shared/text_link'
+import Link from 'atoms/text_link'
 import Date from 'atoms/date'
 
 const AssociatedShow = ({ name, url, session }) => (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Picture } from 'react-responsive-picture'
 import PropTypes from 'lib/proptypes'
-import TextLink from '../../components/shared/text_link'
+import TextLink from 'atoms/text_link'
 import Skeleton from '../shared/skeleton_text'
 import Sentence from '../shared/sentence'
 import Presenter from '../shared/presenter'

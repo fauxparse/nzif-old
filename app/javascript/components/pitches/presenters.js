@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Presenter from './presenter'
 import Button from '../../atoms/button'
-import Link from '../shared/text_link'
+import Link from 'atoms/text_link'
 import Icon from '../../atoms/icon';
 import { Checkbox, Errors, Field, Hint, Textarea, WordCount } from '../form'
 

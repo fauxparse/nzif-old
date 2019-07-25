@@ -3,6 +3,8 @@ import PropTypes from 'lib/proptypes'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
+import './index.scss'
+
 const TextLink = ({ className, external, rel, children, target, ...props }) => (
   <Link
     className={classNames('text-link', className)}

@@ -1,4 +1,11 @@
+@import "../../styles/base";
+
 .text-link {
+  margin: 0 -0.125em;
+  padding: 0.25em 0.125em;
+  transition: transition(background-size);
+  text-decoration: none;
+
   @include themify {
     background-image: linear-gradient(themed(hover), themed(hover));
     background-repeat: no-repeat;
@@ -6,16 +13,10 @@
     background-size: 100% 12.5%;
     color: themed(link);
 
-
     &:hover,
     &:focus {
       outline: none;
       background-size: 100% 50%;
     }
   }
-
-  margin: 0 -0.125em;
-  padding: 0.25em 0.125em;
-  transition: transition(background-size);
-  text-decoration: none;
 }

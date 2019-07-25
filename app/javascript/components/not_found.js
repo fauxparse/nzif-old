@@ -1,6 +1,6 @@
 import React from 'react'
 import PageHeader from './shared/page_header'
-import TextLink from './shared/text_link'
+import TextLink from 'atoms/text_link'
 import Breadcrumbs from './shared/breadcrumbs'
 
 const NotFound = () => (

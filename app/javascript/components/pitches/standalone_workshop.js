@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import TextLink from '../shared/text_link'
 import { Checkbox, Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
 import ActivityLevels from './levels'
 
