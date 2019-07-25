@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
-import Tooltip from './tooltip'
+import Tooltip from 'atoms/tooltip'
 
 export const LEVELS = {
   beginner: {

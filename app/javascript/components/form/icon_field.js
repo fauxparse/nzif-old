@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
 import classNames from 'classnames'
-import Icon, { ICONS } from '../../atoms/icon'
-import Tooltip from '../shared/tooltip'
+import Icon, { ICONS } from 'atoms/icon'
+import Tooltip from 'atoms/tooltip'
 import Loader from 'atoms/loader'
 
 const transitionStyles = {
