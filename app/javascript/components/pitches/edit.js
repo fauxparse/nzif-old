@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
 import { Redirect, withRouter } from 'react-router-dom'
@@ -9,9 +9,12 @@ import { PITCH_QUERY, UPDATE_PITCH_MUTATION } from '../../queries/pitch'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from 'atoms/loader'
 import PitchForm from './form'
+import { CurrentUserContext } from 'components/shared/current_user/context.js'
 
 const EditPitch = ({ match, history, className }) => {
   const { year, id } = match.params
+
+  const currentUser = useContext(CurrentUserContext)
 
   const { loading, data: { pitch = {} } = {} } = useQuery(PITCH_QUERY, {
     variables: { year, id }
@@ -40,7 +43,7 @@ const EditPitch = ({ match, history, className }) => {
         },
         refetchQueries: [{
           query: PITCHES_QUERY,
-          variables: { year },
+          variables: { year, userId: currentUser && currentUser.id },
         }],
         errorPolicy: 'all',
       }),
