@@ -1,0 +1,132 @@
+@import "../../styles/base";
+
+$popover-animation-duration: 1000ms;
+
+.popover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: z-index(popover);
+
+  &__background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200vw;
+    height: 200vw;
+    z-index: -1;
+
+    circle {
+      transform-origin: 0 0;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: $spacing;
+    right: $spacing;
+  }
+
+  &__content {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: $padding;
+    overflow: hidden;
+  }
+
+  &-enter {
+    .popover__background {
+      circle {
+        transform: scale(0);
+      }
+    }
+
+    .popover__close {
+      opacity: 0;
+    }
+
+    &-active,
+    &-done {
+      .popover__background {
+        circle {
+          transform: scale(1);
+          transition: transition(transform);
+        }
+      }
+
+      .popover__close {
+        transition: transition(opacity);
+        opacity: 1;
+      }
+    }
+  }
+
+  &-exit {
+    &-active,
+    &-done {
+      .popover__background {
+        circle {
+          transform: scale(0);
+          transition: transition(transform, $delay: $popover-animation-duration - duration(standard));
+        }
+      }
+
+      .popover__close {
+        transition: transition(opacity);
+        opacity: 0;
+      }
+    }
+  }
+
+  &__wrapper {
+    > * {
+      transition: transition(transform), transition(opacity);
+
+      .popover-enter &,
+      .popover-exit-active &,
+      .popover-exit-done & {
+        transform: translateY(10vh);
+        transition-timing-function: easing(accelerate), easing(standard);
+        opacity: 0;
+      }
+
+      .popover-enter-active &,
+      .popover-enter-done & {
+        transform: translateY(0);
+        transition-timing-function: easing(decelerate), easing(standard);
+        opacity: 1;
+      }
+    }
+
+    @for $i from 1 to 10 {
+      > :nth-child(#{$i}) {
+        .popover-enter-active &,
+        .popover-enter-done & {
+          transition-delay: duration(standard) + $i * 50ms;
+        }
+      }
+
+      > :nth-last-child(#{$i}) {
+        .popover-exit-active &,
+        .popover-exit-done & {
+          transition-delay: duration(standard) + $i * 50ms;
+        }
+      }
+    }
+  }
+
+  @include themify {
+    &__background {
+      fill: themed(background);
+    }
+  }
+}

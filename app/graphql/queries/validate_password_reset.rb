@@ -10,7 +10,7 @@ module Queries
 
       def validate_password_reset(token:)
         identity = Identity::Password.find_by(reset_token: token)
-        identity && !identity.reset_token_expired?
+        identity && !identity.reset_token_expired? || false
       end
     end
   end

@@ -1,0 +1,19 @@
+@import "../../styles/base";
+
+.field {
+  &__error {
+    font-size: font-size(-1);
+  }
+
+  @include themify {
+    &--error {
+      .label {
+        color: themed(error);
+      }
+
+      .text-field {
+        border-bottom-color: themed(error);
+      }
+    }
+  }
+}

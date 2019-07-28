@@ -1,0 +1,9 @@
+@import "../../styles/base";
+
+.error-message {
+  margin: 0 0 $spacing;
+
+  @include themify {
+    color: themed(error);
+  }
+}

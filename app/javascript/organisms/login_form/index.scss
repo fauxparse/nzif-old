@@ -1,0 +1,47 @@
+@import "../../styles/base";
+
+.login-form {
+  fieldset {
+    margin: 0;
+    padding: 0;
+    transition: transition(opacity);
+    border: 0;
+
+    &[disabled] {
+      opacity: opacity(disabled);
+      pointer-events: none;
+      touch-action: none;
+
+      > :disabled {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__title {
+    margin: 0 0 $spacing;
+    font-family: font-family(branding);
+    font-size: font-size(6);
+    text-transform: uppercase;
+  }
+
+  &__message {
+    margin: 0 0 ($spacing * 2);
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    margin: ($spacing * 2) 0;
+
+    .button--primary {
+      margin-right: $spacing;
+    }
+  }
+
+  @include themify {
+    &__title {
+      color: themed(accent);
+    }
+  }
+}

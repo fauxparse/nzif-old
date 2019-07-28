@@ -1,0 +1,10 @@
+@import "../../styles/base";
+
+.hint {
+  margin: 0 0 $spacing;
+  font-size: font-size(-1);
+
+  @include themify {
+    color: themed(secondary);
+  }
+}

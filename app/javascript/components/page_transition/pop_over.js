@@ -1,1 +1,1 @@
-export default { transition: 'pop-over', duration: 1000 }
+export default { transition: 'popover', duration: 1000 }
