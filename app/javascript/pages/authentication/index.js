@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import Popover from 'organisms/popover'
 import PageTransition, { slideLeft } from '../../components/page_transition'
 import Login from './login'
+import Logout from './logout'
 import Signup from './signup'
 import ForgotPassword from './forgot_password'
 import ResetPassword from './reset_password'
@@ -74,6 +75,7 @@ const Authentication = ({ history, lastLocation }) => {
                     />
                   )}
                 />
+                <Route path="/logout" component={Logout} />
               </Switch>
             </PageTransition>
           )

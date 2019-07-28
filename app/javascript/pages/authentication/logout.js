@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { withRouter } from 'react-router-dom'
 import { useApolloClient, useMutation } from 'react-apollo-hooks'
 import CURRENT_USER_QUERY from 'queries/current_user'
 import LOG_OUT_MUTATION from 'queries/mutations/log_out'
@@ -20,15 +19,19 @@ const LogOut = ({ history }) => {
       }),
   })
 
+  const success = useCallback(() => {
+    client.resetStore()
+    setTimeout(() => history.push('/'), 50)
+  }, [client, history])
+
+  const canLogOut = useMemo(() => client && !loggingOut, [client, loggingOut])
+
   useEffect(() => {
-    if (client && !loggingOut) {
+    if (canLogOut) {
       setLoggingOut(true)
-      logOut().then(() => {
-        client.resetStore()
-        setTimeout(() => history.push('/'), 50)
-      })
+      logOut().then(success)
     }
-  }, [loggingOut, logOut, client, history])
+  }, [canLogOut, logOut, success])
 
   return (
     <Loader />
@@ -39,4 +42,4 @@ LogOut.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
 }
 
-export default withRouter(LogOut)
+export default LogOut

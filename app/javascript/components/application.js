@@ -9,7 +9,6 @@ import { RootPageTransition as PageTransition } from './page_transition'
 import Admin from './admin'
 import Festival, { CurrentFestival } from './festivals'
 import Authentication from 'pages/authentication'
-import LogOut from './log_out'
 import Environment from './environment'
 import { CurrentUserProvider } from 'contexts/current_user'
 import { AdminRoute } from './authorised_route'
@@ -38,8 +37,10 @@ export default class Application extends React.Component {
                             component={Admin}
                           />
                           <Route path="/:year(\d{4})" component={Festival} />
-                          <Route path="/:login(login|signup|password)" component={Authentication} />
-                          <Route path="/logout" component={LogOut} />
+                          <Route
+                            path="/:login(login|logout|signup|password)"
+                            component={Authentication}
+                          />
                           <Route path="/:path*" component={CurrentFestival} />
                         </Switch>
                       </PageTransition>
