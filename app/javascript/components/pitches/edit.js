@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
-import { withRouter } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import omit from 'lodash/omit'
 import { PITCHES_QUERY } from '../../queries'
@@ -20,6 +20,7 @@ const EditPitch = ({ match, history, className }) => {
   const [errors, setErrors] = useState({})
 
   const save = useMutation(UPDATE_PITCH_MUTATION)
+
   const savePitch = (attributes, newLocation) => new Promise((resolve, reject) => {
     Promise.all([
       save({
@@ -55,9 +56,11 @@ const EditPitch = ({ match, history, className }) => {
     })
   })
 
-  const goBack = () => history.push(match.url.replace(/\/[^/]+$/, ''))
+  const backUrl = match.url.replace(/\/[^/]+$/, '')
 
-  return (
+  const goBack = () => history.push(backUrl)
+
+  return pitch ? (
     <section className={classNames('public-page', 'edit-pitch', className)}>
       <header className="new-pitch__header">
         <Breadcrumbs
@@ -80,7 +83,7 @@ const EditPitch = ({ match, history, className }) => {
         />
       )}
     </section>
-  )
+  ) : <Redirect to={backUrl} />
 }
 
 EditPitch.propTypes = {
