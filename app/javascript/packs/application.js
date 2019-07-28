@@ -1,5 +1,7 @@
 /* global require */
 
+import 'core-js/features/symbol'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Modal from 'react-modal'
