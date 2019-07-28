@@ -36,7 +36,7 @@ const Home = () => {
             sales, general information, and media enquiries, please visit{' '}
             <a
               className="text-link"
-              href="http://nzimprovfestival.co.nz/"
+              href="http://improvfest.nz/"
               target="_blank"
               rel="noopener noreferrer"
             >
