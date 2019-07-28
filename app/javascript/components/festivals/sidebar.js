@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react'
+import React, { Fragment, useContext, useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import Sidebar from 'organisms/sidebar'
 import List from 'molecules/list'
@@ -10,7 +10,7 @@ const FestivalSidebar = ({ festival, ...props }) => {
 
   const isAdmin = useMemo(() => user && user.roles.includes('admin'), [user])
 
-  const { pitchesOpen } = festival
+  const { pitchesOpen, programmeLaunched } = festival
 
   const { year } = festival || {}
 
@@ -18,8 +18,12 @@ const FestivalSidebar = ({ festival, ...props }) => {
     <Sidebar {...props}>
       <List>
         <List.Link to={`/${year}`} icon="home" primary="Festival home" />
-        <List.Link to={`/${year}/workshops`} icon="workshop" primary="Workshops" />
-        <List.Link to={`/${year}/shows`} icon="show" primary="Shows" />
+        {programmeLaunched && (
+          <Fragment>
+            <List.Link to={`/${year}/workshops`} icon="workshop" primary="Workshops" />
+            <List.Link to={`/${year}/shows`} icon="show" primary="Shows" />
+          </Fragment>
+        )}
         {user && pitchesOpen && (
           <List.Link to={`/${year}/pitches`} icon="pitch" primary="My pitches" />
         )}
@@ -54,6 +58,7 @@ FestivalSidebar.propTypes = {
   onClickOutside: PropTypes.func,
   festival: PropTypes.shape({
     pitchesOpen: PropTypes.bool,
+    programmeLaunched: PropTypes.bool,
   }),
 }
 
@@ -61,6 +66,7 @@ FestivalSidebar.defaultProps = {
   onClickOutside: undefined,
   festival: {
     pitchesOpen: false,
+    programmeLaunched: false,
   },
 }
 
