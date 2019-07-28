@@ -6,6 +6,7 @@ import {
   IntrospectionFragmentMatcher,
   defaultDataIdFromObject,
 } from 'apollo-cache-inmemory'
+import fetch from 'unfetch'
 import ActionCable from 'actioncable'
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
 import { getMainDefinition } from 'apollo-utilities'
@@ -45,6 +46,7 @@ const cache = new InMemoryCache({
 })
 
 const httpLink = createHttpLink({
+  fetch,
   uri: `/graphql`,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
