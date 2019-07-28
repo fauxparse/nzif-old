@@ -1,6 +1,7 @@
 /* global require */
 
 import 'core-js/features/symbol'
+import 'core-js/features/object/assign'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
