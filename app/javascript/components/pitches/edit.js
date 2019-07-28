@@ -10,7 +10,6 @@ import Breadcrumbs from '../shared/breadcrumbs'
 import CurrentUserContext from 'contexts/current_user'
 import Loader from 'atoms/loader'
 import PitchForm from './form'
-import { CurrentUserContext } from 'components/shared/current_user/context.js'
 
 const EditPitch = ({ match, history, className }) => {
   const { year, id } = match.params
