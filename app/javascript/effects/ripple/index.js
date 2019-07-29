@@ -66,6 +66,8 @@ const Ripple = ({ className, center, disabled, ...props }) => {
   const start = useCallback((e, coordinates) => {
     if (disabled || e.defaultPrevented) return
 
+    if (e.target.offsetParent !== parent) return
+
     const { width, height } = parent.getBoundingClientRect()
     const { x, y } =
       center ? { x: width / 2, y: height / 2 } : trueClientPosition(coordinates, parent)
