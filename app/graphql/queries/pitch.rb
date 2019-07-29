@@ -13,7 +13,8 @@ module Queries
         pitches = festival(year: year).pitches
 
         if id.present?
-          current_user&.pitches&.find_by_hashid(id)
+          pitch = pitches&.find_by_hashid(id)
+          can?(:read, pitch) ? pitch : nil
         else
           pitches.build(user: environment.current_user)
         end

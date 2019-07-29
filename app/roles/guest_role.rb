@@ -4,7 +4,7 @@ class GuestRole < AccessGranted::Role
       other.id == user&.id
     end
 
-    can [:update, :destroy], Pitch do |pitch, user|
+    can [:read, :update, :destroy], Pitch do |pitch, user|
       !pitch.persisted? || pitch.belongs_to?(user)
     end
   end
