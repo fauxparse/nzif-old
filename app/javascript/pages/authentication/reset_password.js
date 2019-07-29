@@ -10,8 +10,6 @@ import {
   RESET_PASSWORD_MUTATION,
 } from 'queries'
 
-console.log(RESET_PASSWORD_MUTATION)
-
 const ResetPassword = ({ className, match, history, returnTo }) => {
   const { token } = match.params
 
