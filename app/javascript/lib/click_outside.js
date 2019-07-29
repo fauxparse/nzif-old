@@ -14,8 +14,8 @@ const ClickOutside = ({ element, onClick }) => {
       document.addEventListener('touchstart', mouseDown, true)
 
       return () => {
-        document.removeEventListener('mousedown', mouseDown)
-        document.removeEventListener('touchstart', mouseDown)
+        document.removeEventListener('mousedown', mouseDown, true)
+        document.removeEventListener('touchstart', mouseDown, true)
       }
     }
   }, [element, onClick, mouseDown])
