@@ -16,7 +16,7 @@ import ActivityDetails from './activities/details'
 import People from './people'
 import Person from './people/details'
 import Content from './content'
-import Pitches from './pitches'
+import Pitches from 'pages/admin/pitches'
 import Profile from '../profile'
 
 const getPageKey = path => path.split('/').slice(0, 6).join('/')

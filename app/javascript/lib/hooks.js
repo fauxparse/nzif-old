@@ -3,27 +3,6 @@ import stickybits from 'stickybits'
 import { v4 as uuid } from 'uuid'
 import CurrentUserContext from 'contexts/current_user'
 
-export const useSticky = (options = {}, dependencies = []) => {
-  const sticky = useRef()
-  const stickySection = useRef()
-  const [width, setWidth] = useState()
-
-  const onResize = useCallback(() => setWidth(stickySection.current.offsetWidth), [setWidth])
-
-  useEffect(() => {
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [onResize])
-
-  useEffect(() => {
-    sticky.current && sticky.current.cleanup()
-    sticky.current = stickybits(stickySection.current, options)
-    return () => sticky.current.cleanup()
-  }, [options, width, ...dependencies]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  return stickySection
-}
-
 export const useClock = () => {
   const ticker = useRef()
 
@@ -52,3 +31,25 @@ export const useResize = listener => useEffect(() => {
   window.addEventListener('resize', listener)
   return () => window.removeEventListener('resize', listener)
 }, [listener])
+
+export const useSticky = (options = {}, dependencies = []) => {
+  const sticky = useRef()
+  const stickySection = useRef()
+
+  useEffect(() => {
+    sticky.current && sticky.current.cleanup()
+    sticky.current = stickybits(stickySection.current, options)
+    return () => sticky.current.cleanup()
+  }, [options])
+
+  const updateSticky = useCallback(() => {
+    sticky.current.update(options)
+  }, [sticky, options])
+
+  useResize(updateSticky)
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(updateSticky, [options, ...dependencies])
+
+  return stickySection
+}

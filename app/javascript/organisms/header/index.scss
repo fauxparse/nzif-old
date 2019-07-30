@@ -1,0 +1,115 @@
+@import "../../styles/base";
+
+$header-max-height: 16rem;
+
+.header {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100vw / 16 * 9;
+  padding-top: $padding / 2;
+
+  @include media($header-max-height * 16 / 9) {
+    height: $header-max-height;
+  }
+
+  &__top-wrapper {
+    position: relative;
+    flex: 1;
+    z-index: 1;
+  }
+
+  &__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0 $padding;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .button--icon {
+      &:last-child {
+        margin-right: -0.5rem;
+      }
+    }
+  }
+
+  &__bottom {
+    position: relative;
+    margin: 0 $padding;
+    padding-bottom: $padding;
+    z-index: 1;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: font-size(4);
+    font-weight: font-weight(light);
+    line-height: line-height(tight);
+  }
+
+  &__background {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right bottom, #eee, #ddd);
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  @include themify {
+    border-bottom: 1px solid themed(border);
+
+    &--has-background,
+    &--has-tabs {
+      border-bottom: 0;
+    }
+
+    &--has-background {
+      color: $white;
+    }
+
+    &__buttons {
+      .button {
+        color: inherit;
+        opacity: opacity(secondary);
+
+        &:hover,
+        &:focus,
+        &:active {
+          opacity: opacity(primary);
+        }
+      }
+    }
+  }
+
+  @include media(medium) {
+    &__bottom {
+      margin-left: $keyline;
+    }
+
+    &__title {
+      font-size: font-size(6);
+    }
+
+    .tab-bar {
+      padding-left: $keyline - $padding;
+    }
+  }
+}

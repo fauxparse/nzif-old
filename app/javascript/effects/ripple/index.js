@@ -63,10 +63,18 @@ const Ripple = ({ className, center, disabled, ...props }) => {
     setParent(ref.current.offsetParent)
   }, [])
 
+  const contains = (el) => {
+    while (el) {
+      if (el === parent) return true
+      el = el.parentElement
+    }
+    return false
+  }
+
   const start = useCallback((e, coordinates) => {
     if (disabled || e.defaultPrevented) return
 
-    if (e.target.offsetParent !== parent) return
+    if (!contains(e.target)) return
 
     const { width, height } = parent.getBoundingClientRect()
     const { x, y } =

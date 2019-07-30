@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import { useSpring, animated, config as SPRINGS } from 'react-spring'
+import { useResize } from 'lib/hooks'
 
 import './index.scss'
 
@@ -11,6 +12,8 @@ const TabBar = ({ className, children, ...props }) => {
   const childArray = useMemo(() => React.Children.toArray(children), [children])
 
   const [selected, setSelected] = useState()
+
+  const [_width, setWidth] = useState()
 
   useEffect(() => {
     const index = container.current && childArray.findIndex(child => child.props.selected)
@@ -24,6 +27,12 @@ const TabBar = ({ className, children, ...props }) => {
     },
     config: SPRINGS.stiff,
   })
+
+  const onResize = useCallback(() => {
+    if (container.current) setWidth(container.current.offsetWidth)
+  }, [container, setWidth])
+
+  useResize(onResize)
 
   return (
     <div

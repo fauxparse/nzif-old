@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import ReactRouterPropTypes from 'react-router-prop-types'
 import MomentPropTypes from 'react-moment-proptypes'
 import { Color } from './palette'
 import ICONS from 'atoms/icon/all'
@@ -28,6 +29,11 @@ export const activityLevel = PropTypes.oneOf([
   'beginner',
   'intermediate',
   'advanced',
+])
+
+export const location = PropTypes.oneOfType([
+  ReactRouterPropTypes.location.isRequired,
+  PropTypes.string.isRequired,
 ])
 
 export const role = PropTypes.oneOf(ROLES)
@@ -104,6 +110,7 @@ export default {
   component,
   icon,
   id,
+  location,
   presenter,
   ref,
   session,

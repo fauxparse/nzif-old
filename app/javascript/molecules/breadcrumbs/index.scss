@@ -1,0 +1,66 @@
+@import "../../styles/base";
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  &__back {
+    margin: 0 0.5rem 0 -0.5rem;
+  }
+
+  &__link {
+    margin-top: 1px;
+    border-bottom: 1px solid transparent;
+    letter-spacing: 0.1em;
+    line-height: line-height(tight);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  &__divider {
+    padding: 0 0.5em;
+    opacity: opacity(disabled);
+
+    &::before {
+      content: "/";
+    }
+  }
+
+  @include themify {
+    .breadcrumbs__back {
+      background: none;
+      color: inherit;
+      opacity: opacity(secondary);
+
+      &:hover,
+      &:focus,
+      &:active {
+        opacity: opacity(primary);
+      }
+    }
+
+    .breadcrumbs__link {
+      color: inherit;
+      font-size: font-size(-1);
+      opacity: opacity(secondary);
+
+      &:hover,
+      &:focus,
+      &:active {
+        border-bottom-color: currentColor;
+        background: none;
+        opacity: opacity(primary);
+      }
+    }
+  }
+
+  @include media(medium) {
+    padding-left: $keyline;
+
+    &__back {
+      margin-right: 1.5rem;
+      margin-left: -0.5rem - $keyline;
+    }
+  }
+}
