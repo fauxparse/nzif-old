@@ -22,7 +22,7 @@ class Pitch < ApplicationRecord
   validates :bio, presence: true
   validates :code_of_conduct, acceptance: true
 
-  scope :newest_first, -> { order(created_at: :desc) }
+  scope :newest_first, -> { order('COALESCE(submitted_at, updated_at) DESC') }
 
   def self.for_user(user)
     user.blank? ? all : where(user: user)

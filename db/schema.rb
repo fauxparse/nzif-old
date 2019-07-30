@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_02_212356) do
+ActiveRecord::Schema.define(version: 2019_07_30_071534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 2019_06_02_212356) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.datetime "submitted_at"
+    t.index "COALESCE(submitted_at, updated_at)", name: "index_pitches_on_submission"
     t.index ["festival_id", "user_id", "state"], name: "index_pitches_on_festival_id_and_user_id_and_state"
     t.index ["festival_id"], name: "index_pitches_on_festival_id"
     t.index ["user_id"], name: "index_pitches_on_user_id"
