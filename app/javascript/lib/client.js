@@ -40,7 +40,7 @@ const cache = new InMemoryCache({
       case 'Festival':
         return `Festival:${object.year}`
       case 'PitchPresenter':
-        return `PitchPresenter:${object.name}:${object.email}`
+        return null
       default:
         return defaultDataIdFromObject(object)
     }
