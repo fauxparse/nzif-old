@@ -11,13 +11,13 @@ import medium from './avatar_medium.jpg'
 
 storiesOf('Atoms|Avatar', module)
   .add('Text', () => (
-    <Avatar name={text('Name', 'Kiki Hohnen')}/>
+    <Avatar name={unescape(text('Name', 'Kiki Hohnen'))}/>
   ))
   .add('Icon', () => (
-    <Avatar name={text('Name', 'Kiki Hohnen')}>
+    <Avatar name={unescape(text('Name', 'Kiki Hohnen'))}>
       <Icon name="user" />
     </Avatar>
   ))
   .add('Image', () => (
-    <Avatar name={text('Name', 'Kiki Hohnen')} image={{ small, medium }} />
+    <Avatar name={unescape(text('Name', 'Kiki Hohnen'))} image={{ small, medium }} />
   ))

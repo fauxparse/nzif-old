@@ -19,7 +19,8 @@ const hashCode = (str) => {
 
 const colorFromString = str => COLORS[hashCode(str) % COLORS.length]
 
-const initials = str => str.split(/\s+/).map(s => s[0]).join('').toUpperCase().substr(0, 3)
+const initials = str =>
+  str.replace(/[^\w\s]/g, '').split(/\s+/).map(s => s[0]).join('').toUpperCase().substr(0, 3)
 
 const Avatar = forwardRef(({
   id,
