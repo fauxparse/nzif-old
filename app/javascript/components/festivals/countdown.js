@@ -11,7 +11,7 @@ const Countdown = ({ to }) => {
 
   const [days, hours, minutes, seconds] = useMemo(() => {
     const d = deadline.diff(time, 'days')
-    const s = deadline.clone().subtract(d, 'days').diff(time, 'seconds')
+    const s = Math.max(0, deadline.clone().subtract(d, 'days').diff(time, 'seconds'))
     return [d, Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60]
   }, [time, deadline])
 
