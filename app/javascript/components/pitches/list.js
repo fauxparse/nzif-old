@@ -7,6 +7,7 @@ import { PITCHES_QUERY } from '../../queries'
 import Breadcrumbs from '../shared/breadcrumbs'
 import Loader from 'atoms/loader'
 import CurrentUserContext from 'contexts/current_user'
+import FestivalContext from 'contexts/festival'
 import Button from '../../atoms/button'
 import Modal from '../modals'
 import Pitch from './pitch'
@@ -19,6 +20,7 @@ const DELETE_PITCH_MUTATION = gql`
 
 const PitchList = ({ match, className }) => {
   const { year } = match.params
+  const festival = useContext(FestivalContext) || {}
   const currentUser = useContext(CurrentUserContext)
   const variables = { year, userId: currentUser && currentUser.id }
   const {
@@ -54,13 +56,15 @@ const PitchList = ({ match, className }) => {
           <Breadcrumbs.Link to={`/${year}`}>NZIF {year}</Breadcrumbs.Link>
         </Breadcrumbs>
         <h1 className="page-title">Pitches for NZIF {year}</h1>
-        <Button
-          as={Link}
-          to={`${match.url}/new`}
-          className="button button--primary pitches__add"
-          icon="add"
-          text="New pitch"
-        />
+        {festival.pitchesOpen && (
+          <Button
+            as={Link}
+            to={`${match.url}/new`}
+            className="button button--primary pitches__add"
+            icon="add"
+            text="New pitch"
+          />
+        )}
       </header>
       <div className="pitches__list">
         {loading ? (
@@ -72,6 +76,7 @@ const PitchList = ({ match, className }) => {
               className="pitches__row"
               pitch={pitch}
               url={`${match.url}/${pitch.id}`}
+              editable={festival.pitchesOpen}
               onDelete={setDeleting}
             />
           ))
