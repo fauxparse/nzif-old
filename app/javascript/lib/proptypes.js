@@ -33,6 +33,9 @@ export const activityLevel = PropTypes.oneOf([
 
 export const location = PropTypes.oneOfType([
   ReactRouterPropTypes.location.isRequired,
+  PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
   PropTypes.string.isRequired,
 ])
 
@@ -56,7 +59,7 @@ export const user = PropTypes.shape({
 })
 
 export const presenter = PropTypes.shape({
-  id: id,
+  id,
   name: PropTypes.string.isRequired,
   email: PropTypes.string,
   image: userImage,
@@ -92,6 +95,16 @@ export const time = PropTypes.oneOfType([
   PropTypes.number,
 ])
 
+export const pitch = PropTypes.shape({
+  id,
+  name: PropTypes.string,
+  presenters: PropTypes.arrayOf(presenter),
+  pile: PropTypes.string,
+  gender: PropTypes.string,
+  origin: PropTypes.string,
+  submittedAt: time,
+})
+
 export const venue = PropTypes.shape({
   id,
   name: PropTypes.string.isRequired,
@@ -111,6 +124,7 @@ export default {
   icon,
   id,
   location,
+  pitch,
   presenter,
   ref,
   session,

@@ -9,6 +9,12 @@ import TabBar from 'molecules/tab_bar'
 
 import './index.scss'
 
+const Title = ({ className, children, ...props }) => (
+  <h1 className={classNames('header__title', className)} {...props}>
+    {children}
+  </h1>
+)
+
 const Background = ({ className, children, ...props }) => (
   <div className={classNames('header__background', className)} {...props}>
     {children}
@@ -55,6 +61,7 @@ const Header = ({ className, children, ...props }) => {
   )
 }
 
+Header.Title = Title
 Header.Background = Background
 Header.Button = Button
 

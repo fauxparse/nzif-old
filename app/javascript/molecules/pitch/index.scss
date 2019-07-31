@@ -1,0 +1,49 @@
+@import "../../styles/base";
+
+.pitch {
+  &.list-item {
+    margin: 0 0 $spacing;
+
+    .pitch__type {
+      font-size: font-size(-2);
+      letter-spacing: 0.1rem;
+      line-height: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .list-item__avatar {
+      align-self: flex-start;
+      margin-top: 1rem;
+    }
+
+    .list-item__primary {
+      margin: 0;
+    }
+
+    .list-item__secondary {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      .pitch__presenters,
+      .tag {
+        margin: 0 0.25rem 0.25rem 0;
+      }
+
+      .pitch__presenters {
+        line-height: 1.5rem;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: font-size(-2);
+      }
+    }
+
+    @include themify {
+      .pitch__type {
+        color: themed(secondary);
+      }
+    }
+  }
+}

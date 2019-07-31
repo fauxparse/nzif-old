@@ -65,7 +65,7 @@ const TabbedHeaderDemo = () => {
 
   return (
     <HeaderDemo>
-      <h1 className="header__title">Page title</h1>
+      <Header.Title>Page title</Header.Title>
       <TabBar>
         {TABS.map(tab => (
           <Tab
@@ -92,7 +92,7 @@ storiesOf('Organisms|Header', module)
       </Breadcrumbs>
       <Header.Button icon="edit" />
       <Header.Button icon="close" />
-      <h1 className="header__title">Page title</h1>
+      <Header.Title>Page title</Header.Title>
     </HeaderDemo>
   ))
   .add('Fancy', () => (
@@ -103,7 +103,7 @@ storiesOf('Organisms|Header', module)
       </Breadcrumbs>
       <Header.Button icon="edit" />
       <Header.Button icon="close" />
-      <h1 className="header__title">Page title</h1>
+      <Header.Title>Page title</Header.Title>
       <Header.Background>
         <Duotone gradient="tomato">
           <img src={MONKEY} />

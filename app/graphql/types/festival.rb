@@ -12,6 +12,8 @@ module Types
     field :pitches_open, GraphQL::Types::Boolean, null: false
     field :pitches_close_at, Types::Time, null: true
     field :programme_launched, GraphQL::Types::Boolean, null: false
+    field :root, String, null: false
+    field :admin_root, String, null: false
 
     def activities(type: nil, slug: nil)
       scope = object.activities.with_attached_image.order(:id)
@@ -30,6 +32,14 @@ module Types
 
     def programme_launched
       object.programme_launched?
+    end
+
+    def root
+      "/#{object.year}"
+    end
+
+    def admin_root
+      "/admin#{root}"
     end
   end
 end

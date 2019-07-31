@@ -3,11 +3,15 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import classNames from 'classnames'
 import { Switch, Route } from 'react-router-dom'
 import List from './list'
+import Details from './details'
 
-const Pitches = ({ className, match }) => (
+import './index.scss'
+
+const Pitches = ({ className, location, match }) => (
   <section className={classNames('pitches', className)}>
     <Switch>
       <Route path={match.path} exact component={List} />
+      <Route path={`${match.path}/:id`} component={Details} />
     </Switch>
   </section>
 )

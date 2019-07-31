@@ -8,6 +8,8 @@ export const HOMEPAGE_FRAGMENT = gql`
     pitchesOpen
     pitchesCloseAt
     programmeLaunched
+    root
+    adminRoot
   }
 `
 

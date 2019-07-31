@@ -1,0 +1,58 @@
+@import "../../../styles/base";
+
+.pitches {
+  &__filters {
+    margin-top: $spacing;
+
+    .tags {
+      margin-bottom: $spacing / 2;
+    }
+  }
+
+  &__count {
+    @include constrained-width($keyline);
+    margin: 0;
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+
+  .pitches__list {
+    @include constrained-width(0rem);
+  }
+
+  @include themify {
+    .pitches__list {
+      border-top: 0;
+    }
+  }
+}
+
+.pitch-details {
+  &__presenters {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5rem 0 $spacing;
+
+    .chip {
+      margin: 0.5rem 0.5rem 0 0;
+    }
+  }
+
+  &__section {
+    @include constrained-width($keyline, $padding);
+
+    @include themify {
+      border-bottom: 1px solid themed(border);
+    }
+  }
+
+  &__answer {
+    padding: 0 0 $padding;
+
+    .label {
+      margin: $spacing 0;
+    }
+  }
+}

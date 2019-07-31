@@ -45,7 +45,10 @@ const Chip = ({ className, user, small, onDelete, ...props }) => {
 
 Chip.propTypes = {
   className: PropTypes.className,
-  user: PropTypes.user.isRequired,
+  user: PropTypes.oneOfType([
+    PropTypes.user.isRequired,
+    PropTypes.presenter.isRequired,
+  ]),
   small: PropTypes.bool,
   onDelete: PropTypes.func,
 }
