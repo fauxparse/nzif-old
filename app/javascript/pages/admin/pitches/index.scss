@@ -10,8 +10,8 @@
   }
 
   &__count {
-    @include constrained-width($keyline);
-    margin: 0;
+    @include constrained-width(0rem);
+    margin: 0 0 0 $keyline;
 
     @include themify {
       color: themed(secondary);
