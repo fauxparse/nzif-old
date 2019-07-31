@@ -39,6 +39,8 @@ const cache = new InMemoryCache({
     switch (object.__typename) {
       case 'Festival':
         return `Festival:${object.year}`
+      case 'PitchPresenter':
+        return `PitchPresenter:${object.name}:${object.email}`
       default:
         return defaultDataIdFromObject(object)
     }

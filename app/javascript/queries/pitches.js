@@ -16,6 +16,7 @@ export default gql`
       presenters {
         id
         name
+        email
         image {
           small
           medium
