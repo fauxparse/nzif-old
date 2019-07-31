@@ -84,8 +84,15 @@
     margin-bottom: 0;
   }
 
+  &--closed {
+    p {
+      max-width: 20em;
+      margin: 0 auto $spacing;
+    }
+  }
+
   .button {
-    width: 12rem;
+    min-width: 12rem;
     margin: $spacing auto 0;
   }
 

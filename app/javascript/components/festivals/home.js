@@ -15,7 +15,7 @@ const Home = () => {
       {festival ? (
         <>
           <Masthead festival={festival} />
-          {festival.pitchesCloseAt && (
+          {festival.pitchesOpen && festival.pitchesCloseAt && (
             <section className="homepage__pitches">
               <h2 className="section-title">What’s up, pitches?</h2>
               <p>Pitches for NZIF {festival.year} close in</p>
@@ -25,6 +25,28 @@ const Home = () => {
                   as={Link}
                   to={`${festival.year}/pitches/new`}
                   text="Pitch us your idea!"
+                  primary
+                />
+              </p>
+            </section>
+          )}
+          {!festival.pitchesOpen && !festival.programmeLaunched && (
+            <section className="homepage__pitches homepage__pitches--closed">
+              <h2 className="section-title">Pitches are now closed</h2>
+              <p>
+                We are reviewing applications,
+                and will announce the full programme in due course.
+              </p>
+              <p>
+                In the meantime, join the NZIF Green Room group on Facebook
+                to keep up with all the latest Festival news.
+              </p>
+              <p>
+                <Button
+                  as={Link}
+                  to="https://www.facebook.com/groups/NZIFGreenRoom/"
+                  icon="facebook"
+                  text="NZIF Green Room"
                   primary
                 />
               </p>
