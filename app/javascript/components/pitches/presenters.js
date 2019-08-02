@@ -36,7 +36,7 @@ const Presenters = ({ pitch, errors, onChange }) => {
         Tell us about yourself! If multiple people are pitching, please list
         each presenter separately.
       </p>
-      {!presenters[0].id && (
+      {!presenters[0].userId && (
         <p>
           If you already have an account, you can{' '}
           <Link to="/login">log in</Link>.
@@ -58,8 +58,8 @@ const Presenters = ({ pitch, errors, onChange }) => {
           <Presenter
             key={index}
             presenter={presenter}
-            disabled={!!presenter.id}
-            passwordRequired={!index && !presenter.id}
+            disabled={!!presenter.userId}
+            passwordRequired={!index && !presenter.userId}
             onChange={presenter => presenterChanged(index, presenter)}
             onDelete={() => deletePresenter(index)}
           />

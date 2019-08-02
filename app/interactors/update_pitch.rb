@@ -32,7 +32,7 @@ class UpdatePitch < Interaction
   def update_user_details(user)
     return user if attributes[:presenters].blank?
 
-    presenter = attributes[:presenters].detect { |p| p[:id] == user.id }
+    presenter = attributes[:presenters].detect { |p| p[:user_id] == user.id }
     if presenter
       user.city = presenter[:city] if presenter[:city].present?
       user.country = presenter[:country] if presenter[:country].present?

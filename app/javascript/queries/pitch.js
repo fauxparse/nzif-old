@@ -16,7 +16,7 @@ export const PITCH_FRAGMENT = gql`
     state
     name
     presenters {
-      id
+      userId
       name
       email
       city

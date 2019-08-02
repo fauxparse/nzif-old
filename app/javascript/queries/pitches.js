@@ -14,7 +14,7 @@ export default gql`
       gender
       origin
       presenters {
-        id
+        userId
         name
         email
         image {

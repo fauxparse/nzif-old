@@ -4,6 +4,7 @@ class Pitch
     include Hashie::Extensions::Dash::IndifferentAccess
 
     property :id
+    property :user_id
     property :name, coerce: String, default: ''
     property :email, coerce: String, default: ''
     property :city, coerce: String, default: ''

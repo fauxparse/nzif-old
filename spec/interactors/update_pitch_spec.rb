@@ -13,7 +13,7 @@ RSpec.describe UpdatePitch, type: :interactor do
     {
       presenters: [
         {
-          id: user.id,
+          user_id: user.id,
           name: user.name,
           email: user.email,
           city: 'Melbourne',

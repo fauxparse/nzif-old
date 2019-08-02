@@ -83,6 +83,7 @@ module Types
 
     def default_presenter
       attributes = (object.user&.attributes || {}).with_indifferent_access
+      attributes[:user_id] = attributes.delete(:id)
       ::Pitch::Presenter.new(attributes.slice(*::Pitch::Presenter.properties))
     end
   end

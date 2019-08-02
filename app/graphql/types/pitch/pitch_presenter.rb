@@ -1,7 +1,7 @@
 module Types
   class Pitch
     class PitchPresenter < Types::BaseObject
-      field :id, ID, null: true
+      field :user_id, ID, null: true
       field :name, String, null: true
       field :email, String, null: true
       field :city, String, null: true
