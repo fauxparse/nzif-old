@@ -25,9 +25,13 @@ class Pitch
     property :performed_before, coerce: String
     property :experience, coerce: String
     property :accessibility, coerce: String
-    property :slots, coerce: Array[Time], default: []
+    property :slots, default: []
     property :pile, coerce: String
     property :gender, coerce: String
     property :origin, coerce: String
+
+    coerce_key :slots, ->(values) do
+      values.map { |v| v&.to_time&.in_time_zone }
+    end
   end
 end
