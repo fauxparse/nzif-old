@@ -11,7 +11,13 @@
 
   &__count {
     @include constrained-width(0rem);
-    margin: 0 0 0 $keyline;
+    display: flex;
+    align-items: center;
+    margin: 0 $padding 0 $keyline;
+
+    > span {
+      flex: 1;
+    }
 
     @include themify {
       color: themed(secondary);
@@ -53,6 +59,84 @@
 
     .label {
       margin: $spacing 0;
+    }
+  }
+}
+
+.printable {
+  &__ready {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $padding;
+
+    @media print {
+      display: none;
+    }
+  }
+
+  &__content {
+    @media screen {
+      display: none;
+    }
+
+    @media print {
+      font-size: 11pt;
+
+      .pitch-details {
+        break-after: always;
+      }
+
+      .breadcrumbs,
+      .chip__avatar,
+      .tag:not(.tag--selected) {
+        display: none;
+      }
+
+      .chip__name {
+        padding: 0;
+      }
+
+      .header__bottom {
+        margin-left: 1rem;
+      }
+
+      .pitch-details__tags {
+        display: flex;
+      }
+
+      .pitch-details__answer {
+        padding: 0;
+        font-size: 10px;
+
+        label {
+          font-size: 10px;
+        }
+      }
+
+      .pitch-details__section {
+        padding: 0 1rem 1rem;
+        border-bottom: 0;
+      }
+
+      .header {
+        min-height: 0;
+      }
+
+      .header__title,
+      .section-title {
+        color: black;
+        font-size: 13px;
+        font-weight: font-weight(normal);
+      }
+
+      .header__title {
+        font-size: 20px;
+      }
+
+      * {
+        color: black !important;
+      }
     }
   }
 }

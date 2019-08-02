@@ -30,6 +30,7 @@ export default [
   'log-out',
   'pin',
   'pitch',
+  'print',
   'role',
   'send',
   'show',

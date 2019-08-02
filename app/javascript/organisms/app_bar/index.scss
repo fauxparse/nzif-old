@@ -47,4 +47,8 @@
     align-self: stretch;
     content: "";
   }
+
+  @media print {
+    display: none;
+  }
 }

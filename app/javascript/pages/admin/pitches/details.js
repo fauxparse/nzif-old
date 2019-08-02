@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef } from 'react'
 import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery, useMutation } from 'react-apollo-hooks'
@@ -13,7 +13,7 @@ import PITCHES_QUERY from 'queries/pitches'
 import UPDATE_PITCH_MUTATION from 'queries/mutations/update_pitch'
 import Answer from './answer'
 
-const Details = ({ location, match }) => {
+const Details = ({ location, match, onLoad }) => {
   const { year, id } = match.params
 
   const festival = useContext(FestivalContext) || {
@@ -24,6 +24,15 @@ const Details = ({ location, match }) => {
   const { filters } = location.state || { filters: {} }
 
   const { loading, data } = useQuery(PITCH_QUERY, { variables: { year, id } })
+
+  const loaded = useRef(false)
+
+  useEffect(() => {
+    if (!loaded.current &&!loading && data.pitch) {
+      loaded.current = true
+      if (onLoad) onLoad(data.pitch)
+    }
+  }, [loaded, loading, onLoad, data])
 
   const pitch = useMemo(() => {
     return (!loading && data.pitch) || { name: 'Pitch name', presenters: [] }
@@ -65,7 +74,7 @@ const Details = ({ location, match }) => {
   const onOriginChanged = ([origin]) => saveChanges({ origin })
 
   return (
-    <div>
+    <div className="pitch-details">
       <Header>
         <Breadcrumbs back={back}>
           <Breadcrumbs.Link to={back}>Pitches</Breadcrumbs.Link>
@@ -166,6 +175,7 @@ const Details = ({ location, match }) => {
 Details.propTypes = {
   location: ReactRouterPropTypes.location.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
+  onLoad: PropTypes.func,
 }
 
 export default Details

@@ -1,8 +1,10 @@
 import React, { Fragment, useContext, useMemo } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
+import { Link } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
 import FestivalContext from 'contexts/festival'
 import PITCHES_QUERY from 'queries/pitches'
+import Button from 'atoms/button'
 import Loader from 'atoms/loader'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import Pitches from 'molecules/list'
@@ -54,7 +56,21 @@ const List = ({ location, match }) => {
       </Header>
       {loading ? <Loader /> : (
         <Fragment>
-          <p className="pitches__count">{pitches.length} matching pitch(es)</p>
+          <p className="pitches__count">
+            <span>{pitches.length} matching pitch(es)</span>
+            <Button
+              as={Link}
+              to={{
+                pathname: `${location.pathname}/print`,
+                state: {
+                  filters,
+                  pitchIds: pitches.map(pitch => pitch.id),
+                },
+              }}
+              text="Print"
+              icon="print"
+            />
+          </p>
           <Pitches className="pitches__list">
             {pitches.map(pitch => (
               <Pitch
