@@ -3,7 +3,11 @@ import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import pick from 'lodash/pick'
+import sortBy from 'lodash/sortBy'
+import moment from 'lib/moment'
 import FestivalContext from 'contexts/festival'
+import Date from 'atoms/date'
+import Time from 'atoms/time'
 import Chip from 'molecules/chip'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import Tags from 'molecules/tags'
@@ -72,6 +76,19 @@ const Details = ({ location, match, onLoad }) => {
   const onGenderChanged = ([gender]) => saveChanges({ gender })
 
   const onOriginChanged = ([origin]) => saveChanges({ origin })
+
+  const availability = useMemo(() => {
+    if (!pitch || !pitch.festival) return []
+    return sortBy(
+      pitch.festival.slots.filter(t => pitch.slots.includes(t.startsAt)).map(slot => {
+        const startTime = moment(slot.startsAt)
+        const endTime = moment(slot.endsAt)
+        const repeats = endTime.diff(startTime, 'days') + 1
+        return { ...slot, repeats }
+      }),
+      slot => slot.startsAt
+    )
+  }, [pitch])
 
   return (
     <div className="pitch-details">
@@ -168,6 +185,23 @@ const Details = ({ location, match, onLoad }) => {
           <Answer label="Other info" text={pitch.otherInfo} />
         </section>
       )}
+      <section className="pitch-details__section">
+        <h2 className="section-title">Availability</h2>
+        {availability.length > 0 && (
+          <ul className="pitch-details__slots">
+            {availability.map(({ startsAt, endsAt, repeats }) => (
+              <li key={startsAt} className="pitch-details__slot">
+                <b>
+                  <Date date={[startsAt, endsAt]} />
+                  {repeats > 1 && ` (${repeats} shows)`}
+                </b>
+                <small><Time time={[startsAt, endsAt]} /></small>
+              </li>
+            ))}
+          </ul>
+        )}
+        <Answer label="Availability restrictions" text={pitch.availability} />
+      </section>
     </div>
   )
 }
