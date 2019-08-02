@@ -32,12 +32,13 @@ const List = ({ location, match }) => {
   const pitches = useMemo(() => {
     if (loading) return []
 
-    const { pile, gender, origin } = filters
+    const { pile, gender, origin, type } = filters
     let pitches = data.pitches
 
     if (pile.length) pitches = pitches.filter(pitch => pile.includes(pitch.pile || 'Unsorted'))
     if (gender.length) pitches = pitches.filter(pitch => gender.includes(pitch.gender))
     if (origin.length) pitches = pitches.filter(pitch => origin.includes(pitch.origin))
+    if (type.length) pitches = pitches.filter(pitch => type.includes(pitch.activityType))
 
     return pitches
   }, [loading, data, filters])

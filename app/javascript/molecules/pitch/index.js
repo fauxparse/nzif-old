@@ -21,7 +21,7 @@ const Pitch = ({ location, pitch, ...props }) => {
       {...props}
     >
       <div className="pitch__type">
-        {activityType.name}
+        {activityType.title}
       </div>
       <span className="list-item__primary">
         {pitch.name}

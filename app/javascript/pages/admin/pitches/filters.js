@@ -2,6 +2,7 @@ import React, { useCallback, useReducer } from 'react'
 import PropTypes from 'lib/proptypes'
 import isObject from 'lodash/isObject'
 import Tags from 'molecules/tags'
+import { ACTIVITY_TYPES } from 'components/pitches/constants'
 
 export const useFilters = (initial = {}) => {
   const [state, dispatch] = useReducer((state, action) => {
@@ -10,6 +11,7 @@ export const useFilters = (initial = {}) => {
     pile: [],
     gender: [],
     origin: [],
+    type: [],
     ...initial
   })
 
@@ -21,13 +23,17 @@ export const useFilters = (initial = {}) => {
 }
 
 const Filters = ({ filters, onChange }) => {
-  const { pile, gender, origin } = filters
+  const { pile, gender, origin, type } = filters
 
   const onPileChanged = useCallback((pile) => onChange('pile', pile), [onChange])
 
   const onGenderChanged = useCallback((gender) => onChange('gender', gender), [onChange])
 
   const onOriginChanged = useCallback((origin) => onChange('origin', origin), [onChange])
+
+  const onTypeChanged = useCallback((type) => (
+    onChange('type', ACTIVITY_TYPES.filter(t => type.includes(t.title)).map(t => t.name))
+  ), [onChange])
 
   return (
     <div className="pitches__filters">
@@ -46,6 +52,11 @@ const Filters = ({ filters, onChange }) => {
         selected={origin}
         onChange={onOriginChanged}
       />
+      <Tags
+        tags={ACTIVITY_TYPES.map(type => type.title)}
+        selected={ACTIVITY_TYPES.filter(t => type.includes(t.name)).map(t => t.title)}
+        onChange={onTypeChanged}
+      />
     </div>
   )
 }
@@ -55,6 +66,7 @@ Filters.propTypes = {
     pile: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     gender: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     origin: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    type: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }),
   onChange: PropTypes.func.isRequired,
 }
