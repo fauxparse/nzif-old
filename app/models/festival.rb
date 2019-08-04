@@ -1,5 +1,7 @@
 class Festival < ApplicationRecord
   has_many :activities, dependent: :destroy
+  has_many :workshops
+  has_many :shows
   has_many :sessions, through: :activities
   has_many :pitches, dependent: :destroy
   has_many :slots, dependent: :destroy

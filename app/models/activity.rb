@@ -2,6 +2,7 @@ class Activity < ApplicationRecord
   include Sluggable
 
   belongs_to :festival
+  belongs_to :pitch, optional: true
   has_many :sessions, autosave: true, dependent: :destroy
   has_many :presenters, -> { order(position: :asc) }, autosave: true, dependent: :destroy
   has_many :associated,

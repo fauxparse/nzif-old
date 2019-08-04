@@ -5,7 +5,7 @@ FactoryBot.define do
     name { 'Test activity' }
     info do
       {
-        presenters: [user.attributes.slice(:id, :name, :email, :city, :country)],
+        presenters: [user.attributes.slice('id', 'name', 'email', 'city', 'country')],
         company: 'Test company',
         bio: 'Test bio',
         presented_before: 'Test presented before',

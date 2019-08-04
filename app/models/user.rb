@@ -14,4 +14,8 @@ class User < ApplicationRecord
   def self.find_by_email(email)
     where('lower(email) = ?', email).first
   end
+
+  def self.never_logged_in
+    left_outer_joins(:identities).where(identities: { id: nil })
+  end
 end
