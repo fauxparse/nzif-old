@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 import List from './list'
 import Details from './details'
 import Print from './print'
+import Promote from './promote'
 
 import './index.scss'
 
@@ -13,6 +14,7 @@ const Pitches = ({ className, location, match }) => (
     <Switch>
       <Route path={match.path} exact component={List} />
       <Route path={`${match.path}/print`} exact component={Print} />
+      <Route path={`${match.path}/promote`} exact component={Promote} />
       <Route path={`${match.path}/:id`} component={Details} />
     </Switch>
   </section>

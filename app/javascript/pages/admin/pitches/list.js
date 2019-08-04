@@ -71,6 +71,18 @@ const List = ({ location, match }) => {
               text="Print"
               icon="print"
             />
+            <Button
+              as={Link}
+              to={{
+                pathname: `${location.pathname}/promote`,
+                state: {
+                  filters,
+                  pitchIds: pitches.map(pitch => pitch.id),
+                },
+              }}
+              text="Promote"
+              icon="calendar"
+            />
           </p>
           <Pitches className="pitches__list">
             {pitches.map(pitch => (

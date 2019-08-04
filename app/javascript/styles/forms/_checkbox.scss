@@ -1,4 +1,3 @@
-.checkbox,
 .switch {
   display: flex;
   position: relative;
@@ -16,56 +15,6 @@
     &:disabled {
       ~ * {
         opacity: opacity(disabled);
-      }
-    }
-  }
-}
-
-.checkbox__icon {
-  flex: 0 0 auto;
-  width: 2rem;
-  height: 2rem;
-  margin: -0.25rem ($spacing - 0.25rem) -0.25rem -0.25rem;
-  cursor: pointer;
-
-  .checkbox__check {
-    stroke-dasharray: 13;
-    stroke-dashoffset: -13;
-
-    @include themify {
-      stroke: themed(background);
-    }
-  }
-
-  .checkbox__focus {
-    stroke: none;
-    fill: none;
-  }
-
-  :checked ~ & {
-    .checkbox__circle {
-      fill: currentColor;
-    }
-
-    .checkbox__check {
-      transition: transition(stroke-dashoffset);
-      stroke-dashoffset: 0;
-    }
-
-    @include themify {
-      color: themed(accent);
-
-      .checkbox__circle {
-      }
-    }
-  }
-
-  :focus ~ & {
-    .checkbox__focus {
-      stroke-width: 4px;
-
-      @include themify {
-        stroke: themed(outline);
       }
     }
   }

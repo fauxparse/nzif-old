@@ -19,6 +19,10 @@
       flex: 1;
     }
 
+    .button {
+      margin-left: $spacing;
+    }
+
     @include themify {
       color: themed(secondary);
     }
@@ -157,6 +161,29 @@
       * {
         color: black !important;
       }
+    }
+  }
+}
+
+.promote-pitches {
+  @include constrained-width(0rem);
+
+  &__pitch {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem $spacing;
+
+    .checkbox,
+    .loader {
+      margin: 0 1rem 0 0;
+      padding: 0;
+    }
+
+    .loader {
+      position: static;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 2rem;
     }
   }
 }

@@ -1,4 +1,4 @@
-import Checkbox from './checkbox'
+import Checkbox from 'atoms/checkbox'
 import CountrySelect from './country_select'
 import Error from './error'
 import Errors from './errors'

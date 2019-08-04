@@ -60,7 +60,7 @@ const Admin = ({ match, history }) => {
 
   return (
     <ThemeContext.Provider value='dark'>
-      <Context.Provider value={festival}>
+      <Context.Provider value={festival || { year }}>
         <div className="admin" data-theme='dark'>
           <Header
             menuOpen={sidebarOpen}
