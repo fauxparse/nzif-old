@@ -5,7 +5,7 @@ import Avatar from 'atoms/avatar'
 import Button from 'atoms/button'
 import './index.scss'
 
-const Chip = ({ className, user, small, onDelete, ...props }) => {
+const Chip = ({ className, user, small, onDelete, children, ...props }) => {
   const deleteFocused = e => e.target.blur()
 
   const deleteClicked = useCallback(() => onDelete && onDelete(user), [onDelete, user])
@@ -39,6 +39,7 @@ const Chip = ({ className, user, small, onDelete, ...props }) => {
           onFocus={deleteFocused}
         />
       )}
+      {children}
     </div>
   )
 }

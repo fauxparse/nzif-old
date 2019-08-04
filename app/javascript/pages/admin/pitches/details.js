@@ -3,6 +3,7 @@ import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import pick from 'lodash/pick'
+import copy from 'copy-to-clipboard'
 import sortBy from 'lodash/sortBy'
 import moment from 'lib/moment'
 import FestivalContext from 'contexts/festival'
@@ -12,6 +13,7 @@ import Chip from 'molecules/chip'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import Tags from 'molecules/tags'
 import Header from 'organisms/header'
+import Ripple from 'effects/ripple'
 import PITCH_QUERY from 'queries/pitch'
 import PITCHES_QUERY from 'queries/pitches'
 import UPDATE_PITCH_MUTATION from 'queries/mutations/update_pitch'
@@ -90,6 +92,14 @@ const Details = ({ location, match, onLoad }) => {
     )
   }, [pitch])
 
+  const copyEmail = (e) => {
+    const chip = e.target.closest('[data-email]')
+    if (chip) {
+      const { email } = chip.dataset
+      copy(email)
+    }
+  }
+
   return (
     <div className="pitch-details">
       <Header>
@@ -98,7 +108,16 @@ const Details = ({ location, match, onLoad }) => {
         </Breadcrumbs>
         <Header.Title>{pitch.name}</Header.Title>
         <div className="pitch-details__presenters">
-          {pitch.presenters.map(presenter => <Chip key={presenter.name} user={presenter} />)}
+          {pitch.presenters.map(presenter => (
+            <Chip
+              key={presenter.name}
+              user={presenter}
+              data-email={`${presenter.name} <${presenter.email}>`}
+              onClick={copyEmail}
+            >
+              <Ripple />
+            </Chip>
+          ))}
         </div>
         <div className="pitch-details__tags">
           <Tags
