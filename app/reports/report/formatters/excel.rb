@@ -1,23 +1,18 @@
-require 'csv'
-
 module Report
   module Formatters
-    class CSV < Report::Formatter
+    class Excel < Report::Formatter
       def generate
-        force_utf8 +
-        ::CSV.generate do |csv|
-          csv << labels
+        package = Axlsx::Package.new
+        package.workbook.add_worksheet(name: report.name) do |sheet|
+          sheet.add_row(labels)
           report.each do |row|
-            csv << format(row)
+            sheet.add_row format(row)
           end
         end
+        package.to_stream
       end
 
       private
-
-      def force_utf8
-        "\uFEFF"
-      end
 
       def labels
         report.fields.map(&:label)

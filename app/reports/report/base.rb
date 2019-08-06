@@ -3,6 +3,7 @@ module Report
     include Enumerable
 
     attr_reader :festival
+    attr_reader :options
 
     def self.fields
       @fields ||= []
@@ -12,8 +13,13 @@ module Report
       fields << Field.new(name, options, &block)
     end
 
-    def initialize(festival)
+    def initialize(festival, options = {})
       @festival = festival
+      @options = options
+    end
+
+    def name
+      options[:name] || scope.name.humanize.pluralize
     end
 
     def fields

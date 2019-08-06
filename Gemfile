@@ -81,6 +81,9 @@ gem 'premailer-rails'
 # Static content
 gem 'paper_trail'
 
+# Reporting
+gem 'axlsx'
+
 gem 'jwt'
 
 gem 'acts_as_list'
