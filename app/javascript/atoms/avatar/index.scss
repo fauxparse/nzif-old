@@ -12,6 +12,7 @@
   color: color(grey, 200);
   line-height: 1.5em;
   text-align: center;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
 
   @each $color, $shades in $palette {
