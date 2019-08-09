@@ -17,6 +17,7 @@ const AdminSidebar = ({ match, history, location, staticContext, festival, ...pr
       <Divider inset />
       <List>
         <List.Link to={match.url} icon="admin" primary="Dashboard" />
+        <List.Link to={`${match.url}/activities`} icon="calendar" primary="Timetable" />
         <List.Link to={`${match.url}/pitches`} icon="pitch" primary="Pitches" />
         <List.Link to={`${match.url}/content`} icon="content" primary="Static content" />
       </List>
