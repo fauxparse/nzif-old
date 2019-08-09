@@ -47,7 +47,7 @@ const List = ({ location, match }) => {
     <div>
       <Header>
         <Breadcrumbs back={adminRoot}>
-          <Breadcrumbs.Link to={adminRoot}>NZIF {festival.year}</Breadcrumbs.Link>
+          <Breadcrumbs.Link to={adminRoot || '/'}>NZIF {festival.year}</Breadcrumbs.Link>
         </Breadcrumbs>
         <Header.Title>Pitches</Header.Title>
         <Filters
