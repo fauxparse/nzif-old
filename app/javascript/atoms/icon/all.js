@@ -1,4 +1,5 @@
 export default [
+  'activities',
   'add',
   'admin',
   'arrow-left',
