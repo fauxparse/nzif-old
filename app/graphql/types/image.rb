@@ -8,7 +8,7 @@ module Types
     field :original, String, null: false
 
     def name
-      object.filename
+      object&.filename
     end
 
     def thumbnail

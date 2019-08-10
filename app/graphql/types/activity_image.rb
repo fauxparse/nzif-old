@@ -1,9 +1,5 @@
 module Types
   class ActivityImage < Types::Image
-    def name
-      object.present? ? super : 'placeholder.jpg'
-    end
-
     def thumbnail
       image_url(384, 216)
     end
@@ -18,20 +14,6 @@ module Types
 
     def full
       image_url(1920, 1080)
-    end
-
-    def original
-      object.present? ? super : placeholder_url
-    end
-
-    private
-
-    def placeholder_url
-      ActionController::Base.helpers.image_path('placeholder')
-    end
-
-    def image_url(width, height)
-      object.present? ? super(width, height) : placeholder_url
     end
   end
 end
