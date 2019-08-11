@@ -1,0 +1,35 @@
+@import "../../../styles/base";
+
+.activities-overview {
+  .day {
+    padding: $padding 0;
+
+    &__date {
+      @include autopad;
+      margin: 0;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      font-size: font-size(3);
+      font-weight: font-weight(light);
+      line-height: 2rem;
+      z-index: 1;
+
+      @include themify {
+        background: rgba(themed(background), 0.9);
+        color: themed(secondary);
+      }
+    }
+
+    &__activities {
+      @include autopad;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+      grid-row-gap: $spacing;
+      grid-column-gap: $spacing;
+
+      .card {
+        width: auto;
+      }
+    }
+  }
+}

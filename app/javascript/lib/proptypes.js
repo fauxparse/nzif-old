@@ -72,7 +72,7 @@ export const activity = PropTypes.shape({
   url: PropTypes.string,
   levels: PropTypes.arrayOf(PropTypes.string),
   description: PropTypes.string,
-  presenters: PropTypes.arrayOf(user.isRequired),
+  presenters: PropTypes.arrayOf(presenter.isRequired),
   image,
 })
 

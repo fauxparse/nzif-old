@@ -2,6 +2,7 @@ import React, { Children, cloneElement } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import Image from './image'
+import Category from './category'
 import Title from './title'
 import Description from './description'
 import Tags from './tags'
@@ -34,6 +35,7 @@ Card.defaultProps = {
 }
 
 Card.Image = Image
+Card.Category = Category
 Card.Title = Title
 Card.Description = Description
 Card.Tags = Tags
