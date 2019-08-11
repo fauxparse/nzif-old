@@ -49,3 +49,12 @@ $avatar-size: 2.5rem;
     );
   }
 }
+
+@mixin autopad {
+  padding: $padding;
+
+  @include media(medium) {
+    padding-left: calc(50vw - #{map-get($breakpoints, medium)} / 2 + #{$keyline});
+    padding-right: calc(50vw - #{map-get($breakpoints, medium)} / 2 + #{$padding});
+  }
+}

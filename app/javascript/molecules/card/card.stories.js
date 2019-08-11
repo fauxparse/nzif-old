@@ -23,6 +23,7 @@ storiesOf('Molecules|Card', module)
   .add('Activity', () => (
     <Card className="activity-card" loading={boolean('Loading', false)}>
       <Card.Image image={IMAGE} alt="Preview image" />
+      <Card.Category>Workshop</Card.Category>
       <Card.Title>110% You: Finding your inner MC</Card.Title>
       <Card.Description>
         <p>Matt Powell <small>(Wellington)</small></p>

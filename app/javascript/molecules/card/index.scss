@@ -53,6 +53,18 @@
     }
   }
 
+  &__category {
+    margin: 0 0 0.5rem;
+    padding: 0 $padding;
+    font-size: font-size(-2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    .card--loading & {
+      letter-spacing: 0;
+    }
+  }
+
   &__title {
     margin: 0 0 0.5rem;
     padding: 0 $padding;
@@ -80,6 +92,9 @@
   }
 
   &--loading {
+    pointer-events: none;
+    touch-action: none;
+
     [data-tooltipped] {
       pointer-events: none;
       touch-action: none;
@@ -93,6 +108,12 @@
         background-clip: border-box;
         -webkit-background-clip: border-box;
       }
+    }
+  }
+
+  @include themify {
+    &__category {
+      color: themed(secondary);
     }
   }
 }
