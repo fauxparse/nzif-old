@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
+import classNames from 'classnames'
 import Tooltip from 'atoms/tooltip'
 import Tag from 'atoms/tag'
 
@@ -20,9 +21,9 @@ export const LEVELS = {
   },
 }
 
-const Level = ({ level, ...props }) => (
-  <Tooltip title={LEVELS[level].description}>
-    <Tag className="activity-level" data-level={level} {...props}>
+const Level = ({ className, level, ...props }) => (
+  <Tooltip title={LEVELS[level].description} trigger="click" delay={0}>
+    <Tag className={classNames('activity-level', className)} data-level={level} {...props}>
       {LEVELS[level].name}
     </Tag>
   </Tooltip>

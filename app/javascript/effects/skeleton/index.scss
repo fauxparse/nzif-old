@@ -1,0 +1,29 @@
+@import "../../styles/base";
+@import "../../styles/mixins/skeleton";
+
+@keyframes skeleton-shimmer {
+  0%{
+    background-position: 100% 0;
+  }
+  100%{
+    background-position: 0% 0;
+  }
+}
+
+.skeleton {
+  transition: transition(color background-color);
+
+  &.skeleton--loading {
+    &:not(:empty) {
+      transition: none;
+      background-clip: text;
+      color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  &--loading {
+    @include skeleton-shimmer;
+  }
+}

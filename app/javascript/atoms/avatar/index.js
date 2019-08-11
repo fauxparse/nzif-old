@@ -58,7 +58,7 @@ Avatar.displayName = 'Avatar'
 Avatar.propTypes = {
   id: PropTypes.id,
   name: PropTypes.string.isRequired,
-  image: PropTypes.userImage,
+  image: PropTypes.image,
   origin: PropTypes.string,
   bio: PropTypes.string,
   notificationsCount: PropTypes.number,

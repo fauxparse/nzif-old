@@ -11,7 +11,7 @@ const Activity = ({ activity = {}, loading }) => (
     {loading ? (
       <div className="skeleton skeleton--loading activity__thumbnail--placeholder" />
     ) : (
-      <Picture
+      activity.image && <Picture
         className="activity__thumbnail card__image"
         sources={[
           {

@@ -43,7 +43,7 @@ export const role = PropTypes.oneOf(ROLES)
 
 export const icon = PropTypes.oneOf(ICONS)
 
-export const userImage = PropTypes.shape({
+export const image = PropTypes.shape({
   thumbnail: PropTypes.string,
   small: PropTypes.string,
   medium: PropTypes.string,
@@ -55,14 +55,14 @@ export const user = PropTypes.shape({
   name: PropTypes.string.isRequired,
   email: PropTypes.string,
   roles: PropTypes.arrayOf(role.isRequired),
-  image: userImage,
+  image,
 })
 
 export const presenter = PropTypes.shape({
   id,
   name: PropTypes.string.isRequired,
   email: PropTypes.string,
-  image: userImage,
+  image,
 })
 
 export const activity = PropTypes.shape({
@@ -73,6 +73,7 @@ export const activity = PropTypes.shape({
   levels: PropTypes.arrayOf(PropTypes.string),
   description: PropTypes.string,
   presenters: PropTypes.arrayOf(user.isRequired),
+  image,
 })
 
 export const session = PropTypes.shape({
@@ -123,6 +124,7 @@ export default {
   component,
   icon,
   id,
+  image,
   location,
   pitch,
   presenter,
@@ -130,6 +132,5 @@ export default {
   session,
   time,
   user,
-  userImage,
   venue,
 }
