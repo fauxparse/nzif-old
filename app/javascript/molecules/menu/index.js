@@ -49,7 +49,7 @@ const Menu = ({
           />
         )}
       </Reference>
-      <Popper placement="bottom-end">
+      <Popper placement="bottom-end" positionFixed>
         {({ ref, style, placement }) => (
           <Portal open={open}>
             <Content
