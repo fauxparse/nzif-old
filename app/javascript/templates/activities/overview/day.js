@@ -1,46 +1,44 @@
 import React, { useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import entries from 'lodash/entries'
+import groupBy from 'lodash/groupBy'
+import sortBy from 'lodash/sortBy'
 import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
-import pluralize from 'pluralize'
 import { useSticky } from 'lib/hooks'
-import Sentence from 'atoms/sentence'
-import Level from 'atoms/level'
-import Card from 'molecules/card'
 import Skeleton from 'effects/skeleton'
+import Timeslot from './timeslot'
 
 const Day = ({ date, activities, loading }) => {
   const header = useSticky()
 
   const day = useMemo(() => moment(date), [date])
 
+  const slots = useMemo(() => (
+    sortBy(
+      entries(groupBy(activities, activity => activity.startsAt.valueOf())),
+      [([time]) => time]
+    ).map(([time, activities]) => [moment(parseInt(time, 10)), activities])
+  ), [activities])
+
   return (
     <section className="day">
-      <Skeleton ref={header} as="h2" className="day__date" loading={loading && false}>
-        {day.format('dddd D MMMM')}
-      </Skeleton>
-      <div className="day__activities">
-        {activities.map(activity => (
-          <Card
-            key={activity.id}
-            as={Link}
-            to={`/${day.format('YYYY')}/${pluralize(activity.type)}/${activity.slug}`}
-            loading={loading}
-          >
-            <Card.Image image={activity.image} />
-            <Card.Category>{activity.type}</Card.Category>
-            <Card.Title>{activity.name}</Card.Title>
-            <Card.Description>
-              <Sentence>
-                {activity.presenters.map(p => p.name)}
-              </Sentence>
-            </Card.Description>
-            <Card.Tags>
-              {(activity.levels || []).map(level => <Level small key={level} level={level} />)}
-            </Card.Tags>
-          </Card>
-        ))}
-      </div>
+      <Skeleton
+        ref={header}
+        as="h2"
+        className="day__date"
+        loading={loading && false}
+        data-long={day.format('dddd D MMMM')}
+        data-short={day.format('ddd D MMM')}
+        aria-label={day.format('dddd D MMMM')}
+      />
+      {slots.map(([time, activities]) => (
+        <Timeslot
+          key={time.valueOf()}
+          loading={loading}
+          time={time}
+          activities={activities}
+        />
+      ))}
     </section>
   )
 }

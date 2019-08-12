@@ -76,10 +76,6 @@ $header-max-height: 16rem;
     }
   }
 
-  &--colored {
-    background: linear-gradient(to right bottom, color(mandarin), color(tomato));
-  }
-
   .tab-bar {
     border-bottom: 0;
   }
@@ -122,6 +118,26 @@ $header-max-height: 16rem;
 
     .tab-bar {
       padding-left: $keyline - $padding;
+    }
+  }
+
+  &--colored {
+    background: linear-gradient(to right bottom, color(mandarin), color(tomato));
+
+    .tab-bar {
+      &__highlight {
+        bottom: 0;
+        background: $white;
+      }
+
+      .tab {
+        padding-bottom: 0.75rem;
+        color: color($white, secondary);
+
+        &--selected {
+          color: color($white, primary);
+        }
+      }
     }
   }
 }

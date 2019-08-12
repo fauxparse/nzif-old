@@ -10,10 +10,8 @@ const dummyActivity = (date) => ({
     name: 'Laura Mipsum',
     origin: 'Wellington',
   }],
-  sessions: [{
-    startsAt: date.clone().hour(10),
-    endsAt: date.clone().hour(13),
-  }],
+  startsAt: date.clone().hour(10),
+  endsAt: date.clone().hour(13),
   levels: ['beginner'],
 })
 

@@ -40,7 +40,7 @@ const Overview = ({ loading, type, activities, festival }) => {
       className="activities-overview"
       aria-busy={loading || undefined}
     >
-      <Header>
+      <Header colored>
         <Breadcrumbs back={back}>
           <Breadcrumbs.Link to={back}>NZIF {festival.year}</Breadcrumbs.Link>
         </Breadcrumbs>
@@ -60,14 +60,16 @@ const Overview = ({ loading, type, activities, festival }) => {
           />
         </TabBar>
       </Header>
-      {activitiesByDay.map(day => (
-        <Day
-          key={day.date.valueOf()}
-          date={day.date}
-          activities={day.activities}
-          loading={loading}
-        />
-      ))}
+      <div className="activities-overview__days">
+        {activitiesByDay.map(day => (
+          <Day
+            key={day.date.valueOf()}
+            date={day.date}
+            activities={day.activities}
+            loading={loading}
+          />
+        ))}
+      </div>
     </div>
   )
 }
