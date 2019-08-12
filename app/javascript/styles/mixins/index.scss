@@ -3,3 +3,30 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+@mixin all-caps {
+  font-weight: font-weight(light);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@mixin slashy {
+  &:not(:last-of-type) {
+    position: relative;
+    margin-right: $padding;
+    padding-right: $padding;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      transform: skew(-15deg);
+      content: "";
+
+      @include themify {
+        border-right: 1px solid themed(border);
+      }
+    }
+  }
+}

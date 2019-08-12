@@ -1,0 +1,86 @@
+@import "../../../styles/base";
+
+.activity-details {
+  &__presenter-names {
+    display: flex;
+    align-items: flex-start;
+    margin-top: $spacing / 2;
+
+    .presenter-name {
+      @include slashy;
+
+      &:not(:last-of-type) {
+        &::after {
+          @include themify {
+            border-right: 1px solid rgba($white, opacity(border));
+          }
+        }
+      }
+
+      span {
+        display: block;
+      }
+
+      &__name {
+        font-size: font-size(1);
+      }
+
+      &__origin {
+        @include all-caps;
+        font-size: font-size(-1);
+        opacity: opacity(secondary);
+      }
+    }
+  }
+
+  &__body {
+    @include autopad;
+  }
+
+  &__description {
+    line-height: line-height(loose);
+  }
+
+  &__presenters {
+    @include autopad;
+    @include themify {
+      background: themed(panel);
+    }
+  }
+
+  .presenter-bio {
+    &__title {
+      display: flex;
+      align-items: center;
+      margin: 0 0 $spacing;
+
+      @include media(medium) {
+        margin-left: -3.5rem;
+      }
+    }
+
+    &__avatar {
+      margin-right: 1rem;
+    }
+
+    &__name {
+      display: block;
+      font-size: font-size(1);
+    }
+
+    &__origin {
+      @include all-caps;
+      display: block;
+      font-size: font-size(-1);
+
+      @include themify {
+        color: themed(secondary);
+      }
+    }
+
+    &__bio {
+      font-size: font-size(-1);
+      line-height: line-height(loose);
+    }
+  }
+}

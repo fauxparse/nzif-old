@@ -25,5 +25,11 @@
 
   &--loading {
     @include skeleton-shimmer;
+
+    .avatar {
+      @include skeleton-shimmer;
+      background-clip: border-box;
+      -webkit-background-clip: border-box;
+    }
   }
 }

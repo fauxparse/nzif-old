@@ -1,159 +1,161 @@
-.activity-details {
-  @include constrained-width($keyline, $padding);
+.admin {
+  .activity-details {
+    @include constrained-width($keyline, $padding);
 
-  .activity-overview,
-  .activity-session {
-    padding: 1.5rem 0;
-  }
-
-  .activity-levels {
-    display: flex;
-  }
-
-  .activity-level {
-    margin: 0.25rem 0;
-    padding: 0.5rem 1rem;
-    border: 0;
-    border-radius: 1rem;
-    font-size: font-size(-1);
-    line-height: 1rem;
-    text-transform: capitalize;
-
-    &:not(:last-child) {
-      margin-right: 0.5rem;
+    .activity-overview,
+    .activity-session {
+      padding: 1.5rem 0;
     }
 
-    @each $level, $color in $levels {
-      &[data-level="#{$level}"] {
-        @include themify {
-          &[role="checkbox"] {
-            background: none;
-            color: themed(secondary);
-            cursor: pointer;
+    .activity-levels {
+      display: flex;
+    }
 
-            &[aria-checked] {
-              background-color: color($color, 500);
-              color: color($color, 100);
-            }
+    .activity-level {
+      margin: 0.25rem 0;
+      padding: 0.5rem 1rem;
+      border: 0;
+      border-radius: 1rem;
+      font-size: font-size(-1);
+      line-height: 1rem;
+      text-transform: capitalize;
 
-            &:focus {
-              box-shadow: 0 0 0 0.25rem color($color, 800);
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
+
+      @each $level, $color in $levels {
+        &[data-level="#{$level}"] {
+          @include themify {
+            &[role="checkbox"] {
+              background: none;
+              color: themed(secondary);
+              cursor: pointer;
+
+              &[aria-checked] {
+                background-color: color($color, 500);
+                color: color($color, 100);
+              }
+
+              &:focus {
+                box-shadow: 0 0 0 0.25rem color($color, 800);
+              }
             }
           }
         }
       }
     }
   }
-}
 
-.presenters {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  margin: -0.25rem;
-
-  &__add {
-    @include themify {
-      border-color: themed(disabled);
-      color: themed(secondary);
-    }
-
-    margin: 0.25rem;
-    border-style: dashed;
-    border-radius: 1.25rem;
-  }
-}
-
-.add-presenter {
-  ul {
-    margin: 0.5em 0;
-  }
-
-  &__presenter {
+  .presenters {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    padding: 0.5rem 1rem;
-    color: color(grey, 100);
+    margin: -0.25rem;
 
-    &[aria-selected] {
+    &__add {
       @include themify {
-        background: themed(highlight);
-        color: themed(highlight-text);
+        border-color: themed(disabled);
+        color: themed(secondary);
       }
+
+      margin: 0.25rem;
+      border-style: dashed;
+      border-radius: 1.25rem;
     }
   }
 
-  .avatar {
-    margin-right: 1rem;
-  }
-
-  .highlight {
-    @include ellipsis;
-    color: color(grey, 100);
-    font-size: font-size(1);
-    line-height: line-height(normal);
-
-    mark {
-      background: none;
-      color: white;
-      font-weight: bold;
-    }
-  }
-}
-
-.slug {
-  display: flex;
-  align-items: center;
-  max-width: 100%;
-  min-height: 2.5rem;
-  margin: 0 0 1.5rem;
-  overflow: hidden;
-
-  &__root {
-    @include ellipsis;
-    flex: 0 1 auto;
-    padding: 0.25rem 0;
-    direction: rtl;
-
-    &::before {
-      content: "/";
+  .add-presenter {
+    ul {
+      margin: 0.5em 0;
     }
 
-    @include themify {
-      color: themed(secondary);
-    }
-  }
+    &__presenter {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0.5rem 1rem;
+      color: color(grey, 100);
 
-  &__input {
-    input {
-      @include themify {
-        border-bottom: 1px solid themed(border);
-
-        &:focus {
-          border-bottom-color: themed(accent);
-          outline: none;
+      &[aria-selected] {
+        @include themify {
+          background: themed(highlight);
+          color: themed(highlight-text);
         }
       }
+    }
 
-      display: block;
-      width: 100%;
-      min-width: 4em;
-      max-width: 100%;
-      margin: 0;
-      padding: 0.25rem 0 calc(0.25rem - 1px);
-      border: 0;
-      background: transparent;
-      color: inherit;
-      font: inherit;
+    .avatar {
+      margin-right: 1rem;
+    }
+
+    .highlight {
+      @include ellipsis;
+      color: color(grey, 100);
+      font-size: font-size(1);
       line-height: line-height(normal);
-      box-shadow: none;
-      appearance: none;
 
-      &:disabled {
-        opacity: 0.5;
+      mark {
+        background: none;
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .slug {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: 2.5rem;
+    margin: 0 0 1.5rem;
+    overflow: hidden;
+
+    &__root {
+      @include ellipsis;
+      flex: 0 1 auto;
+      padding: 0.25rem 0;
+      direction: rtl;
+
+      &::before {
+        content: "/";
+      }
+
+      @include themify {
+        color: themed(secondary);
+      }
+    }
+
+    &__input {
+      input {
+        @include themify {
+          border-bottom: 1px solid themed(border);
+
+          &:focus {
+            border-bottom-color: themed(accent);
+            outline: none;
+          }
+        }
+
+        display: block;
+        width: 100%;
+        min-width: 4em;
+        max-width: 100%;
+        margin: 0;
+        padding: 0.25rem 0 calc(0.25rem - 1px);
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        line-height: line-height(normal);
+        box-shadow: none;
+        appearance: none;
+
+        &:disabled {
+          opacity: 0.5;
+        }
       }
     }
   }

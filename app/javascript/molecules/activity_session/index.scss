@@ -1,0 +1,35 @@
+@import "../../styles/base";
+
+.activity-session {
+  position: relative;
+  padding: 0.5rem 0;
+  font-size: font-size(-1);
+
+  span {
+    display: block;
+    line-height: 1rem;
+  }
+
+  &__time {
+
+  }
+
+  @include themify {
+    &__time {
+      color: themed(secondary);
+    }
+  }
+}
+
+.activity-sessions {
+  @include media(medium) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+
+    .activity-session {
+      @include slashy;
+    }
+  }
+}
