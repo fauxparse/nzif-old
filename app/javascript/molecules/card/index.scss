@@ -18,6 +18,10 @@
     padding-top: 9 * 100% / 16;
     overflow: hidden;
 
+    &:empty {
+      background: linear-gradient(to bottom right, color(grey, 100), color(grey, 300));
+    }
+
     &:first-child {
       border-top-left-radius: $border-radius;
       border-top-right-radius: $border-radius;

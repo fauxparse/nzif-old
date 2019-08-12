@@ -18,11 +18,12 @@
     }
 
     &__date {
-      text-indent: 5em;
+      text-indent: 4.5em;
       z-index: 1;
+      backdrop-filter: blur(4px);
 
       @include themify {
-        background: rgba(themed(background), 0.9);
+        background: rgba(themed(background), 0.85);
         color: themed(primary);
       }
 
