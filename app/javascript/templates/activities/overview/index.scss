@@ -1,10 +1,13 @@
 @import "../../../styles/base";
 
 .activities-overview {
-  .day {
+  &__days {
     padding: $padding 0;
+  }
 
-    &__date {
+  .day {
+    &__date,
+    &__time {
       @include autopad;
       margin: 0;
       padding-top: 0.5rem;
@@ -12,11 +15,39 @@
       font-size: font-size(3);
       font-weight: font-weight(light);
       line-height: 2rem;
+    }
+
+    &__date {
+      text-indent: 5em;
       z-index: 1;
 
       @include themify {
         background: rgba(themed(background), 0.9);
+        color: themed(primary);
+      }
+
+      &::before {
+        content: attr(data-short);
+
+        @include media(medium) {
+          content: attr(data-long);
+        }
+      }
+    }
+
+    &__time {
+      position: relative;
+      margin-top: -3rem;
+      z-index: 2;
+
+      @include themify {
         color: themed(secondary);
+      }
+    }
+
+    &__timeslot {
+      &:not(:first-of-type) {
+        margin-top: 3rem;
       }
     }
 
@@ -26,6 +57,7 @@
       grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
       grid-row-gap: $spacing;
       grid-column-gap: $spacing;
+      padding-bottom: $padding * 2;
 
       .card {
         width: auto;
