@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
+import pluralize from 'pluralize'
 import { useSticky } from 'lib/hooks'
 import Sentence from 'atoms/sentence'
 import Level from 'atoms/level'
@@ -10,15 +12,19 @@ import Skeleton from 'effects/skeleton'
 const Day = ({ date, activities, loading }) => {
   const header = useSticky()
 
+  const day = useMemo(() => moment(date), [date])
+
   return (
     <section className="day">
       <Skeleton ref={header} as="h2" className="day__date" loading={loading && false}>
-        {moment(date).format('dddd D MMMM')}
+        {day.format('dddd D MMMM')}
       </Skeleton>
       <div className="day__activities">
         {activities.map(activity => (
           <Card
             key={activity.id}
+            as={Link}
+            to={`/${day.format('YYYY')}/${pluralize(activity.type)}/${activity.slug}`}
             loading={loading}
           >
             <Card.Image image={activity.image} />
@@ -29,11 +35,9 @@ const Day = ({ date, activities, loading }) => {
                 {activity.presenters.map(p => p.name)}
               </Sentence>
             </Card.Description>
-            {activity.levels && (
-              <Card.Tags>
-                {activity.levels.map(level => <Level small key={level} level={level} />)}
-              </Card.Tags>
-            )}
+            <Card.Tags>
+              {(activity.levels || []).map(level => <Level small key={level} level={level} />)}
+            </Card.Tags>
           </Card>
         ))}
       </div>

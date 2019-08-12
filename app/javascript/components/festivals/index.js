@@ -2,11 +2,12 @@ import React, { useState, useCallback } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
+import pluralize from 'pluralize'
 import Context from 'contexts/festival'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Header from './header'
 import Sidebar from './sidebar'
-import Activities from '../activities'
+import ActivitiesOverview from 'pages/activities/overview'
 import ActivityDetails from '../activities/activity_details'
 import Profile from '../profile'
 import Map from '../map'
@@ -19,6 +20,10 @@ import DetectLocationChange from 'lib/detect_location_change'
 import { HOMEPAGE_QUERY } from '../../queries/homepage'
 
 export { default as CurrentFestival } from './current'
+
+const ACTIVITY_TYPES = [
+  'workshop', 'show'
+]
 
 const Festival = ({ match, history }) => {
   const { year } = match.params
@@ -48,6 +53,12 @@ const Festival = ({ match, history }) => {
     }
   }, [sidebarOpen, setSidebarOpen])
 
+  const pageKey = (location, match) => {
+    const programmePage =
+      new RegExp(`^${match.url}/(${ACTIVITY_TYPES.map(t => pluralize(t)).join('|')})`)
+    return location.pathname.replace(programmePage, `${match.url}/programme`)
+  }
+
   return (
     <Context.Provider value={data.festival}>
       <div className="public-section">
@@ -60,15 +71,19 @@ const Festival = ({ match, history }) => {
         <div className="page">
           <Route
             render={({ location }) => (
-              <PageTransition pageKey={location.pathname}>
+              <PageTransition pageKey={pageKey(location, match)}>
                 <Switch location={location}>
                   <Route
                     path={`${match.path}/:type(shows|workshops)`}
                     render={({ match }) => (
-                      <>
+                      <Switch>
                         <Route path={`${match.path}/:slug`} exact component={ActivityDetails} />
-                        <Route path={match.path} exact component={Activities} />
-                      </>
+                        <Route
+                          path={match.path}
+                          exact
+                          render={() => <ActivitiesOverview match={match} />}
+                        />
+                      </Switch>
                     )}
                   />
                   <Route path={`${match.path}/profile`} exact component={Profile} />

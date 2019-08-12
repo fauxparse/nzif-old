@@ -76,14 +76,23 @@ $header-max-height: 16rem;
     }
   }
 
+  &--colored {
+    background: linear-gradient(to right bottom, color(mandarin), color(tomato));
+  }
+
+  .tab-bar {
+    border-bottom: 0;
+  }
+
   @include themify {
     border-bottom: 1px solid themed(border);
 
-    &--has-background,
-    &--has-tabs {
+    &--colored,
+    &--has-background {
       border-bottom: 0;
     }
 
+    &--colored,
     &--has-background {
       color: $white;
     }

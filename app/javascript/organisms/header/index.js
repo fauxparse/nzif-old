@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import partition from 'lib/partition'
 import isEmpty from 'lodash/isEmpty'
@@ -21,7 +22,7 @@ const Background = ({ className, children, ...props }) => (
   </div>
 )
 
-const Header = ({ className, children, ...props }) => {
+const Header = ({ className, colored, children, ...props }) => {
   const top = useSticky()
 
   const [breadcrumbs, background, buttons, tabs, rest] = useMemo(() => partition(
@@ -38,6 +39,7 @@ const Header = ({ className, children, ...props }) => {
         'header',
         !isEmpty(background) && 'header--has-background',
         !isEmpty(tabs) && 'header--has-tabs',
+        colored && 'header--colored',
         className
       )}
       {...props}
@@ -59,6 +61,14 @@ const Header = ({ className, children, ...props }) => {
       {background}
     </header>
   )
+}
+
+Header.propTypes = {
+  colored: PropTypes.bool,
+}
+
+Header.defaultProps = {
+  colored: false,
 }
 
 Header.Title = Title

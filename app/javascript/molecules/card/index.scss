@@ -7,6 +7,11 @@
   padding: 0 0 0.5rem;
   border-radius: $border-radius;
 
+  &[href] {
+    color: inherit;
+    text-decoration: none;
+  }
+
   &__image {
     position: relative;
     margin: 0 0 $padding;
@@ -88,6 +93,10 @@
 
     .tag {
       transition: transition(color background-color);
+    }
+
+    &:empty {
+      display: none;
     }
   }
 

@@ -5,4 +5,12 @@ import { storiesOf } from '@storybook/react'
 import Overview from './'
 
 storiesOf('Templates|Activities/Overview', module)
-  .add('Loading', () => <Overview loading />)
+  .add('Loading', () => (
+    <Overview
+      loading
+      type="workshop"
+      festival={{
+        year: 2019,
+      }}
+    />
+  ))
