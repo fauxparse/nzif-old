@@ -46,6 +46,8 @@
     @include themify {
       background: themed(panel);
     }
+
+    padding-bottom: $padding * 4;
   }
 
   .presenter-bio {

@@ -25,7 +25,7 @@ const Markdown = ({ className, component = 'div', text, options, ...props }) => 
   <MDReactComponent
     key={options}
     className={classNames('markdown', className)}
-    text={text}
+    text={text || ''}
     tags={{ html: component }}
     onIterate={handleIterate}
     markdownOptions={{ typographer: true, ...options }}
@@ -35,7 +35,7 @@ const Markdown = ({ className, component = 'div', text, options, ...props }) => 
 
 Markdown.propTypes = {
   component: PropTypes.string,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   className: PropTypes.className,
   options: PropTypes.shape({
     html: PropTypes.bool,
@@ -51,6 +51,7 @@ Markdown.propTypes = {
 
 Markdown.defaultProps = {
   className: null,
+  text: '',
   options: {},
 }
 

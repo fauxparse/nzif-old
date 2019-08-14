@@ -8,7 +8,7 @@ import { SubPageTransition as PageTransition } from '../../components/page_trans
 import Header from './header'
 import Sidebar from './sidebar'
 import ActivitiesOverview from 'pages/activities/overview'
-import ActivityDetails from '../activities/activity_details'
+import ActivityDetails from 'pages/activities/details'
 import Profile from '../profile'
 import Map from '../map'
 import Pitches from '../pitches'
