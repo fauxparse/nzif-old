@@ -61,6 +61,8 @@ export default gql`
           id
           name
           address
+          latitude
+          longitude
         }
       }
     }
