@@ -1,6 +1,6 @@
 @import "../../styles/base";
 
-$header-max-height: 16rem;
+$header-max-height: 20rem;
 
 .header {
   @include constrained-width(0rem);

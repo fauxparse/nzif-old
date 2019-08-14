@@ -24,7 +24,7 @@ const Timeslot = ({ loading, time, activities }) => {
             to={`/${time.format('YYYY')}/${pluralize(activity.type)}/${activity.slug}`}
             loading={loading}
           >
-            <Card.Image image={activity.image} />
+            <Card.Image image={activity.image} alt={activity.name} />
             <Card.Category>{activity.type}</Card.Category>
             <Card.Title>{activity.name}</Card.Title>
             <Card.Description>

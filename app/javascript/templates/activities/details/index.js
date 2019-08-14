@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
 import pluralize from 'pluralize'
+import humanize from 'lib/humanize'
 import { Picture } from 'react-responsive-picture'
 import Skeleton from 'effects/skeleton'
 import Divider from 'atoms/divider'
@@ -30,7 +31,8 @@ const Details = ({ loading, festival, activity }) => {
     <div className="activity-details">
       <Header colored className="activity-details__header">
         <Breadcrumbs back={back}>
-          <Breadcrumbs.Link to={back}>NZIF {festival.year}</Breadcrumbs.Link>
+          <Breadcrumbs.Link to={`/${festival.year}`}>NZIF {festival.year}</Breadcrumbs.Link>
+          <Breadcrumbs.Link to={back}>{pluralize(humanize(type))}</Breadcrumbs.Link>
         </Breadcrumbs>
         <Skeleton as={Header.Title} loading={loading}>
           {loading ? 'Activity name' : name}
