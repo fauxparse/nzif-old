@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_04_001957) do
+ActiveRecord::Schema.define(version: 2019_08_16_232905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,17 @@ ActiveRecord::Schema.define(version: 2019_08_04_001957) do
     t.index ["user_id"], name: "index_pitches_on_user_id"
   end
 
+  create_table "preferences", force: :cascade do |t|
+    t.bigint "registration_id", null: false
+    t.bigint "session_id", null: false
+    t.integer "position"
+    t.datetime "starts_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_preferences_on_registration_id"
+    t.index ["session_id"], name: "index_preferences_on_session_id"
+  end
+
   create_table "presenters", force: :cascade do |t|
     t.bigint "activity_id"
     t.bigint "user_id"
@@ -105,6 +116,19 @@ ActiveRecord::Schema.define(version: 2019_08_04_001957) do
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_presenters_on_activity_id"
     t.index ["user_id"], name: "index_presenters_on_user_id"
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.bigint "festival_id", null: false
+    t.bigint "user_id", null: false
+    t.string "state", default: "pending", null: false
+    t.datetime "code_of_conduct_accepted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["festival_id", "state"], name: "index_registrations_on_festival_id_and_state"
+    t.index ["festival_id", "user_id"], name: "index_registrations_on_festival_id_and_user_id"
+    t.index ["festival_id"], name: "index_registrations_on_festival_id"
+    t.index ["user_id"], name: "index_registrations_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -165,8 +189,12 @@ ActiveRecord::Schema.define(version: 2019_08_04_001957) do
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "pitches", "festivals", on_delete: :cascade
   add_foreign_key "pitches", "users", on_delete: :cascade
+  add_foreign_key "preferences", "registrations"
+  add_foreign_key "preferences", "sessions"
   add_foreign_key "presenters", "activities"
   add_foreign_key "presenters", "users"
+  add_foreign_key "registrations", "festivals"
+  add_foreign_key "registrations", "users"
   add_foreign_key "sessions", "activities", on_delete: :cascade
   add_foreign_key "sessions", "venues", on_delete: :cascade
   add_foreign_key "slots", "festivals", on_delete: :cascade
