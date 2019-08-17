@@ -53,3 +53,13 @@ export const useSticky = (options = {}, dependencies = []) => {
 
   return stickySection
 }
+
+export const  usePrevious = (value) => {
+  const ref = useRef()
+
+  useEffect(() => {
+    ref.current = value;
+  }, [value])
+
+  return ref.current
+}

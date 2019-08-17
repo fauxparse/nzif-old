@@ -8,11 +8,13 @@ import '../app/javascript/styles/application.scss'
 
 addDecorator(withKnobs)
 
-addDecorator(story => {
+addDecorator((story, { parameters }) => {
   const theme = select('Theme', { light: 'light', dark: 'dark' }, 'light')
+  const padding = parameters.options.padding === false ? 0 : '1rem'
+
   return (
     <div key={theme} data-theme={theme}>
-      <div className="container" style={{ width: '100vw', minHeight: '100vh' }}>
+      <div className="container" style={{ width: '100vw', minHeight: '100vh', padding }}>
         {story()}
       </div>
     </div>

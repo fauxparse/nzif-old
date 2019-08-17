@@ -1,0 +1,113 @@
+@import "../../styles/base";
+
+.stepper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  .step {
+    position: relative;
+    flex: 0 0 4.5rem;
+    padding-bottom: 1rem;
+
+    &__icon {
+      display: block;
+      width: 2.5rem;
+      margin: 0 auto;
+      padding: 0.5rem;
+      border-radius: 50%;
+
+      .icon {
+        display: block;
+        color: inherit;
+      }
+    }
+
+    &__text {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: transition(opacity);
+      font-size: font-size(-2);
+      line-height: 1rem;
+      white-space: nowrap;
+      opacity: 0;
+    }
+
+    &--current {
+      flex: 0 0 4.5rem;
+
+      .step__text {
+        opacity: 1;
+      }
+    }
+
+    @include media(medium) {
+      flex: 1 0 0;
+
+      &__text {
+        opacity: 1;
+      }
+    }
+
+      &:not(:last-child) {
+        &::before,
+        &::after {
+          position: absolute;
+          top: 1.25rem;
+          left: calc(50% + 1.25rem);
+          width: calc(100% - 2.5rem);
+          border-top: 1px solid currentColor;
+          content: "";
+        }
+
+        &::after {
+          transform: scaleX(0);
+          transform-origin: 0 0;
+          transition: transition(transform);
+        }
+
+        &.step--completed {
+          &::after {
+            transform: scaleX(1);
+          }
+        }
+    }
+
+    &--completed {
+
+    }
+
+    @include themify {
+      &__text {
+        color: themed(secondary);
+      }
+
+      &__icon {
+        color: themed(secondary);
+      }
+
+      &--completed,
+      &--current {
+        .step__icon {
+          color: themed(accent);
+        }
+      }
+
+      &--current {
+        .step__text {
+          color: themed(accent);
+        }
+      }
+
+      &::before {
+        border-top-color: themed(border);
+      }
+
+      &::after {
+        border-top-color: themed(accent);
+      }
+    }
+  }
+}

@@ -29,6 +29,7 @@ export default [
   'levels',
   'link',
   'log-out',
+  'payment',
   'pin',
   'pitch',
   'print',

@@ -1,0 +1,88 @@
+@import "../../../styles/base";
+
+.registration-form {
+  position: relative;
+  padding-bottom: 3.5rem;
+
+  &__title {
+    margin: 0;
+    padding: $spacing;
+    font-size: font-size(4);
+    font-weight: font-weight(light);
+    text-align: center;
+  }
+
+  &__header,
+  &__footer {
+    padding: ($padding / 2) $padding;
+    backdrop-filter: blur(4px);
+  }
+
+  &__footer {
+    display: flex;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    justify-content: space-between;
+
+    .footer__buttons {
+      display: flex;
+
+      .button {
+        margin-left: $spacing / 2;
+      }
+    }
+  }
+
+  &__pager {
+    position: relative;
+  }
+
+  .page {
+    &--left--enter,
+    &--right--enter,
+    &--left--exit,
+    &--right--exit {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+
+      &-active {
+        transition: transition(transform, $duration: 500ms);
+      }
+    }
+
+    &--left--enter,
+    &--right--exit-active {
+      transform: translateX(100%);
+    }
+
+    &--left--exit-active,
+    &--right--enter {
+      transform: translateX(-100%);
+    }
+
+    &--left--enter,
+    &--right--enter {
+      &-active {
+        transform: translateX(0);
+      }
+
+      &-done {
+        position: static;
+      }
+    }
+  }
+
+  @include themify {
+    &__header {
+      background: change-opacity(themed(background), 0.9);
+    }
+
+    &__footer {
+      background: change-opacity(themed(panel), 0.9);
+    }
+  }
+}
