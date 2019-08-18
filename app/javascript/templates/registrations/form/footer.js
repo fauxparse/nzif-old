@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
+import PropTypes from 'lib/proptypes'
 import Button from 'atoms/button'
 import PAGES from './pages'
 import RegistrationFormContext from './context'
 
-const Footer = ({ onBackClick, onNextClick }) => {
+const Footer = ({ valid, onBackClick, onNextClick }) => {
   const { pageIndex } = useContext(RegistrationFormContext)
 
   return (
@@ -14,14 +15,20 @@ const Footer = ({ onBackClick, onNextClick }) => {
           <Button text="Back" onClick={onBackClick} />
         )}
         {pageIndex < PAGES.length - 1 && (
-          <Button primary text="Next" onClick={onNextClick} />
+          <Button primary disabled={!valid} text="Next" onClick={onNextClick} />
         )}
         {pageIndex === PAGES.length - 1 && (
-          <Button primary text="Finish" onClick={onNextClick} />
+          <Button primary disabled={!valid} text="Finish" onClick={onNextClick} />
         )}
       </div>
     </footer>
   )
+}
+
+Footer.propTypes = {
+  valid: PropTypes.bool.isRequired,
+  onBackClick: PropTypes.func.isRequired,
+  onNextClick: PropTypes.func.isRequired,
 }
 
 export default Footer

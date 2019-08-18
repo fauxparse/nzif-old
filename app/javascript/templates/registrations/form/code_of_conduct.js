@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import ReadEverything from 'molecules/read_everything'
 import Markdown from 'molecules/markdown'
 import Checkbox from 'atoms/checkbox'
@@ -7,7 +7,7 @@ import Tooltip from 'atoms/tooltip'
 import { useStaticContent } from 'contexts/static_content'
 import Heading from './heading'
 
-const CodeOfConduct = () => {
+const CodeOfConduct = ({ onChange }) => {
   const [read, setRead] = useState(false)
 
   const [agreed, setAgreed] = useState(false)
@@ -17,6 +17,8 @@ const CodeOfConduct = () => {
   const checkboxChanged = useCallback((e) => setAgreed(e.target.checked), [setAgreed])
 
   const { loading, raw } = useStaticContent('code-of-conduct')
+
+  useEffect(() => onChange({ valid: agreed }), [onChange, agreed])
 
   return (
     <section className="registration-form__section registration-form__code-of-conduct">

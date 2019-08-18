@@ -6,10 +6,14 @@
 
   &__title {
     margin: 0;
-    padding: $spacing;
-    font-size: font-size(6);
+    padding: $spacing $spacing 0;
+    font-size: font-size(4);
     font-weight: font-weight(light);
     text-align: center;
+
+    @media(medium) {
+      font-size: font-size(6);
+    }
   }
 
   &__header,
@@ -42,6 +46,10 @@
 
   &__pager {
     position: relative;
+    min-height: 100vh;
+  }
+
+  &__page {
   }
 
   .page {
@@ -82,12 +90,13 @@
   }
 
   &__heading {
-    margin: ($spacing * 2) 0 $spacing;
-    font-size: font-size(4);
+    margin: $spacing 0;
+    font-size: font-size(3);
     font-weight: font-weight(light);
 
     @include media(medium) {
       margin-left: -4.25rem;
+      font-size: font-size(4);
 
       .badge {
         margin-right: 1.25rem;

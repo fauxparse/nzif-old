@@ -1,4 +1,4 @@
-import React, { cloneElement, useContext } from 'react'
+import React, { cloneElement, useContext, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { usePrevious } from 'lib/hooks'
 import RegistrationFormContext from './context'
@@ -23,16 +23,24 @@ const CLASS_NAMES = {
 }
 
 const Pager = ({ children }) => {
+  const container = useRef()
+
   const { pageIndex } = useContext(RegistrationFormContext)
 
   const previousPageIndex = usePrevious(pageIndex);
 
+  const transition = useRef('left')
+
   return (
     <TransitionGroup
+      ref={container}
       className="registration-form__pager"
-      childFactory={child => cloneElement(child, {
-        classNames: CLASS_NAMES[pageIndex < previousPageIndex ? 'right' : 'left']
-      })}
+      childFactory={(child) => {
+        if (pageIndex !== previousPageIndex) {
+          transition.current = pageIndex < previousPageIndex ? 'right' : 'left'
+        }
+        return cloneElement(child, { classNames: CLASS_NAMES[transition.current] })
+      }}
     >
       <CSSTransition
         key={pageIndex}

@@ -1,4 +1,5 @@
-import React, { useCallback, useContext, useMemo, useReducer } from 'react'
+import React, { useCallback, useContext, useEffect, useReducer } from 'react'
+import PropTypes from 'lib/proptypes'
 import Hint from 'atoms/hint'
 import TextLink from 'atoms/text_link'
 import Icon from 'atoms/icon'
@@ -18,10 +19,12 @@ const useUserDetails = (user) => {
   return [state, changed]
 }
 
-const Details = () => {
+const Details = ({ onChange }) => {
   const { user: currentUser } = useContext(RegistrationFormContext)
 
   const [user, changed] = useUserDetails(currentUser || {})
+
+  useEffect(() => onChange({ valid: true }), [user, onChange])
 
   return (
     <section className="registration-form__section registration-form__details">
@@ -102,6 +105,10 @@ const Details = () => {
       </LabelledField>
     </section>
   )
+}
+
+Details.propTypes = {
+  onChange: PropTypes.func.isRequired,
 }
 
 export default Details

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import PropTypes from 'lib/proptypes'
 import { useSticky } from 'lib/hooks'
 import Stepper from 'molecules/stepper'
 import PAGES from './pages'
