@@ -1,14 +1,13 @@
 import React, { useMemo } from 'react'
+import PropTypes from 'lib/proptypes'
+import moment from 'lib/moment'
 import entries from 'lodash/entries'
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
-import PropTypes from 'lib/proptypes'
-import moment from 'lib/moment'
+import Day from 'molecules/day'
 import Timeslot from 'molecules/timeslot'
-import Template from 'molecules/day'
-import Activity from './activity'
 
-const Day = ({ date, activities, loading }) => {
+const WorkshopDay = ({ date, loading, activities, offset }) => {
   const slots = useMemo(() => (
     sortBy(
       entries(groupBy(activities, activity => activity.startsAt.valueOf())),
@@ -17,31 +16,19 @@ const Day = ({ date, activities, loading }) => {
   ), [activities])
 
   return (
-    <Template date={date} loading={loading}>
+    <Day date={date} offset={offset}>
       {slots.map(([time, activities]) => (
-        <Timeslot
-          key={time.valueOf()}
-          loading={loading}
-          time={time}
-          activities={activities}
-        >
-          {activities.map(activity => (
-            <Activity key={activity.id} loading={loading} {...activity} />
-          ))}
-        </Timeslot>
+        <Timeslot key={time.valueOf()} time={time} offset={offset} loading={loading} />
       ))}
-    </Template>
+    </Day>
   )
 }
 
-Day.propTypes = {
+WorkshopDay.propTypes = {
   date: PropTypes.time.isRequired,
   loading: PropTypes.bool,
   activities: PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired,
+  offset: PropTypes.number,
 }
 
-Day.defaultProps = {
-  loading: false,
-}
-
-export default Day
+export default WorkshopDay

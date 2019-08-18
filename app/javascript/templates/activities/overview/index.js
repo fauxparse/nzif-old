@@ -33,8 +33,6 @@ const Overview = ({ loading, type, activities, festival }) => {
 
   const back = `/${festival.year}`
 
-  const title = useMemo(() => pluralize(humanize(type)), [type])
-
   return (
     <div
       className="activities-overview"

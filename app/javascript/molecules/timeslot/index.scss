@@ -1,0 +1,39 @@
+@import "../../styles/base";
+
+.timeslot {
+  &__time {
+    @include autopad;
+    position: relative;
+    margin: -3rem 0 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: font-size(3);
+    font-weight: font-weight(light);
+    line-height: 2rem;
+    z-index: 2;
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+
+  &__activities {
+    @include autopad;
+    display: grid;
+    padding-bottom: $padding * 2;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    grid-row-gap: $spacing;
+    grid-column-gap: $spacing;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: auto;
+
+      &__description {
+        flex: 1;
+      }
+    }
+  }
+}

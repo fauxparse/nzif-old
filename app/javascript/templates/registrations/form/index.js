@@ -11,7 +11,7 @@ import './index.scss'
 const RegistrationForm = ({ festival, user }) => {
   const container = useRef()
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(2)
 
   const [valid, setValid] = useState(true)
 

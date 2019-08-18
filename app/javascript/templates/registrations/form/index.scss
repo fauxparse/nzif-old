@@ -18,7 +18,7 @@
 
   &__header,
   &__footer {
-    z-index: 1;
+    z-index: 3;
     backdrop-filter: blur(4px);
   }
 
@@ -95,11 +95,11 @@
     font-weight: font-weight(light);
 
     @include media(medium) {
-      margin-left: -4.25rem;
+      margin-left: -3.75rem;
       font-size: font-size(4);
 
       .badge {
-        margin-right: 1.25rem;
+        margin-right: 0.75rem;
       }
     }
   }
@@ -178,10 +178,18 @@
       }
 
       @include media(medium) {
-        margin: 0 calc(-1px - #{$padding}) $spacing;
+        margin: 0 0 $spacing;
         border-width: 1px;
         border-radius: $border-radius;
       }
+    }
+  }
+
+  &__workshops {
+    @include horizontal-padding(0);
+
+    .registration-form__heading {
+      @include autopad;
     }
   }
 

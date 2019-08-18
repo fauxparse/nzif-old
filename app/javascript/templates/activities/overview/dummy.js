@@ -6,6 +6,7 @@ const dummyActivity = (date) => ({
   type: 'workshop',
   name: 'Example activity',
   slug: 'example',
+  url: '/',
   presenters: [{
     name: 'Laura Mipsum',
     origin: 'Wellington',
@@ -19,6 +20,6 @@ export default () => {
   const days = new Array(5).fill(0).map((_, i) => moment().startOf('day').add(i, 'days'))
   return days.map(day => ({
     date: day.toISOString(),
-    activities: new Array(4).fill(0).map(() => dummyActivity(day)),
+    activities: new Array(3).fill(0).map(() => dummyActivity(day)),
   }))
 }
