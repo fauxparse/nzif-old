@@ -1,0 +1,16 @@
+@import "../../styles/base";
+
+.badge {
+  display: inline-block;
+  min-width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.5em;
+  border-radius: 0.75em;
+  text-align: center;
+  vertical-align: baseline;
+
+  @include themify {
+    background: themed(accent);
+    color: $white;
+  }
+}

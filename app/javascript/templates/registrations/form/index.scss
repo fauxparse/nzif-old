@@ -7,18 +7,23 @@
   &__title {
     margin: 0;
     padding: $spacing;
-    font-size: font-size(4);
+    font-size: font-size(6);
     font-weight: font-weight(light);
     text-align: center;
   }
 
   &__header,
   &__footer {
-    padding: ($padding / 2) $padding;
+    z-index: 1;
     backdrop-filter: blur(4px);
   }
 
+  &__header {
+    padding: ($padding / 2) $padding;
+  }
+
   &__footer {
+    @include autopad;
     display: flex;
     position: fixed;
     right: 0;
@@ -76,12 +81,109 @@
     }
   }
 
+  &__heading {
+    margin: ($spacing * 2) 0 $spacing;
+    font-size: font-size(4);
+    font-weight: font-weight(light);
+
+    @include media(medium) {
+      margin-left: -4.25rem;
+
+      .badge {
+        margin-right: 1.25rem;
+      }
+    }
+  }
+
+  &__section {
+    @include autopad;
+    margin: 0 auto;
+    padding-bottom: $padding * 2;
+
+    .field {
+      position: relative;
+      margin-bottom: $spacing * 2;
+
+      > .icon {
+        display: none;
+
+        @include media(medium) {
+          display: block;
+          position: absolute;
+          top: calc(#{line-height(normal)} * #{font-size(-1)} + 0.5rem);
+          left: -3.5rem;
+        }
+      }
+    }
+
+    .field-row {
+      > .hint {
+        margin-bottom: $spacing * 2;
+      }
+
+      @include media(medium) {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: $spacing * 2;
+
+        .field {
+          flex: 1 0 auto;
+          margin-bottom: 0;
+
+          &:not(:first-of-type) {
+            margin-left: $spacing;
+
+            .icon {
+              display: none;
+            }
+          }
+        }
+
+        > .hint {
+          flex: 1 0 auto;
+          order: 1;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &__code-of-conduct {
+    .read-everything {
+      position: relative;
+      height: calc(100vh - 16rem);
+      margin: 0 (-$padding) $spacing;
+      padding: $padding;
+      border: 1px solid transparent;
+      border-width: 1px 0;
+
+      .loader {
+        ~ * {
+          display: none;
+        }
+      }
+
+      @include themify {
+        border-color: themed(border);
+        background: themed(panel);
+      }
+
+      @include media(medium) {
+        margin: 0 calc(-1px - #{$padding}) $spacing;
+        border-width: 1px;
+        border-radius: $border-radius;
+      }
+    }
+  }
+
   @include themify {
     &__header {
+      border-bottom: 1px solid themed(border);
       background: change-opacity(themed(background), 0.9);
     }
 
     &__footer {
+      border-top: 1px solid themed(border);
       background: change-opacity(themed(panel), 0.9);
     }
   }

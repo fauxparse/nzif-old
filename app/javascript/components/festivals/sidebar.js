@@ -38,8 +38,12 @@ const FestivalSidebar = ({ festival, ...props }) => {
       )}
       <Divider inset />
       <List compact>
-        <List.Link to="#" icon="venue" primary="Venue map" />
-        <List.Link to="#" icon="code-of-conduct" primary="Code of conduct" />
+        <List.Link to={`/${year}/map`} icon="venue" primary="Venue map" />
+        <List.Link
+          to={`/${year}/code-of-conduct`}
+          icon="code-of-conduct"
+          primary="Code of conduct"
+        />
         <List.Link
           as="a"
           href="https://improvfest.nz"

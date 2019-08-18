@@ -4,11 +4,12 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  padding: ($padding / 2) $padding;
 
   .step {
     position: relative;
     flex: 0 0 4.5rem;
-    padding-bottom: 1rem;
+    padding: 0 0 1rem;
 
     &__icon {
       display: block;
@@ -45,38 +46,35 @@
 
     @include media(medium) {
       flex: 1 0 0;
+      max-width: 7.5rem;
 
       &__text {
         opacity: 1;
       }
     }
 
-      &:not(:last-child) {
-        &::before,
+    &:not(:last-child) {
+      &::before,
+      &::after {
+        position: absolute;
+        top: 1.25rem;
+        left: calc(50% + 1.25rem);
+        width: calc(100% - 2.5rem);
+        border-top: 1px solid currentColor;
+        content: "";
+      }
+
+      &::after {
+        transform: scaleX(0);
+        transform-origin: 0 0;
+        transition: transition(transform);
+      }
+
+      &.step--completed {
         &::after {
-          position: absolute;
-          top: 1.25rem;
-          left: calc(50% + 1.25rem);
-          width: calc(100% - 2.5rem);
-          border-top: 1px solid currentColor;
-          content: "";
+          transform: scaleX(1);
         }
-
-        &::after {
-          transform: scaleX(0);
-          transform-origin: 0 0;
-          transition: transition(transform);
-        }
-
-        &.step--completed {
-          &::after {
-            transform: scaleX(1);
-          }
-        }
-    }
-
-    &--completed {
-
+      }
     }
 
     @include themify {

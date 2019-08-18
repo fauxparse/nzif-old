@@ -1,24 +1,18 @@
 import React from 'react'
-import PageHeader from './shared/page_header'
 import TextLink from 'atoms/text_link'
-import Breadcrumbs from './shared/breadcrumbs'
+import Breadcrumbs from 'molecules/breadcrumbs'
+import Header from 'organisms/header'
 
 const NotFound = () => (
   <section className="static-content__page">
-    <PageHeader
-      className="static-content__header"
-      title="Not found"
-      back="/"
-      breadcrumbs={
-        <Breadcrumbs.Link to={`/`}>
+    <Header colored>
+      <Breadcrumbs back="/">
+        <Breadcrumbs.Link to="/">
           Home
         </Breadcrumbs.Link>
-      }
-    >
-      <h1 className="page-header__title">
-        No, but.
-      </h1>
-    </PageHeader>
+      </Breadcrumbs>
+      <Header.Title>No, but.</Header.Title>
+    </Header>
     <div className="static-content__container">
       <div className="static-content">
         <p>Sorry, we couldn’t find what you were looking for.</p>

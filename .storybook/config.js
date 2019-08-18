@@ -3,6 +3,7 @@ import { MemoryRouter, Route } from 'react-router-dom'
 import { Manager } from 'react-popper'
 import { configure, addDecorator } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
+import { StaticContentProvider, DummyLoader } from 'contexts/static_content'
 
 import '../app/javascript/styles/application.scss'
 
@@ -31,6 +32,12 @@ addDecorator(story => (
   <Manager>
     {story()}
   </Manager>
+))
+
+addDecorator(story => (
+  <StaticContentProvider loader={DummyLoader}>
+    {story()}
+  </StaticContentProvider>
 ))
 
 const req = require.context('../app/javascript', true, /\.stories\.js$/)

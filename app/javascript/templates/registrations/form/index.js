@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import Header from './header'
 import Pager from './pager'
@@ -15,15 +15,20 @@ const RegistrationForm = ({ festival, user }) => {
 
   const nextPage = useCallback(() => setPage(page + 1), [page, setPage])
 
+  const Component = useMemo(() => PAGES[page].component, [page])
+
   return (
     <RegistrationFormContext.Provider value={{
       page: PAGES[page],
-      pageIndex: page
+      pageIndex: page,
+      user,
     }}>
       <section className="registration-form">
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
         <Header />
-        <Pager />
+        <Pager>
+          <Component />
+        </Pager>
         <Footer
           onBackClick={previousPage}
           onNextClick={nextPage}

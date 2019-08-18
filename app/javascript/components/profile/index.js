@@ -4,7 +4,7 @@ import { Query, withApollo } from 'react-apollo'
 import classNames from 'classnames'
 import { EDIT_USER_QUERY, UPDATE_USER_MUTATION } from '../../queries'
 import Loader from 'atoms/loader'
-import NotFound from '../not_found'
+import NotFound from 'templates/not_found'
 import Editor from './editor'
 
 class ProfileSection extends Component {

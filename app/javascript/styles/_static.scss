@@ -19,11 +19,7 @@
   }
 
   &__container {
-    padding: 0 $padding $padding;
-
-    @include media(medium) {
-      @include constrained-width($keyline, $padding);
-    }
+    @include autopad;
   }
 
   h2 {
