@@ -1,5 +1,7 @@
 import PageTransition from './group'
 
+import './index.scss'
+
 export { default as none } from './none'
 export { default as slide, left as slideLeft, right as slideRight } from './slide'
 export { default as popOver } from './pop_over'
