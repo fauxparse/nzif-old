@@ -40,12 +40,18 @@ $avatar-size: 2.5rem;
 
 @mixin constrained-width($extra-padding-left: 1rem, $extra-padding-right: $extra-padding-left) {
   $min-full-width: map-get($breakpoints, medium) + $extra-padding-left + $extra-padding-right;
+  $min-full-width-large: map-get($breakpoints, large) + $extra-padding-left + $extra-padding-right;
+
   padding: $padding $extra-padding-right $padding $extra-padding-left;
 
   @include media($min-full-width) {
+    @include horizontal-padding($left: $extra-padding-left, $right: $extra-padding-right);
+  }
+
+  @include media($min-full-width-large) {
     @include horizontal-padding(
-      $left: calc(50vw - #{map-get($breakpoints, medium)} / 2 + #{$extra-padding-left}),
-      $right: calc(50vw - #{map-get($breakpoints, medium)} / 2 + #{$extra-padding-right})
+      $left: calc(50vw - #{map-get($breakpoints, large)} / 2 + #{$extra-padding-left}),
+      $right: calc(50vw - #{map-get($breakpoints, large)} / 2 + #{$extra-padding-right})
     );
   }
 }
@@ -54,7 +60,12 @@ $avatar-size: 2.5rem;
   padding: $padding;
 
   @include media(medium) {
-    padding-right: calc(50vw - #{map-get($breakpoints, medium)} / 2 + #{$padding});
-    padding-left: calc(50vw - #{map-get($breakpoints, medium)} / 2 + #{$keyline});
+    padding-right: $padding;
+    padding-left: $keyline;
+  }
+
+  @include media(large) {
+    padding-right: calc(50vw - #{map-get($breakpoints, large)} / 2 + #{$padding});
+    padding-left: calc(50vw - #{map-get($breakpoints, large)} / 2 + #{$keyline});
   }
 }
