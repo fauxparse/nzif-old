@@ -19,12 +19,7 @@ const Day = ({ date, activities, loading }) => {
   return (
     <Template date={date} loading={loading}>
       {slots.map(([time, activities]) => (
-        <Timeslot
-          key={time.valueOf()}
-          loading={loading}
-          time={time}
-          activities={activities}
-        >
+        <Timeslot key={time.valueOf()} loading={loading} time={time}>
           {activities.map(activity => (
             <Activity key={activity.id} loading={loading} {...activity} />
           ))}

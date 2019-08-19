@@ -32,8 +32,6 @@ const RegistrationForm = ({ festival, user }) => {
 
   const Component = useMemo(() => PAGES[page].component, [page])
 
-  const onValidate = useRef(() => {})
-
   React.useEffect(() => {
     if (!container.current) return
     const header = container.current.querySelector('.registration-form__header')
@@ -42,19 +40,23 @@ const RegistrationForm = ({ festival, user }) => {
     window.scrollTo(0, Math.min(maxScrollTop, scrollTop.current))
   }, [page])
 
-  useEffect(() => {
-    onValidate.current = ({ valid }) => {
-      setValid(valid)
-    }
-  }, [setValid])
+  const [registration, setRegistration] = useState({ workshops: [] })
 
-  const onChange = useCallback((validation) => onValidate.current(validation), [onValidate])
+  const [changes, setChanges] = useState({})
+
+  const onChange = useCallback(({ valid = true, attributes = {} }) => {
+    setValid(valid)
+    setChanges({ ...changes, ...attributes })
+  }, [setValid, setChanges, changes])
+
+  const combined = useMemo(() => ({ ...registration, ...changes }), [registration, changes])
 
   return (
     <RegistrationFormContext.Provider value={{
       page: PAGES[page],
       pageIndex: page,
       user,
+      registration: combined,
     }}>
       <section ref={container} className="registration-form">
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>

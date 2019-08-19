@@ -188,8 +188,55 @@
   &__workshops {
     @include horizontal-padding(0);
 
-    .registration-form__heading {
+    .registration-form__heading,
+    > p {
       @include autopad;
+      @include vertical-padding(0);
+    }
+
+    .card {
+      position: relative;
+
+      .badge {
+      }
+    }
+  }
+
+  &__workshop {
+    .workshop__position {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      font-size: font-size(2);
+      font-weight: font-weight(bold);
+      line-height: 2.5rem;
+
+      .button__text {
+        padding: 0;
+        z-index: unset;
+      }
+
+      .button__ripple {
+        border-radius: 50%;
+      }
+
+      &:not(.button--primary) {
+        background: change-opacity($white, 0.9);
+      }
+    }
+
+    &,
+    &:hover {
+      @include elevation(1);
+    }
+
+    &[aria-selected] {
+      @include elevation(4);
     }
   }
 

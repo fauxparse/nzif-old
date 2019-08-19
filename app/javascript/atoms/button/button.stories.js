@@ -14,7 +14,6 @@ storiesOf('Atoms|Button', module)
       icon={icon('Icon', null)}
       text={text('Text', 'Button')}
       disabled={boolean('Disabled', false)}
-      onClick={action('clicked')}
     />
   ))
   .add('Primary', () => (
@@ -23,7 +22,6 @@ storiesOf('Atoms|Button', module)
       icon={icon('Icon', null)}
       text={text('Text', 'Primary Button')}
       disabled={boolean('Disabled', false)}
-      onClick={action('clicked')}
     />
   ))
   .add('Icon only', () => (
@@ -31,7 +29,6 @@ storiesOf('Atoms|Button', module)
       primary
       icon={icon()}
       disabled={boolean('Disabled', false)}
-      onClick={action('clicked')}
     />
   ))
   .add('Link', () => (
@@ -44,7 +41,7 @@ storiesOf('Atoms|Button', module)
     />
   ))
   .add('Custom', () => (
-    <Button disabled={boolean('Disabled', false)} onClick={action('clicked')}>
+    <Button disabled={boolean('Disabled', false)}>
       <Button.Text>{text('Text', 'Primary Button')}</Button.Text>
       <Button.Icon name={icon()} />
     </Button>
