@@ -8,6 +8,22 @@ import RegistrationFormContext from './context'
 
 import './index.scss'
 
+const prices = [
+  0,
+  5500,
+  10500,
+  15000,
+  20000,
+  24000,
+  27500,
+  30500,
+  33000,
+  35500,
+  38000,
+  40000,
+  41500,
+]
+
 const RegistrationForm = ({ festival, user }) => {
   const container = useRef()
 
@@ -57,6 +73,7 @@ const RegistrationForm = ({ festival, user }) => {
       pageIndex: page,
       user,
       registration: combined,
+      prices,
     }}>
       <section ref={container} className="registration-form">
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>

@@ -55,7 +55,6 @@ const Workshops = ({ onChange }) => {
         on your preferences. If some workshops are popular you might not get all your first choices,
         so be sure to give backup options to get the most out of your NZIF experience.
       </p>
-      <p>{workshopCount} {workshopCount === 1 ? 'workshop' : 'workshops'} selected</p>
       {activitiesByDay.map(({ date, activities }) => (
         <Day
           key={date.toISOString()}

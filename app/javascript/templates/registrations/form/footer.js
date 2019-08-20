@@ -1,19 +1,16 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'lib/proptypes'
 import Button from 'atoms/button'
 import PAGES from './pages'
 import RegistrationFormContext from './context'
+import Cart from './cart'
 
 const Footer = ({ valid, onBackClick, onNextClick }) => {
-  const { pageIndex, registration: { workshops } } = useContext(RegistrationFormContext)
-
-  const workshopCount = useMemo(() => workshops.filter(([_, p]) => p === 1).length, [workshops])
+  const { pageIndex } = useContext(RegistrationFormContext)
 
   return (
     <footer className="registration-form__footer">
-      <div className="footer__cart">
-        {workshopCount} {workshopCount === 1 ? 'workshop' : 'workshops'}
-      </div>
+      <Cart />
       <div className="footer__buttons">
         {pageIndex > 0 && (
           <Button text="Back" onClick={onBackClick} />

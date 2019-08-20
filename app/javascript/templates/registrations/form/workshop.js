@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'lib/proptypes'
 import Sentence from 'atoms/sentence'
@@ -36,16 +36,18 @@ const Workshop = ({ loading, activity, position, onToggle }) => {
           {presenters.map(presenter => presenter.name)}
         </Sentence>
       </Card.Description>
-      <Button
-        as="Link"
-        to="/"
-        center
-        className="workshop__info"
-        text="More info..."
-        aria-label={`Read more about ${activity.name}`}
-        icon="info"
-        onClick={infoClicked}
-      />
+      <Fragment>
+        <Button
+          as={Link}
+          to="/"
+          center
+          className="workshop__info"
+          text="More info..."
+          aria-label={`Read more about ${activity.name}`}
+          icon="info"
+          onClick={infoClicked}
+        />
+      </Fragment>
     </Card>
   )
 }

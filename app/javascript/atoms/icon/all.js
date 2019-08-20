@@ -6,6 +6,7 @@ export default [
   'arrow-right',
   'back',
   'calendar',
+  'cart',
   'check',
   'checkbox',
   'chevron-down',
