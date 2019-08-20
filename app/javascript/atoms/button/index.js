@@ -13,6 +13,7 @@ const Button = forwardRef(({
   icon,
   children,
   primary,
+  center,
   ...props
 }, ref) => {
   const classes = classNames(
@@ -32,7 +33,7 @@ const Button = forwardRef(({
       <Ripple
         className="button__ripple"
         disabled={props.disabled || undefined}
-        center={classes.indexOf('--icon') > -1}
+        center={center || classes.indexOf('--icon') > -1}
       />
       {icon && <Icon name={icon} />}
       {text && <Text>{text}</Text>}
@@ -47,11 +48,13 @@ Button.propTypes = {
   icon: PropTypes.icon,
   text: PropTypes.string,
   disabled: PropTypes.bool,
+  center: PropTypes.bool,
 }
 
 Button.defaultProps = {
   primary: false,
   disabled: undefined,
+  center: false,
 }
 
 Button.Text = Text

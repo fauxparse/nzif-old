@@ -200,21 +200,76 @@
       .badge {
       }
     }
+
+    .timeslot__activities {
+      grid-template-columns: 1fr;
+
+      @include media(medium) {
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+      }
+    }
   }
 
   &__workshop {
-    .workshop__position {
+    padding: 0.5rem $keyline;
+    cursor: pointer;
+    overflow: hidden;
+
+    .card__image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      transition: transition(filter opacity);
+      opacity: 0.15;
+      filter: grayscale(0.85);
+    }
+
+    .card__title,
+    .card__description {
+      margin: 0;
+      padding: 0;
+    }
+
+    .workshop__info {
       position: absolute;
       top: 0.5rem;
-      left: 0.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      padding: 0;
-      border: 0;
+      right: 0.5rem;
       border-radius: 50%;
+
+      .button__icon {
+        z-index: unset;
+      }
+
+      .button__text {
+        display: none;
+      }
+
+      .ripple__container {
+        border-radius: 50%;
+      }
+
+      @include themify {
+        padding: 0.5rem;
+        border: 0;
+        color: themed(secondary);
+      }
+    }
+
+    .workshop__position {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
       font-size: font-size(2);
       font-weight: font-weight(bold);
-      line-height: 2.5rem;
+      line-height: 2rem;
+
+      @include themify {
+        background: themed(panel);
+      }
 
       .button__text {
         padding: 0;
@@ -223,10 +278,6 @@
 
       .button__ripple {
         border-radius: 50%;
-      }
-
-      &:not(.button--primary) {
-        background: change-opacity($white, 0.9);
       }
     }
 
@@ -237,6 +288,66 @@
 
     &[aria-selected] {
       @include elevation(4);
+
+      .card__image {
+        filter: grayscale(0);
+      }
+    }
+
+    @include media(medium) {
+      padding: 0;
+      overflow: visible;
+
+      .card__image {
+        position: relative;
+        margin-bottom: 0.5rem;
+        opacity: 0.75;
+      }
+
+      &[aria-selected] {
+        .card__image {
+          opacity: 1;
+        }
+      }
+
+      .card__title,
+      .card__description {
+        margin: 0 0.75rem;
+      }
+
+      @include themify {
+        .workshop__info {
+          position: relative;
+          top: 0;
+          right: 0;
+          padding: 0.5rem 0.25rem;
+          border-radius: 0 0 $border-radius $border-radius;
+
+          &:focus {
+            background: themed(panel);
+            box-shadow: none;
+          }
+
+          .button__icon {
+            display: none;
+          }
+
+          .button__text {
+            display: block;
+            font-size: font-size(-1);
+            text-align: left;
+            z-index: unset;
+          }
+
+          .ripple__container {
+            border-radius: 0 0 $border-radius $border-radius;
+          }
+        }
+
+        .workshop__position {
+          background: change-opacity($white, 0.9);
+        }
+      }
     }
   }
 

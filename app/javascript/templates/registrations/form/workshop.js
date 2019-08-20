@@ -1,38 +1,51 @@
 import React, { useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'lib/proptypes'
-import humanize from 'lib/humanize'
 import Sentence from 'atoms/sentence'
 import Button from 'atoms/button'
 import Card from 'molecules/card'
 import Skeleton from 'effects/skeleton'
 
 const Workshop = ({ loading, activity, position, onToggle }) => {
-  const { name, type, image, presenters } = activity
+  const { name, image, presenters } = activity
 
   const toggle = useCallback(() => onToggle(activity), [onToggle, activity])
 
   const selected = position > 0
+
+  const infoClicked = useCallback((e) => {
+    e.stopPropagation()
+  }, [activity]);
 
   return (
     <Card
       className="workshop registration-form__workshop"
       loading={loading}
       aria-selected={selected || undefined}
+      onClick={toggle}
     >
       <Card.Image image={image} alt={name} />
-      <Card.Category>{humanize(type)}</Card.Category>
+      <Skeleton
+        as={Button}
+        className="button--icon workshop__position"
+        text={selected ? position.toString() : ' '}
+      />
       <Card.Title>{name}</Card.Title>
       <Card.Description>
-        <Skeleton
-          as={Button}
-          className="workshop__position"
-          onClick={toggle}
-          text={selected ? position : ' '}
-        />
         <Sentence>
           {presenters.map(presenter => presenter.name)}
         </Sentence>
       </Card.Description>
+      <Button
+        as="Link"
+        to="/"
+        center
+        className="workshop__info"
+        text="More info..."
+        aria-label={`Read more about ${activity.name}`}
+        icon="info"
+        onClick={infoClicked}
+      />
     </Card>
   )
 }

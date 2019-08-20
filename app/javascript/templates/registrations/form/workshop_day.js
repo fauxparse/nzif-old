@@ -1,15 +1,11 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
-import humanize from 'lib/humanize'
 import entries from 'lodash/entries'
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
-import Sentence from 'atoms/sentence'
-import Badge from 'atoms/badge'
 import Day from 'molecules/day'
 import Timeslot from 'molecules/timeslot'
-import Card from 'molecules/card'
 import Workshop from './workshop'
 
 const WorkshopDay = ({ date, loading, activities, offset, ordering, onToggleActivity }) => {
@@ -44,6 +40,9 @@ WorkshopDay.propTypes = {
   loading: PropTypes.bool,
   activities: PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired,
   offset: PropTypes.number,
+  ordering:
+    PropTypes.objectOf(PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired).isRequired,
+  onToggleActivity: PropTypes.func.isRequired,
 }
 
 export default WorkshopDay

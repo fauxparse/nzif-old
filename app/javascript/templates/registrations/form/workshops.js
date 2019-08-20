@@ -38,7 +38,7 @@ const Workshops = ({ onChange }) => {
       [...result, ...list.map((w, i) => [w.id, i + 1])]
     ), [])
     onChange({ attributes: { workshops } })
-  }, [ordering])
+  }, [ordering, onChange])
 
   useLayoutEffect(() => {
     const header =
@@ -48,7 +48,7 @@ const Workshops = ({ onChange }) => {
 
   return (
     <section ref={container} className="registration-form__section registration-form__workshops">
-      <Heading>Workshops</Heading>
+      <Heading>Select your workshops</Heading>
       <p>
         Select as many workshops as you’re interested in, in order of preference.
         Once earlybird registrations are closed, we’ll allocate the available places based
@@ -59,6 +59,7 @@ const Workshops = ({ onChange }) => {
       {activitiesByDay.map(({ date, activities }) => (
         <Day
           key={date.toISOString()}
+          loading={false}
           date={date}
           activities={activities}
           offset={offset}
