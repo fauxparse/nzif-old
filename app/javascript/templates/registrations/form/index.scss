@@ -63,9 +63,30 @@
       height: 2.5rem;
       margin: -1.25rem 0;
       border-radius: 50%;
+    }
 
-      @include themify {
+    .cart__workshop-count {
+      font-weight: font-weight(bold);
+    }
+
+    .cart__value {
+      text-decoration: line-through;
+    }
+
+    @include themify {
+      .cart__icon {
         background: $white;
+        color: themed(accent);
+      }
+
+      .cart__value {
+        margin-right: 0.5em;
+        color: themed(disabled);
+        text-decoration-color: themed(accent);
+
+        .price__currency {
+          display: none;
+        }
       }
     }
   }

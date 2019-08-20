@@ -3,7 +3,6 @@ import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
 import sortBy from 'lodash/sortBy'
 import entries from 'lodash/entries'
-import isEmpty from 'lodash/isEmpty'
 import dummy from 'templates/activities/overview/dummy'
 import Heading from './heading'
 import Day from './workshop_day'
@@ -29,10 +28,6 @@ const Workshops = ({ onChange }) => {
 
   const [ordering, toggle] = usePreferentialOrdering()
 
-  const workshopCount = useMemo(() => (
-    entries(ordering).filter(([_, choices]) => !isEmpty(choices)).length
-  ), [ordering])
-
   useEffect(() => {
     const workshops = entries(ordering).reduce((result, [_, list]) => (
       [...result, ...list.map((w, i) => [w.id, i + 1])]
@@ -50,7 +45,7 @@ const Workshops = ({ onChange }) => {
     <section ref={container} className="registration-form__section registration-form__workshops">
       <Heading>Select your workshops</Heading>
       <p>
-        Select as many workshops as you’re interested in, in order of preference.
+        Select as many workshops as you’re interested in, in order of preference (per time slot).
         Once earlybird registrations are closed, we’ll allocate the available places based
         on your preferences. If some workshops are popular you might not get all your first choices,
         so be sure to give backup options to get the most out of your NZIF experience.

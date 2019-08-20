@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef, useEffect, useState } from 'react'
 import PropTypes from 'lib/proptypes'
+import { useDeepState } from 'lib/hooks'
 import Header from './header'
 import Pager from './pager'
 import Footer from './footer'
@@ -58,7 +59,7 @@ const RegistrationForm = ({ festival, user }) => {
 
   const [registration, setRegistration] = useState({ workshops: [] })
 
-  const [changes, setChanges] = useState({})
+  const [changes, setChanges] = useDeepState({})
 
   const onChange = useCallback(({ valid = true, attributes = {} }) => {
     setValid(valid)
@@ -67,14 +68,16 @@ const RegistrationForm = ({ festival, user }) => {
 
   const combined = useMemo(() => ({ ...registration, ...changes }), [registration, changes])
 
+  const providerValue = useMemo(() => ({
+    page: PAGES[page],
+    pageIndex: page,
+    user,
+    registration: combined,
+    prices,
+  }), [page, user, combined, prices])
+
   return (
-    <RegistrationFormContext.Provider value={{
-      page: PAGES[page],
-      pageIndex: page,
-      user,
-      registration: combined,
-      prices,
-    }}>
+    <RegistrationFormContext.Provider value={providerValue}>
       <section ref={container} className="registration-form">
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
         <Header />

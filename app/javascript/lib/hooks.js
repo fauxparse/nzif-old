@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import stickybits from 'stickybits'
 import { v4 as uuid } from 'uuid'
+import isEqual from 'lodash/isEqual'
 import CurrentUserContext from 'contexts/current_user'
 
 export const useClock = () => {
@@ -62,4 +63,14 @@ export const usePrevious = (value) => {
   }, [value])
 
   return ref.current
+}
+
+export const useDeepState = (value) => {
+  const [state, setState] = useState(value)
+  const setStateIfNotEqual = useCallback((newState) => {
+    if (!isEqual(state, newState)) {
+      setState(newState)
+    }
+  }, [state, setState])
+  return [state, setStateIfNotEqual]
 }

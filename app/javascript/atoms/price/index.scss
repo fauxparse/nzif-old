@@ -1,0 +1,15 @@
+@import "../../styles/base";
+
+.price {
+  &__currency {
+    text-decoration: none;
+
+    &::before {
+      content: " ";
+    }
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+}
