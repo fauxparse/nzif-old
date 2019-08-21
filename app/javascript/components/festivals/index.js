@@ -9,6 +9,7 @@ import Header from './header'
 import Sidebar from './sidebar'
 import ActivitiesOverview from 'pages/activities/overview'
 import ActivityDetails from 'pages/activities/details'
+import RegistrationPage from 'pages/registration'
 import Profile from '../profile'
 import Map from '../map'
 import Pitches from '../pitches'
@@ -86,6 +87,7 @@ const Festival = ({ match, history }) => {
                       </Switch>
                     )}
                   />
+                  <Route path={`${match.path}/register`} component={RegistrationPage} />
                   <Route path={`${match.path}/profile`} exact component={Profile} />
                   <Route path={`${match.path}/pitches`} component={Pitches} />
                   <Route path={`${match.path}/map`} component={Map} />

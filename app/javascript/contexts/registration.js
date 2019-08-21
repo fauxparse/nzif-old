@@ -119,7 +119,7 @@ RegistrationMemoizer.propTypes = {
       preferences: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
     }).isRequired,
   }),
-  save: PropTypes.func.isRequired,
+  save: PropTypes.func,
 }
 
 export const RegistrationProvider = ({ loader: Loader = DummyLoader, children, ...props }) => (

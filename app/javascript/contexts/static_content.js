@@ -78,7 +78,7 @@ export const StaticContentLibrary = ({ load, children }) => {
 }
 
 StaticContentLibrary.propTypes = {
-  load: PropTypes.func.isRequired,
+  load: PropTypes.func,
 }
 
 export const StaticContentProvider = ({ loader: Loader = ApolloLoader, children }) => (
