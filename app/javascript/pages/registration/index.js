@@ -7,14 +7,12 @@ import Loader from 'atoms/loader'
 const RegistrationPage = () => {
   const festival = useContext(FestivalContext)
 
-  return (
-    <section>
-      {festival ? (
-        <RegistrationProvider>
-          <RegistrationForm festival={festival} />
-        </RegistrationProvider>
-      ) : <Loader />}
-    </section>
+  return festival ? (
+    <RegistrationProvider>
+      <RegistrationForm festival={festival} />
+    </RegistrationProvider>
+  ) : (
+    <Loader />
   )
 }
 

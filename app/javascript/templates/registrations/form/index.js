@@ -1,7 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
-import merge from 'lodash/merge'
 import PropTypes from 'lib/proptypes'
-import { useDeepMemo, useDeepState } from 'lib/hooks'
 import Header from './header'
 import Pager from './pager'
 import Footer from './footer'
@@ -22,7 +20,7 @@ const RegistrationForm = ({ festival, user }) => {
   const goToPage = useCallback((page) => {
     scrollTop.current = document.documentElement.scrollTop
     setPage(page)
-  }, [scrollTop, setPage])
+  }, [setPage])
 
   const previousPage = useCallback(() => {
     goToPage(page - 1)
@@ -34,31 +32,23 @@ const RegistrationForm = ({ festival, user }) => {
 
   const Component = useMemo(() => PAGES[page].component, [page])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (!container.current) return
-    const header = container.current.querySelector('.registration-form__header')
     const pager = container.current.querySelector('.registration-form__pager')
-    const maxScrollTop = pager.offsetTop - header.offsetHeight
-    window.scrollTo(0, Math.min(maxScrollTop, scrollTop.current))
+    const header = container.current.querySelector('.registration-form__header')
+    const maxScrollTop = pager.getBoundingClientRect().y + scrollTop.current - header.offsetHeight
+    document.documentElement.scrollTop = Math.min(scrollTop.current, maxScrollTop)
   }, [page])
 
-  const [registration, setRegistration] = useState({ workshops: [] })
-
-  const [changes, setChanges] = useDeepState({})
-
-  const onChange = useCallback(({ valid = true, attributes = {} }) => {
+  const onChange = useCallback(({ valid = true }) => {
     setValid(valid)
-    setChanges({ ...changes, ...attributes })
-  }, [setValid, setChanges, changes])
-
-  const combined = useDeepMemo(() => merge(registration, changes), [registration, changes])
+  }, [setValid])
 
   const providerValue = useMemo(() => ({
     page: PAGES[page],
     pageIndex: page,
     user,
-    registration: combined,
-  }), [page, user, combined])
+  }), [page, user])
 
   return (
     <RegistrationFormContext.Provider value={providerValue}>
@@ -66,7 +56,7 @@ const RegistrationForm = ({ festival, user }) => {
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
         <Header />
         <Pager>
-          <Component registration={combined} onChange={onChange} />
+          <Component onChange={onChange} />
         </Pager>
         <Footer
           valid={valid}

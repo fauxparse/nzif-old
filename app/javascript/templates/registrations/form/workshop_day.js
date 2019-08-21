@@ -22,7 +22,7 @@ const WorkshopDay = ({ date, loading, activities, offset, ordering, onToggleActi
         <Timeslot key={time.valueOf()} time={time} offset={offset} loading={loading}>
           {activities.map(activity => (
             <Workshop
-              key={activity.id}
+              key={activity.sessionId}
               activity={activity}
               loading={loading}
               position={(ordering[activity.startsAt.valueOf()] || []).indexOf(activity) + 1}

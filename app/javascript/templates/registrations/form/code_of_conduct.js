@@ -10,10 +10,10 @@ import { useStaticContent } from 'contexts/static_content'
 import { useRegistration } from 'contexts/registration'
 import Heading from './heading'
 
-const CodeOfConduct = ({ registration, onChange }) => {
+const CodeOfConduct = ({ onChange }) => {
   const { registration: { codeOfConductAcceptedAt }, change } = useRegistration()
 
-  const [read, setRead] = useState(false)
+  const [read, setRead] = useState(!!codeOfConductAcceptedAt)
 
   const finishedReading = useCallback(() => setRead(true), [setRead])
 

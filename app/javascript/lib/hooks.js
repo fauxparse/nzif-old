@@ -86,7 +86,7 @@ export const useDeepMemo = (compute, dependencies) => {
   return cached
 }
 
-export const usePreferentialOrdering = (initialOrder = {}) => {
+export const usePreferentialOrdering = (initialOrder) => {
   const [state, dispatch] = useReducer((ordering, { item, reset }) => {
     if (item) {
       const key = item.startsAt.valueOf()

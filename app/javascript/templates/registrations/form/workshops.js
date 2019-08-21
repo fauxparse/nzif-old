@@ -39,7 +39,7 @@ const Workshops = ({ onChange }) => {
   const workshopsById = useMemo(() => (
     keyBy(
       activitiesByDay.reduce((list, { activities }) => [...list, ...activities], []),
-      a => a.id
+      a => a.sessionId
     )
   ), [activitiesByDay])
 
@@ -60,11 +60,10 @@ const Workshops = ({ onChange }) => {
   }, [loaded, loading, workshopsById, preferences, reset])
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && loaded.current && ordering) {
       const workshops = entries(ordering).reduce((result, [_, list]) => (
-        [...result, ...list.map((w, i) => [w.id, i + 1])]
+        [...result, ...list.map((w, i) => [w.sessionId, i + 1])]
       ), [])
-      onChange({ attributes: { workshops } })
 
       change({ preferences: workshops })
     }
@@ -92,7 +91,7 @@ const Workshops = ({ onChange }) => {
           date={date}
           activities={activities}
           offset={offset}
-          ordering={ordering}
+          ordering={ordering || {}}
           onToggleActivity={toggle}
         />
       ))}

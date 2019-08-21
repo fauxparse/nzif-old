@@ -8,6 +8,7 @@ const dummyActivity = (date, index) => {
 
   return {
     id: random.uuid(),
+    sessionId: random.uuid(),
     type: 'workshop',
     name: lorem.sentence().replace(/\.$/, ''),
     slug: lorem.slug(),

@@ -58,10 +58,10 @@ export const DummyLoader = ({ delay = 1000, children }) => {
       setRegistration({
         ...registration,
         preferences: [
-          [workshops.current[0].activities[1].id, 1],
-          [workshops.current[0].activities[0].id, 2],
-          [workshops.current[0].activities[3].id, 3],
-          [workshops.current[1].activities[2].id, 1],
+          [workshops.current[0].activities[1].sessionId, 1],
+          [workshops.current[0].activities[0].sessionId, 2],
+          [workshops.current[0].activities[3].sessionId, 3],
+          [workshops.current[1].activities[2].sessionId, 1],
         ],
       })
       setLoading(false)
