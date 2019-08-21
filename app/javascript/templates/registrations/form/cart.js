@@ -1,12 +1,12 @@
 import React, { useContext, useMemo } from 'react'
 import Icon from 'atoms/icon'
 import Price from 'atoms/price'
-import RegistrationFormContext from './context'
+import RegistrationContext from 'contexts/registration'
 
 const Cart = () => {
-  const { prices, registration: { workshops } } = useContext(RegistrationFormContext)
+  const { prices, registration: { preferences } } = useContext(RegistrationContext)
 
-  const workshopCount = useMemo(() => workshops.filter(([_, p]) => p === 1).length, [workshops])
+  const workshopCount = useMemo(() => preferences.filter(([_, p]) => p === 1).length, [preferences])
 
   const value = useMemo(() => prices[1] * workshopCount, [prices, workshopCount])
 

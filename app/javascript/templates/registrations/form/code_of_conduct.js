@@ -1,24 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReadEverything from 'molecules/read_everything'
-import Markdown from 'molecules/markdown'
+import PropTypes from 'lib/proptypes'
+import moment from 'lib/moment'
 import Checkbox from 'atoms/checkbox'
 import Loader from 'atoms/loader'
 import Tooltip from 'atoms/tooltip'
+import ReadEverything from 'molecules/read_everything'
+import Markdown from 'molecules/markdown'
 import { useStaticContent } from 'contexts/static_content'
+import { useRegistration } from 'contexts/registration'
 import Heading from './heading'
 
-const CodeOfConduct = ({ onChange }) => {
-  const [read, setRead] = useState(false)
+const CodeOfConduct = ({ registration, onChange }) => {
+  const { registration: { codeOfConductAcceptedAt }, change } = useRegistration()
 
-  const [agreed, setAgreed] = useState(false)
+  const [read, setRead] = useState(false)
 
   const finishedReading = useCallback(() => setRead(true), [setRead])
 
-  const checkboxChanged = useCallback((e) => setAgreed(e.target.checked), [setAgreed])
+  const checkboxChanged = useCallback((e) => {
+    const agreed = e.target.checked ? moment().toISOString() : null
+    change({ codeOfConductAcceptedAt: agreed })
+  }, [change])
 
   const { loading, raw } = useStaticContent('code-of-conduct')
 
-  useEffect(() => onChange({ valid: agreed }), [onChange, agreed])
+  useEffect(() => {
+    onChange({ valid: !!codeOfConductAcceptedAt })
+  }, [codeOfConductAcceptedAt, onChange])
 
   return (
     <section className="registration-form__section registration-form__code-of-conduct">
@@ -33,12 +41,23 @@ const CodeOfConduct = ({ onChange }) => {
       </ReadEverything>
 
       <Tooltip title="Please scroll to the bottom before continuing" disabled={read}>
-        <Checkbox checked={agreed} disabled={!read} onChange={checkboxChanged}>
+        <Checkbox
+          checked={!!codeOfConductAcceptedAt}
+          disabled={!read}
+          onChange={checkboxChanged}
+        >
           I agree to the Code of Conduct
         </Checkbox>
       </Tooltip>
     </section>
   )
+}
+
+CodeOfConduct.propTypes = {
+  registration: PropTypes.shape({
+    codeOfConductAgreedAt: PropTypes.string,
+  }),
+  onChange: PropTypes.func.isRequired,
 }
 
 export default CodeOfConduct

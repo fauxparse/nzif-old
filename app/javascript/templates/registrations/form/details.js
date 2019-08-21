@@ -4,7 +4,8 @@ import Hint from 'atoms/hint'
 import TextLink from 'atoms/text_link'
 import Icon from 'atoms/icon'
 import LabelledField from 'molecules/labelled_field'
-import RegistrationFormContext from './context'
+import { useRegistration } from 'contexts/registration'
+import { useCurrentUser } from 'contexts/current_user'
 import Heading from './heading'
 
 const useUserDetails = (user) => {
@@ -20,11 +21,13 @@ const useUserDetails = (user) => {
 }
 
 const Details = ({ onChange }) => {
-  const { user: currentUser } = useContext(RegistrationFormContext)
+  const { registration, change } = useRegistration()
 
-  const [user, changed] = useUserDetails(currentUser || {})
+  const currentUser = useCurrentUser()
 
-  useEffect(() => onChange({ valid: true }), [user, onChange])
+  const changed = useCallback(({ target }) => change({ [target.name]: target.value }), [change])
+
+  useEffect(() => onChange({ valid: true }), [registration, onChange])
 
   return (
     <section className="registration-form__section registration-form__details">
@@ -32,7 +35,7 @@ const Details = ({ onChange }) => {
       <LabelledField
         required
         name="name"
-        value={user.name || ''}
+        value={registration.name || ''}
         onChange={changed}
         label="Your full name"
         autoFocus
@@ -47,11 +50,10 @@ const Details = ({ onChange }) => {
       <LabelledField
         required
         name="email"
-        value={user.email || ''}
+        value={registration.email || ''}
         onChange={changed}
         label="Your email address"
         autoComplete="email"
-        disabled={!!currentUser}
       >
         <Icon name="email" />
       </LabelledField>
@@ -63,7 +65,7 @@ const Details = ({ onChange }) => {
               required
               type="password"
               name="password"
-              value={user.password || ''}
+              value={registration.password || ''}
               onChange={changed}
               label="Password"
             >
@@ -79,7 +81,7 @@ const Details = ({ onChange }) => {
               required
               type="passwordConfirmation"
               name="password"
-              value={user.passwordConfirmation || ''}
+              value={registration.passwordConfirmation || ''}
               onChange={changed}
               label="Confirm password"
             >
@@ -92,7 +94,7 @@ const Details = ({ onChange }) => {
       <LabelledField
         type="phone"
         name="phone"
-        value={user.phone || ''}
+        value={registration.phone || ''}
         onChange={changed}
         label="New Zealand mobile number"
         autoComplete="tel"

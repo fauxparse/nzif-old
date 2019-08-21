@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import stickybits from 'stickybits'
 import { v4 as uuid } from 'uuid'
 import isEqual from 'lodash/isEqual'
@@ -73,4 +73,40 @@ export const useDeepState = (value) => {
     }
   }, [state, setState])
   return [state, setStateIfNotEqual]
+}
+
+export const useDeepMemo = (compute, dependencies) => {
+  const [cached, update] = useState(compute())
+  useEffect(() => {
+    const replacement = compute()
+    if (!isEqual(replacement, cached)) {
+      update(replacement)
+    }
+  }, [compute, cached, update, ...dependencies]) // eslint-disable-line react-hooks/exhaustive-deps
+  return cached
+}
+
+export const usePreferentialOrdering = (initialOrder = {}) => {
+  const [state, dispatch] = useReducer((ordering, { item, reset }) => {
+    if (item) {
+      const key = item.startsAt.valueOf()
+      const order = ordering[key] || []
+      return {
+        ...ordering,
+        [key]: order.includes(item) ? order.filter(i => i !== item) : [...order, item],
+      }
+    }
+
+    if (reset) {
+      return reset
+    }
+
+    return ordering
+  }, initialOrder)
+
+  const toggle = useCallback(item => dispatch({ item }), [dispatch])
+
+  const reset = useCallback(ordering => dispatch({ reset: ordering }), [dispatch])
+
+  return [state, toggle, reset]
 }

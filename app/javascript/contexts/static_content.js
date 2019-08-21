@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useMemo, useReducer } from 'react'
+import PropTypes from 'lib/proptypes'
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import humanize from 'lib/humanize'
@@ -76,6 +77,10 @@ export const StaticContentLibrary = ({ load, children }) => {
   )
 }
 
+StaticContentLibrary.propTypes = {
+  load: PropTypes.func.isRequired,
+}
+
 export const StaticContentProvider = ({ loader: Loader = ApolloLoader, children }) => (
   <Loader>
     <StaticContentLibrary>
@@ -83,6 +88,10 @@ export const StaticContentProvider = ({ loader: Loader = ApolloLoader, children 
     </StaticContentLibrary>
   </Loader>
 )
+
+StaticContentProvider.propTypes = {
+  loader: PropTypes.component,
+}
 
 export const useStaticContent = (slug) => {
   const { request } = useContext(StaticContentContext)

@@ -1,4 +1,5 @@
 import moment from 'lib/moment'
+import sortBy from 'lodash/sortBy'
 import { address, lorem, image, name, random } from 'faker'
 
 const dummyActivity = (date, index) => {
@@ -28,9 +29,16 @@ const dummyActivity = (date, index) => {
 }
 
 export default () => {
-  const days = new Array(5).fill(0).map((_, i) => moment().startOf('day').add(i, 'days'))
+  const days = new Array(5).fill(0).map((_, i) =>
+    moment()
+      .startOf('day')
+      .add(i, 'days')
+  );
   return days.map((day, i) => ({
     date: day.toISOString(),
-    activities: new Array(4).fill(0).map((_, j) => dummyActivity(day, i * 4 + j)),
-  }))
-}
+    activities: sortBy(
+      new Array(4).fill(0).map((_, j) => dummyActivity(day, i * 4 + j)),
+      [({ name }) => name]
+    )
+  }));
+};

@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo, useRef, useEffect, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
+import merge from 'lodash/merge'
 import PropTypes from 'lib/proptypes'
-import { useDeepState } from 'lib/hooks'
+import { useDeepMemo, useDeepState } from 'lib/hooks'
 import Header from './header'
 import Pager from './pager'
 import Footer from './footer'
@@ -9,26 +10,10 @@ import RegistrationFormContext from './context'
 
 import './index.scss'
 
-const prices = [
-  0,
-  5500,
-  10500,
-  15000,
-  20000,
-  24000,
-  27500,
-  30500,
-  33000,
-  35500,
-  38000,
-  40000,
-  41500,
-]
-
 const RegistrationForm = ({ festival, user }) => {
   const container = useRef()
 
-  const [page, setPage] = useState(2)
+  const [page, setPage] = useState(0)
 
   const [valid, setValid] = useState(true)
 
@@ -66,15 +51,14 @@ const RegistrationForm = ({ festival, user }) => {
     setChanges({ ...changes, ...attributes })
   }, [setValid, setChanges, changes])
 
-  const combined = useMemo(() => ({ ...registration, ...changes }), [registration, changes])
+  const combined = useDeepMemo(() => merge(registration, changes), [registration, changes])
 
   const providerValue = useMemo(() => ({
     page: PAGES[page],
     pageIndex: page,
     user,
     registration: combined,
-    prices,
-  }), [page, user, combined, prices])
+  }), [page, user, combined])
 
   return (
     <RegistrationFormContext.Provider value={providerValue}>
@@ -82,7 +66,7 @@ const RegistrationForm = ({ festival, user }) => {
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
         <Header />
         <Pager>
-          <Component onChange={onChange} />
+          <Component registration={combined} onChange={onChange} />
         </Pager>
         <Footer
           valid={valid}
