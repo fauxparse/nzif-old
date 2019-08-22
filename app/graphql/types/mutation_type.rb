@@ -10,6 +10,7 @@ module Types
     field :delete_pitch, mutation: Mutations::DeletePitch
     field :promote_pitch, mutation: Mutations::PromotePitch
     field :update_user, mutation: Mutations::UpdateUser
+    field :update_registration, mutation: Mutations::UpdateRegistration
     field :log_in, mutation: Mutations::LogIn
     field :log_out, mutation: Mutations::LogOut
     field :sign_up, mutation: Mutations::SignUp

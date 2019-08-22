@@ -9,10 +9,11 @@ module Mutations
 
     def resolve(year:, attributes:)
       result = ::UpdateRegistration.call(
-        festival: Festival.find_by(year: year),
+        festival: Festival.by_year(year).first,
         current_user: logged_in? ? current_user : nil,
-        attributes: attributes,
+        attributes: attributes.to_h,
       )
+      raise ActiveModel::ValidationError.new(result) if result.failure?
       log_in_as(result.user) unless logged_in?
       result.registration
     end
