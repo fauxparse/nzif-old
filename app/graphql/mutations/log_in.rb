@@ -11,7 +11,7 @@ module Mutations
       result = AuthenticateUser.call(email: email, password: password)
 
       if result.success?
-        context[:environment].current_user = result.user
+        log_in_as(result.user)
       else
         return GraphQL::ExecutionError.new('Invalid email or password.')
       end

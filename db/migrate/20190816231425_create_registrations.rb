@@ -8,8 +8,8 @@ class CreateRegistrations < ActiveRecord::Migration[6.0]
 
       t.timestamps
 
-      t.index %i[festival_id user_id]
-      t.index %i[festival_id state]
+      t.index %i(festival_id user_id)
+      t.index %i(festival_id state)
     end
   end
 end

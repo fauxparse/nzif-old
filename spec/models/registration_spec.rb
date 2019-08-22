@@ -5,9 +5,9 @@ RSpec.describe Registration, type: :model do
 
   it { is_expected.to be_valid }
 
-  context 'complete' do
+  context '#update' do
     before do
-      registration.state = :complete
+      registration.save
     end
 
     context 'without accepting the code of conduct' do
@@ -16,7 +16,7 @@ RSpec.describe Registration, type: :model do
 
     context 'having accepted the code of conduct' do
       before do
-        registration.code_of_conduct_accepted_at = Time.now
+        registration.code_of_conduct_accepted = true
       end
 
       it { is_expected.to be_valid }

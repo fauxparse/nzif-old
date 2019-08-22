@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_232905) do
+ActiveRecord::Schema.define(version: 2019_08_22_110819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_232905) do
     t.datetime "starts_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id", "session_id"], name: "index_preferences_on_registration_id_and_session_id", unique: true
     t.index ["registration_id"], name: "index_preferences_on_registration_id"
     t.index ["session_id"], name: "index_preferences_on_session_id"
   end
@@ -126,7 +127,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_232905) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["festival_id", "state"], name: "index_registrations_on_festival_id_and_state"
-    t.index ["festival_id", "user_id"], name: "index_registrations_on_festival_id_and_user_id"
+    t.index ["festival_id", "user_id"], name: "index_registrations_on_festival_id_and_user_id", unique: true
     t.index ["festival_id"], name: "index_registrations_on_festival_id"
     t.index ["user_id"], name: "index_registrations_on_user_id"
   end
@@ -161,6 +162,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_232905) do
     t.string "city"
     t.string "country_code", limit: 4
     t.text "bio"
+    t.string "phone"
     t.index "lower((email)::text)", name: "index_users_on_lowercase_email", unique: true
   end
 
