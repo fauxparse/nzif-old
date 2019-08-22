@@ -6,11 +6,12 @@ RSpec.describe Registration, type: :model do
   it { is_expected.to be_valid }
 
   context '#update' do
-    before do
-      registration.save
-    end
-
     context 'without accepting the code of conduct' do
+      before do
+        registration.update(code_of_conduct_accepted: true)
+        registration.code_of_conduct_accepted = nil
+      end
+
       it { is_expected.not_to be_valid }
     end
 

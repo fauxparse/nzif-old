@@ -12,7 +12,7 @@ class Registration < ApplicationRecord
   }
 
   validates :festival_id, uniqueness: { scope: :user_id }, on: :update
-  validates :code_of_conduct, acceptance: true, on: :update
+  validates :code_of_conduct, acceptance: true, if: :requires_acceptance?
 
   def code_of_conduct_accepted?
     code_of_conduct_accepted_at.present?
@@ -44,4 +44,10 @@ class Registration < ApplicationRecord
   end
 
   alias code_of_conduct code_of_conduct_accepted?
+
+  private
+
+  def requires_acceptance?
+    code_of_conduct_accepted_at_changed? || complete?
+  end
 end
