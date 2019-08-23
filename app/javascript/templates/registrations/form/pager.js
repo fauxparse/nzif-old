@@ -1,7 +1,7 @@
-import React, { cloneElement, useContext, useRef } from 'react'
+import React, { cloneElement, useRef } from 'react'
+import PropTypes from 'lib/proptypes'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { usePrevious } from 'lib/hooks'
-import RegistrationFormContext from './context'
 
 const CLASS_NAMES = {
   left: {
@@ -22,10 +22,8 @@ const CLASS_NAMES = {
   }
 }
 
-const Pager = ({ children }) => {
+const Pager = ({ pageIndex, children }) => {
   const container = useRef()
-
-  const { pageIndex } = useContext(RegistrationFormContext)
 
   const previousPageIndex = usePrevious(pageIndex);
 
@@ -52,6 +50,10 @@ const Pager = ({ children }) => {
       </CSSTransition>
     </TransitionGroup>
   )
+}
+
+Pager.propTypes = {
+  pageIndex: PropTypes.number.isRequired,
 }
 
 export default Pager

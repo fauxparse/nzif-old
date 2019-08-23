@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
 import Checkbox from 'atoms/checkbox'
 import Loader from 'atoms/loader'
@@ -10,23 +9,27 @@ import { useStaticContent } from 'contexts/static_content'
 import { useRegistration } from 'contexts/registration'
 import Heading from './heading'
 
-const CodeOfConduct = ({ onChange }) => {
-  const { registration: { codeOfConductAcceptedAt }, change } = useRegistration()
+const CodeOfConduct = () => {
+  const { registration: { codeOfConductAcceptedAt }, change, setValid } = useRegistration()
 
   const [read, setRead] = useState(!!codeOfConductAcceptedAt)
+
+  const [agreed, setAgreed] = useState(!!codeOfConductAcceptedAt)
 
   const finishedReading = useCallback(() => setRead(true), [setRead])
 
   const checkboxChanged = useCallback((e) => {
     const agreed = e.target.checked ? moment().toISOString() : null
+    setAgreed(agreed)
     change({ codeOfConductAcceptedAt: agreed })
-  }, [change])
+    setValid(agreed)
+  }, [change, setAgreed, setValid])
 
   const { loading, raw } = useStaticContent('code-of-conduct')
 
   useEffect(() => {
-    onChange({ valid: !!codeOfConductAcceptedAt })
-  }, [codeOfConductAcceptedAt, onChange])
+    setValid(!!codeOfConductAcceptedAt)
+  }, [codeOfConductAcceptedAt, setValid])
 
   return (
     <section className="registration-form__section registration-form__code-of-conduct">
@@ -42,7 +45,7 @@ const CodeOfConduct = ({ onChange }) => {
 
       <Tooltip title="Please scroll to the bottom before continuing" disabled={read}>
         <Checkbox
-          checked={!!codeOfConductAcceptedAt}
+          checked={agreed}
           disabled={!read}
           onChange={checkboxChanged}
         >
@@ -51,13 +54,6 @@ const CodeOfConduct = ({ onChange }) => {
       </Tooltip>
     </section>
   )
-}
-
-CodeOfConduct.propTypes = {
-  registration: PropTypes.shape({
-    codeOfConductAgreedAt: PropTypes.string,
-  }),
-  onChange: PropTypes.func.isRequired,
 }
 
 export default CodeOfConduct

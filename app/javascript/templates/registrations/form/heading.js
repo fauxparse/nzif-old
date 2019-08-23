@@ -1,13 +1,8 @@
-import React, { useContext } from 'react'
-import RegistrationFormContext from './context'
-import Badge from 'atoms/badge'
+import React from 'react'
 
 const Heading = ({ children }) => {
-  const { pageIndex } = useContext(RegistrationFormContext)
-
   return (
     <h2 className="registration-form__heading">
-      <Badge>{pageIndex + 1}</Badge>
       {children}
     </h2>
   )

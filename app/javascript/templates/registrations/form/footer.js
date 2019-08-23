@@ -1,33 +1,35 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'lib/proptypes'
 import Button from 'atoms/button'
+import { useRegistration } from 'contexts/registration'
 import PAGES from './pages'
-import RegistrationFormContext from './context'
 import Cart from './cart'
 
-const Footer = ({ valid, onBackClick, onNextClick }) => {
-  const { pageIndex } = useContext(RegistrationFormContext)
+const Footer = ({ pageIndex, onBackClick, onNextClick }) => {
+  const { valid, loading, saving } = useRegistration()
+
+  const busy = loading || saving
 
   return (
     <footer className="registration-form__footer">
       <Cart />
       <div className="footer__buttons">
         {pageIndex > 0 && (
-          <Button text="Back" onClick={onBackClick} />
+          <Button text="Back" disabled={busy} onClick={onBackClick} />
         )}
-        {pageIndex < PAGES.length - 1 && (
-          <Button primary disabled={!valid} text="Next" onClick={onNextClick} />
-        )}
-        {pageIndex === PAGES.length - 1 && (
-          <Button primary disabled={!valid} text="Finish" onClick={onNextClick} />
-        )}
+        <Button
+          primary
+          disabled={busy || !valid}
+          text={pageIndex < PAGES.length ? 'Next' : 'Finish'}
+          onClick={onNextClick}
+        />
       </div>
     </footer>
   )
 }
 
 Footer.propTypes = {
-  valid: PropTypes.bool.isRequired,
+  pageIndex: PropTypes.number.isRequired,
   onBackClick: PropTypes.func.isRequired,
   onNextClick: PropTypes.func.isRequired,
 }

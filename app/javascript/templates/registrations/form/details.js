@@ -1,5 +1,4 @@
-import React, { useCallback, useContext, useEffect, useReducer } from 'react'
-import PropTypes from 'lib/proptypes'
+import React, { useCallback, useEffect, useReducer } from 'react'
 import Hint from 'atoms/hint'
 import TextLink from 'atoms/text_link'
 import Icon from 'atoms/icon'
@@ -8,14 +7,22 @@ import { useRegistration } from 'contexts/registration'
 import { useCurrentUser } from 'contexts/current_user'
 import Heading from './heading'
 
-const Details = ({ onChange }) => {
-  const { registration, change, errors } = useRegistration()
+const Details = () => {
+  const { registration, change, errors, setValid } = useRegistration()
+
+  const [state, dispatch] = useReducer((state, { name, value }) => ({
+    ...state,
+    [name]: value,
+  }), { ...registration })
 
   const currentUser = useCurrentUser()
 
-  const changed = useCallback(({ target }) => change({ [target.name]: target.value }), [change])
+  const changed = useCallback(({ target }) => {
+    dispatch(target)
+    change({ [target.name]: target.value })
+  }, [change, dispatch])
 
-  useEffect(() => onChange({ valid: true }), [registration, onChange])
+  useEffect(() => setValid(true), [registration, setValid])
 
   return (
     <section className="registration-form__section registration-form__details">
@@ -23,7 +30,7 @@ const Details = ({ onChange }) => {
       <LabelledField
         required
         name="name"
-        value={registration.name || ''}
+        value={state.name || ''}
         onChange={changed}
         label="Your full name"
         autoFocus
@@ -39,7 +46,7 @@ const Details = ({ onChange }) => {
       <LabelledField
         required
         name="email"
-        value={registration.email || ''}
+        value={state.email || ''}
         onChange={changed}
         label="Your email address"
         autoComplete="email"
@@ -55,7 +62,7 @@ const Details = ({ onChange }) => {
               required
               type="password"
               name="password"
-              value={registration.password || ''}
+              value={state.password || ''}
               onChange={changed}
               label="Password"
               errors={errors}
@@ -72,7 +79,7 @@ const Details = ({ onChange }) => {
               required
               type="password"
               name="passwordConfirmation"
-              value={registration.passwordConfirmation || ''}
+              value={state.passwordConfirmation || ''}
               onChange={changed}
               label="Confirm password"
               errors={errors}
@@ -86,7 +93,7 @@ const Details = ({ onChange }) => {
       <LabelledField
         type="phone"
         name="phone"
-        value={registration.phone || ''}
+        value={state.phone || ''}
         onChange={changed}
         label="New Zealand mobile number"
         autoComplete="tel"
@@ -99,10 +106,6 @@ const Details = ({ onChange }) => {
       </LabelledField>
     </section>
   )
-}
-
-Details.propTypes = {
-  onChange: PropTypes.func.isRequired,
 }
 
 export default Details

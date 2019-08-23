@@ -153,11 +153,11 @@
     font-weight: font-weight(light);
 
     @include media(medium) {
-      margin-left: -3.75rem;
       font-size: font-size(4);
 
       .badge {
         margin-right: 0.75rem;
+        margin-left: -3.75rem;
       }
     }
   }
@@ -240,6 +240,10 @@
         border-width: 1px;
         border-radius: $border-radius;
       }
+    }
+
+    .checkbox {
+      padding-left: 0.5rem;
     }
   }
 

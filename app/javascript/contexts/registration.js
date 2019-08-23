@@ -18,6 +18,7 @@ import { useQuery, useMutation } from 'react-apollo-hooks'
 import { useDeepMemo, useDeepState } from 'lib/hooks'
 import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
+import fakeDelay from 'lib/fakeDelay'
 import FestivalContext from 'contexts/festival'
 import dummyWorkshops from 'templates/activities/overview/dummy'
 import REGISTRATION_FORM from 'queries/registration_form'
@@ -129,17 +130,17 @@ export const ApolloLoader = ({ children }) => {
     ).map(([date, activities]) => ({ date: moment(date), activities }))
   ) : []), [data])
 
-  const registration = data.registration || {
+  const registration = useMemo(() => (data.registration || {
     prices: [0],
     preferences: [],
-  }
+  }), [data])
 
   const [saving, setSaving] = useState(false)
 
   const [errors, setErrors] = useState({})
 
   const updateRegistration = useMutation(UPDATE_REGISTRATION, {
-    update: (cache, { data: updateRegistration }) => {
+    update: (cache, { data: { updateRegistration } }) => {
       const variables = { year }
       const existing = cache.readQuery({ query: REGISTRATION_FORM, variables })
       cache.writeQuery({
@@ -163,7 +164,7 @@ export const ApolloLoader = ({ children }) => {
         setErrors({})
         Promise.all([
           updateRegistration({ variables: { year, attributes } }),
-          new Promise((resolve) => { setTimeout(resolve, 2000) }),
+          fakeDelay(1500),
         ])
           .then(() => {
             setSaving(false)
@@ -196,6 +197,8 @@ export const ApolloLoader = ({ children }) => {
 const RegistrationMemoizer = ({ value, save, children }) => {
   const [unsavedChanges, setUnsavedChanges] = useDeepState({})
 
+  const [valid, setValid] = useState(true)
+
   const addUnsavedChanges = useCallback((changes) => {
     setUnsavedChanges({ ...unsavedChanges, ...changes })
   }, [unsavedChanges, setUnsavedChanges])
@@ -212,6 +215,8 @@ const RegistrationMemoizer = ({ value, save, children }) => {
     },
     change: addUnsavedChanges,
     save: saveChanges,
+    valid,
+    setValid,
   }), [value, unsavedChanges, addUnsavedChanges, saveChanges])
 
   return (

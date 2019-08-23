@@ -1,13 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import PropTypes from 'lib/proptypes'
 import { useSticky } from 'lib/hooks'
 import Stepper from 'molecules/stepper'
 import PAGES from './pages'
-import RegistrationFormContext from './context'
 
-const Header = () => {
+const Header = ({ pageIndex }) => {
   const ref = useSticky()
-
-  const { pageIndex } = useContext(RegistrationFormContext)
 
   return (
     <header ref={ref} className="registration-form__header">
@@ -24,6 +22,10 @@ const Header = () => {
       </Stepper>
     </header>
   )
+}
+
+Header.propTypes = {
+  pageIndex: PropTypes.number.isRequired,
 }
 
 export default Header

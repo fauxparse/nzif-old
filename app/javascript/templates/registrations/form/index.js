@@ -6,19 +6,16 @@ import Header from './header'
 import Pager from './pager'
 import Footer from './footer'
 import PAGES from './pages'
-import RegistrationFormContext from './context'
 import { useRegistration } from 'contexts/registration'
 
 import './index.scss'
 
-const RegistrationForm = ({ festival, user }) => {
+const RegistrationForm = ({ festival }) => {
   const { loading, saving, save } = useRegistration()
 
   const container = useRef()
 
   const [page, setPage] = useState(0)
-
-  const [valid, setValid] = useState(true)
 
   const scrollTop = useRef(0)
 
@@ -45,37 +42,27 @@ const RegistrationForm = ({ festival, user }) => {
     document.documentElement.scrollTop = Math.min(scrollTop.current, maxScrollTop)
   }, [page])
 
-  const onChange = useCallback(({ valid = true }) => {
-    setValid(valid)
-  }, [setValid])
-
-  const providerValue = useMemo(() => ({
-    page: PAGES[page],
-    pageIndex: page,
-    user,
-  }), [page, user])
-
   const busy = loading || saving
 
   return (
-    <RegistrationFormContext.Provider value={providerValue}>
-      <section
-        ref={container}
-        className={classNames('registration-form', busy && 'registration-form--busy')}
-      >
-        <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
-        <Header />
-        <Pager>
-          <Component onChange={onChange} />
-        </Pager>
-        <Footer
-          valid={valid}
-          onBackClick={previousPage}
-          onNextClick={nextPage}
-        />
-        <IntermittentLoader loading={busy} />
-      </section>
-    </RegistrationFormContext.Provider>
+    <section
+      ref={container}
+      className={classNames('registration-form', busy && 'registration-form--busy')}
+    >
+      <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
+      <Header pageIndex={page} />
+      <Pager pageIndex={page}>
+        {!loading && (
+          <Component />
+        )}
+      </Pager>
+      <Footer
+        pageIndex={page}
+        onBackClick={previousPage}
+        onNextClick={nextPage}
+      />
+      <IntermittentLoader loading={busy} />
+    </section>
   )
 }
 
@@ -83,11 +70,6 @@ RegistrationForm.propTypes = {
   festival: PropTypes.shape({
     year: PropTypes.id.isRequired,
   }).isRequired,
-  user: PropTypes.user,
-}
-
-RegistrationForm.defaultProps = {
-  user: null,
 }
 
 export default RegistrationForm

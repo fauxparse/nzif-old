@@ -7,9 +7,7 @@ import React, {
   useState,
 } from 'react'
 import { usePreferentialOrdering } from 'lib/hooks'
-import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
-import last from 'lodash/last'
 import sortBy from 'lodash/sortBy'
 import keyBy from 'lodash/keyBy'
 import groupBy from 'lodash/groupBy'
@@ -19,7 +17,7 @@ import RegistrationContext from 'contexts/registration'
 import Heading from './heading'
 import Day from './workshop_day'
 
-const Workshops = ({ onChange }) => {
+const Workshops = () => {
   const {
     loading,
     sessions,
@@ -67,7 +65,7 @@ const Workshops = ({ onChange }) => {
 
       change({ preferences })
     }
-  }, [loading, ordering, onChange, change])
+  }, [loading, ordering, change])
 
   useLayoutEffect(() => {
     const header =
@@ -97,10 +95,6 @@ const Workshops = ({ onChange }) => {
       ))}
     </section>
   )
-}
-
-Workshops.propTypes = {
-  onChange: PropTypes.func.isRequired,
 }
 
 export default Workshops
