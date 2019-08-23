@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
+import IntermittentLoader from 'molecules/intermittent_loader'
 import Header from './header'
 import Pager from './pager'
 import Footer from './footer'
@@ -11,7 +12,7 @@ import { useRegistration } from 'contexts/registration'
 import './index.scss'
 
 const RegistrationForm = ({ festival, user }) => {
-  const { save, saving } = useRegistration()
+  const { loading, saving, save } = useRegistration()
 
   const container = useRef()
 
@@ -24,7 +25,7 @@ const RegistrationForm = ({ festival, user }) => {
   const goToPage = useCallback((page) => {
     scrollTop.current = document.documentElement.scrollTop
     setPage(page)
-  }, [setPage])
+  }, [scrollTop, setPage])
 
   const previousPage = useCallback(() => {
     goToPage(page - 1)
@@ -54,11 +55,13 @@ const RegistrationForm = ({ festival, user }) => {
     user,
   }), [page, user])
 
+  const busy = loading || saving
+
   return (
     <RegistrationFormContext.Provider value={providerValue}>
       <section
         ref={container}
-        className={classNames('registration-form', saving && 'registration-form--saving')}
+        className={classNames('registration-form', busy && 'registration-form--busy')}
       >
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
         <Header />
@@ -70,6 +73,7 @@ const RegistrationForm = ({ festival, user }) => {
           onBackClick={previousPage}
           onNextClick={nextPage}
         />
+        <IntermittentLoader loading={busy} />
       </section>
     </RegistrationFormContext.Provider>
   )

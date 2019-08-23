@@ -4,6 +4,10 @@
   position: relative;
   padding-bottom: 3.5rem;
 
+  .loader {
+    position: fixed;
+  }
+
   &__title {
     margin: 0;
     padding: $spacing $spacing 0;
@@ -98,7 +102,7 @@
     overflow-x: hidden;
   }
 
-  &--saving .registration-form__pager {
+  &--busy .registration-form__pager {
     opacity: opacity(disabled);
     pointer-events: none;
     touch-action: none;

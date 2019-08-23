@@ -54,6 +54,8 @@ $loader-duration: 1400ms;
   width: 5em;
   height: 5em;
   margin: -2.5em;
+  pointer-events: none;
+  touch-action: none;
 
   svg {
     display: block;
