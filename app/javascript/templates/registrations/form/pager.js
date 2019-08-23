@@ -40,10 +40,7 @@ const Pager = ({ pageIndex, children }) => {
         return cloneElement(child, { classNames: CLASS_NAMES[transition.current] })
       }}
     >
-      <CSSTransition
-        key={pageIndex}
-        timeout={500}
-      >
+      <CSSTransition key={pageIndex} timeout={500}>
         <div className="registration-form__page">
           {children}
         </div>

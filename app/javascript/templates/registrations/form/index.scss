@@ -97,7 +97,6 @@
   }
 
   &__pager {
-    position: relative;
     max-width: 100vw;
     min-height: 100vh;
     transition: transition(opacity);
@@ -118,7 +117,6 @@
     &--left--exit,
     &--right--exit {
       position: absolute;
-      top: 0;
       right: 0;
       left: 0;
 
