@@ -29,15 +29,25 @@ const Workshops = () => {
 
   const [offset, setOffset] = useState(0)
 
-  const sessionsByDay = useMemo(() => (loading ? dummy() : sessions).map(day => ({
-    date: moment(day.date),
-    activities: sortBy(day.activities, [a => a.startsAt.valueOf, a => a.name]),
-  })), [loading, sessions])
+  const sessionsByDay = useMemo(() => (
+    sortBy(
+      entries(
+        groupBy(
+          sortBy((loading || !sessions) ? dummy() : sessions, [
+            session => session.startsAt.valueOf(),
+            session => session.activity.name.toLocaleLowerCase(),
+          ]),
+          session => moment(session.startsAt).format('YYYY-MM-DD'),
+        )
+      ).map(([date, sessions]) => [moment(date), sessions]),
+      [([date]) => date.valueOf()],
+    )
+  ), [loading, sessions])
 
   const sessionsById = useMemo(() => (
     keyBy(
-      sessionsByDay.reduce((list, { activities }) => [...list, ...activities], []),
-      a => a.id
+      sessionsByDay.reduce((list, [_, sessions]) => [...list, ...sessions], []),
+      session => session.id
     )
   ), [sessionsByDay])
 
@@ -82,12 +92,12 @@ const Workshops = () => {
         on your preferences. If some workshops are popular you might not get all your first choices,
         so be sure to give backup options to get the most out of your NZIF experience.
       </p>
-      {sessionsByDay.map(({ date, activities }) => (
+      {sessionsByDay.map(([date, sessions]) => (
         <Day
           key={date.toISOString()}
           loading={loading}
           date={date}
-          activities={activities}
+          sessions={sessions}
           offset={offset}
           ordering={ordering || {}}
           onToggleActivity={toggle}

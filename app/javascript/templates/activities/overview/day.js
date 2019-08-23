@@ -8,20 +8,20 @@ import Timeslot from 'molecules/timeslot'
 import Template from 'molecules/day'
 import Activity from './activity'
 
-const Day = ({ date, activities, loading }) => {
+const Day = ({ date, sessions, loading }) => {
   const slots = useMemo(() => (
     sortBy(
-      entries(groupBy(activities, activity => activity.startsAt.valueOf())),
+      entries(groupBy(sessions, session => session.startsAt.valueOf())),
       [([time]) => time]
-    ).map(([time, activities]) => [moment(parseInt(time, 10)), activities])
-  ), [activities])
+    ).map(([time, sessions]) => [moment(parseInt(time, 10)), sessions])
+  ), [sessions])
 
   return (
     <Template date={date} loading={loading}>
       {slots.map(([time, activities]) => (
         <Timeslot key={time.valueOf()} loading={loading} time={time}>
-          {activities.map(activity => (
-            <Activity key={activity.id} loading={loading} {...activity} />
+          {activities.map(session => (
+            <Activity key={session.id} loading={loading} {...session.activity} />
           ))}
         </Timeslot>
       ))}
@@ -32,7 +32,7 @@ const Day = ({ date, activities, loading }) => {
 Day.propTypes = {
   date: PropTypes.time.isRequired,
   loading: PropTypes.bool,
-  activities: PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired,
+  sessions: PropTypes.arrayOf(PropTypes.session.isRequired).isRequired,
 }
 
 Day.defaultProps = {

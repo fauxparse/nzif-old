@@ -1,19 +1,24 @@
 import React, { useMemo } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery } from 'react-apollo-hooks'
+import moment from 'lib/moment'
 import Template from 'templates/activities/overview'
-import ACTIVITIES_QUERY from 'queries/activities_by_day'
+import SESSIONS from 'queries/sessions'
 
 const Overview = ({ match }) => {
   const { year } = match.params
 
   const type = match.params.type.replace(/s$/, '')
 
-  const { loading, data } = useQuery(ACTIVITIES_QUERY, { variables: { year, type } })
+  const { loading, data } = useQuery(SESSIONS, { variables: { year, type } })
 
-  const activities = useMemo(() => {
+  const sessions = useMemo(() => {
     if (!data.festival) return []
-    return data.festival.days
+    return data.festival.sessions.map(session => ({
+      ...session,
+      startsAt: moment(session.startsAt),
+      endsAt: moment(session.endsAt),
+    }))
   }, [data])
 
   return (
@@ -21,7 +26,7 @@ const Overview = ({ match }) => {
       type={type}
       festival={{ year }}
       loading={loading}
-      activities={activities}
+      sessions={sessions}
     />
   )
 }

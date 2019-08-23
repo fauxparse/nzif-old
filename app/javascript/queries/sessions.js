@@ -31,7 +31,7 @@ export const ACTIVITY_SUMMARY_FIELDS = gql`
   }
 `
 
-export const SESSIONS = gql`
+export default gql`
   query SessionsByDay($year: ID!, $type: ActivityType!) {
     festival(year: $year) {
       year
@@ -50,38 +50,6 @@ export const SESSIONS = gql`
           id
           name
           address
-        }
-      }
-    }
-  }
-  ${ACTIVITY_SUMMARY_FIELDS}
-`
-
-export default gql`
-  query ActivitiesByDay($year: ID!, $type: ActivityType!) {
-    festival(year: $year) {
-      year
-
-      days {
-        date
-        activities(type: $type) {
-          ...ActivitySummaryFields
-
-          sessions {
-            id
-            startsAt
-            endsAt
-
-            activity {
-              id
-            }
-
-            venue {
-              id
-              name
-              address
-            }
-          }
         }
       }
     }

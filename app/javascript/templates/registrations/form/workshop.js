@@ -6,16 +6,17 @@ import Button from 'atoms/button'
 import Card from 'molecules/card'
 import Skeleton from 'effects/skeleton'
 
-const Workshop = ({ loading, activity, position, onToggle }) => {
+const Workshop = ({ loading, session, position, onToggle }) => {
+  const { activity } = session
   const { name, image, presenters } = activity
 
-  const toggle = useCallback(() => onToggle(activity), [onToggle, activity])
+  const toggle = useCallback(() => onToggle(session), [onToggle, session])
 
   const selected = position > 0
 
   const infoClicked = useCallback((e) => {
     e.stopPropagation()
-  }, [activity]);
+  }, [session]);
 
   return (
     <Card
@@ -54,7 +55,7 @@ const Workshop = ({ loading, activity, position, onToggle }) => {
 
 Workshop.propTypes = {
   loading: PropTypes.bool,
-  activity: PropTypes.activity.isRequired,
+  session: PropTypes.session.isRequired,
   position: PropTypes.number,
   onToggle: PropTypes.func.isRequired,
 }

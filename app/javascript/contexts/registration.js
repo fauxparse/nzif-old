@@ -10,10 +10,6 @@ import React, {
 } from 'react'
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
-import entries from 'lodash/entries'
-import groupBy from 'lodash/groupBy'
-import sortBy from 'lodash/sortBy'
-import first from 'lodash/first'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import { useDeepMemo, useDeepState } from 'lib/hooks'
 import PropTypes from 'lib/proptypes'
@@ -78,10 +74,10 @@ export const DummyLoader = ({ delay = 1000, children }) => {
       setRegistration({
         ...registration,
         preferences: [
-          { sessionId: sessions.current[0].activities[1].id, position: 1 },
-          { sessionId: sessions.current[0].activities[0].id, position: 1 },
-          { sessionId: sessions.current[0].activities[3].id, position: 1 },
-          { sessionId: sessions.current[1].activities[2].id, position: 1 },
+          { sessionId: sessions.current[1].id, position: 1 },
+          { sessionId: sessions.current[0].id, position: 1 },
+          { sessionId: sessions.current[3].id, position: 1 },
+          { sessionId: sessions.current[6].id, position: 1 },
         ],
       })
       setLoading(false)
@@ -114,20 +110,11 @@ export const ApolloLoader = ({ children }) => {
   const { loading, data } = useQuery(REGISTRATION_FORM, { variables: { year } })
 
   const sessions = useMemo(() => ((data && data.festival) ? (
-    sortBy(
-      entries(
-        groupBy(
-          data.festival.sessions.map((session) => ({
-            ...session.activity,
-            id: session.id, // TODO: remove
-            startsAt: moment(session.startsAt),
-            endsAt: moment(session.endsAt),
-          })),
-          session => session.startsAt.format('YYYY-MM-DD'),
-        )
-      ),
-      [first]
-    ).map(([date, activities]) => ({ date: moment(date), activities }))
+    data.festival.sessions.map((session) => ({
+      ...session,
+      startsAt: moment(session.startsAt),
+      endsAt: moment(session.endsAt),
+    }))
   ) : []), [data])
 
   const registration = useMemo(() => (data.registration || {

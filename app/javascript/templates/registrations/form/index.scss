@@ -38,6 +38,7 @@
     bottom: 0;
     left: 0;
     justify-content: space-between;
+    z-index: 4;
 
     .footer__buttons {
       display: flex;
@@ -97,6 +98,7 @@
 
   &__pager {
     position: relative;
+    max-width: 100vw;
     min-height: 100vh;
     transition: transition(opacity);
   }
@@ -121,24 +123,27 @@
       left: 0;
 
       &-active {
-        transition: transition(transform, $duration: 500ms);
+        transition: transition(transform opacity, $duration: 500ms);
       }
     }
 
     &--left--enter,
     &--right--exit-active {
       transform: translateX(100%);
+      opacity: 0;
     }
 
     &--left--exit-active,
     &--right--enter {
       transform: translateX(-100%);
+      opacity: 0;
     }
 
     &--left--enter,
     &--right--enter {
       &-active {
         transform: translateX(0);
+        opacity: 1;
       }
 
       &-done {

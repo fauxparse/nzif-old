@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'lib/proptypes'
+import entries from 'lodash/entries'
 import sortBy from 'lodash/sortBy'
+import groupBy from 'lodash/groupBy'
 import pluralize from 'pluralize'
 import moment from 'lib/moment'
 import humanize from 'lib/humanize'
@@ -14,22 +16,21 @@ import Day from './day'
 
 import './index.scss'
 
-const Overview = ({ loading, type, activities, festival }) => {
-  const activitiesByDay = useMemo(() => (
-    (loading || !activities) ? dummy() : activities.map(day => {
-      const date = moment(day.date)
-      const sessions = day.activities.reduce((activities, activity) => ([
-        ...activities,
-        ...activity.sessions.map(session => ({
-          ...activity,
-          startsAt: moment(session.startsAt),
-          endsAt: moment(session.endsAt),
-        })).filter(s => s.startsAt.isSame(date, 'day'))
-      ]), [])
-
-      return { date, activities: sortBy(sessions, [s => s.startsAt.valueOf, s => s.name]) }
-    }).filter(({ activities }) => activities.length)
-  ), [loading, activities])
+const Overview = ({ loading, type, sessions, festival }) => {
+  const sessionsByDay = useMemo(() => (
+    sortBy(
+      entries(
+        groupBy(
+          sortBy((loading || !sessions) ? dummy() : sessions, [
+            session => session.startsAt.valueOf(),
+            session => session.activity.name.toLocaleLowerCase(),
+          ]),
+          session => moment(session.startsAt).format('YYYY-MM-DD'),
+        )
+      ).map(([date, sessions]) => [moment(date), sessions]),
+      [([date]) => date.valueOf()],
+    )
+  ), [loading, sessions])
 
   const back = `/${festival.year}`
 
@@ -59,11 +60,11 @@ const Overview = ({ loading, type, activities, festival }) => {
         </TabBar>
       </Header>
       <div className="activities-overview__days">
-        {activitiesByDay.map(day => (
+        {sessionsByDay.map(([date, sessions]) => (
           <Day
-            key={day.date.valueOf()}
-            date={day.date}
-            activities={day.activities}
+            key={date.valueOf()}
+            date={date}
+            sessions={sessions}
             loading={loading}
           />
         ))}
@@ -75,12 +76,7 @@ const Overview = ({ loading, type, activities, festival }) => {
 Overview.propTypes = {
   loading: PropTypes.bool,
   type: PropTypes.activityType.isRequired,
-  activities: PropTypes.arrayOf(
-    PropTypes.shape({
-      date: PropTypes.time.isRequired,
-      activities: PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired,
-    }).isRequired
-  ).isRequired,
+  sessions: PropTypes.arrayOf(PropTypes.session.isRequired),
   festival: PropTypes.shape({ year: PropTypes.id.isRequired }),
 }
 

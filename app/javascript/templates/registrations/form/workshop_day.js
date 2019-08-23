@@ -8,24 +8,24 @@ import Day from 'molecules/day'
 import Timeslot from 'molecules/timeslot'
 import Workshop from './workshop'
 
-const WorkshopDay = ({ date, loading, activities, offset, ordering, onToggleActivity }) => {
+const WorkshopDay = ({ date, loading, sessions, offset, ordering, onToggleActivity }) => {
   const slots = useMemo(() => (
     sortBy(
-      entries(groupBy(activities, activity => activity.startsAt.valueOf())),
+      entries(groupBy(sessions, session => session.startsAt.valueOf())),
       [([time]) => time]
     ).map(([time, activities]) => [moment(parseInt(time, 10)), activities])
-  ), [activities])
+  ), [sessions])
 
   return (
     <Day date={date} offset={offset}>
-      {slots.map(([time, activities]) => (
+      {slots.map(([time, sessions]) => (
         <Timeslot key={time.valueOf()} time={time} offset={offset} loading={loading}>
-          {activities.map(activity => (
+          {sessions.map(session => (
             <Workshop
-              key={activity.id}
-              activity={activity}
+              key={session.id}
+              session={session}
               loading={loading}
-              position={(ordering[activity.startsAt.valueOf()] || []).indexOf(activity) + 1}
+              position={(ordering[session.startsAt.valueOf()] || []).indexOf(session) + 1}
               onToggle={onToggleActivity}
             />
           ))}
@@ -38,10 +38,10 @@ const WorkshopDay = ({ date, loading, activities, offset, ordering, onToggleActi
 WorkshopDay.propTypes = {
   date: PropTypes.time.isRequired,
   loading: PropTypes.bool,
-  activities: PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired,
+  sessions: PropTypes.arrayOf(PropTypes.session.isRequired).isRequired,
   offset: PropTypes.number,
   ordering:
-    PropTypes.objectOf(PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired).isRequired,
+    PropTypes.objectOf(PropTypes.arrayOf(PropTypes.session.isRequired).isRequired).isRequired,
   onToggleActivity: PropTypes.func.isRequired,
 }
 
