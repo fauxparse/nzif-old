@@ -99,7 +99,6 @@
     position: relative;
     min-height: 100vh;
     transition: transition(opacity);
-    overflow-x: hidden;
   }
 
   &--busy .registration-form__pager {
