@@ -1,5 +1,36 @@
 import gql from 'graphql-tag'
 
+export const ACTIVITY_SUMMARY_FIELDS = gql`
+  fragment ActivitySummaryFields on Activity {
+    id
+    name
+    type
+    slug
+    url
+    description
+
+    image {
+      name
+      thumbnail
+      small
+      medium
+    }
+
+      ...on Workshop {
+        levels
+      }
+
+    presenters {
+      id
+      name
+      image {
+        small
+        medium
+      }
+    }
+  }
+`
+
 export default gql`
   query ActivitiesByDay($year: ID!, $type: ActivityType!) {
     festival(year: $year) {
@@ -8,32 +39,7 @@ export default gql`
       days {
         date
         activities(type: $type) {
-          id
-          name
-          type
-          slug
-          url
-          description
-
-          image {
-            name
-            thumbnail
-            small
-            medium
-          }
-
-          ...on Workshop {
-            levels
-          }
-
-          presenters {
-            id
-            name
-            image {
-              small
-              medium
-            }
-          }
+          ...ActivitySummaryFields
 
           sessions {
             id
@@ -54,4 +60,5 @@ export default gql`
       }
     }
   }
+  ${ACTIVITY_SUMMARY_FIELDS}
 `

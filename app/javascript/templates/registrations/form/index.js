@@ -1,14 +1,18 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
+import classNames from 'classnames'
 import Header from './header'
 import Pager from './pager'
 import Footer from './footer'
 import PAGES from './pages'
 import RegistrationFormContext from './context'
+import { useRegistration } from 'contexts/registration'
 
 import './index.scss'
 
 const RegistrationForm = ({ festival, user }) => {
+  const { save, saving } = useRegistration()
+
   const container = useRef()
 
   const [page, setPage] = useState(0)
@@ -27,8 +31,8 @@ const RegistrationForm = ({ festival, user }) => {
   }, [page, goToPage])
 
   const nextPage = useCallback(() => {
-    goToPage(page + 1)
-  }, [page, goToPage])
+    save().then(() => goToPage(page + 1)).catch(() => {})
+  }, [save, page, goToPage])
 
   const Component = useMemo(() => PAGES[page].component, [page])
 
@@ -52,7 +56,10 @@ const RegistrationForm = ({ festival, user }) => {
 
   return (
     <RegistrationFormContext.Provider value={providerValue}>
-      <section ref={container} className="registration-form">
+      <section
+        ref={container}
+        className={classNames('registration-form', saving && 'registration-form--saving')}
+      >
         <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
         <Header />
         <Pager>

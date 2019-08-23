@@ -8,6 +8,7 @@ export const CURRENT_USER_FIELDS = gql`
     city
     country
     roles
+    phone
     notificationsCount
 
     image {

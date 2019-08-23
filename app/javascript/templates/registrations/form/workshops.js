@@ -22,7 +22,7 @@ import Day from './workshop_day'
 const Workshops = ({ onChange }) => {
   const {
     loading,
-    workshops,
+    sessions,
     registration: { preferences },
     change,
   } = useContext(RegistrationContext)
@@ -31,17 +31,17 @@ const Workshops = ({ onChange }) => {
 
   const [offset, setOffset] = useState(0)
 
-  const activitiesByDay = useMemo(() => (loading ? dummy() : workshops).map(day => ({
+  const sessionsByDay = useMemo(() => (loading ? dummy() : sessions).map(day => ({
     date: moment(day.date),
     activities: sortBy(day.activities, [a => a.startsAt.valueOf, a => a.name]),
-  })), [loading, workshops])
+  })), [loading, sessions])
 
-  const workshopsById = useMemo(() => (
+  const sessionsById = useMemo(() => (
     keyBy(
-      activitiesByDay.reduce((list, { activities }) => [...list, ...activities], []),
-      a => a.sessionId
+      sessionsByDay.reduce((list, { activities }) => [...list, ...activities], []),
+      a => a.id
     )
-  ), [activitiesByDay])
+  ), [sessionsByDay])
 
   const [ordering, toggle, reset] = usePreferentialOrdering()
 
@@ -51,21 +51,21 @@ const Workshops = ({ onChange }) => {
     if (!loading && !loaded.current) {
       reset(
         groupBy(
-          sortBy(preferences, [last]).map(([id]) => workshopsById[id]),
+          sortBy(preferences, [p => p.position]).map((p) => sessionsById[p.sessionId]),
           a => a.startsAt.valueOf()
         )
       )
       loaded.current = true
     }
-  }, [loaded, loading, workshopsById, preferences, reset])
+  }, [loaded, loading, sessionsById, preferences, reset])
 
   useEffect(() => {
     if (!loading && loaded.current && ordering) {
-      const workshops = entries(ordering).reduce((result, [_, list]) => (
-        [...result, ...list.map((w, i) => [w.sessionId, i + 1])]
+      const preferences = entries(ordering).reduce((result, [_, list]) => (
+        [...result, ...list.map((w, i) => ({ sessionId: w.id, position: i + 1 }))]
       ), [])
 
-      change({ preferences: workshops })
+      change({ preferences })
     }
   }, [loading, ordering, onChange, change])
 
@@ -84,7 +84,7 @@ const Workshops = ({ onChange }) => {
         on your preferences. If some workshops are popular you might not get all your first choices,
         so be sure to give backup options to get the most out of your NZIF experience.
       </p>
-      {activitiesByDay.map(({ date, activities }) => (
+      {sessionsByDay.map(({ date, activities }) => (
         <Day
           key={date.toISOString()}
           loading={loading}

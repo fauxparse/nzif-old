@@ -8,6 +8,9 @@ module Types
       argument :slug, String, 'Restrict activities by slug', required: false
     end
     field :days, [Types::Day], null: false
+    field :sessions, [Types::Session], null: false do
+      argument :type, ActivityType, 'Restrict activities by type', required: false
+    end
     field :slots, [Types::Slot], null: false
     field :pitches_open, GraphQL::Types::Boolean, null: false
     field :pitches_close_at, Types::Time, null: true
@@ -20,6 +23,14 @@ module Types
       scope = scope.of_type(type) if type.present?
       scope = scope.where(slug: slug) if slug.present?
       scope
+    end
+
+    def sessions(type: nil)
+      scope = ::Session
+        .includes(:activity)
+        .references(:activity)
+        .merge(::Activity.of_type(type))
+        .where({ activities: { festival_id: object.id } })
     end
 
     def pitches_open

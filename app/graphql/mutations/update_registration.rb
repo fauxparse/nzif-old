@@ -8,6 +8,7 @@ module Mutations
     argument :attributes, Types::RegistrationAttributes, required: true
 
     def resolve(year:, attributes:)
+      Rails.logger.info(attributes.to_h.inspect)
       result = ::UpdateRegistration.call(
         festival: Festival.by_year(year).first,
         current_user: logged_in? ? current_user : nil,

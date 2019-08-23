@@ -6,7 +6,9 @@ import RegistrationContext from 'contexts/registration'
 const Cart = () => {
   const { prices, registration: { preferences } } = useContext(RegistrationContext)
 
-  const workshopCount = useMemo(() => preferences.filter(([_, p]) => p === 1).length, [preferences])
+  const workshopCount = useMemo(() => (
+    preferences.filter(({ position }) => position === 1).length
+  ), [preferences])
 
   const value = useMemo(() => prices[1] * workshopCount, [prices, workshopCount])
 

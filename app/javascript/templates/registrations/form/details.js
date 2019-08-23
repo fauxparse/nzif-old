@@ -8,20 +8,8 @@ import { useRegistration } from 'contexts/registration'
 import { useCurrentUser } from 'contexts/current_user'
 import Heading from './heading'
 
-const useUserDetails = (user) => {
-  const [state, dispatch] = useReducer((state, { name, value }) => ({
-    ...state,
-    [name]: value,
-  }), user)
-
-  const changed =
-    useCallback(({ target: { name, value } }) => dispatch({ name, value }), [dispatch])
-
-  return [state, changed]
-}
-
 const Details = ({ onChange }) => {
-  const { registration, change } = useRegistration()
+  const { registration, change, errors } = useRegistration()
 
   const currentUser = useCurrentUser()
 
@@ -40,6 +28,7 @@ const Details = ({ onChange }) => {
         label="Your full name"
         autoFocus
         autoComplete="name"
+        errors={errors}
       >
         <Icon name="user" />
         <Hint>
@@ -54,6 +43,7 @@ const Details = ({ onChange }) => {
         onChange={changed}
         label="Your email address"
         autoComplete="email"
+        errors={errors}
       >
         <Icon name="email" />
       </LabelledField>
@@ -68,6 +58,7 @@ const Details = ({ onChange }) => {
               value={registration.password || ''}
               onChange={changed}
               label="Password"
+              errors={errors}
             >
               <Icon name="password" />
             </LabelledField>
@@ -79,11 +70,12 @@ const Details = ({ onChange }) => {
             </Hint>
             <LabelledField
               required
-              type="passwordConfirmation"
-              name="password"
+              type="password"
+              name="passwordConfirmation"
               value={registration.passwordConfirmation || ''}
               onChange={changed}
               label="Confirm password"
+              errors={errors}
             >
               <Icon name="password" />
             </LabelledField>

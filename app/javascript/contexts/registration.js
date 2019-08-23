@@ -4,13 +4,24 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
 import isEqual from 'lodash/isEqual'
+import isEmpty from 'lodash/isEmpty'
+import entries from 'lodash/entries'
+import groupBy from 'lodash/groupBy'
+import sortBy from 'lodash/sortBy'
+import first from 'lodash/first'
+import { useQuery, useMutation } from 'react-apollo-hooks'
 import { useDeepMemo, useDeepState } from 'lib/hooks'
 import PropTypes from 'lib/proptypes'
+import moment from 'lib/moment'
+import FestivalContext from 'contexts/festival'
 import dummyWorkshops from 'templates/activities/overview/dummy'
+import REGISTRATION_FORM from 'queries/registration_form'
+import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
 
 export const RegistrationContext = createContext({})
 
@@ -35,21 +46,29 @@ export const DummyLoader = ({ delay = 1000, children }) => {
 
   const [saving, setSaving] = useState(false)
 
-  const workshops = useRef(dummyWorkshops())
+  const sessions = useRef(dummyWorkshops())
 
   const [registration, setRegistration] = useDeepState({
+    name: '',
+    email: '',
+    phone: '',
     preferences: [],
   })
 
   const save = useCallback((changes = {}, force = false) => {
-    const changed = { ...registration, ...changes }
-    if (force || !isEqual(registration, changed)) {
-      setSaving(true)
-      return setTimeout(() => {
-        setRegistration(changed)
-        setSaving(false)
-      }, delay)
-    }
+    return new Promise((resolve) => {
+      const changed = { ...registration, ...changes }
+      if (force || !isEqual(registration, changed)) {
+        setSaving(true)
+        return setTimeout(() => {
+          setRegistration(changed)
+          setSaving(false)
+          resolve()
+        }, delay)
+      } else {
+        resolve()
+      }
+    })
   }, [delay, registration, setRegistration, setSaving])
 
   useEffect(() => {
@@ -58,10 +77,10 @@ export const DummyLoader = ({ delay = 1000, children }) => {
       setRegistration({
         ...registration,
         preferences: [
-          [workshops.current[0].activities[1].sessionId, 1],
-          [workshops.current[0].activities[0].sessionId, 2],
-          [workshops.current[0].activities[3].sessionId, 3],
-          [workshops.current[1].activities[2].sessionId, 1],
+          { sessionId: sessions.current[0].activities[1].id, position: 1 },
+          { sessionId: sessions.current[0].activities[0].id, position: 1 },
+          { sessionId: sessions.current[0].activities[3].id, position: 1 },
+          { sessionId: sessions.current[1].activities[2].id, position: 1 },
         ],
       })
       setLoading(false)
@@ -74,8 +93,9 @@ export const DummyLoader = ({ delay = 1000, children }) => {
       loading,
       saving,
       prices: PRICES,
-      workshops: workshops.current,
+      sessions: sessions.current,
       registration,
+      errors: {},
     },
     save,
   })
@@ -85,6 +105,94 @@ DummyLoader.proptypes = {
   delay: PropTypes.number,
 }
 
+export const ApolloLoader = ({ children }) => {
+  const festival = useContext(FestivalContext)
+
+  const { year } = festival
+
+  const { loading, data } = useQuery(REGISTRATION_FORM, { variables: { year } })
+
+  const sessions = useMemo(() => ((data && data.festival) ? (
+    sortBy(
+      entries(
+        groupBy(
+          data.festival.sessions.map((session) => ({
+            ...session.activity,
+            id: session.id, // TODO: remove
+            startsAt: moment(session.startsAt),
+            endsAt: moment(session.endsAt),
+          })),
+          session => session.startsAt.format('YYYY-MM-DD'),
+        )
+      ),
+      [first]
+    ).map(([date, activities]) => ({ date: moment(date), activities }))
+  ) : []), [data])
+
+  const registration = data.registration || {
+    prices: [0],
+    preferences: [],
+  }
+
+  const [saving, setSaving] = useState(false)
+
+  const [errors, setErrors] = useState({})
+
+  const updateRegistration = useMutation(UPDATE_REGISTRATION, {
+    update: (cache, { data: updateRegistration }) => {
+      const variables = { year }
+      const existing = cache.readQuery({ query: REGISTRATION_FORM, variables })
+      cache.writeQuery({
+        query: REGISTRATION_FORM,
+        variables,
+        data: {
+          ...existing,
+          registration: {
+            ...existing.registration,
+            ...updateRegistration,
+          },
+        },
+      })
+    },
+  })
+
+  const save = useCallback((attributes = {}, force = false) => {
+    return new Promise((resolve, reject) => {
+      if (force || !isEmpty(attributes)) {
+        setSaving(true)
+        setErrors({})
+        Promise.all([
+          updateRegistration({ variables: { year, attributes } }),
+          new Promise((resolve) => { setTimeout(resolve, 2000) }),
+        ])
+          .then(() => {
+            setSaving(false)
+            resolve()
+          })
+          .catch(({ graphQLErrors }) => {
+            setErrors(graphQLErrors[0].detail)
+            setSaving(false)
+            reject()
+          })
+      } else {
+        resolve()
+      }
+    })
+  }, [year, setSaving, setErrors, updateRegistration])
+
+  return cloneElement(children, {
+    value: {
+      loading,
+      saving,
+      prices: registration.prices,
+      sessions,
+      registration,
+      errors,
+    },
+    save,
+  })
+}
+
 const RegistrationMemoizer = ({ value, save, children }) => {
   const [unsavedChanges, setUnsavedChanges] = useDeepState({})
 
@@ -92,7 +200,9 @@ const RegistrationMemoizer = ({ value, save, children }) => {
     setUnsavedChanges({ ...unsavedChanges, ...changes })
   }, [unsavedChanges, setUnsavedChanges])
 
-  const saveChanges = useCallback(() => save(unsavedChanges), [save, unsavedChanges])
+  const saveChanges = useCallback((force = false) => (
+    save(unsavedChanges, force).then(() => setUnsavedChanges({}))
+  ), [save, unsavedChanges, setUnsavedChanges])
 
   const cache = useDeepMemo(() => ({
     ...value,
@@ -116,13 +226,16 @@ RegistrationMemoizer.propTypes = {
     loading: PropTypes.bool.isRequired,
     prices: PropTypes.arrayOf(PropTypes.number),
     registration: PropTypes.shape({
-      preferences: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
+      preferences: PropTypes.arrayOf(PropTypes.shape({
+        sessionId: PropTypes.id.isRequired,
+        position: PropTypes.number.isRequired,
+      }).isRequired).isRequired,
     }).isRequired,
   }),
   save: PropTypes.func,
 }
 
-export const RegistrationProvider = ({ loader: Loader = DummyLoader, children, ...props }) => (
+export const RegistrationProvider = ({ loader: Loader = ApolloLoader, children, ...props }) => (
   <Loader {...props}>
     <RegistrationMemoizer>
       {children}

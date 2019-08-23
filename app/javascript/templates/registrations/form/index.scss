@@ -94,7 +94,14 @@
   &__pager {
     position: relative;
     min-height: 100vh;
+    transition: transition(opacity);
     overflow-x: hidden;
+  }
+
+  &--saving .registration-form__pager {
+    opacity: opacity(disabled);
+    pointer-events: none;
+    touch-action: none;
   }
 
   &__page {

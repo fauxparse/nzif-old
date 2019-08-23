@@ -36,6 +36,14 @@ class UpdateRegistrationPreferences < Interaction
   end
 
   def set_from(preferences)
-    preferences.map { |pref| [pref.session_id, pref.position] }
+    preferences.map { |pref| [decode_id(pref.session_id), pref.position] }
+  end
+
+  def decode_id(id)
+    case id
+    when Numeric then id
+    when /\A\d+\z/ then id.to_i
+    else Session.decode_id(id)
+    end
   end
 end
