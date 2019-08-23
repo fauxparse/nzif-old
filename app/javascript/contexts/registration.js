@@ -24,18 +24,18 @@ export const RegistrationContext = createContext({})
 
 const PRICES = [
   0,
-  5500,
-  10500,
-  15000,
-  19500,
-  23500,
-  27000,
-  30000,
-  32500,
-  35000,
-  37000,
-  39000,
+  6400,
+  11200,
+  16000,
+  20800,
+  25600,
+  30400,
+  35200,
   40000,
+  44800,
+  49600,
+  54400,
+  59200,
 ]
 
 export const DummyLoader = ({ delay = 1000, children }) => {

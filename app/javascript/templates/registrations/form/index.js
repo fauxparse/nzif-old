@@ -15,7 +15,7 @@ const RegistrationForm = ({ festival }) => {
 
   const container = useRef()
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(3)
 
   const scrollTop = useRef(0)
 

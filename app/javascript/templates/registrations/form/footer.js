@@ -20,7 +20,7 @@ const Footer = ({ pageIndex, onBackClick, onNextClick }) => {
         <Button
           primary
           disabled={busy || !valid}
-          text={pageIndex < PAGES.length ? 'Next' : 'Finish'}
+          text={pageIndex < PAGES.length - 1 ? 'Next' : 'Finish'}
           onClick={onNextClick}
         />
       </div>

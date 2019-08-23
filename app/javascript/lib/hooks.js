@@ -110,3 +110,15 @@ export const usePreferentialOrdering = (initialOrder) => {
 
   return [state, toggle, reset]
 }
+
+export const useToggle = (initialValue = false) => {
+  const [value, setValue] = useState(initialValue)
+
+  const toggle = useCallback(() => setValue(!value), [value, setValue])
+
+  const turnOn = useCallback(() => setValue(true), [setValue])
+
+  const turnOff = useCallback(() => setValue(false), [setValue])
+
+  return [value, toggle, turnOn, turnOff]
+}

@@ -98,7 +98,7 @@
 
   &__pager {
     max-width: 100vw;
-    min-height: 100vh;
+    min-height: calc(100vh - 9rem);
     transition: transition(opacity);
   }
 
@@ -106,9 +106,6 @@
     opacity: opacity(disabled);
     pointer-events: none;
     touch-action: none;
-  }
-
-  &__page {
   }
 
   .page {
@@ -413,6 +410,93 @@
         .workshop__position {
           background: change-opacity($white, 0.9);
         }
+      }
+    }
+  }
+
+  &__payment {
+    .note {
+      position: relative;
+      margin: 0 0 $spacing;
+      padding: $padding;
+      border-radius: $border-radius;
+      font-size: font-size(-1);
+
+      .icon {
+        display: none;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      @include themify {
+        background: themed(info-panel);
+
+        .icon {
+          color: themed(info-panel-icon);
+        }
+      }
+
+      @include media(medium) {
+        padding-left: $padding * 2 + $icon-size;
+        font-size: inherit;
+
+        .icon {
+          display: block;
+          position: absolute;
+          top: $padding;
+          left: $padding;
+        }
+      }
+    }
+
+    .payment-summary {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+
+      .icon {
+        display: block;
+      }
+
+      td,
+      th {
+        padding: ($padding / 2) $padding;
+        text-align: left;
+        white-space: nowrap;
+        vertical-align: middle;
+
+        &:first-child {
+          display: none;
+        }
+
+        &:nth-child(2) {
+          width: 99%;
+        }
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+
+      @include themify {
+        .subtotal,
+        .total {
+          th,
+          td {
+            border-top: 1px solid themed(border);
+          }
+        }
+      }
+
+      @include media(medium) {
+        td:first-child {
+          display: table-cell;
+          padding-right: 0;
+        }
+
+        font-size: font-size(1);
       }
     }
   }

@@ -13,5 +13,5 @@ export default (value, format = '0') => {
     padEnd(Math.round(abs * (10 ** decimalPlaces.length)).toString(), decimalPlaces.length, '0')
   ) : ''
 
-  return `${prefix}${sign}${whole}${fraction}${suffix}`
+  return `${sign}${prefix}${whole}${fraction}${suffix}`
 }
