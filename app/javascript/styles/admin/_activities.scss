@@ -6,47 +6,65 @@
     .activity-session {
       padding: 1.5rem 0;
     }
+  }
+}
 
-    .activity-levels {
-      display: flex;
+.slug {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 2.5rem;
+  margin: 0 0 1.5rem;
+  overflow: hidden;
+
+  &__root {
+    @include ellipsis;
+    flex: 0 1 auto;
+    padding: 0.25rem 0;
+    direction: rtl;
+
+    &::before {
+      content: "/";
     }
 
-    .activity-level {
-      margin: 0.25rem 0;
-      padding: 0.5rem 1rem;
-      border: 0;
-      border-radius: 1rem;
-      font-size: font-size(-1);
-      line-height: 1rem;
-      text-transform: capitalize;
-
-      &:not(:last-child) {
-        margin-right: 0.5rem;
-      }
-
-      @each $level, $color in $levels {
-        &[data-level="#{$level}"] {
-          @include themify {
-            &[role="checkbox"] {
-              background: none;
-              color: themed(secondary);
-              cursor: pointer;
-
-              &[aria-checked] {
-                background-color: color($color, 500);
-                color: color($color, 100);
-              }
-
-              &:focus {
-                box-shadow: 0 0 0 0.25rem color($color, 800);
-              }
-            }
-          }
-        }
-      }
+    @include themify {
+      color: themed(secondary);
     }
   }
 
+  &__input {
+    input {
+      @include themify {
+        border-bottom: 1px solid themed(border);
+
+        &:focus {
+          border-bottom-color: themed(accent);
+          outline: none;
+        }
+      }
+
+      display: block;
+      width: 100%;
+      min-width: 4em;
+      max-width: 100%;
+      margin: 0;
+      padding: 0.25rem 0 calc(0.25rem - 1px);
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      line-height: line-height(normal);
+      box-shadow: none;
+      appearance: none;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.activity-overview {
   .presenters {
     display: flex;
     flex-direction: row;
@@ -105,56 +123,40 @@
     }
   }
 
-  .slug {
+  .activity-levels {
     display: flex;
-    align-items: center;
-    max-width: 100%;
-    min-height: 2.5rem;
-    margin: 0 0 1.5rem;
-    overflow: hidden;
+  }
 
-    &__root {
-      @include ellipsis;
-      flex: 0 1 auto;
-      padding: 0.25rem 0;
-      direction: rtl;
+  .activity-level {
+    margin: 0.25rem 0;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 1rem;
+    font-size: font-size(-1);
+    line-height: 1rem;
+    text-transform: capitalize;
 
-      &::before {
-        content: "/";
-      }
-
-      @include themify {
-        color: themed(secondary);
-      }
+    &:not(:last-child) {
+      margin-right: 0.5rem;
     }
 
-    &__input {
-      input {
+    @each $level, $color in $levels {
+      &[data-level="#{$level}"] {
         @include themify {
-          border-bottom: 1px solid themed(border);
+          &[role="checkbox"] {
+            background: none;
+            color: themed(secondary);
+            cursor: pointer;
 
-          &:focus {
-            border-bottom-color: themed(accent);
-            outline: none;
+            &[aria-checked] {
+              background-color: color($color, 500);
+              color: color($color, 100);
+            }
+
+            &:focus {
+              box-shadow: 0 0 0 0.25rem color($color, 800);
+            }
           }
-        }
-
-        display: block;
-        width: 100%;
-        min-width: 4em;
-        max-width: 100%;
-        margin: 0;
-        padding: 0.25rem 0 calc(0.25rem - 1px);
-        border: 0;
-        background: transparent;
-        color: inherit;
-        font: inherit;
-        line-height: line-height(normal);
-        box-shadow: none;
-        appearance: none;
-
-        &:disabled {
-          opacity: 0.5;
         }
       }
     }
