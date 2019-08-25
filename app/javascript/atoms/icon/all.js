@@ -40,6 +40,7 @@ export default [
   'twitter',
   'upload',
   'user',
+  'users',
   'venue',
   'workshop',
 ]
