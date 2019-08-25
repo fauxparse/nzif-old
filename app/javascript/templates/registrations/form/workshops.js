@@ -1,4 +1,5 @@
 import React, {
+  useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -16,6 +17,7 @@ import dummy from 'templates/activities/overview/dummy'
 import RegistrationContext from 'contexts/registration'
 import Heading from './heading'
 import Day from './workshop_day'
+import WorkshopDetails from './workshop_details'
 
 const Workshops = () => {
   const {
@@ -28,6 +30,10 @@ const Workshops = () => {
   const container = useRef()
 
   const [offset, setOffset] = useState(0)
+
+  const [selected, setSelected] = useState()
+
+  const deselect = useCallback(() => setSelected(null), [setSelected])
 
   const sessionsByDay = useMemo(() => (
     sortBy(
@@ -101,8 +107,10 @@ const Workshops = () => {
           offset={offset}
           ordering={ordering || {}}
           onToggleActivity={toggle}
+          onSelectActivity={setSelected}
         />
       ))}
+      <WorkshopDetails session={selected} onClose={deselect} />
     </section>
   )
 }

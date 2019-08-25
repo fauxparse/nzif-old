@@ -5,15 +5,15 @@ import { withRouter } from 'react-router'
 import { graphql, compose, withApollo } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
 import pick from 'lodash/pick'
-import moment from '../../../lib/moment'
+import moment from 'lib/moment'
 import {
   TIMETABLE_QUERY,
   CREATE_SESSION_MUTATION,
   UPDATE_SESSION_MUTATION,
   DELETE_SESSION_MUTATION,
-} from '../../../queries'
+} from 'queries'
 import Loader from 'atoms/loader'
-import Modal from '../../modals'
+import Modal from 'molecules/modal'
 import Context, { DEFAULT_CONTEXT } from './context'
 import DragDrop from './drag_drop'
 import Grid from './grid'

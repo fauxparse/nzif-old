@@ -11,6 +11,7 @@ const dummyActivity = (index) => {
     type: 'workshop',
     name: lorem.sentence().replace(/\.$/, ''),
     slug: lorem.slug(),
+    description: lorem.paragraphs(2),
     url: '/',
     presenters: new Array(presenterCount).fill(true).map(() => ({
       name: name.findName(),

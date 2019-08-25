@@ -4,6 +4,7 @@ import { Manager } from 'react-popper'
 import { configure, addDecorator } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { StaticContentProvider, DummyLoader } from 'contexts/static_content'
+import Modal from 'react-modal'
 
 import '../app/javascript/styles/application.scss'
 
@@ -39,6 +40,11 @@ addDecorator(story => (
     {story()}
   </StaticContentProvider>
 ))
+
+addDecorator(story => {
+  Modal.setAppElement('#root')
+  return story()
+})
 
 const req = require.context('../app/javascript', true, /\.stories\.js$/)
 configure(() => req.keys().forEach(filename => req(filename)), module)

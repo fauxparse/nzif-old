@@ -8,7 +8,15 @@ import Day from 'molecules/day'
 import Timeslot from 'molecules/timeslot'
 import Workshop from './workshop'
 
-const WorkshopDay = ({ date, loading, sessions, offset, ordering, onToggleActivity }) => {
+const WorkshopDay = ({
+  date,
+  loading,
+  sessions,
+  offset,
+  ordering,
+  onToggleActivity,
+  onSelectActivity,
+}) => {
   const slots = useMemo(() => (
     sortBy(
       entries(groupBy(sessions, session => session.startsAt.valueOf())),
@@ -27,6 +35,7 @@ const WorkshopDay = ({ date, loading, sessions, offset, ordering, onToggleActivi
               loading={loading}
               position={(ordering[session.startsAt.valueOf()] || []).indexOf(session) + 1}
               onToggle={onToggleActivity}
+              onSelect={onSelectActivity}
             />
           ))}
         </Timeslot>
@@ -43,6 +52,7 @@ WorkshopDay.propTypes = {
   ordering:
     PropTypes.objectOf(PropTypes.arrayOf(PropTypes.session.isRequired).isRequired).isRequired,
   onToggleActivity: PropTypes.func.isRequired,
+  onSelectActivity: PropTypes.func.isRequired,
 }
 
 export default WorkshopDay

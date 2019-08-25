@@ -513,3 +513,49 @@
     }
   }
 }
+
+.workshop-details {
+  &.modal {
+    max-height: 100vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    .header {
+      @include horizontal-padding(0);
+      min-height: unset;
+      margin: 0 0 $spacing;
+
+      &__title {
+        padding: $spacing $padding 0;
+        font-size: font-size(4);
+      }
+
+      .activity-details__presenter-names {
+        padding: 0 $padding;
+      }
+
+      &__bottom {
+        margin-left: $padding;
+      }
+    }
+
+    @include media(medium) {
+      max-height: calc(100vh - #{$spacing} * 2);
+
+      .header {
+        border-radius: $border-radius $border-radius 0 0;
+      }
+    }
+  }
+
+  &__levels {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 $padding;
+  }
+
+  &__description {
+    padding: $padding;
+  }
+}

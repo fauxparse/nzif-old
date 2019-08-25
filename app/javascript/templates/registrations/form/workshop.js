@@ -6,7 +6,7 @@ import Button from 'atoms/button'
 import Card from 'molecules/card'
 import Skeleton from 'effects/skeleton'
 
-const Workshop = ({ loading, session, position, onToggle }) => {
+const Workshop = ({ loading, session, position, onToggle, onSelect }) => {
   const { activity } = session
   const { name, image, presenters } = activity
 
@@ -16,7 +16,8 @@ const Workshop = ({ loading, session, position, onToggle }) => {
 
   const infoClicked = useCallback((e) => {
     e.stopPropagation()
-  }, [session]);
+    onSelect(session)
+  }, [session])
 
   return (
     <Card
@@ -39,8 +40,6 @@ const Workshop = ({ loading, session, position, onToggle }) => {
       </Card.Description>
       <Fragment>
         <Button
-          as={Link}
-          to="/"
           center
           className="workshop__info"
           text="More info..."
@@ -58,6 +57,7 @@ Workshop.propTypes = {
   session: PropTypes.session.isRequired,
   position: PropTypes.number,
   onToggle: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 }
 
 Workshop.defaultProps = {

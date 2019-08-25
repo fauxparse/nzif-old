@@ -37,7 +37,7 @@ const Details = ({ loading, festival, activity }) => {
         <Skeleton as={Header.Title} loading={loading}>
           {loading ? 'Activity name' : name}
         </Skeleton>
-        <Skeleton as="div" className="activity-details__presenter-names"loading={loading}>
+        <Skeleton as="div" className="activity-details__presenter-names" loading={loading}>
           {presenters.map(presenter => (
             <div key={presenter.id} className="presenter-name">
               <span className="presenter-name__name">{presenter.name}</span>

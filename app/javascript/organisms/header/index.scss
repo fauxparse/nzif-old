@@ -28,12 +28,20 @@ $header-max-height: 20rem;
     align-items: flex-start;
     justify-content: space-between;
     padding: 0 $padding;
+
+    &:not(:empty) {
+      &::after {
+        flex: 1;
+        content: "";
+      }
+    }
   }
 
   &__buttons {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    order: 1;
 
     .button--icon {
       &:last-child {

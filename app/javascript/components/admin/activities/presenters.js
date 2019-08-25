@@ -3,7 +3,7 @@ import PropTypes from 'lib/proptypes'
 import { usePermission } from 'lib/permissions'
 import Button from 'atoms/button'
 import Chip from 'molecules/chip'
-import Modal from '../../modals'
+import Modal from 'molecules/modal'
 import AddPresenter from './add_presenter'
 
 const Presenters = ({ activity, presenters, onChange }) => {
