@@ -10,6 +10,8 @@ import React, {
 } from 'react'
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
+import omit from 'lodash/omit'
+import { random } from 'faker'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import { useDeepMemo, useDeepState } from 'lib/hooks'
 import PropTypes from 'lib/proptypes'
@@ -38,6 +40,14 @@ const PRICES = [
   59200,
 ]
 
+const ALL_IN = [
+  '2019-10-11T21:00:00+13:00',
+  '2019-10-12T21:00:00+13:00',
+  '2019-10-15T21:00:00+13:00',
+  '2019-10-16T21:00:00+13:00',
+  '2019-10-18T21:00:00+13:00',
+]
+
 export const DummyLoader = ({ delay = 1000, children }) => {
   const [loading, setLoading] = useState(true)
 
@@ -50,6 +60,7 @@ export const DummyLoader = ({ delay = 1000, children }) => {
     email: '',
     phone: '',
     preferences: [],
+    availability: [],
   })
 
   const save = useCallback((changes = {}, force = false) => {
@@ -58,7 +69,10 @@ export const DummyLoader = ({ delay = 1000, children }) => {
       if (force || !isEqual(registration, changed)) {
         setSaving(true)
         return setTimeout(() => {
-          setRegistration(changed)
+          setRegistration({
+            ...changed,
+            id: changed.name ? 1 : null,
+          })
           setSaving(false)
           resolve()
         }, delay)
@@ -85,11 +99,18 @@ export const DummyLoader = ({ delay = 1000, children }) => {
     return () => clearTimeout(timeout)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const allInShows = useMemo(() => ALL_IN.map(t => {
+    const id = random.uuid()
+    const startsAt = moment(t)
+    return { id, startsAt, endsAt: startsAt.clone().add(1, 'hour') }
+  }), [])
+
   return cloneElement(children, {
     value: {
       loading,
       saving,
       prices: PRICES,
+      allInShows,
       sessions: sessions.current,
       registration,
       errors: {},
@@ -115,6 +136,17 @@ export const ApolloLoader = ({ children }) => {
       startsAt: moment(session.startsAt),
       endsAt: moment(session.endsAt),
     }))
+  ) : []), [data])
+
+  const allInShows = useMemo(() => ((data && data.festival) ? (
+    data.festival.activities.reduce((list, show) => [
+      ...list,
+      ...show.sessions.map(session => ({
+        ...session,
+        startsAt: moment(session.startsAt),
+        endsAt: moment(session.endsAt),
+      })),
+    ], [])
   ) : []), [data])
 
   const registration = useMemo(() => (data.registration || {
@@ -150,7 +182,9 @@ export const ApolloLoader = ({ children }) => {
         setSaving(true)
         setErrors({})
         Promise.all([
-          updateRegistration({ variables: { year, attributes } }),
+          updateRegistration({
+            variables: { year, attributes: omit(attributes, ['id', 'prices']) }
+          }),
           fakeDelay(1500),
         ])
           .then(() => {
@@ -174,6 +208,7 @@ export const ApolloLoader = ({ children }) => {
       saving,
       prices: registration.prices,
       sessions,
+      allInShows,
       registration,
       errors,
     },
@@ -183,8 +218,6 @@ export const ApolloLoader = ({ children }) => {
 
 const RegistrationMemoizer = ({ value, save, children }) => {
   const [unsavedChanges, setUnsavedChanges] = useDeepState({})
-
-  const [valid, setValid] = useState(true)
 
   const addUnsavedChanges = useCallback((changes) => {
     setUnsavedChanges({ ...unsavedChanges, ...changes })
@@ -202,8 +235,6 @@ const RegistrationMemoizer = ({ value, save, children }) => {
     },
     change: addUnsavedChanges,
     save: saveChanges,
-    valid,
-    setValid,
   }), [value, unsavedChanges, addUnsavedChanges, saveChanges])
 
   return (

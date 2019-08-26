@@ -4,6 +4,7 @@ import { ACTIVITY_SUMMARY_FIELDS } from './activities_by_day'
 export default gql`
   query registrationForm($year: ID!) {
     registration(year: $year) {
+      id
       name
       email
       phone
@@ -11,6 +12,10 @@ export default gql`
       preferences {
         sessionId
         position
+      }
+      availability {
+        sessionId
+        role
       }
       prices
     }
@@ -24,6 +29,13 @@ export default gql`
 
         activity {
           ...ActivitySummaryFields
+        }
+      }
+      activities(type: "show", slug: "all-in") {
+        sessions {
+          id
+          startsAt
+          endsAt
         }
       }
     }

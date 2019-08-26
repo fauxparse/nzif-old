@@ -66,6 +66,7 @@
     "unfetch": "^4.1.0",
     "use-react-router": "^1.0.7",
     "uuid": "^3.3.2",
+    "validate.js": "^0.13.1",
     "webpack": "^4.35.0"
   },
   "devDependencies": {

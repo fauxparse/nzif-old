@@ -5,6 +5,7 @@ export default [
   'alert',
   'arrow-left',
   'arrow-right',
+  'availability',
   'back',
   'calendar',
   'cart',

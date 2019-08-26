@@ -5,6 +5,8 @@ class Registration < ApplicationRecord
   # Skip validation when saving these (very simple) records so that bulk updates work
   # Feels risky but there's a unique index on the table so it should be fine?
   has_many :preferences, dependent: :destroy, autosave: true, validate: false
+  has_many :availability, class_name: 'Availability',
+    dependent: :destroy, autosave: true, validate: false
 
   enum state: {
     pending: 'pending',

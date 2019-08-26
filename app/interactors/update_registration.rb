@@ -23,5 +23,6 @@ class UpdateRegistration
     FindRegistrationUser,
     AcceptCodeOfConduct,
     UpdateRegistrationPreferences,
+    UpdateAvailability,
   )
 end

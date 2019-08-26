@@ -15,7 +15,7 @@ const RegistrationForm = ({ festival }) => {
 
   const container = useRef()
 
-  const [page, setPage] = useState(2)
+  const [page, setPage] = useState(0)
 
   const scrollTop = useRef(0)
 
@@ -23,6 +23,10 @@ const RegistrationForm = ({ festival }) => {
     scrollTop.current = document.documentElement.scrollTop
     setPage(page)
   }, [scrollTop, setPage])
+
+  const stepClicked = useCallback((page) => {
+    goToPage(PAGES.indexOf(page))
+  }, [goToPage])
 
   const previousPage = useCallback(() => {
     goToPage(page - 1)
@@ -50,7 +54,7 @@ const RegistrationForm = ({ festival }) => {
       className={classNames('registration-form', busy && 'registration-form--busy')}
     >
       <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
-      <Header pageIndex={page} />
+      <Header pageIndex={page} onStepClick={stepClicked} />
       <Pager pageIndex={page}>
         {!loading && (
           <Component />

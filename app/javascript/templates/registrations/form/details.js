@@ -8,7 +8,7 @@ import { useCurrentUser } from 'contexts/current_user'
 import Heading from './heading'
 
 const Details = () => {
-  const { registration, change, errors, setValid } = useRegistration()
+  const { registration, change, errors } = useRegistration()
 
   const [state, dispatch] = useReducer((state, { name, value }) => ({
     ...state,
@@ -17,12 +17,11 @@ const Details = () => {
 
   const currentUser = useCurrentUser()
 
-  const changed = useCallback(({ target }) => {
-    dispatch(target)
-    change({ [target.name]: target.value })
-  }, [change, dispatch])
+  const changed = useCallback(({ target }) => dispatch(target), [dispatch])
 
-  useEffect(() => setValid(true), [registration, setValid])
+  useEffect(() => {
+    change(state)
+  }, [change, state])
 
   return (
     <section className="registration-form__section registration-form__details">

@@ -10,7 +10,7 @@ import { useRegistration } from 'contexts/registration'
 import Heading from './heading'
 
 const CodeOfConduct = () => {
-  const { registration: { codeOfConductAcceptedAt }, change, setValid } = useRegistration()
+  const { registration: { codeOfConductAcceptedAt }, change } = useRegistration()
 
   const [read, setRead] = useState(!!codeOfConductAcceptedAt)
 
@@ -22,14 +22,9 @@ const CodeOfConduct = () => {
     const agreed = e.target.checked ? moment().toISOString() : null
     setAgreed(agreed)
     change({ codeOfConductAcceptedAt: agreed })
-    setValid(agreed)
-  }, [change, setAgreed, setValid])
+  }, [change, setAgreed])
 
   const { loading, raw } = useStaticContent('code-of-conduct')
-
-  useEffect(() => {
-    setValid(!!codeOfConductAcceptedAt)
-  }, [codeOfConductAcceptedAt, setValid])
 
   return (
     <section className="registration-form__section registration-form__code-of-conduct">

@@ -8,5 +8,6 @@ module Types
     argument :phone, String, required: false
     argument :code_of_conduct_accepted_at, Types::Time, required: false
     argument :preferences, [Types::PreferenceAttributes], required: false
+    argument :availability, [Types::AvailabilityAttributes], required: false
   end
 end

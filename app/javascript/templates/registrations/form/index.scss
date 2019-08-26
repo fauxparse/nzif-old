@@ -414,6 +414,16 @@
     }
   }
 
+  &__show-times {
+    margin: 0 0 $spacing;
+  }
+
+  &__show-roles {
+    .tags {
+      margin: ($spacing / 2) 0;
+    }
+  }
+
   &__payment {
     .note {
       position: relative;

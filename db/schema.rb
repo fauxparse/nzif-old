@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_110819) do
+ActiveRecord::Schema.define(version: 2019_08_25_223755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(version: 2019_08_22_110819) do
     t.index ["festival_id", "type", "slug"], name: "index_activities_on_festival_id_and_type_and_slug"
     t.index ["festival_id"], name: "index_activities_on_festival_id"
     t.index ["pitch_id"], name: "index_activities_on_pitch_id"
+  end
+
+  create_table "availabilities", force: :cascade do |t|
+    t.bigint "session_id", null: false
+    t.bigint "registration_id", null: false
+    t.string "role"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id", "session_id", "role"], name: "index_availabilities_on_registration_id_and_session_id_and_role", unique: true
+    t.index ["registration_id"], name: "index_availabilities_on_registration_id"
+    t.index ["session_id"], name: "index_availabilities_on_session_id"
   end
 
   create_table "contents", force: :cascade do |t|
@@ -188,6 +199,8 @@ ActiveRecord::Schema.define(version: 2019_08_22_110819) do
 
   add_foreign_key "activities", "festivals", on_delete: :cascade
   add_foreign_key "activities", "pitches"
+  add_foreign_key "availabilities", "registrations"
+  add_foreign_key "availabilities", "sessions"
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "pitches", "festivals", on_delete: :cascade
   add_foreign_key "pitches", "users", on_delete: :cascade

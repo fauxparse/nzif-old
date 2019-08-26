@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import validate from 'validate.js'
+import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'lib/proptypes'
 import Button from 'atoms/button'
 import { useRegistration } from 'contexts/registration'
@@ -6,7 +8,12 @@ import PAGES from './pages'
 import Cart from './cart'
 
 const Footer = ({ pageIndex, onBackClick, onNextClick }) => {
-  const { valid, loading, saving } = useRegistration()
+  const { loading, saving, registration } = useRegistration()
+
+  const valid = useMemo(() => {
+    const errors = validate(registration, PAGES[pageIndex].validations || {})
+    return isEmpty(errors)
+  }, [registration, pageIndex])
 
   const busy = loading || saving
 

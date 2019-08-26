@@ -19,6 +19,16 @@ RSpec.describe UpdateRegistration, type: :interactor do
     end
   end
 
+  let(:all_in_show) { create(:show, festival: festival) }
+
+  let(:shows) do
+    (0...5).map do |i|
+      starts_at = (festival.start_date + i).midnight.change(hour: 21)
+      ends_at = starts_at + 1.hour
+      create(:session, activity: all_in_show, starts_at: starts_at, ends_at: ends_at)
+    end
+  end
+
   describe '.call' do
     context 'when not logged in' do
       let(:user) { nil }
@@ -144,10 +154,16 @@ RSpec.describe UpdateRegistration, type: :interactor do
       let(:attributes) do
         {
           preferences: [
-            { session_id: sessions[1].id, position: 1 },
-            { session_id: sessions[0].id, position: 2 },
-            { session_id: sessions[3].id, position: 1 },
-          ]
+            { session_id: sessions[1].to_param, position: 1 },
+            { session_id: sessions[0].to_param, position: 2 },
+            { session_id: sessions[3].to_param, position: 1 },
+          ],
+          availability: [
+            { session_id: shows[0].to_param, role: 'player' },
+            { session_id: shows[0].to_param, role: 'director' },
+            { session_id: shows[1].to_param, role: 'player' },
+            { session_id: shows[1].to_param, role: 'director' },
+          ],
         }
       end
 
@@ -189,6 +205,48 @@ RSpec.describe UpdateRegistration, type: :interactor do
 
           it 'adds an error' do
             expect(result.errors).to include(:preferences)
+          end
+        end
+      end
+
+      context 'records their initial availability' do
+        it { is_expected.to be_success }
+
+        it 'creates preference records' do
+          expect { result }.to change(Availability, :count).by(4)
+        end
+      end
+
+      context 'updates their availability' do
+        before do
+          registration.availability.create!(session: shows[2], role: 'player')
+          registration.availability.create!(session: shows[1], role: 'mc')
+        end
+
+        it { is_expected.to be_success }
+
+        it 'updates availability records' do
+          expect { result }.to change(Availability, :count).by(2)
+        end
+
+        context 'with bad data' do
+          let(:attributes) do
+            {
+              availability: [
+                { session_id: sessions[0].id, role: 'player' },
+                { session_id: sessions[0].id, role: 'player' },
+              ]
+            }
+          end
+
+          it { is_expected.to be_failure }
+
+          it 'doesn’t change the database' do
+            expect { result }.not_to change(Availability, :count)
+          end
+
+          it 'adds an error' do
+            expect(result.errors).to include(:availability)
           end
         end
       end
