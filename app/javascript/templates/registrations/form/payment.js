@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useToggle } from 'lib/hooks'
 import { useRegistration } from 'contexts/registration'
 import Icon from 'atoms/icon'
@@ -6,7 +6,7 @@ import Price from 'atoms/price'
 import Heading from './heading'
 
 const Payment = () => {
-  const { registration: { preferences }, prices } = useRegistration()
+  const { registration: { preferences }, prices, change } = useRegistration()
 
   const [moreInfo, toggleMoreInfo] = useToggle()
 
@@ -24,6 +24,10 @@ const Payment = () => {
   const total = prices[workshopCount]
 
   const discount = value - total
+
+  useEffect(() => {
+    change({ state: 'complete' })
+  }, [])
 
   return (
     <section className="registration-form__section registration-form__payment">

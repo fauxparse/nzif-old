@@ -24,5 +24,6 @@ class UpdateRegistration
     AcceptCodeOfConduct,
     UpdateRegistrationPreferences,
     UpdateAvailability,
+    ConfirmRegistration,
   )
 end

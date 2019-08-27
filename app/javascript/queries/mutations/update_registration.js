@@ -4,6 +4,7 @@ export default gql`
   mutation UpdateRegistration($year: ID!, $attributes: RegistrationAttributes!) {
     updateRegistration(year: $year, attributes: $attributes) {
       id
+      state
       name
       email
       phone

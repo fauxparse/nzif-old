@@ -1,0 +1,30 @@
+= email_section do
+  %p
+    Kia ora #{@user.name},
+
+= email_section class_name: 'section--highlight' do
+  %p
+    You’re on your way to NZIF #{@festival.year}!
+
+  %p
+    = link_to 'View your registration', front_end_url("#{@festival.year}/register"), class: 'button'
+
+= email_section do
+  %p
+    Right now, registrations are in ‘earlybird’ mode. We’re gathering workshop preferences from
+    all Festival participants, so that we can gauge interest and allocate more spaces if we need to.
+
+  %p
+    Later this month, you’ll receive another email from us with your confirmed workshop schedule,
+    along with an invoice for your registration fees. You don't need to pay anything until you
+    receive this confirmation.
+
+  %p
+    Until then, you can always
+    = link_to 'log back in', front_end_url("#{@festival.year}/register")
+    and adjust your workshop preferences and availability.
+
+  %p
+    Ngā mihi nui,
+    %br/
+    The NZIF Team

@@ -3,6 +3,7 @@ import CodeOfConduct from './code_of_conduct'
 import Workshops from './workshops'
 import Availability from './availability'
 import Payment from './payment'
+import Confirmation from './confirmation'
 
 export default [{
   name: 'details',
@@ -46,5 +47,11 @@ export default [{
   label: 'Payment',
   icon: 'payment',
   component: Payment,
+  validations: {},
+}, {
+  name: 'confirmation',
+  label: 'Confirmation',
+  icon: 'check',
+  component: Confirmation,
   validations: {},
 }]

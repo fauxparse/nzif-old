@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import validate from 'validate.js'
 import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'lib/proptypes'
@@ -21,15 +21,19 @@ const Footer = ({ pageIndex, onBackClick, onNextClick }) => {
     <footer className="registration-form__footer">
       <Cart />
       <div className="footer__buttons">
-        {pageIndex > 0 && (
-          <Button text="Back" disabled={busy} onClick={onBackClick} />
+        {pageIndex < PAGES.length - 1 && (
+          <Fragment>
+            {pageIndex > 0 && (
+              <Button text="Back" disabled={busy} onClick={onBackClick} />
+            )}
+            <Button
+              primary
+              disabled={busy || !valid}
+              text={pageIndex < PAGES.length - 2 ? 'Next' : 'Finish'}
+              onClick={onNextClick}
+            />
+          </Fragment>
         )}
-        <Button
-          primary
-          disabled={busy || !valid}
-          text={pageIndex < PAGES.length - 1 ? 'Next' : 'Finish'}
-          onClick={onNextClick}
-        />
       </div>
     </footer>
   )

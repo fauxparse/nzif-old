@@ -5,6 +5,7 @@ export default gql`
   query registrationForm($year: ID!) {
     registration(year: $year) {
       id
+      state
       name
       email
       phone

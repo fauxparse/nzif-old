@@ -250,6 +250,32 @@ RSpec.describe UpdateRegistration, type: :interactor do
           end
         end
       end
+
+      context 'completes registration' do
+        let(:attributes) do
+          {
+            state: 'complete',
+          }
+        end
+
+        let(:email) { double('email', deliver_later: true) }
+
+        before do
+          allow(UserMailer).to receive(:registration_confirmation).and_return(email)
+        end
+
+        it { is_expected.to be_success }
+
+        it 'completes the registration' do
+          result
+          expect(registration.reload).to be_complete
+        end
+
+        it 'sends a confirmation email' do
+          expect(UserMailer).to receive(:registration_confirmation)
+          result
+        end
+      end
     end
   end
 end

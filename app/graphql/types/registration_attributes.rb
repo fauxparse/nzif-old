@@ -1,6 +1,7 @@
 module Types
   class RegistrationAttributes < BaseInputObject
     description 'Attributes for creating or updating a registration'
+    argument :state, String, required: false
     argument :name, String, required: false
     argument :email, String, required: false
     argument :password, String, required: false

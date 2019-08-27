@@ -23,7 +23,7 @@ const Header = ({ pageIndex, onStepClick }) => {
   return (
     <header ref={ref} className="registration-form__header">
       <Stepper className="registration-form__stepper">
-        {PAGES.map((page, i) => (
+        {PAGES.slice(0, PAGES.length - 1).map((page, i) => (
           <Stepper.Step
             key={page.name}
             icon={page.icon}

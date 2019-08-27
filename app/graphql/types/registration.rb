@@ -2,6 +2,7 @@ module Types
   class Registration < Types::BaseObject
     field :id, GraphQL::Types::ID, null: true
     field :user, Types::User, null: true
+    field :state, String, null: false
     field :name, String, null: true
     field :email, String, null: true
     field :phone, String, null: true
