@@ -57,7 +57,10 @@ const Festival = ({ match, history }) => {
   const pageKey = (location, match) => {
     const programmePage =
       new RegExp(`^${match.url}/(${ACTIVITY_TYPES.map(t => pluralize(t)).join('|')})`)
-    return location.pathname.replace(programmePage, `${match.url}/programme`)
+    const registration = new RegExp(`^${match.url}/register(/.*)`)
+    return location.pathname
+      .replace(programmePage, `${match.url}/programme`)
+      .replace(registration, `${match.url}/register`)
   }
 
   return (
@@ -87,7 +90,7 @@ const Festival = ({ match, history }) => {
                       </Switch>
                     )}
                   />
-                  <Route path={`${match.path}/register`} component={RegistrationPage} />
+                  <Route path={`${match.path}/register/:page?`} component={RegistrationPage} />
                   <Route path={`${match.path}/profile`} exact component={Profile} />
                   <Route path={`${match.path}/pitches`} component={Pitches} />
                   <Route path={`${match.path}/map`} component={Map} />

@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
+import validate from 'validate.js'
 import IntermittentLoader from 'molecules/intermittent_loader'
 import Header from './header'
 import Pager from './pager'
@@ -10,12 +11,12 @@ import { useRegistration } from 'contexts/registration'
 
 import './index.scss'
 
-const RegistrationForm = ({ festival }) => {
+const RegistrationForm = ({ festival, page: initialPage, onPageChange }) => {
   const { loading, saving, save } = useRegistration()
 
   const container = useRef()
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(PAGES.indexOf(initialPage))
 
   const scrollTop = useRef(0)
 
@@ -37,6 +38,12 @@ const RegistrationForm = ({ festival }) => {
   }, [save, page, goToPage])
 
   const Component = useMemo(() => PAGES[page].component, [page])
+
+  useEffect(() => {
+    if (onPageChange) {
+      onPageChange(PAGES[page])
+    }
+  }, [onPageChange, page])
 
   React.useLayoutEffect(() => {
     if (!container.current) return
@@ -74,6 +81,15 @@ RegistrationForm.propTypes = {
   festival: PropTypes.shape({
     year: PropTypes.id.isRequired,
   }).isRequired,
+  page: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
+  onPageChange: PropTypes.func,
+}
+
+RegistrationForm.defaultProps = {
+  page: PAGES[0],
+  onPageChange: null,
 }
 
 export default RegistrationForm
