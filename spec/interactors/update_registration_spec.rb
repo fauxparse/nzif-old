@@ -89,6 +89,33 @@ RSpec.describe UpdateRegistration, type: :interactor do
             expect(result.errors).to include(:password)
           end
         end
+
+        context 'when a user with the correct email but no password exists' do
+          context 'with an oauth login' do
+            before do
+              user = create(:user, name: attributes[:name], email: attributes[:email])
+              create(:facebook, user: user)
+            end
+
+            it { is_expected.to be_failure }
+
+            it 'does not create a password' do
+              expect { result }.not_to change(Identity::Password, :count)
+            end
+          end
+
+          context 'because they’ve never logged in' do
+            before do
+              create(:user, name: attributes[:name], email: attributes[:email])
+            end
+
+            it { is_expected.to be_success }
+
+            it 'creates a password' do
+              expect { result }.to change(Identity::Password, :count).by(1)
+            end
+          end
+        end
       end
 
       context 'with invalid attributes' do

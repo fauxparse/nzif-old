@@ -34,15 +34,26 @@ class FindRegistrationUser < Interaction
     user = User.includes(:identities).find_by_email(email)
     return nil if user.blank?
 
-    identity = user.identities.detect { |id| id.is_a?(Identity::Password) } ||
-      user.identities.build(password: password, password_confirmation: password_confirmation)
-
-    if identity.authenticate(password)
+    if password_identity(user)&.authenticate(password)
       return user
     else
       errors.add(:password, 'is incorrect')
       return
     end
+  end
+
+  def password_identity(user)
+    identity = user.identities.detect { |id| id.respond_to?(:password) }
+
+    if !identity && user.identities.empty?
+      identity = user.identities.build({
+        type: 'Identity::Password',
+        password: password,
+        password_confirmation: password_confirmation
+      })
+    end
+
+    identity
   end
 
   def new_user
