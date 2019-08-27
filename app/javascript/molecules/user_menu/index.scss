@@ -9,8 +9,10 @@
     .button__text {
       display: none;
 
-      @include media(small) {
+      @include media(medium) {
+        @include ellipsis;
         display: initial;
+        max-width: 16rem;
       }
     }
   }
