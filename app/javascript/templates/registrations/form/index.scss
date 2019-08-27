@@ -357,6 +357,22 @@
       }
     }
 
+    &[aria-disabled] {
+      @include elevation(0);
+
+      .card__image {
+        filter: grayscale(0);
+      }
+
+      @include themify {
+        .card__title,
+        .card__description,
+        .button__text {
+          color: themed(disabled);
+        }
+      }
+    }
+
     @include media(medium) {
       padding: 0;
       overflow: visible;

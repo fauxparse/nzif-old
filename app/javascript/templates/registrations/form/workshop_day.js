@@ -5,8 +5,7 @@ import entries from 'lodash/entries'
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 import Day from 'molecules/day'
-import Timeslot from 'molecules/timeslot'
-import Workshop from './workshop'
+import Timeslot from './workshop_timeslot'
 
 const WorkshopDay = ({
   date,
@@ -27,18 +26,16 @@ const WorkshopDay = ({
   return (
     <Day date={date} offset={offset}>
       {slots.map(([time, sessions]) => (
-        <Timeslot key={time.valueOf()} time={time} offset={offset} loading={loading}>
-          {sessions.map(session => (
-            <Workshop
-              key={session.id}
-              session={session}
-              loading={loading}
-              position={(ordering[session.startsAt.valueOf()] || []).indexOf(session) + 1}
-              onToggle={onToggleActivity}
-              onSelect={onSelectActivity}
-            />
-          ))}
-        </Timeslot>
+        <Timeslot
+          key={time.valueOf()}
+          time={time}
+          offset={offset}
+          loading={loading}
+          sessions={sessions}
+          ordering={ordering}
+          onToggleActivity={onToggleActivity}
+          onSelectActivity={onSelectActivity}
+        />
       ))}
     </Day>
   )
