@@ -1,9 +1,8 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useToggle } from 'lib/hooks'
 import { useRegistration } from 'contexts/registration'
 import Icon from 'atoms/icon'
 import Price from 'atoms/price'
-import TextLink from 'atoms/text_link'
 import Heading from './heading'
 
 const Payment = () => {
