@@ -9,6 +9,9 @@ export default gql`
       email
       phone
       codeOfConductAcceptedAt
+      user {
+        id
+      }
       preferences {
         sessionId
         position

@@ -16,6 +16,9 @@ export default gql`
         sessionId
         role
       }
+      user {
+        id
+      }
     }
   }
 `

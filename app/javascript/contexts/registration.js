@@ -18,9 +18,11 @@ import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
 import fakeDelay from 'lib/fakeDelay'
 import FestivalContext from 'contexts/festival'
+import { useCurrentUser } from 'contexts/current_user'
 import dummyWorkshops from 'templates/activities/overview/dummy'
 import REGISTRATION_FORM from 'queries/registration_form'
 import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
+import CURRENT_USER_QUERY from 'queries/current_user'
 
 export const RegistrationContext = createContext({})
 
@@ -126,6 +128,8 @@ DummyLoader.proptypes = {
 export const ApolloLoader = ({ children }) => {
   const festival = useContext(FestivalContext)
 
+  const currentUser = useCurrentUser()
+
   const { year } = festival
 
   const { loading, data } = useQuery(REGISTRATION_FORM, { variables: { year } })
@@ -183,7 +187,8 @@ export const ApolloLoader = ({ children }) => {
         setErrors({})
         Promise.all([
           updateRegistration({
-            variables: { year, attributes: omit(attributes, ['id', 'prices']) }
+            variables: { year, attributes: omit(attributes, ['id', 'user', 'prices']) },
+            refetchQueries: currentUser ? [] : [{ query: CURRENT_USER_QUERY }],
           }),
           fakeDelay(1500),
         ])
@@ -200,7 +205,7 @@ export const ApolloLoader = ({ children }) => {
         resolve()
       }
     })
-  }, [year, setSaving, setErrors, updateRegistration])
+  }, [year, setSaving, setErrors, updateRegistration, currentUser])
 
   return cloneElement(children, {
     value: {

@@ -10,17 +10,13 @@ export default [{
   icon: 'user',
   component: Details,
   validations: {
-    name: {
-      presence: { allowEmpty: false },
+    name: { presence: { allowEmpty: false } },
+    email: { presence: { allowEmpty: false } },
+    password: (_, { user }) => {
+      return user ? null : { presence: { allowEmpty: false } }
     },
-    email: {
-      presence: { allowEmpty: false },
-    },
-    password: (_, { id })=> {
-      return id ? null : { presence: { allowEmpty: false } }
-    },
-    passwordConfirmation: (_, { id })=> {
-      return id ? null : { presence: { allowEmpty: false } }
+    passwordConfirmation: (_, { user }) => {
+      return user ? null : { presence: { allowEmpty: false } }
     },
   },
 }, {
