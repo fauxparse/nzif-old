@@ -29,9 +29,7 @@ const AdminSidebar = ({ match, history, location, staticContext, festival, ...pr
 AdminSidebar.propTypes = {
   open: PropTypes.bool,
   onClickOutside: PropTypes.func,
-  festival: PropTypes.shape({
-    pitchesOpen: PropTypes.bool,
-  }),
+  festival: PropTypes.festival,
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
@@ -40,9 +38,7 @@ AdminSidebar.propTypes = {
 
 AdminSidebar.defaultProps = {
   onClickOutside: undefined,
-  festival: {
-    pitchesOpen: false,
-  },
+  festival: undefined,
   staticContext: {},
 }
 

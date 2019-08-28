@@ -114,6 +114,10 @@ export const venue = PropTypes.shape({
   longitude: PropTypes.number.isRequired,
 })
 
+export const festival = PropTypes.shape({
+  year: id.isRequired,
+})
+
 export default {
   ...PropTypes,
   activity,
@@ -122,6 +126,7 @@ export default {
   className,
   color,
   component,
+  festival,
   icon,
   id,
   image,

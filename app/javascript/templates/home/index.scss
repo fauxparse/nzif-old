@@ -1,0 +1,80 @@
+@import "../../styles/base";
+
+.homepage {
+  text-align: center;
+
+  .masthead {
+    display: block;
+    position: relative;
+    width: calc(100vw - #{$padding * 2});
+    max-width: 30rem;
+    margin: ($spacing * 3) auto;
+
+    @include media(medium) {
+      margin-right: calc(50vw - 15rem - #{$keyline + $padding} / 2 + #{$padding});
+      margin-left: calc(50vw - 15rem - #{$keyline + $padding} / 2 + #{$keyline});
+    }
+  }
+
+  &__purpose {
+    @include autopad;
+    font-size: font-size(-1);
+    line-height: line-height(loose);
+
+    b {
+      text-transform: uppercase;
+    }
+
+    p {
+      max-width: 30rem;
+      margin: 0 auto $spacing;
+    }
+  }
+
+  &__panel {
+    @include autopad;
+    margin: 0 0 $spacing;
+
+    .section-title {
+      margin-top: 0;
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+
+    p {
+      max-width: 30em;
+      margin: 0 auto $spacing;
+    }
+
+    .button {
+      min-width: 12rem;
+      margin: $spacing auto 0;
+    }
+
+    .counter {
+      font-size: font-size(4);
+    }
+
+    @include themify {
+      background: themed(panel);
+    }
+
+    @include media(medium) {
+      .counter {
+        font-size: font-size(6);
+      }
+    }
+  }
+
+  @include themify {
+    .masthead {
+      color: themed(accent);
+    }
+
+    &__purpose {
+      color: themed(secondary);
+    }
+  }
+}

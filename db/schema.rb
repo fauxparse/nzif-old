@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_25_223755) do
+ActiveRecord::Schema.define(version: 2019_08_28_022002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,8 @@ ActiveRecord::Schema.define(version: 2019_08_25_223755) do
     t.date "end_date"
     t.datetime "pitches_open_at"
     t.datetime "pitches_close_at"
-    t.datetime "programme_launched_at"
+    t.datetime "registrations_open_at"
+    t.datetime "earlybird_cutoff"
     t.index "date_part('year'::text, start_date)", name: "festivals_by_year", unique: true
   end
 

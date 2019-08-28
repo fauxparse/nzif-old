@@ -1,3 +1,7 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 
-export default createContext({})
+export const FestivalContext = createContext({})
+
+export const useFestival = () => useContext(FestivalContext)
+
+export default FestivalContext

@@ -56,7 +56,7 @@ const PitchList = ({ match, className }) => {
           <Breadcrumbs.Link to={`/${year}`}>NZIF {year}</Breadcrumbs.Link>
         </Breadcrumbs>
         <h1 className="page-title">Pitches for NZIF {year}</h1>
-        {festival.pitchesOpen && (
+        {festival.state === 'pitching' && (
           <Button
             as={Link}
             to={`${match.url}/new`}
@@ -76,7 +76,7 @@ const PitchList = ({ match, className }) => {
               className="pitches__row"
               pitch={pitch}
               url={`${match.url}/${pitch.id}`}
-              editable={festival.pitchesOpen}
+              editable={festival.state === 'pitching'}
               onDelete={setDeleting}
             />
           ))

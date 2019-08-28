@@ -12,8 +12,8 @@ module Types
       argument :type, ActivityType, 'Restrict activities by type', required: false
     end
     field :slots, [Types::Slot], null: false
-    field :pitches_open, GraphQL::Types::Boolean, null: false
-    field :pitches_close_at, Types::Time, null: true
+    field :state, String, null: false
+    field :deadline, Types::Time, null: true
     field :programme_launched, GraphQL::Types::Boolean, null: false
     field :root, String, null: false
     field :admin_root, String, null: false
@@ -31,14 +31,6 @@ module Types
         .references(:activity)
         .merge(::Activity.of_type(type))
         .where({ activities: { festival_id: object.id } })
-    end
-
-    def pitches_open
-      object.pitches_open?
-    end
-
-    def pitches_close_at
-      object.pitches_open_at && object.pitches_close_at
     end
 
     def programme_launched

@@ -32,8 +32,31 @@ class Festival < ApplicationRecord
       (pitches_close_at.blank? || pitches_close_at > Time.now)
   end
 
-  def programme_launched?
-    programme_launched_at.present? &&
-      programme_launched_at < Time.now
+  def registrations_open?
+    registrations_open_at.present? && registrations_open_at < Time.now
+  end
+
+  def earlybird?
+    registrations_open? && (earlybird_cutoff.blank? || earlybird_cutoff > Time.now)
+  end
+
+  def state
+    @state ||= if pitches_open?
+      'pitching'
+    elsif earlybird?
+      'earlybird'
+    elsif end_date.past?
+      'finished'
+    else
+      'programming'
+    end
+  end
+
+  def deadline
+    case state
+    when 'pitching' then pitches_close_at
+    when 'earlybird' then earlybird_cutoff
+    else nil
+    end
   end
 end

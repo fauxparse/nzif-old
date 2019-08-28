@@ -5,9 +5,8 @@ export const HOMEPAGE_FRAGMENT = gql`
     year
     startDate
     endDate
-    pitchesOpen
-    pitchesCloseAt
-    programmeLaunched
+    state
+    deadline
     root
     adminRoot
   }

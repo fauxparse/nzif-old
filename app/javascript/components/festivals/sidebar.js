@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import Sidebar from 'organisms/sidebar'
 import List from 'molecules/list'
@@ -10,21 +10,15 @@ const FestivalSidebar = ({ festival, ...props }) => {
 
   const isAdmin = useMemo(() => user && user.roles.includes('admin'), [user])
 
-  const { pitchesOpen, programmeLaunched } = festival
-
-  const { year } = festival || {}
+  const { state, year } = festival || {}
 
   return (
     <Sidebar {...props}>
       <List>
         <List.Link to={`/${year}`} icon="home" primary="Festival home" />
-        {programmeLaunched && (
-          <Fragment>
-            <List.Link to={`/${year}/workshops`} icon="workshop" primary="Workshops" />
-            <List.Link to={`/${year}/shows`} icon="show" primary="Shows" />
-          </Fragment>
-        )}
-        {user && pitchesOpen && (
+        <List.Link to={`/${year}/workshops`} icon="workshop" primary="Workshops" />
+        <List.Link to={`/${year}/shows`} icon="show" primary="Shows" />
+        {user && (state === 'pitching') && (
           <List.Link to={`/${year}/pitches`} icon="pitch" primary="My pitches" />
         )}
       </List>
@@ -60,17 +54,13 @@ const FestivalSidebar = ({ festival, ...props }) => {
 FestivalSidebar.propTypes = {
   open: PropTypes.bool,
   onClickOutside: PropTypes.func,
-  festival: PropTypes.shape({
-    pitchesOpen: PropTypes.bool,
-    programmeLaunched: PropTypes.bool,
-  }),
+  festival: PropTypes.festival,
 }
 
 FestivalSidebar.defaultProps = {
   onClickOutside: undefined,
   festival: {
-    pitchesOpen: false,
-    programmeLaunched: false,
+    year: new Date().getYear() + 1900,
   },
 }
 

@@ -47,19 +47,19 @@ RSpec.describe Festival, type: :model do
     end
   end
 
-  describe '#programme_launched?' do
-    subject { festival.programme_launched? }
+  describe '#earlybird?' do
+    subject { festival.earlybird? }
 
     it { is_expected.to be false }
 
-    context 'when the programme will launch tomorrow' do
-      before { festival.programme_launched_at = Time.now + 1.day }
+    context 'when registrations will open tomorrow' do
+      before { festival.registrations_open_at = Time.now + 1.day }
 
       it { is_expected.to be false }
     end
 
-    context 'when the programme launched last week' do
-      before { festival.programme_launched_at = Time.now - 1.week }
+    context 'when registrations opened last week' do
+      before { festival.registrations_open_at = Time.now - 1.week }
 
       it { is_expected.to be true }
     end
