@@ -1,7 +1,12 @@
+@mixin environment-marker-gradient($from, $to) {
+  background: linear-gradient(to right bottom, color($from, 500, 0.875) 10%, color($to, 800, 0.875) 50%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 55%);
+}
+
 .environment-marker {
   display: none;
 
   @include media(medium) {
+    @include environment-marker-gradient(plum, grape);
     display: block;
     position: fixed;
     top: -1em;
@@ -9,15 +14,21 @@
     width: 6.5em;
     height: 6.5em;
     padding: 1.5em;
-    background: linear-gradient(to right bottom, color(plum, 500) 10%, color(grape, 800) 50%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 55%);
-    color: white;
-    opacity: 0.875;
     z-index: 1000;
     pointer-events: none;
     touch-action: none;
 
-    svg {
+    .icon {
       display: block;
+      color: $white;
+    }
+
+    &[data-environment="staging"] {
+      @include environment-marker-gradient(apple, mint);
+    }
+
+    &[data-environment="production"] {
+      display: none;
     }
   }
 }

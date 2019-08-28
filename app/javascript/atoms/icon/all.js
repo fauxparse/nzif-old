@@ -42,6 +42,7 @@ export default [
   'role',
   'send',
   'show',
+  'staging',
   'text',
   'trash',
   'twitter',

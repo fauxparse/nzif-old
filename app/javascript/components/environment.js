@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Icon from '../atoms/icon'
 
 const Environment = () => {
-  const environmentTag = document.querySelector('meta[name="environment"]')
-  const environment = environmentTag && environmentTag.getAttribute('content')
+  const environment = useMemo(() => {
+    if (window.location.host.match(/^staging/)) {
+      return 'staging'
+    }
 
-  if (environment === 'development') {
+    const environmentTag = document.querySelector('meta[name="environment"]')
+    return environmentTag && environmentTag.getAttribute('content')
+  }, [])
+
+  if (environment !== 'production') {
     return (
-      <div className="environment-marker">
-        <Icon name="development" />
+      <div className="environment-marker" data-environment={environment}>
+        <Icon name={environment} />
       </div>
     )
   }
