@@ -13,7 +13,7 @@ module Types
     field :prices, [Integer], null: false
 
     def id
-      object.to_param
+      object.persisted? ? object.to_param : nil
     end
 
     def name
