@@ -1,4 +1,6 @@
 class Registration < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :festival
   belongs_to :user
 
@@ -15,6 +17,10 @@ class Registration < ApplicationRecord
 
   validates :festival_id, uniqueness: { scope: :user_id }, on: :update
   validates :code_of_conduct, acceptance: true, if: :requires_acceptance?
+
+  scope :with_preferences, -> { includes(preferences: { session: :activity }) }
+
+  scope :with_user, -> { includes(:user) }
 
   def code_of_conduct_accepted?
     code_of_conduct_accepted_at.present?

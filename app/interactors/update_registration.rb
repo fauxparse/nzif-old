@@ -1,6 +1,7 @@
 class UpdateRegistration
   include Interactor::Organizer
   include ActiveModel::Validations
+  include AccessGranted::Rails::ControllerMethods
 
   class UpdateRegistrationContext < Interactor::Context
     extend ActiveModel::Translation
@@ -20,6 +21,7 @@ class UpdateRegistration
   end
 
   organize(
+    CheckRegistrationPermission,
     FindRegistrationUser,
     AcceptCodeOfConduct,
     UpdateRegistrationPreferences,

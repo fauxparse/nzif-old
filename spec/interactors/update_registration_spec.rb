@@ -2,7 +2,15 @@ require 'rails_helper'
 
 RSpec.describe UpdateRegistration, type: :interactor do
   subject(:result) do
-    UpdateRegistration.call(festival: festival, current_user: user, attributes: attributes)
+    UpdateRegistration.call(**context)
+  end
+
+  let(:context) do
+    {
+      festival: festival,
+      current_user: user,
+      attributes: attributes,
+    }
   end
 
   let(:festival) { create(:festival) }
@@ -301,6 +309,45 @@ RSpec.describe UpdateRegistration, type: :interactor do
         it 'sends a confirmation email' do
           expect(UserMailer).to receive(:registration_confirmation)
           result
+        end
+      end
+    end
+
+    context 'updating another user’s registration' do
+      let(:context) do
+        {
+          festival: festival,
+          current_user: user,
+          attributes: attributes,
+          registration: registration,
+        }
+      end
+
+      let(:registration) { create(:registration, festival: festival) }
+
+      let(:attributes) do
+        { name: 'Updated name' }
+      end
+
+      context 'as an admin' do
+        let(:user) { create(:admin) }
+
+        it { is_expected.to be_success }
+      end
+
+      context 'as an ordinary user' do
+        let(:user) { create(:user) }
+
+        it 'raises an exception' do
+          expect { result }.to raise_error(Interaction::AccessDenied)
+        end
+      end
+
+      context 'as an anonymous user' do
+        let(:user) { nil }
+
+        it 'raises an exception' do
+          expect { result }.to raise_error(Interaction::AccessDenied)
         end
       end
     end

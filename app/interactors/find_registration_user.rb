@@ -9,7 +9,11 @@ class FindRegistrationUser < Interaction
   end
 
   def user
-    context.user ||= context.current_user || existing_user || new_user
+    context.user ||=
+      context.registration&.user ||
+      context.current_user ||
+      existing_user ||
+      new_user
   end
 
   delegate :festival, :attributes, :errors, to: :context

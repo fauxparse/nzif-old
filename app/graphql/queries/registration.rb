@@ -5,12 +5,19 @@ module Queries
     included do
       field :registration, Types::Registration, null: false, description: 'Registration details' do
         argument :year, GraphQL::Types::ID, required: true
+        argument :id, GraphQL::Types::ID, required: false
       end
 
-      def registration(year:)
+      def registration(year:, id: nil)
         festival = ::Festival.by_year(year).first
-        user = environment.current_user
-        festival.registrations.find_or_initialize_by(user: user)
+        scope = festival.registrations.with_preferences.with_user
+
+        registration = if id.present?
+          scope.find_by_hashid(id)
+        else
+          user = environment.current_user
+          scope.find_or_initialize_by(user: user)
+        end
       end
     end
   end

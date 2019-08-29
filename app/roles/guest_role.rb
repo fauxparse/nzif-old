@@ -7,5 +7,9 @@ class GuestRole < AccessGranted::Role
     can [:read, :update, :destroy], Pitch do |pitch, user|
       !pitch.persisted? || pitch.belongs_to?(user)
     end
+
+    can [:read, :update], Registration do |registration, user|
+      registration.user == user
+    end
   end
 end

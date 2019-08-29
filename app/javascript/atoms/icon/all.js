@@ -41,6 +41,7 @@ export default [
   'print',
   'registration',
   'role',
+  'search',
   'send',
   'show',
   'staging',
