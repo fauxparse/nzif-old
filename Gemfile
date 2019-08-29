@@ -49,7 +49,7 @@ gem 'mini_magick'
 # Sluggable models
 gem 'auto_strip_attributes'
 gem 'stringex'
-gem 'hashid-rails'
+gem 'hashid-rails', github: 'fauxparse/hashid-rails', branch: 'encode_nil_id_as_nil'
 
 # Service objects
 gem 'interactor-rails', github: 'fauxparse/interactor-rails', branch: 'rails6'

@@ -8,6 +8,15 @@ GIT
       guard-compat (~> 1.1)
 
 GIT
+  remote: https://github.com/fauxparse/hashid-rails.git
+  revision: 6cddd834df710a15893862918338c957a2e26429
+  branch: encode_nil_id_as_nil
+  specs:
+    hashid-rails (1.2.2)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+
+GIT
   remote: https://github.com/fauxparse/interactor-rails.git
   revision: 84140d218b15d020888518a8bbf5a0fa8bd5ae55
   branch: rails6
@@ -228,10 +237,7 @@ GEM
       guard (~> 2.0)
       rubocop (~> 0.20)
     hashdiff (0.3.8)
-    hashid-rails (1.2.1)
-      activerecord (>= 4.0)
-      hashids (~> 1.0)
-    hashids (1.0.4)
+    hashids (1.0.5)
     hashie (3.6.0)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
@@ -508,7 +514,7 @@ DEPENDENCIES
   guard-rubocop
   haml!
   haml-rails!
-  hashid-rails
+  hashid-rails!
   hashie
   interactor-rails!
   jbuilder!
