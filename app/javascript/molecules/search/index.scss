@@ -1,0 +1,54 @@
+@import "../../styles/base";
+
+.search {
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    order: -1;
+    margin-right: -$icon-size;
+    transition: transition(color, $duration: duration(fast));
+  }
+
+  &__clear {
+    margin-right: -0.5rem;
+    margin-left: -2rem;
+    transform: scale(0);
+    transition: transition(transform);
+  }
+
+  &__text {
+    margin: 0;
+    padding-right: $icon-size + $spacing;
+    padding-left: $icon-size + $spacing;
+
+    &--filled {
+      ~ .search__clear {
+        transform: scale(1);
+      }
+    }
+  }
+
+  @include themify {
+    &__text {
+      &:focus {
+        ~ .search__icon {
+          color: themed(secondary);
+        }
+      }
+    }
+
+    &__clear {
+      color: themed(icon);
+
+      &:hover {
+        color: themed(secondary);
+      }
+
+      &:focus {
+        color: themed(accent);
+        box-shadow: none;
+      }
+    }
+  }
+}

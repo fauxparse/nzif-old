@@ -88,6 +88,20 @@ $header-max-height: 20rem;
     border-bottom: 0;
   }
 
+  .search {
+    margin-bottom: -1px;
+    padding-bottom: $padding / 2;
+
+    &__text {
+      padding-bottom: $padding / 2;
+
+      &,
+      &:focus {
+        border: 0;
+      }
+    }
+  }
+
   @include themify {
     border-bottom: 1px solid themed(border);
 
@@ -126,6 +140,14 @@ $header-max-height: 20rem;
 
     .tab-bar {
       padding-left: $keyline - $padding;
+    }
+
+    .search {
+      padding-left: $keyline - $padding - $icon-size - $spacing;
+
+      &__icon {
+        margin-right: $spacing - $icon-size;
+      }
     }
   }
 

@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import { useSticky } from 'lib/hooks'
 import Button from 'atoms/button'
 import Breadcrumbs from 'molecules/breadcrumbs'
+import Search from 'molecules/search'
 import TabBar from 'molecules/tab_bar'
 
 import './index.scss'
@@ -25,11 +26,12 @@ const Background = ({ className, children, ...props }) => (
 const Header = ({ className, colored, children, ...props }) => {
   const top = useSticky()
 
-  const [breadcrumbs, background, buttons, tabs, rest] = useMemo(() => partition(
+  const [breadcrumbs, background, buttons, search, tabs, rest] = useMemo(() => partition(
     React.Children.toArray(children),
     child => child.type === Breadcrumbs,
     child => child.type === Background,
     child => child.type === Button,
+    child => child.type === Search,
     child => child.type === TabBar,
   ), [children])
 
@@ -57,6 +59,7 @@ const Header = ({ className, colored, children, ...props }) => {
       <div className="header__bottom">
         {rest}
       </div>
+      {search}
       {tabs}
       {background}
     </header>

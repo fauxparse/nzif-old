@@ -1,61 +1,6 @@
 @import "../../../styles/base";
 
 .registrations {
-  .header {
-    &__bottom {
-      padding-bottom: $padding / 2;
-    }
-  }
-
-  .search {
-    display: flex;
-    align-items: center;
-    margin: $spacing 0 -1px;
-
-    > .icon {
-      order: -1;
-      transition: transition(color);
-    }
-
-    .text-field {
-      margin: 0 $spacing;
-      border-bottom-color: transparent;
-
-      ~ .button {
-        transform: scale(0);
-        transition: transition(transform);
-      }
-
-      &.text-field--filled {
-        ~ .button {
-          transform: scale(1);
-        }
-      }
-    }
-
-    @include media(medium) {
-      margin-left: -3.5rem;
-
-      .text-field {
-        margin-left: 2rem;
-      }
-    }
-
-    @include themify {
-      .text-field {
-        &:focus {
-          ~ .icon {
-            color: themed(foreground);
-          }
-        }
-      }
-
-      .button {
-        color: themed(icon);
-      }
-    }
-  }
-
   &__body {
     @include autopad;
   }

@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react'
 import Duotone from 'effects/duotone'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import TabBar from 'molecules/tab_bar'
+import Search from 'molecules/search'
 import Tab from 'atoms/tab'
 import Header from './'
 
@@ -53,6 +54,17 @@ const HeaderDemo = (props) => (
     </div>
   </div>
 )
+
+const SearchHeaderDemo = () => {
+  const [search, setSearch] = useState('')
+
+  return (
+    <HeaderDemo>
+      <Header.Title>Page title</Header.Title>
+      <Search value={search} onChange={setSearch} />
+    </HeaderDemo>
+  )
+}
 
 const TabbedHeaderDemo = () => {
   const TABS = ['Tomato', 'Mandarin', 'Peach', 'Plum', 'Mint', 'Apple']
@@ -111,4 +123,5 @@ storiesOf('Organisms|Header', module)
       </Header.Background>
     </HeaderDemo>
   ))
+  .add('With search', () => <SearchHeaderDemo />)
   .add('With tabs', () => <TabbedHeaderDemo />)
