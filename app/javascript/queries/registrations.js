@@ -5,6 +5,7 @@ export default gql`
     registrations(year: $year) {
       id
       state
+      completedAt
       user {
         id
         name

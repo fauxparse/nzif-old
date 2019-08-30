@@ -26,8 +26,10 @@
   &--loading {
     @include skeleton-shimmer;
 
-    .avatar {
+    .avatar,
+    .tag {
       @include skeleton-shimmer;
+      border-color: transparent;
       background-clip: border-box;
       -webkit-background-clip: border-box;
     }

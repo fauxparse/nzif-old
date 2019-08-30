@@ -1,7 +1,5 @@
 import React, { useMemo, useState } from 'react'
 import PropTypes from 'lib/proptypes'
-import { Link } from 'react-router-dom'
-import classNames from 'classnames'
 import deburr from 'lodash/deburr'
 import sortBy from 'lodash/sortBy'
 import keyBy from 'lodash/keyBy'
@@ -73,6 +71,8 @@ const Registrations = ({ loading, festival, registrations }) => {
               key={registration.id}
               url={`/admin/${festival.year}/registrations/${registration.id}`}
               user={registration.user}
+              state={registration.state}
+              completedAt={registration.completedAt}
               loading={loading}
             />
           ))}

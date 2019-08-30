@@ -18,6 +18,8 @@ class Registration < ApplicationRecord
   validates :festival_id, uniqueness: { scope: :user_id }, on: :update
   validates :code_of_conduct, acceptance: true, if: :requires_acceptance?
 
+  before_save :set_completed_at, if: %i[state_changed? complete?]
+
   scope :with_preferences, -> { includes(preferences: { session: :activity }) }
 
   scope :with_user, -> { includes(:user) }
@@ -57,5 +59,9 @@ class Registration < ApplicationRecord
 
   def requires_acceptance?
     code_of_conduct_accepted_at_changed? || complete?
+  end
+
+  def set_completed_at
+    self.completed_at ||= Time.now
   end
 end

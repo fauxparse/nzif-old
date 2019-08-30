@@ -2,13 +2,13 @@ import moment from 'lib/moment'
 import sortBy from 'lodash/sortBy'
 import { address, lorem, image, name, random } from 'faker'
 
-const dummyActivity = (index) => {
+const dummyActivity = (index, type) => {
   const imageId = `/${index % 10 + 1}`
   const presenterCount = index % 10 ? 1 : 2
 
   return {
     id: random.uuid(),
-    type: 'workshop',
+    type,
     name: lorem.sentence().replace(/\.$/, ''),
     slug: lorem.slug(),
     description: lorem.paragraphs(2),
@@ -27,20 +27,20 @@ const dummyActivity = (index) => {
   }
 }
 
-const dummySession = (date, index) => ({
+const dummySession = (date, index, type) => ({
   id: random.uuid(),
   startsAt: date.clone().hour(10),
   endsAt: date.clone().hour(13),
-  activity: dummyActivity(index),
+  activity: dummyActivity(index, type),
 })
 
-export default () => {
+export default (type = 'workshop') => {
   const days = new Array(5).fill(0).map((_, i) => moment().startOf('day').add(i, 'days'))
 
   return days.reduce((list, day) => ([
     ...list,
     ...sortBy(
-      new Array(4).fill(0).map((_, i) => dummySession(day, list.length + i)),
+      new Array(4).fill(0).map((_, i) => dummySession(day, list.length + i, type)),
       [({ name }) => name]
     ),
   ]), [])

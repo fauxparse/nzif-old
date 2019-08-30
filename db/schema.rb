@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_022002) do
+ActiveRecord::Schema.define(version: 2019_08_29_221834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 2019_08_28_022002) do
     t.datetime "code_of_conduct_accepted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "completed_at"
     t.index ["festival_id", "state"], name: "index_registrations_on_festival_id_and_state"
     t.index ["festival_id", "user_id"], name: "index_registrations_on_festival_id_and_user_id", unique: true
     t.index ["festival_id"], name: "index_registrations_on_festival_id"

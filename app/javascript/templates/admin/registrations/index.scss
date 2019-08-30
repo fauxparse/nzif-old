@@ -13,3 +13,133 @@
     }
   }
 }
+
+.registration-details {
+  &__avatar {
+    width: 2.5em;
+    height: 2.5em;
+    font-size: font-size(4);
+  }
+
+  &__state {
+    display: flex;
+    align-items: center;
+    padding-top: $padding / 2;
+
+    .tag {
+      margin: 0 $spacing 0 0;
+
+      &__text {
+        visibility: hidden;
+      }
+    }
+
+    &:not(.skeleton--loading) > .tag {
+      color: color(apple);
+
+      .tag__text {
+        visibility: visible;
+      }
+
+      &[data-state="complete"] {
+        border-color: transparent;
+        background: color(apple);
+        color: $white;
+      }
+    }
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+
+  &__user {
+    @include autopad;
+
+    .field {
+      position: relative;
+      margin-bottom: $spacing * 2;
+
+      > .icon {
+        display: none;
+
+        @include media(medium) {
+          display: block;
+          position: absolute;
+          top: calc(#{line-height(normal)} * #{font-size(-1)} + 0.5rem);
+          left: -3.5rem;
+        }
+      }
+    }
+  }
+
+  &__preferences {
+    @include autopad;
+
+    .preferences__count {
+      font-size: font-size(2);
+
+      .badge {
+        margin: 0;
+      }
+
+      @include themify {
+        color: themed(secondary);
+      }
+    }
+
+    .preferences__time {
+      padding: $spacing 0;
+
+      h3 {
+        margin: $spacing 0 0 $keyline;
+        font-size: font-size(2);
+        font-weight: font-weight(normal);
+      }
+
+      @include media(medium) {
+        margin-left: -$keyline;
+      }
+    }
+
+    .preferences__session {
+      cursor: pointer;
+
+      .list-item__content {
+        position: relative;
+        padding-left: $keyline - $padding;
+        transition: transition(opacity);
+        opacity: opacity(disabled);
+      }
+
+      .list-item__primary {
+        @include ellipsis;
+      }
+
+      .badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: scale(0) rotate(180deg);
+        transition: transition(transform);
+      }
+
+      [data-position] {
+        .list-item__content {
+          opacity: 1;
+        }
+
+        .badge {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  @include themify {
+    &__state {
+      color: themed(transparent);
+    }
+  }
+}
+

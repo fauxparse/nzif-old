@@ -11,6 +11,7 @@ module Types
     field :preferences, [Preference], null: false
     field :availability, [Availability], null: false
     field :prices, [Integer], null: false
+    field :completed_at, Types::Time, null: true
 
     def id
       object.persisted? ? object.to_param : nil
