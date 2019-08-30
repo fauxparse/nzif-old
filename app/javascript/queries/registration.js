@@ -1,18 +1,22 @@
 import gql from 'graphql-tag'
-import { ACTIVITY_SUMMARY_FIELDS } from './activities_by_day'
 
 export default gql`
-  query registrationForm($year: ID!, $id: ID) {
+  query registration($year: ID!, $id: ID) {
     registration(year: $year, id: $id) {
       id
-      state
-      completedAt
       name
       email
       phone
+      state
+      completedAt
       codeOfConductAcceptedAt
       user {
         id
+        image {
+          thumbnail
+          small
+          medium
+        }
       }
       preferences {
         sessionId
@@ -22,7 +26,6 @@ export default gql`
         sessionId
         role
       }
-      prices
     }
 
     festival(year: $year) {
@@ -33,17 +36,9 @@ export default gql`
         endsAt
 
         activity {
-          ...ActivitySummaryFields
-        }
-      }
-      activities(type: "show", slug: "all-in") {
-        sessions {
-          id
-          startsAt
-          endsAt
+          name
         }
       }
     }
   }
-  ${ACTIVITY_SUMMARY_FIELDS}
 `

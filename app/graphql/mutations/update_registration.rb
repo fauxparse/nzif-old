@@ -10,7 +10,7 @@ module Mutations
 
     def resolve(year:, id: nil, attributes:)
       festival = Festival.by_year(year).first
-      registration = id && festival.registrations.with_user.with_preferences.find(id)
+      registration = id && festival.registrations.with_user.with_preferences.find_by_hashid(id)
 
       result = ::UpdateRegistration.call(
         festival: festival,

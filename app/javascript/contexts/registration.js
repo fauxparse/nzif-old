@@ -187,7 +187,10 @@ export const ApolloLoader = ({ children }) => {
         setErrors({})
         Promise.all([
           updateRegistration({
-            variables: { year, attributes: omit(attributes, ['id', 'user', 'prices']) },
+            variables: {
+              year,
+              attributes: omit(attributes, ['id', 'user', 'prices', 'completedAt']),
+            },
             refetchQueries: currentUser ? [] : [{ query: CURRENT_USER_QUERY }],
           }),
           fakeDelay(1500),

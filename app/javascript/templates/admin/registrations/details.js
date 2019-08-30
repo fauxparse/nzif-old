@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import humanize from 'lib/humanize'
 import Avatar from 'atoms/avatar'
@@ -15,22 +15,19 @@ import Preferences from './preferences'
 
 import './index.scss'
 
-const Details = ({ loading, festival, sessions, registration }) => {
+const Details = ({ loading, festival, sessions, registration, onChange }) => {
   const back = `/admin/${festival.year}/registrations`
 
   const { user, state, completedAt, preferences } = registration
 
   const errors = {}
 
-  const [userChanges, setUserChanges] = useState({})
+  const [tab, setTab] = useState('details')
 
-  const userDetails = useMemo(() => ({ ...user, ...userChanges }), [user, userChanges])
-
-  const userDetailsChanged = useCallback((changes) => (
-    setUserChanges({ ...userChanges, ...changes })
-  ), [userChanges, setUserChanges])
-
-  const [tab, setTab] = useState('preferences')
+  const avatar = useMemo(() => ({
+    ...registration.user,
+    name: registration.name,
+  }), [registration])
 
   return (
     <section className="registration-details">
@@ -39,7 +36,7 @@ const Details = ({ loading, festival, sessions, registration }) => {
           <Breadcrumbs.Link to={back}>{festival.year} registrations</Breadcrumbs.Link>
         </Breadcrumbs>
         <Skeleton loading={loading}>
-          <Avatar className="registration-details__avatar" {...user} />
+          <Avatar className="registration-details__avatar" {...avatar} />
         </Skeleton>
         <Header.Title>
           <Skeleton loading={loading}>{user ? user.name : 'Participant name'}</Skeleton>
@@ -66,10 +63,18 @@ const Details = ({ loading, festival, sessions, registration }) => {
         {loading ? <Loader /> : (
           <>
             {tab === 'details' && (
-              <UserDetails user={userDetails} errors={errors} onChange={userDetailsChanged} />
+              <UserDetails
+                registration={registration}
+                errors={errors}
+                onChange={onChange}
+              />
             )}
             {tab === 'preferences' && (
-              <Preferences sessions={sessions} preferences={registration.preferences} />
+              <Preferences
+                sessions={sessions}
+                preferences={preferences}
+                onChange={onChange}
+              />
             )}
           </>
         )}
@@ -83,13 +88,21 @@ Details.propTypes = {
   festival: PropTypes.festival.isRequired,
   registration: PropTypes.shape({
     id: PropTypes.id,
+    name: PropTypes.string,
+    preferences: PropTypes.arrayOf(PropTypes.preference.isRequired),
     user: PropTypes.user,
+    state: PropTypes.string,
+    completedAt: PropTypes.time,
   }),
+  sessions: PropTypes.arrayOf(PropTypes.session.isRequired),
+  onChange: PropTypes.func,
 }
 
 Details.defaultProps = {
   loading: false,
   registration: {},
+  sessions: [],
+  onChange: null,
 }
 
 export default Details

@@ -52,7 +52,7 @@ export const image = PropTypes.shape({
 
 export const user = PropTypes.shape({
   id: id.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   email: PropTypes.string,
   roles: PropTypes.arrayOf(role.isRequired),
   image,
@@ -118,6 +118,11 @@ export const festival = PropTypes.shape({
   year: id.isRequired,
 })
 
+export const preference = PropTypes.shape({
+  sessionId: id.isRequired,
+  position: PropTypes.number.isRequired,
+})
+
 export default {
   ...PropTypes,
   activity,
@@ -132,6 +137,7 @@ export default {
   image,
   location,
   pitch,
+  preference,
   presenter,
   ref,
   session,

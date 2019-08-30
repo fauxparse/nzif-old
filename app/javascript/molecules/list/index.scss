@@ -40,8 +40,8 @@
   }
 
   &__avatar {
-    margin-right: $keyline - ($padding / 2) - $avatar-size;
-    margin-left: $padding / -2;
+    margin-right: $keyline - $padding - $avatar-size;
+    margin-left: 0;
 
     ~ .icon {
       order: 1;

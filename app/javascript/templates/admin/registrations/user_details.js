@@ -16,20 +16,22 @@ const useChanges = (initial = {}) => {
   return [state, changed, reset]
 }
 
-const UserDetails = ({ user, errors, onChange }) => {
+const UserDetails = ({ registration, errors, onChange }) => {
   const [changes, changed, reset] = useChanges()
 
   const details = useMemo(() => ({
-    ...user,
+    ...registration,
     ...changes,
-  }), [user, changes])
+  }), [registration, changes])
 
   const save = useCallback(() => {
-    if (!isEqual(user, details)) {
-      onChange(changes)
+    if (!isEqual(registration, details)) {
+      if (onChange) {
+        onChange(changes)
+      }
       reset()
     }
-  }, [user, details, changes, reset, onChange])
+  }, [registration, details, changes, reset, onChange])
 
   return (
     <div className="registration-details__user">
@@ -75,7 +77,11 @@ const UserDetails = ({ user, errors, onChange }) => {
 }
 
 UserDetails.propTypes = {
-  user: PropTypes.user.isRequired,
+  registration: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+  }).isRequired,
   errors: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string.isRequired).isRequired).isRequired,
   onChange: PropTypes.func.isRequired,
 }

@@ -6,7 +6,7 @@ import Activities from './list'
 const TimeSlot = ({ activities, loading }) => {
   const time = useMemo(() => (
     activities[0].sessions[0].startsAt.hour() < 12 ? 'Morning' : 'Afternoon'
-  ), activities)
+  ), [activities])
 
   return (
     <div className="activities__time-slot">

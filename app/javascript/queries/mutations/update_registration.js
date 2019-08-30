@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  mutation UpdateRegistration($year: ID!, $attributes: RegistrationAttributes!) {
-    updateRegistration(year: $year, attributes: $attributes) {
+  mutation UpdateRegistration($year: ID!, $id: ID, $attributes: RegistrationAttributes!) {
+    updateRegistration(year: $year, id: $id, attributes: $attributes) {
       id
       state
       name
@@ -19,6 +19,11 @@ export default gql`
       }
       user {
         id
+        image {
+          thumbnail
+          small
+          medium
+        }
       }
     }
   }
