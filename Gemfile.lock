@@ -133,6 +133,10 @@ GEM
       activerecord (>= 3.0)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    airbrake (9.4.3)
+      airbrake-ruby (~> 4.6)
+    airbrake-ruby (4.6.0)
+      rbtree3 (~> 0.5)
     ast (2.4.0)
     auto_strip_attributes (2.5.0)
       activerecord (>= 4.0)
@@ -375,6 +379,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    rbtree3 (0.5.0)
     redis (4.0.3)
     request_store (1.4.1)
       rack (>= 1.4)
@@ -491,6 +496,7 @@ PLATFORMS
 DEPENDENCIES
   access-granted
   acts_as_list
+  airbrake
   auto_strip_attributes
   aws-sdk-s3
   axlsx
