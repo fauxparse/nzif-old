@@ -68,6 +68,7 @@ const Festival = ({ match, history }) => {
       <div className="public-section">
         <Header
           menuOpen={sidebarOpen}
+          registration={data.registration}
           onLogin={logIn}
           onHamburgerClick={toggleSidebar}
         />
@@ -105,6 +106,7 @@ const Festival = ({ match, history }) => {
 
         <Sidebar
           festival={data.festival}
+          registration={data.registration}
           open={sidebarOpen}
           onClickOutside={closeSidebar}
         />

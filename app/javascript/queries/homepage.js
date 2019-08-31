@@ -17,6 +17,10 @@ export const HOMEPAGE_QUERY = gql`
     festival(year: $year) {
       ...HomepageFragment
     }
+
+    registration(year: $year) {
+      state
+    }
   }
   ${HOMEPAGE_FRAGMENT}
 `

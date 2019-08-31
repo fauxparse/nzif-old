@@ -1,45 +1,28 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { withApollo } from 'react-apollo'
+import PropTypes from 'lib/proptypes'
+import { useQuery } from 'react-apollo'
+import { Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
-import { withRouter } from 'react-router-dom'
-import { HOMEPAGE_QUERY, HOMEPAGE_FRAGMENT } from '../../queries/homepage'
+import Loader from 'atoms/loader'
 
 const CURRENT_FESTIVAL_QUERY = gql`
   {
     festival {
-      ...HomepageFragment
+      year
     }
   }
-  ${HOMEPAGE_FRAGMENT}
 `
 
-class CurrentFestival extends React.Component {
-  componentDidMount() {
-    const { client } = this.props
-    client.query({ query: CURRENT_FESTIVAL_QUERY }).then(this.redirect)
-  }
+const CurrentFestival = ({ location }) => {
+  const { loading, data } = useQuery(CURRENT_FESTIVAL_QUERY)
 
-  redirect = ({ data: { festival } }) => {
-    const { client, history, location } = this.props
-    const { year } = festival
-
-    client.writeQuery({
-      query: HOMEPAGE_QUERY,
-      data: { festival },
-      variables: { year },
-    })
-    history.replace(`/${year}${location.pathname}`.replace(/\/$/, ''))
-  }
-
-  render() {
-    return null
-  }
+  return loading
+    ? <Loader />
+    : <Redirect to={`/${data.festival.year}${location.pathname}`.replace(/\/$/, '')} />
 }
 
 CurrentFestival.propTypes = {
-  client: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  location: PropTypes.location.isRequired,
 }
 
-export default withRouter(withApollo(CurrentFestival))
+export default CurrentFestival

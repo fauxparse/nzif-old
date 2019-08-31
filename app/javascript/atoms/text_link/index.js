@@ -9,12 +9,12 @@ const MailToLink = ({ to = undefined, href = undefined, ...props }) =>
   <a href={to || href} {...props} />
 
 MailToLink.propTypes = {
-  to: PropTypes.string,
-  href: PropTypes.string,
+  to: PropTypes.location,
+  href: PropTypes.location,
 }
 
 const TextLink = ({ className, external, rel, children, target, ...props }) => {
-  const Component = (props.to || props.href || '').match(/^mailto:/) ? MailToLink : Link
+  const Component = (props.to || props.href || '').toString().match(/^mailto:/) ? MailToLink : Link
 
   return (
     <Component
@@ -33,8 +33,8 @@ TextLink.propTypes = {
   external: PropTypes.bool,
   rel: PropTypes.string,
   target: PropTypes.string,
-  to: PropTypes.string,
-  href: PropTypes.string,
+  to: PropTypes.location,
+  href: PropTypes.location,
 }
 
 TextLink.defaultProps = {

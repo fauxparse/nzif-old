@@ -5,10 +5,12 @@ import List from 'molecules/list'
 import Divider from 'atoms/divider'
 import CurrentUserContext from 'contexts/current_user'
 
-const FestivalSidebar = ({ festival, ...props }) => {
+const FestivalSidebar = ({ festival, registration, ...props }) => {
   const user = useContext(CurrentUserContext)
 
   const isAdmin = useMemo(() => user && user.roles.includes('admin'), [user])
+
+  const registered = Boolean(registration && registration.state === 'complete')
 
   const { state, year } = festival || {}
 
@@ -16,7 +18,15 @@ const FestivalSidebar = ({ festival, ...props }) => {
     <Sidebar {...props}>
       <List>
         <List.Link to={`/${year}`} icon="home" primary="Festival home" />
-        <List.Link to={`/${year}/register`} icon="registration" primary="Register now" />
+        {registered ? (
+          <List.Link
+            to={`/${year}/register/workshops`}
+            icon="registration"
+            primary="Your registration"
+          />
+        ) : (
+          <List.Link to={`/${year}/register`} icon="registration" primary="Register now" />
+        )}
         <List.Link to={`/${year}/workshops`} icon="workshop" primary="Workshops" />
         <List.Link to={`/${year}/shows`} icon="show" primary="Shows" />
         {user && (state === 'pitching') && (
@@ -61,6 +71,9 @@ FestivalSidebar.propTypes = {
   open: PropTypes.bool,
   onClickOutside: PropTypes.func,
   festival: PropTypes.festival,
+  registration: PropTypes.shape({
+    state: PropTypes.string,
+  }),
 }
 
 FestivalSidebar.defaultProps = {
@@ -68,6 +81,7 @@ FestivalSidebar.defaultProps = {
   festival: {
     year: new Date().getYear() + 1900,
   },
+  registration: null,
 }
 
 export default FestivalSidebar
