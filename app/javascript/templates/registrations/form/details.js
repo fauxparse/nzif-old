@@ -68,12 +68,6 @@ const Details = () => {
             >
               <Icon name="password" />
             </LabelledField>
-            <Hint>
-              Already have an account?
-              {' '}
-              <TextLink to="/login">Log in here</TextLink>
-              {'.'}
-            </Hint>
             <LabelledField
               required
               type="password"
@@ -86,6 +80,12 @@ const Details = () => {
               <Icon name="password" />
             </LabelledField>
           </div>
+          <Hint>
+            Already have an account?
+            {' '}
+            <TextLink to="/login">Log in here</TextLink>
+            {'.'}
+          </Hint>
         </>
       )}
 

@@ -184,14 +184,14 @@
     }
 
     .field-row {
-      > .hint {
+      + .hint {
         margin-bottom: $spacing * 2;
       }
 
       @include media(medium) {
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: $spacing * 2;
+        margin-bottom: 0;
 
         .field {
           flex: 1 0 auto;
@@ -204,12 +204,6 @@
               display: none;
             }
           }
-        }
-
-        > .hint {
-          flex: 1 0 100%;
-          order: 1;
-          margin-bottom: 0;
         }
       }
     }
