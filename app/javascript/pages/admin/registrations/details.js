@@ -57,15 +57,29 @@ const Details = ({ match }) => {
 
   const [sessions, setSessions] = useState()
 
+  const [allIn, setAllIn] = useState()
+
   useEffect(() => {
-    if (!loading && data && !sessions) {
-      setSessions(data.festival.sessions.map(session => ({
-        ...session,
-        startsAt: moment(session.startsAt),
-        endsAt: moment(session.endsAt),
-      })))
+    if (!loading && data) {
+      if (!sessions) {
+        setSessions(data.festival.sessions.map(session => ({
+          ...session,
+          startsAt: moment(session.startsAt),
+          endsAt: moment(session.endsAt),
+        })))
+      }
+      if (!allIn) {
+        setAllIn(data.festival.activities.reduce((list, show) => [
+          ...list,
+          ...show.sessions.map(session => ({
+            ...session,
+            startsAt: moment(session.startsAt),
+            endsAt: moment(session.endsAt),
+          })),
+        ], []))
+      }
     }
-  }, [data, loading, sessions, setSessions])
+  }, [data, loading, sessions, setSessions, allIn, setAllIn])
 
   return (
     <Template
@@ -73,6 +87,7 @@ const Details = ({ match }) => {
       festival={{ year }}
       registration={registration}
       sessions={sessions}
+      allInShows={allIn}
       onChange={saveChanges}
     />
   )

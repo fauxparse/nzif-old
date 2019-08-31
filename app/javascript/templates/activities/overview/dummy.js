@@ -27,7 +27,7 @@ const dummyActivity = (index, type) => {
   }
 }
 
-const dummySession = (date, index, type) => ({
+export const dummySession = (date, index, type) => ({
   id: random.uuid(),
   startsAt: date.clone().hour(10),
   endsAt: date.clone().hour(13),

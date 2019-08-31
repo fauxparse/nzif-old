@@ -136,9 +136,13 @@
     }
   }
 
+  &__availability {
+    @include autopad;
+  }
+
   @include themify {
     &__state {
-      color: themed(transparent);
+      color: transparent;
     }
   }
 }

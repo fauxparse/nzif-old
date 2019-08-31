@@ -13,6 +13,7 @@ const List = ({ match }) => {
     if (loading || !data) {
       return new Array(20).fill(0).map(() => ({
         id: faker.random.uuid(),
+        state: 'pending',
         user: {
           id: faker.random.uuid(),
           name: faker.name.findName(),

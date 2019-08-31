@@ -12,13 +12,14 @@ import Header from 'organisms/header'
 import Skeleton from 'effects/skeleton'
 import UserDetails from './user_details'
 import Preferences from './preferences'
+import Availability from './availability'
 
 import './index.scss'
 
-const Details = ({ loading, festival, sessions, registration, onChange }) => {
+const Details = ({ loading, festival, sessions, allInShows, registration, onChange }) => {
   const back = `/admin/${festival.year}/registrations`
 
-  const { user, state, completedAt, preferences } = registration
+  const { user, state, completedAt, preferences, availability } = registration
 
   const errors = {}
 
@@ -56,6 +57,11 @@ const Details = ({ loading, festival, sessions, registration, onChange }) => {
             selected={tab === 'preferences'}
             onClick={() => setTab('preferences')}
           />
+          <Tab
+            text="Availability"
+            selected={tab === 'availability'}
+            onClick={() => setTab('availability')}
+          />
         </TabBar>
       </Header>
 
@@ -73,6 +79,13 @@ const Details = ({ loading, festival, sessions, registration, onChange }) => {
               <Preferences
                 sessions={sessions}
                 preferences={preferences}
+                onChange={onChange}
+              />
+            )}
+            {tab === 'availability' && (
+              <Availability
+                allInShows={allInShows}
+                availability={availability}
                 onChange={onChange}
               />
             )}

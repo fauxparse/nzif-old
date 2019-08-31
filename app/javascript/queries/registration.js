@@ -39,6 +39,13 @@ export default gql`
           name
         }
       }
+      activities(type: "show", slug: "all-in") {
+        sessions {
+          id
+          startsAt
+          endsAt
+        }
+      }
     }
   }
 `
