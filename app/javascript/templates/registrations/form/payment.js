@@ -3,6 +3,7 @@ import { useToggle } from 'lib/hooks'
 import { useRegistration } from 'contexts/registration'
 import Icon from 'atoms/icon'
 import Price from 'atoms/price'
+import Divider from 'atoms/divider'
 import Heading from './heading'
 
 const Payment = () => {
@@ -103,6 +104,32 @@ const Payment = () => {
           </tr>
         </tfoot>
       </table>
+      <div className="registration-form__financial-assistance">
+        <Divider accent />
+        <h3>Financial assistance</h3>
+        <p>
+          NZIF 2019 has a financial assistance programme. We have several areas in which we offer
+          support (workshop packages, travel grants, and childcare grants) and we invite
+          applications from any New Zealand based improvisors who would otherwise not be able to
+          attend.  We especially encourage applications from improvisors often underrepresented at
+          NZIF, including Māori and Pasifika, LGBTQI*, and people with disabilities.
+        </p>
+        <p>
+          Applications close on 20 September with decisions made by 23 September,
+          so you have time before we lock in your selections to decide what you want to commit to.
+        </p>
+        <p>
+          <a
+            href="https://forms.gle/z2PD7gvRxVUBRJFWA"
+            className="text-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read more about what we can offer and apply here
+          </a>
+        </p>
+
+      </div>
     </section>
   )
 }

@@ -527,6 +527,15 @@
     }
   }
 
+  &__financial-assistance {
+    font-size: font-size(-1);
+
+    h3 {
+      font-size: font-size(1);
+      font-weight: font-weight(normal);
+    }
+  }
+
   @include themify {
     &__header {
       border-bottom: 1px solid themed(border);
