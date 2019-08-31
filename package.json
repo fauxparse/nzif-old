@@ -66,7 +66,6 @@
     "styled-components": "^4.0.3",
     "toasted-notes": "^3.0.0",
     "unfetch": "^4.1.0",
-    "use-react-router": "^1.0.7",
     "uuid": "^3.3.2",
     "validate.js": "^0.13.1",
     "webpack": "^4.35.0"
