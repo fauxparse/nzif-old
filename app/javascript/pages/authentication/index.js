@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { Route, Switch } from 'react-router-dom'
+import { withLastLocation } from 'react-router-last-location'
 import Popover from 'organisms/popover'
 import PageTransition, { slideLeft } from '../../components/page_transition'
 import Login from './login'
@@ -97,4 +98,4 @@ Authentication.defaultProps = {
   lastLocation: '/',
 }
 
-export default Authentication
+export default withLastLocation(Authentication)
