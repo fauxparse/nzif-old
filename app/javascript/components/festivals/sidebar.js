@@ -45,6 +45,11 @@ const FestivalSidebar = ({ festival, registration, ...props }) => {
       <List compact>
         <List.Link to={`/${year}/map`} icon="venue" primary="Venue map" />
         <List.Link
+          to={`/${year}/faq`}
+          icon="help"
+          primary="Frequently-asked questions"
+        />
+        <List.Link
           to={`/${year}/code-of-conduct`}
           icon="code-of-conduct"
           primary="Code of conduct"

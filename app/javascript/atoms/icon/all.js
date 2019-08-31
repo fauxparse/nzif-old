@@ -27,6 +27,7 @@ export default [
   'facebook',
   'google',
   'heart',
+  'help',
   'home',
   'image',
   'info',
