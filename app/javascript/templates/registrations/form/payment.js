@@ -3,6 +3,7 @@ import { useToggle } from 'lib/hooks'
 import { useRegistration } from 'contexts/registration'
 import Icon from 'atoms/icon'
 import Price from 'atoms/price'
+import TextLink from 'atoms/text_link'
 import Divider from 'atoms/divider'
 import Heading from './heading'
 
@@ -119,16 +120,18 @@ const Payment = () => {
           so you have time before we lock in your selections to decide what you want to commit to.
         </p>
         <p>
-          <a
-            href="https://forms.gle/z2PD7gvRxVUBRJFWA"
-            className="text-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <TextLink external to="https://forms.gle/z2PD7gvRxVUBRJFWA">
             Read more about what we can offer and apply here
-          </a>
+          </TextLink>
         </p>
-
+        <p>
+          We’re also happy for you to pay in installments. To arrange this, please email
+          {' '}
+          <TextLink external to="mailto:jen@improvfest.nz">
+            jen@improvfest.nz
+          </TextLink>
+          .
+        </p>
       </div>
     </section>
   )
