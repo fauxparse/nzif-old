@@ -10,6 +10,7 @@ export const can = (user, action, object) => {
         (object.__typename === 'User' && user && user.id === object.id)
 
     case 'editRoles':
+    case 'editContent':
       return roles.has('admin')
 
     default:

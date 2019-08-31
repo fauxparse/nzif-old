@@ -1,14 +1,18 @@
 import React, { useRef } from 'react'
 import PropTypes from 'lib/proptypes'
+import { Link } from 'react-router-dom'
 import Header from 'organisms/header'
 import Markdown from 'molecules/markdown'
 import Skeleton from 'effects/skeleton'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import { lorem } from 'faker'
 import humanize from 'lib/humanize'
+import { usePermission } from 'lib/permissions'
 
 const StaticContent = ({ loading, slug, raw, title, year }) => {
   const loadingText = useRef(lorem.paragraphs(5))
+
+  const canEdit = usePermission('editContent')
 
   return (
     <section className="static-content__page">
@@ -19,6 +23,7 @@ const StaticContent = ({ loading, slug, raw, title, year }) => {
         <Skeleton as={Header.Title} loading={loading}>
           {loading ? humanize(slug) : title}
         </Skeleton>
+        {canEdit && <Header.Button as={Link} to={`/admin/${year}/content/${slug}`} icon="edit" />}
       </Header>
       <div className="static-content__container">
         <Skeleton

@@ -40,6 +40,11 @@ const FestivalSidebar = ({ festival, ...props }) => {
           primary="Code of conduct"
         />
         <List.Link
+          to={`/${year}/privacy`}
+          icon="privacy"
+          primary="Your privacy"
+        />
+        <List.Link
           as="a"
           href="https://improvfest.nz"
           target="_blank"

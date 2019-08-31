@@ -39,6 +39,7 @@ export default [
   'pin',
   'pitch',
   'print',
+  'privacy',
   'registration',
   'role',
   'search',
