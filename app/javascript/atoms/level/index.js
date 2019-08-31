@@ -21,16 +21,31 @@ export const LEVELS = {
   },
 }
 
-const Level = ({ className, level, ...props }) => (
-  <Tooltip title={LEVELS[level].description} trigger="click" delay={0}>
-    <Tag className={classNames('activity-level', className)} data-level={level} {...props}>
-      {LEVELS[level].name}
-    </Tag>
-  </Tooltip>
-)
+const Level = ({ className, level, tiny, ...props }) => {
+  const { name, description } = LEVELS[level]
+
+  const tooltip = tiny ? `${name}: ${description}` : description
+
+  return (
+    <Tooltip title={tooltip} trigger="click" delay={0}>
+      <Tag
+        className={classNames('activity-level', tiny && 'activity-level--tiny', className)}
+        data-level={level}
+        {...props}
+      >
+        {tiny ? LEVELS[level].name[0] : LEVELS[level].name}
+      </Tag>
+    </Tooltip>
+  )
+}
 
 Level.propTypes = {
   level: PropTypes.activityLevel.isRequired,
+  tiny: PropTypes.bool,
+}
+
+Level.defaultProps = {
+  tiny: false
 }
 
 export default Level

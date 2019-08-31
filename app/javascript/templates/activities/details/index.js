@@ -7,6 +7,7 @@ import Skeleton from 'effects/skeleton'
 import Divider from 'atoms/divider'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import Markdown from 'molecules/markdown'
+import AssociatedActivity from 'molecules/associated_activity'
 import ActivitySession from 'molecules/activity_session'
 import Header from 'organisms/header'
 import Duotone from 'effects/duotone'
@@ -23,6 +24,7 @@ const Details = ({ loading, festival, activity }) => {
     description,
     presenters,
     image,
+    associated = [],
   } = (!loading && activity) || dummy()
 
   const back = `/${festival.year}/${pluralize(type)}`
@@ -85,6 +87,9 @@ const Details = ({ loading, festival, activity }) => {
         <Divider accent />
         <Skeleton as="div" className="activity-details__description" loading={loading}>
           <Markdown text={description} />
+          {associated.map(associated_activity => (
+            <AssociatedActivity key={associated_activity.id} activity={associated_activity} />
+          ))}
         </Skeleton>
       </div>
       <div className="activity-details__presenters">

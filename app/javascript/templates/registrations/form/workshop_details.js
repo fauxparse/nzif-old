@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Picture } from 'react-responsive-picture'
+import PropTypes from 'lib/proptypes'
 import { useToggle } from 'lib/hooks'
 import Level from 'atoms/level'
 import Markdown from 'molecules/markdown'
 import Modal from 'molecules/modal'
+import AssociatedActivity from 'molecules/associated_activity'
 import Header from 'organisms/header'
-import Duotone from 'effects/duotone'
 
 const WorkshopDetails = ({ session: sessionProp, onClose }) => {
   const [open, , show, hide] = useToggle(false)
@@ -14,7 +14,7 @@ const WorkshopDetails = ({ session: sessionProp, onClose }) => {
 
   const activity = useMemo(() => session ? session.activity : {}, [session])
 
-  const { presenters = [], description = '', levels = [] } = activity
+  const { presenters = [], description = '', levels = [], associated = [] } = activity
 
   useEffect(() => {
     if (sessionProp) {
@@ -51,10 +51,24 @@ const WorkshopDetails = ({ session: sessionProp, onClose }) => {
             {levels.map(level => <Level key={level} level={level} />)}
           </div>
         )}
-        <Markdown className="workshop-details__description" text={description} />
+        <div className="workshop-details__description">
+          <Markdown text={description} />
+          {associated.map(associated_activity => (
+            <AssociatedActivity key={associated_activity.id} activity={associated_activity} />
+          ))}
+        </div>
       </div>
     </Modal>
   )
+}
+
+WorkshopDetails.propTypes = {
+  session: PropTypes.session,
+  onClose: PropTypes.func.isRequired,
+}
+
+WorkshopDetails.defaultProps = {
+  session: null,
 }
 
 export default WorkshopDetails

@@ -16,9 +16,9 @@ export const ACTIVITY_SUMMARY_FIELDS = gql`
       medium
     }
 
-      ...on Workshop {
-        levels
-      }
+    ...on Workshop {
+      levels
+    }
 
     presenters {
       id

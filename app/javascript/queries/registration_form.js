@@ -34,6 +34,12 @@ export default gql`
 
         activity {
           ...ActivitySummaryFields
+
+          associated {
+            id
+            name
+            type
+          }
         }
       }
       activities(type: "show", slug: "all-in") {

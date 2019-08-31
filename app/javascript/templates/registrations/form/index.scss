@@ -338,6 +338,14 @@
       }
     }
 
+    .workshop__levels {
+      display: flex;
+
+      .level {
+        margin-right: 0.25rem;
+      }
+    }
+
     &,
     &:hover {
       @include elevation(1);
@@ -356,6 +364,10 @@
 
       .card__image {
         filter: grayscale(0);
+      }
+
+      .workshop__levels {
+        opacity: opacity(disabled);
       }
 
       @include themify {
@@ -386,6 +398,10 @@
       .card__title,
       .card__description {
         margin: 0 0.75rem;
+      }
+
+      .workshop__levels {
+        margin: 0.5rem 0.75rem 0.25rem 0;
       }
 
       @include themify {

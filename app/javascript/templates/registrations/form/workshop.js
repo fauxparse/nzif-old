@@ -2,12 +2,13 @@ import React, { Fragment, useCallback } from 'react'
 import PropTypes from 'lib/proptypes'
 import Sentence from 'atoms/sentence'
 import Button from 'atoms/button'
+import Level from 'atoms/level'
 import Card from 'molecules/card'
 import Skeleton from 'effects/skeleton'
 
 const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) => {
   const { activity } = session
-  const { name, image, presenters } = activity
+  const { name, image, presenters, levels = [] } = activity
 
   const toggle = useCallback(() => {
     if (!disabled) onToggle(session)
@@ -19,6 +20,8 @@ const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) 
     e.stopPropagation()
     onSelect(session)
   }, [onSelect, session])
+
+  const captureClick = (e) => e.stopPropagation()
 
   return (
     <Card
@@ -41,6 +44,11 @@ const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) 
         </Sentence>
       </Card.Description>
       <Fragment>
+        <div className="workshop__levels" onClick={captureClick}>
+          {levels.map(level => (
+            <Level tiny level={level} key={level} />
+          ))}
+        </div>
         <Button
           center
           className="workshop__info"

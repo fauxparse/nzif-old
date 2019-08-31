@@ -13,6 +13,13 @@
   text-transform: capitalize;
   cursor: help;
 
+  &--tiny {
+    width: 1.5rem;
+    padding: 0;
+    font-weight: font-weight(bold);
+    text-align: center;
+  }
+
   @each $level, $color in $levels {
     &[data-level="#{$level}"] {
       background-color: color($color, 500);

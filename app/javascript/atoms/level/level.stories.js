@@ -11,3 +11,8 @@ storiesOf('Atoms|Level', module)
       <Level level={radios('Level', Object.keys(LEVELS), Object.keys(LEVELS)[0])} />
     </div>
   ))
+  .add('Tiny', () => (
+    <div style={{ display: 'flex' }}>
+      <Level tiny level={radios('Level', Object.keys(LEVELS), Object.keys(LEVELS)[0])} />
+    </div>
+  ))
