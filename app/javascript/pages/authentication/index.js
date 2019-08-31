@@ -13,19 +13,17 @@ import ResetPassword from './reset_password'
 
 import './index.scss'
 
-const Authentication = ({ history, lastLocation }) => {
-  const returnTo = useMemo(() => {
-    if (lastLocation) {
-      const pathname = lastLocation.pathname || location
-      if (!/^\/(login|signup|password)/.test(pathname)) {
-        return lastLocation
-      }
-    }
+const Authentication = ({ history, location, lastLocation }) => {
+  const { returnTo } = location.state || {}
 
-    return '/'
-  }, [lastLocation])
+  const nextLocation = useMemo(() => (
+    [returnTo, lastLocation, '/'].find(location => {
+      const pathname = (location && location.pathname) || location
+      return pathname && !/^\/(login|signup|password)/.test(pathname)
+    })
+  ), [returnTo, lastLocation])
 
-  const close = useCallback(() => history.push(returnTo), [history, returnTo])
+  const close = useCallback(() => history.push(nextLocation), [history, nextLocation])
 
   return (
     <Popover
@@ -46,7 +44,7 @@ const Authentication = ({ history, lastLocation }) => {
                   render={() => (
                     <Login
                       className="authentication__page authentication__login"
-                      returnTo={returnTo}
+                      returnTo={nextLocation}
                     />
                   )}
                 />
@@ -55,7 +53,7 @@ const Authentication = ({ history, lastLocation }) => {
                   render={() => (
                     <Signup
                       className="authentication__page authentication__signup"
-                      returnTo={returnTo}
+                      returnTo={nextLocation}
                     />
                   )}
                 />
@@ -64,6 +62,7 @@ const Authentication = ({ history, lastLocation }) => {
                   render={() => (
                     <ForgotPassword
                       className="authentication__page authentication__forgot-password"
+                      returnTo={nextLocation}
                     />
                   )}
                 />
@@ -72,7 +71,7 @@ const Authentication = ({ history, lastLocation }) => {
                   render={() => (
                     <ResetPassword
                       className="authentication__page authentication__reset-password"
-                      returnTo={returnTo}
+                      returnTo={nextLocation}
                     />
                   )}
                 />
@@ -88,14 +87,12 @@ const Authentication = ({ history, lastLocation }) => {
 
 Authentication.propTypes = {
   history: ReactRouterPropTypes.history.isRequired,
-  lastLocation: PropTypes.oneOfType([
-    ReactRouterPropTypes.location,
-    PropTypes.string,
-  ]),
+  location: ReactRouterPropTypes.location.isRequired,
+  lastLocation: PropTypes.location,
 }
 
 Authentication.defaultProps = {
-  lastLocation: '/',
+  lastLocation: undefined,
 }
 
 export default withLastLocation(Authentication)

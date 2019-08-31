@@ -13,6 +13,8 @@ import Environment from './environment'
 import { CurrentUserProvider } from 'contexts/current_user'
 import { StaticContentProvider } from 'contexts/static_content'
 import { AdminRoute } from './authorised_route'
+import Returning from 'lib/returning'
+
 import '../styles/application'
 
 const getPageKey = location => {
@@ -43,6 +45,7 @@ export default class Application extends React.Component {
                               path="/:login(login|logout|signup|password)"
                               component={Authentication}
                             />
+                            <Route path="/returning/:path*" component={Returning} />
                             <Route path="/:path*" component={CurrentFestival} />
                           </Switch>
                         </PageTransition>
