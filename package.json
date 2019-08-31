@@ -45,6 +45,7 @@
     "react-apollo-hooks": "^0.4.3",
     "react-dom": "16.8.6",
     "react-google-maps": "^9.4.5",
+    "react-helmet": "^5.2.1",
     "react-highlight-words": "^0.16.0",
     "react-input-autosize": "^2.2.1",
     "react-modal": "3.8.1",

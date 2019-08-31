@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
+import Helmet from 'react-helmet'
 import IntermittentLoader from 'molecules/intermittent_loader'
 import Header from './header'
 import Pager from './pager'
@@ -59,6 +60,9 @@ const RegistrationForm = ({ festival, page: initialPage, onPageChange }) => {
       ref={container}
       className={classNames('registration-form', busy && 'registration-form--busy')}
     >
+      <Helmet>
+        <title>Register for NZIF {festival.year}</title>
+      </Helmet>
       <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
       <Header pageIndex={page} onStepClick={stepClicked} />
       <Pager pageIndex={page}>

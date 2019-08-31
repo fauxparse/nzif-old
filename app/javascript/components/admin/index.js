@@ -3,6 +3,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
 import classNames from 'classnames'
+import Helmet from 'react-helmet'
 import DetectLocationChange from 'lib/detect_location_change'
 import ThemeContext from 'lib/theme_context'
 import { HOMEPAGE_QUERY } from 'queries/homepage'
@@ -69,6 +70,10 @@ const Admin = ({ match, history }) => {
             onLogin={logIn}
             onHamburgerClick={toggleSidebar}
           />
+
+          <Helmet>
+            <title>{`NZIF ${year} Admin`}</title>
+          </Helmet>
 
           <Route
             render={({ location }) => (

@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { useQuery } from 'react-apollo-hooks'
+import Helmet from 'react-helmet'
 import pluralize from 'pluralize'
 import Context from 'contexts/festival'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
@@ -72,6 +73,10 @@ const Festival = ({ match, history }) => {
           onLogin={logIn}
           onHamburgerClick={toggleSidebar}
         />
+
+        <Helmet>
+          <title>{data.festival ? `NZIF ${data.festival.year}` : 'NZIF'}</title>
+        </Helmet>
 
         <div className="page">
           <Route

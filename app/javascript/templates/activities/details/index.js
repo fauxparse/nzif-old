@@ -3,6 +3,7 @@ import PropTypes from 'lib/proptypes'
 import pluralize from 'pluralize'
 import humanize from 'lib/humanize'
 import { Picture } from 'react-responsive-picture'
+import Helmet from 'react-helmet'
 import Skeleton from 'effects/skeleton'
 import Divider from 'atoms/divider'
 import Breadcrumbs from 'molecules/breadcrumbs'
@@ -31,6 +32,11 @@ const Details = ({ loading, festival, activity }) => {
 
   return (
     <div className="activity-details">
+      {!loading && (
+        <Helmet>
+          <title>{activity.name}</title>
+        </Helmet>
+      )}
       <Header colored className="activity-details__header">
         <Breadcrumbs back={back}>
           <Breadcrumbs.Link to={`/${festival.year}`}>NZIF {festival.year}</Breadcrumbs.Link>
