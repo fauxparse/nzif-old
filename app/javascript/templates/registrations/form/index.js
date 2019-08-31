@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import validate from 'validate.js'
 import IntermittentLoader from 'molecules/intermittent_loader'
 import Header from './header'
 import Pager from './pager'
@@ -16,7 +15,7 @@ const RegistrationForm = ({ festival, page: initialPage, onPageChange }) => {
 
   const container = useRef()
 
-  const [page, setPage] = useState(4) //useState(PAGES.indexOf(initialPage))
+  const [page, setPage] = useState(PAGES.indexOf(initialPage))
 
   const scrollTop = useRef(0)
 

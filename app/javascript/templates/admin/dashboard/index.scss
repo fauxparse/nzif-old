@@ -1,0 +1,65 @@
+@import "../../../styles/base";
+
+.dashboard {
+  @include autopad;
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-column-gap: $spacing;
+  grid-row-gap: $spacing;
+
+  @include media(medium) {
+    padding-top: $spacing * 2;
+    padding-bottom: $spacing * 2;
+  }
+
+  .panel {
+    @include elevation(2);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 20rem;
+    padding: $padding;
+    border-radius: $border-radius;
+
+    &__title {
+      @include all-caps;
+      margin: 0 0 $spacing;
+      font-size: font-size(-1);
+
+      &::after {
+        display: block;
+        width: 1.5rem;
+        height: 0.25rem;
+        margin: 0.5rem 0 0;
+        content: "";
+      }
+    }
+
+    .counter {
+      flex: 1;
+      align-items: center;
+      padding: $spacing 0;
+      font-size: font-size(8);
+    }
+
+    > .button {
+      justify-content: center;
+      order: 1;
+    }
+  }
+
+  @include themify {
+    .panel {
+      background: themed(panel);
+
+      &__title {
+        color: themed(secondary);
+
+        &::after {
+          background: themed(accent);
+        }
+      }
+    }
+  }
+}

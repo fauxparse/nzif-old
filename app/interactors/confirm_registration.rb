@@ -5,6 +5,8 @@ class ConfirmRegistration < Interaction
 
   delegate :registration, :attributes, to: :context
 
+  delegate :festival, to: :registration
+
   private
 
   def can_complete?
@@ -14,9 +16,18 @@ class ConfirmRegistration < Interaction
   def complete_registration
     registration.complete!
     send_confirmation_email
+    update_subscription
   end
 
   def send_confirmation_email
     UserMailer.registration_confirmation(registration).deliver_later
+  end
+
+  def update_subscription
+    NzifSchema.subscriptions.trigger(
+      'registrationCount',
+      { year: festival.year },
+      festival.registrations.complete.count,
+    )
   end
 end

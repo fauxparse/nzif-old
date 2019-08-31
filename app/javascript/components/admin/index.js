@@ -10,14 +10,15 @@ import Context from 'contexts/festival'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Header from './header'
 import Sidebar from './sidebar'
-import Dashboard from './dashboard'
 import Timetable from './timetable'
 import ActivityDetails from './activities/details'
 import People from './people'
 import Person from './people/details'
 import Content from './content'
+import Dashboard from 'pages/admin/dashboard'
 import Pitches from 'pages/admin/pitches'
 import Registrations from 'pages/admin/registrations'
+import NotFound from 'templates/not_found'
 import Profile from '../profile'
 
 const getPageKey = path => path.split('/').slice(0, 6).join('/')
@@ -85,7 +86,8 @@ const Admin = ({ match, history }) => {
                   <Route path={`${match.path}/content`} component={Content} />
                   <Route path={`${match.path}/pitches`} component={Pitches} />
                   <Route path={`${match.path}/registrations`} component={Registrations} />
-                  <Route path={`${match.path}/`} component={Dashboard} />
+                  <Route path={`${match.path}/`} exact component={Dashboard} />
+                  <Route component={NotFound} />
                 </Switch>
               </PageTransition>
             )}
