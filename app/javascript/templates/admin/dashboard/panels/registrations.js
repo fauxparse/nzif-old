@@ -35,7 +35,11 @@ const Registrations = ({ match }) => {
   })
 
   return (
-    <Panel className="dashboard__registrations" title="Registrations" loading={loading}>
+    <Panel
+      className="dashboard__registrations"
+      title="Registrations"
+      loading={loading}
+    >
       {!loading && (
         <>
           <Counter>
