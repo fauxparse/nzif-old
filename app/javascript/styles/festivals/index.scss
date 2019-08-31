@@ -8,6 +8,15 @@
     min-height: calc(100vh - 15.5rem);
   }
 
+  .panic-mode {
+    @include autopad;
+
+    h1 {
+      font-size: font-size(6);
+      font-weight: font-weight(light);
+    }
+  }
+
   @include themify {
     background: themed(background);
     color: themed(text);
@@ -37,6 +46,3 @@
   }
 }
 
-
-.page-content {
-}

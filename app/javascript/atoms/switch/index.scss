@@ -1,0 +1,77 @@
+@import "../../styles/base";
+
+.toggle-switch {
+  position: relative;
+  cursor: pointer;
+
+  [type="checkbox"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    &:disabled {
+      ~ * {
+        opacity: opacity(disabled);
+      }
+    }
+
+    &:checked {
+      ~ .toggle-switch__track {
+        .toggle-switch__thumb {
+          transform: translateX(1em);
+        }
+      }
+    }
+  }
+
+  &__track,
+  &__thumb {
+    display: block;
+    height: 1.5em;
+    border: 0.125rem solid transparent;
+    border-radius: 0.75em;
+  }
+
+  &__track {
+    position: relative;
+    width: 2.5em;
+    transition: transition(background-color);
+  }
+
+  &__thumb {
+    width: 1.5em;
+    margin: -0.125rem;
+    transition: transition(transform);
+  }
+
+  @include themify {
+    &__track,
+    &__thumb {
+      border-color: themed(border);
+    }
+
+    &__track {
+      background: themed(panel);
+    }
+
+    &__thumb {
+      background: themed(background);
+    }
+
+    :checked {
+      ~ .toggle-switch__track {
+        background: color(apple);
+      }
+    }
+
+    :focus {
+      outline: none;
+
+      ~ .toggle-switch__track {
+        box-shadow: 0 0 0 0.25rem themed(outline);
+      }
+    }
+  }
+}

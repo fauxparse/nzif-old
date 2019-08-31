@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { useQuery, useSubscription } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import Counter from 'molecules/counter'
 import Button from 'atoms/button'
 import Panel from '../panel'

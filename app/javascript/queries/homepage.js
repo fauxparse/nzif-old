@@ -9,6 +9,7 @@ export const HOMEPAGE_FRAGMENT = gql`
     deadline
     root
     adminRoot
+    panic
   }
 `
 

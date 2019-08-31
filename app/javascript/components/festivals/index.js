@@ -18,6 +18,7 @@ import Pitches from '../pitches'
 import StaticContent from 'pages/static_content'
 import NotFound from 'templates/not_found'
 import DetectLocationChange from 'lib/detect_location_change'
+import PanicMode from './panic'
 
 import { HOMEPAGE_QUERY } from '../../queries/homepage'
 
@@ -79,34 +80,38 @@ const Festival = ({ match, history }) => {
         </Helmet>
 
         <div className="page">
-          <Route
-            render={({ location }) => (
-              <PageTransition pageKey={pageKey(location, match)}>
-                <Switch location={location}>
-                  <Route
-                    path={`${match.path}/:type(shows|workshops)`}
-                    render={({ match }) => (
-                      <Switch>
-                        <Route path={`${match.path}/:slug`} exact component={ActivityDetails} />
-                        <Route
-                          path={match.path}
-                          exact
-                          render={() => <ActivitiesOverview match={match} />}
-                        />
-                      </Switch>
-                    )}
-                  />
-                  <Route path={`${match.path}/register/:page?`} component={RegistrationPage} />
-                  <Route path={`${match.path}/profile`} exact component={Profile} />
-                  <Route path={`${match.path}/pitches`} component={Pitches} />
-                  <Route path={`${match.path}/map`} component={Map} />
-                  <Route path={`${match.path}/`} exact component={Home} />
-                  <Route path={`${match.path}/:slug`} exact component={StaticContent} />
-                  <Route component={NotFound} />
-                </Switch>
-              </PageTransition>
-            )}
-          />
+          {data.festival && data.festival.panic ? (
+            <PanicMode />
+          ) : (
+            <Route
+              render={({ location }) => (
+                <PageTransition pageKey={pageKey(location, match)}>
+                  <Switch location={location}>
+                    <Route
+                      path={`${match.path}/:type(shows|workshops)`}
+                      render={({ match }) => (
+                        <Switch>
+                          <Route path={`${match.path}/:slug`} exact component={ActivityDetails} />
+                          <Route
+                            path={match.path}
+                            exact
+                            render={() => <ActivitiesOverview match={match} />}
+                          />
+                        </Switch>
+                      )}
+                    />
+                    <Route path={`${match.path}/register/:page?`} component={RegistrationPage} />
+                    <Route path={`${match.path}/profile`} exact component={Profile} />
+                    <Route path={`${match.path}/pitches`} component={Pitches} />
+                    <Route path={`${match.path}/map`} component={Map} />
+                    <Route path={`${match.path}/`} exact component={Home} />
+                    <Route path={`${match.path}/:slug`} exact component={StaticContent} />
+                    <Route component={NotFound} />
+                  </Switch>
+                </PageTransition>
+              )}
+            />
+          )}
         </div>
 
         <Sidebar

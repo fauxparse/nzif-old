@@ -41,6 +41,29 @@
     }
   }
 
+  &__panic {
+    .panic-button {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      font-size: font-size(6);
+
+      :checked {
+        ~ .toggle-switch__track {
+          background: color(tomato, 700);
+        }
+      }
+    }
+
+    p {
+      order: 1;
+      margin: 0;
+      line-height: 2.5rem;
+      text-align: center;
+    }
+  }
+
   @include themify {
     .panel {
       background: themed(panel);
