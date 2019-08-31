@@ -2,8 +2,9 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'lib/proptypes'
-import { compose, withProps } from 'recompose'
+import { withProps } from 'recompose'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
+import compose from 'lib/compose'
 import uniqBy from 'lodash/uniqBy'
 import throttle from 'lodash/throttle'
 import styles from './styles.json'

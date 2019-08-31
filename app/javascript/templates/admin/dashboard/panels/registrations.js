@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { useQuery, useSubscription } from 'react-apollo-hooks'
+import { useQuery, useSubscription } from 'react-apollo'
 import Counter from 'molecules/counter'
 import Button from 'atoms/button'
 import Panel from '../panel'
@@ -13,7 +13,7 @@ const QUERY = gql`
 `
 
 const SUBSCRIPTION = gql`
-  query registrationCount($year: ID!) {
+  subscription registrationCount($year: ID!) {
     registrationCount(year: $year)
   }
 `
@@ -23,26 +23,23 @@ const Registrations = ({ match }) => {
 
   const variables = { year }
 
-  const [count, setCount] = useState(0)
+  const { loading, data, subscribeToMore } = useQuery(QUERY, { variables })
 
-  const { loading, data: initialData } = useQuery(QUERY, { variables })
-
-  const { data: subscriptionData } = useSubscription(SUBSCRIPTION, { variables })
-
-  useEffect(() => {
-    if (initialData) setCount(initialData.registrationCount)
-  }, [setCount, initialData])
-
-  useEffect(() => {
-    if (subscriptionData) setCount(subscriptionData.registrationCount)
-  }, [setCount, subscriptionData])
+  subscribeToMore({
+    document: SUBSCRIPTION,
+    variables,
+    updateQuery: (previous, { subscriptionData }) => ({
+      ...previous,
+      ...(subscriptionData.data)
+    }),
+  })
 
   return (
     <Panel className="dashboard__registrations" title="Registrations" loading={loading}>
-      {!loading && (count != undefined) && (
+      {!loading && (
         <>
           <Counter>
-            <Counter.Group digits={count} pad={3} label="Completed" />
+            <Counter.Group digits={data.registrationCount} pad={3} label="Completed" />
           </Counter>
           <Button as={Link} to="/">
             View
