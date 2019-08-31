@@ -119,4 +119,22 @@
       }
     }
   }
+
+  table {
+    margin: 0 0 $spacing;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    th,
+    td {
+      padding: ($padding / 2) $padding;
+      text-align: center;
+    }
+
+    @include themify {
+      th {
+        border-bottom: 1px solid themed(border);
+      }
+    }
+  }
 }
