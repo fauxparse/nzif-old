@@ -63,6 +63,7 @@
     "stickybits": "^3.6.1",
     "stickyfilljs": "^2.1.0",
     "styled-components": "^4.0.3",
+    "toasted-notes": "^3.0.0",
     "unfetch": "^4.1.0",
     "use-react-router": "^1.0.7",
     "uuid": "^3.3.2",

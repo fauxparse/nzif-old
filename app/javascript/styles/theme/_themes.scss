@@ -101,19 +101,29 @@ $levels: (
   @return map-get($map, $key);
 }
 
+@mixin with-theme($theme) {
+  @if(map-has-key($themes, $theme)) {
+    $theme: map-get($themes, $theme);
+  }
+
+  $theme-map: () !global;
+
+  @each $key, $submap in $theme {
+    $value: map-get($theme, "#{$key}");
+    $theme-map: map-merge($theme-map, ($key: $value)) !global;
+  }
+
+  @content;
+
+  $theme-map: null !global;
+}
+
 @mixin themify($themes: $themes) {
   @each $theme, $map in $themes {
     [data-theme="#{$theme}"] & {
-      $theme-map: () !global;
-
-      @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), "#{$key}");
-        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      @include with-theme($map) {
+        @content;
       }
-
-      @content;
-
-      $theme-map: null !global;
     }
   }
 }

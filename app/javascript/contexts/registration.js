@@ -23,6 +23,7 @@ import dummyWorkshops from 'templates/activities/overview/dummy'
 import REGISTRATION_FORM from 'queries/registration_form'
 import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
 import CURRENT_USER_QUERY from 'queries/current_user'
+import { notify } from 'molecules/toast'
 
 export const RegistrationContext = createContext({})
 
@@ -232,7 +233,10 @@ const RegistrationMemoizer = ({ value, save, children }) => {
   }, [unsavedChanges, setUnsavedChanges])
 
   const saveChanges = useCallback((force = false) => (
-    save(unsavedChanges, force).then(() => setUnsavedChanges({}))
+    save(unsavedChanges, force).then(() => {
+      notify('Changes saved', { icon: 'check' })
+      setUnsavedChanges({})
+    })
   ), [save, unsavedChanges, setUnsavedChanges])
 
   const cache = useDeepMemo(() => ({

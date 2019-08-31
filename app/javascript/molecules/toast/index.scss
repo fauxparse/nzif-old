@@ -1,0 +1,39 @@
+@import "../../styles/base";
+
+.toast {
+  @include elevation-element(snackbar);
+
+  @include with-theme(dark) {
+    display: flex;
+    align-items: flex-start;
+    padding: $padding;
+    border-radius: $border-radius;
+    background: change-color(themed(panel), 0.9);
+    color: themed(text);
+    font-size: font-size(-1);
+    line-height: 1.5rem;
+    backdrop-filter: blur(4px);
+
+    &__icon {
+      flex: 0 0 auto;
+      margin-right: $padding;
+    }
+
+    &__content {
+      flex: 1;
+    }
+
+    .toast__close {
+      flex: 0 0 auto;
+      margin: -0.5rem -0.5rem -0.5rem $spacing;
+      color: themed(secondary);
+
+      &:hover,
+      &:focus {
+        outline: none;
+        color: themed(text);
+        box-shadow: none;
+      }
+    }
+  }
+}
