@@ -1,5 +1,6 @@
 .read-everything {
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   &__end {
     height: 1rem;
