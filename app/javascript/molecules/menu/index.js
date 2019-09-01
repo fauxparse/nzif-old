@@ -19,6 +19,8 @@ const Menu = ({
 }) => {
   const container = useRef()
 
+  const update = useRef()
+
   const themeParent = useRef()
 
   const [open, setOpen] = useState(false)
@@ -32,6 +34,10 @@ const Menu = ({
   useEffect(() => {
     themeParent.current = container.current.closest('[data-theme]')
   }, [])
+
+  useEffect(() => {
+    if (open && update.current) update.current()
+  }, [open, update])
 
   return (
     <div ref={container} className={classNames('menu', open && 'menu--open', className)}>
@@ -50,24 +56,27 @@ const Menu = ({
         )}
       </Reference>
       <Popper placement="bottom-end" positionFixed>
-        {({ ref, style, placement }) => (
-          <Portal open={open}>
-            <Content
-              ref={ref}
-              className={classNames(className && `${className}__content`)}
-              open={open}
-              onClose={close}
-              id={`menu-${id}`}
-              style={style}
-              aria-labelledby={`menu-button-${id}`}
-              data-placement={placement}
-              data-theme={themeParent.current && themeParent.current.dataset.theme}
-              onClick={close}
-            >
-              {children}
-            </Content>
-          </Portal>
-        )}
+        {({ ref, style, placement, scheduleUpdate }) => {
+          update.current = scheduleUpdate
+          return (
+            <Portal open={open}>
+              <Content
+                ref={ref}
+                className={classNames(className && `${className}__content`)}
+                open={open}
+                onClose={close}
+                id={`menu-${id}`}
+                style={style}
+                aria-labelledby={`menu-button-${id}`}
+                data-placement={placement}
+                data-theme={themeParent.current && themeParent.current.dataset.theme}
+                onClick={close}
+              >
+                {children}
+              </Content>
+            </Portal>
+          )
+        }}
       </Popper>
     </div>
   )
