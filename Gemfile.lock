@@ -70,6 +70,16 @@ GIT
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
 
+GIT
+  remote: https://github.com/semaperepelitsa/axlsx
+  revision: b42e1eb15f7fbcfe8a28b4416976a2509493fc55
+  branch: 2.0-rubyzip
+  specs:
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -156,10 +166,6 @@ GEM
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
-    axlsx (2.0.1)
-      htmlentities (~> 4.3.1)
-      nokogiri (>= 1.4.1)
-      rubyzip (~> 1.0.0)
     bcrypt (3.1.12)
     bindex (0.5.0)
     bootsnap (1.4.4)
@@ -420,7 +426,7 @@ GEM
     ruby_dep (1.5.0)
     ruby_parser (3.12.0)
       sexp_processor (~> 4.9)
-    rubyzip (1.0.0)
+    rubyzip (1.2.3)
     safe_yaml (1.0.5)
     sass-rails (6.0.0.beta3)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -499,7 +505,7 @@ DEPENDENCIES
   airbrake
   auto_strip_attributes
   aws-sdk-s3
-  axlsx
+  axlsx (~> 2.0.1)!
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
@@ -546,6 +552,7 @@ DEPENDENCIES
   rubocop (~> 0.62)
   rubocop-airbnb!
   rubocop-rspec
+  rubyzip (>= 1.2.2)
   sass-rails (~> 6.0.0.beta3)
   scavenger!
   shoulda-matchers (= 4.0.1)

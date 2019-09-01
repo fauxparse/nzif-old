@@ -82,7 +82,8 @@ gem 'premailer-rails'
 gem 'paper_trail'
 
 # Reporting
-gem 'axlsx'
+gem 'axlsx', '~> 2.0.1', git: 'https://github.com/semaperepelitsa/axlsx', branch: '2.0-rubyzip'
+gem 'rubyzip', '>= 1.2.2'
 
 gem 'jwt'
 
