@@ -1,8 +1,23 @@
 @import "../../styles/base";
 
 .field {
+  position: relative;
+
   &__error {
     font-size: font-size(-1);
+  }
+
+  &__icon {
+    display: none;
+  }
+
+  @include media(medium) {
+    &__icon {
+      display: block;
+      position: absolute;
+      top: calc(#{line-height(normal)} * #{font-size(-1)} + 0.5rem);
+      left: -3.5rem;
+    }
   }
 
   @include themify {

@@ -13,6 +13,7 @@ const LabelledField = ({
   id,
   name,
   label,
+  icon,
   required,
   errors,
   children,
@@ -21,7 +22,7 @@ const LabelledField = ({
   const errorMessages = (errors || {})[name] || []
 
   return (
-    <Field errors={!isEmpty(errorMessages)}>
+    <Field icon={icon} errors={!isEmpty(errorMessages)}>
       <Label htmlFor={id || name} required={required || undefined}>{label}</Label>
       {Component && (
         <Component
@@ -46,6 +47,7 @@ LabelledField.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  icon: PropTypes.icon,
   required: PropTypes.bool,
   errors: PropTypes.object,
 }
@@ -54,6 +56,7 @@ LabelledField.defaultProps = {
   as: TextField,
   id: undefined,
   required: false,
+  icon: undefined,
   errors: {},
 }
 
