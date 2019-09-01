@@ -23,6 +23,8 @@ export const ACTIVITY_SUMMARY_FIELDS = gql`
     presenters {
       id
       name
+      bio
+      origin
       image {
         small
         medium
