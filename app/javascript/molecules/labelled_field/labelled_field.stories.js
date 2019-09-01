@@ -30,6 +30,16 @@ storiesOf('Molecules|LabelledField', module)
       required
     />
   ))
+  .add('With icon', () => (
+    <LabelledField
+      as={TextFieldDemo}
+      icon="email"
+      name="email"
+      label="Email"
+      type="email"
+      required
+    />
+  ), { options: { padding: '1rem 1rem 1rem 4.5rem' } })
   .add('With errors', () => (
     <LabelledField
       as={TextFieldDemo}

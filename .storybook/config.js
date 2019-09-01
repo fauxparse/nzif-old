@@ -10,9 +10,9 @@ import '../app/javascript/styles/application.scss'
 
 addDecorator(withKnobs)
 
-addDecorator((story, { parameters }) => {
+addDecorator((story, { parameters: { options = {} } }) => {
   const theme = select('Theme', { light: 'light', dark: 'dark' }, 'light')
-  const padding = parameters.options.padding === false ? 0 : '1rem'
+  const padding = options.padding === false ? 0 : (options.padding || '1rem')
 
   return (
     <div key={theme} data-theme={theme}>

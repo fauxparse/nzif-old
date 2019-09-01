@@ -29,6 +29,12 @@ storiesOf('Molecules|Field', module)
       <TextFieldDemo id="comments" />
     </Field>
   ))
+  .add('With icon', () => (
+    <Field icon="email">
+      <Label htmlFor="email">Email</Label>
+      <TextFieldDemo id="email" type="email" />
+    </Field>
+  ), { options: { padding: '1rem 1rem 1rem 4.5rem' } })
   .add('With errors', () => (
     <Field>
       <Label htmlFor="comments">Comments</Label>

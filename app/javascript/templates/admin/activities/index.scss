@@ -1,0 +1,29 @@
+@import "../../../styles/base";
+
+.edit-activity {
+  .edit-activity__name {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  &__slug {
+    margin: 0;
+
+    .text-field {
+      margin: 0;
+    }
+
+    .slug__copy {
+      @include themify {
+        color: themed(icon);
+
+        &:hover,
+        &:focus {
+          color: themed(primary);
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
