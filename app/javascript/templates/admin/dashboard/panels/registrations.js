@@ -45,7 +45,7 @@ const Registrations = ({ match }) => {
           <Counter>
             <Counter.Group digits={data.registrationCount} pad={3} label="Completed" />
           </Counter>
-          <Button as={Link} to="/">
+          <Button as={Link} to={`/admin/${year}/registrations`}>
             View
           </Button>
         </>

@@ -4,7 +4,7 @@
   @include autopad;
   display: grid;
   align-items: stretch;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   grid-column-gap: $spacing;
   grid-row-gap: $spacing;
 
@@ -18,7 +18,6 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    max-width: 20rem;
     padding: $padding;
     border-radius: $border-radius;
 
