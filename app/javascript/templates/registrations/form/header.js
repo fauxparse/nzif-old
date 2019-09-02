@@ -1,10 +1,12 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import validate from 'validate.js'
 import PropTypes from 'lib/proptypes'
 import { useSticky } from 'lib/hooks'
 import Stepper from 'molecules/stepper'
 import { useRegistration } from 'contexts/registration'
 import PAGES from './pages'
+
+window.top.validate = validate
 
 const Header = ({ pageIndex, onStepClick }) => {
   const { registration } = useRegistration()
@@ -19,6 +21,12 @@ const Header = ({ pageIndex, onStepClick }) => {
     const validated = PAGES.map(({ validations }) => !validate(registration, validations))
     return validated.map((_, i) => validated.slice(0, i).every(Boolean))
   }, [registration])
+
+  useEffect(() => {
+    if (!valid[pageIndex]) {
+      onStepClick(PAGES[Math.max(valid.indexOf(true), 0)])
+    }
+  }, [valid, pageIndex, onStepClick])
 
   return (
     <header ref={ref} className="registration-form__header">
