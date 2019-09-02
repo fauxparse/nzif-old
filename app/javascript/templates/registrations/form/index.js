@@ -11,39 +11,39 @@ import { useRegistration } from 'contexts/registration'
 
 import './index.scss'
 
-const RegistrationForm = ({ festival, page: initialPage, onPageChange }) => {
+const RegistrationForm = ({ festival, page, onPageChange }) => {
   const { loading, saving, save } = useRegistration()
 
   const container = useRef()
 
-  const [page, setPage] = useState(PAGES.indexOf(initialPage))
+  const [pageIndex, setPageIndex] = useState(PAGES.indexOf(page))
 
   const scrollTop = useRef(0)
 
-  const goToPage = useCallback((page) => {
+  const goToPage = useCallback((index) => {
     scrollTop.current = document.documentElement.scrollTop
-    setPage(page)
-  }, [scrollTop, setPage])
+    setPageIndex(index)
+  }, [scrollTop, setPageIndex])
 
   const stepClicked = useCallback((page) => {
     goToPage(PAGES.indexOf(page))
   }, [goToPage])
 
   const previousPage = useCallback(() => {
-    goToPage(page - 1)
-  }, [page, goToPage])
+    goToPage(pageIndex - 1)
+  }, [pageIndex, goToPage])
 
   const nextPage = useCallback(() => {
-    save().then(() => goToPage(page + 1)).catch(() => {})
-  }, [save, page, goToPage])
+    save().then(() => goToPage(pageIndex + 1)).catch(() => {})
+  }, [save, pageIndex, goToPage])
 
-  const Component = useMemo(() => PAGES[page].component, [page])
+  const Component = useMemo(() => PAGES[pageIndex].component, [pageIndex])
 
   useEffect(() => {
     if (onPageChange) {
-      onPageChange(PAGES[page])
+      onPageChange(PAGES[pageIndex])
     }
-  }, [onPageChange, page])
+  }, [onPageChange, pageIndex])
 
   React.useLayoutEffect(() => {
     if (!container.current) return
@@ -64,14 +64,14 @@ const RegistrationForm = ({ festival, page: initialPage, onPageChange }) => {
         <title>Register for NZIF {festival.year}</title>
       </Helmet>
       <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
-      <Header pageIndex={page} onStepClick={stepClicked} />
-      <Pager pageIndex={page}>
+      <Header pageIndex={pageIndex} onStepClick={stepClicked} />
+      <Pager pageIndex={pageIndex}>
         {!loading && (
           <Component />
         )}
       </Pager>
       <Footer
-        pageIndex={page}
+        pageIndex={pageIndex}
         onBackClick={previousPage}
         onNextClick={nextPage}
       />
