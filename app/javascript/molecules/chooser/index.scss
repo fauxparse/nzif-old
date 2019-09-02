@@ -1,0 +1,82 @@
+@import "../../styles/base";
+
+.chooser {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  &__text-field {
+    flex: 1;
+    min-width: 6rem;
+    margin: 0 0 -1px;
+  }
+
+  &__selected-option {
+    display: flex;
+    align-items: center;
+    min-width: 2rem;
+    margin: 0.25rem 0.5rem 0 0;
+    padding: 0.25rem 0.25rem 0.25rem 1rem;
+    border-radius: 1rem;
+
+    .selected-option__label {
+      @include ellipsis;
+    }
+
+    .selected-option__remove {
+      flex: 0 0 auto;
+      margin: 0 0 0 0.25rem;
+      padding: 0.25rem;
+
+      .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+
+  &__options {
+    @include elevation-element(menu);
+    min-width: 12rem;
+    max-height: 15rem;
+    margin: 0 (-$padding);
+    padding: 0.5rem 0;
+    border-radius: $border-radius;
+    overflow-y: auto;
+  }
+
+  @include themify {
+    border-bottom: 1px solid themed(border);
+
+    &__text-field {
+      border-bottom-color: transparent;
+    }
+
+    &--focus {
+      border-bottom-color: themed(accent);
+    }
+
+    &__selected-option {
+      background: themed(panel);
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.25rem themed(outline);
+      }
+    }
+
+    &__options {
+      background: themed(menu-background);
+      color: themed(foreground);
+    }
+
+    &__option {
+      &:hover,
+      &--highlight {
+        background: themed(menu-highlight);
+        color: themed(menu-highlight-text);
+      }
+    }
+  }
+}
