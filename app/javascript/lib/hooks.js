@@ -28,6 +28,43 @@ export const useUUID = () => {
 
 export const useCurrentUser = () => useContext(CurrentUserContext)
 
+export const useFocusWithin = ((ref, onFocus, onBlur) => {
+  const [hasFocus, setHasFocus] = useState()
+
+  const focusIn = useCallback((e) => {
+    if (ref.current.contains(e.target)) {
+      if (!hasFocus) {
+        setHasFocus(true)
+        if (onFocus) onFocus({ target: ref.current })
+      }
+    } else if (hasFocus) {
+      setHasFocus(false)
+      if (onBlur) onBlur({ target: ref.current, relatedTarget: e.target })
+    }
+  }, [ref, hasFocus, setHasFocus, onFocus, onBlur])
+
+  const focusOut = useCallback((e) => {
+    if (!e.relatedTarget || !ref.current.contains(e.relatedTarget)) {
+      setHasFocus(false)
+      if (onBlur) onBlur({ target: ref.current, relatedTarget: e.relatedTarget })
+    }
+  }, [ref, setHasFocus, onBlur])
+
+  useEffect(() => {
+    const container = ref.current
+
+    container.addEventListener('focusin', focusIn)
+    container.addEventListener('focusout', focusOut)
+
+    return () => {
+      container.removeEventListener('focusin', focusIn)
+      container.removeEventListener('focusout', focusOut)
+    }
+  })
+
+  return hasFocus
+})
+
 export const useResize = listener => useEffect(() => {
   window.addEventListener('resize', listener)
   return () => window.removeEventListener('resize', listener)
