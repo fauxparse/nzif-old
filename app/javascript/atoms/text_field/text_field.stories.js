@@ -22,6 +22,6 @@ const TextFieldDemo = ({ value = '', ...props }) => {
 
 storiesOf('Atoms|TextField', module)
   .add('Single line', () => <TextFieldDemo />)
-  .add('Single line autosize', () => <TextFieldDemo autosize />)
+  .add('Single line autosize', () => <TextFieldDemo autoSize />)
   .add('Multiline', () => <TextFieldDemo multiline rows="5" />)
-  .add('Multiline autosize', () => <TextFieldDemo multiline autosize rows={1} />)
+  .add('Multiline autosize', () => <TextFieldDemo multiline autoSize rows={1} />)

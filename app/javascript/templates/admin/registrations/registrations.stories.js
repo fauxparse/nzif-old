@@ -62,6 +62,7 @@ const RegistrationContainer = ({ children }) => {
 }
 
 storiesOf('Templates|Admin/Registrations', module)
+  .addParameters({ options: { padding: false, theme: 'dark' } })
   .add('List', () => (
     <Registrations
       festival={FESTIVAL}

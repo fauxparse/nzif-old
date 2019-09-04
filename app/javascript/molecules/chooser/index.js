@@ -168,7 +168,7 @@ const Chooser = ({
         className="chooser__text-field"
         value={search}
         placeholder={selected.length ? undefined : placeholder}
-        autosize
+        autoSize
         autoFocus={autoFocus}
         onChange={searchChanged}
       />

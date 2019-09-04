@@ -26,4 +26,21 @@
       }
     }
   }
+
+  &__details {
+    @include autopad;
+    @include vertical-padding($padding * 2);
+
+    .field {
+      margin-bottom: $spacing * 2;
+    }
+
+    .tags {
+      padding: 0.5rem 0 0.25rem;
+
+      .tag__text {
+        text-transform: capitalize;
+      }
+    }
+  }
 }

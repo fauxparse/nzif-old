@@ -45,7 +45,9 @@ const resize = (input, multiline = false) => {
 
 const TextField = forwardRef(({
   as: component,
-  autosize,
+  value,
+  autoSize,
+  autoSelect,
   className,
   multiline,
   onChange,
@@ -58,14 +60,23 @@ const TextField = forwardRef(({
   const input = ref || ownRef
 
   const resizeInput = useCallback(() => {
-    if (autosize) {
+    if (autoSize) {
       resize(input.current, multiline)
     }
-  }, [input, multiline, autosize])
+  }, [input, multiline, autoSize])
 
   useResize(resizeInput)
 
-  useEffect(resizeInput, [])
+  useEffect(resizeInput, [value])
+
+  useEffect(() => {
+    if (autoSelect) {
+      const select = e => e.target.select()
+      const field = input.current
+      field.addEventListener('focus', select)
+      return () => field.removeEventListener('focus', select)
+    }
+  }, [input, autoSelect])
 
   const changed = (e) => {
     resizeInput()
@@ -77,9 +88,10 @@ const TextField = forwardRef(({
       className={classNames(
         'text-field',
         multiline && 'text-field--multiline',
-        autosize && 'text-field--autosize',
+        autoSize && 'text-field--autosize',
         className
       )}
+      value={value}
       ref={input}
       onChange={changed}
       {...props}
@@ -91,17 +103,21 @@ TextField.displayName = 'TextField'
 
 TextField.propTypes = {
   as: PropTypes.component,
-  autosize: PropTypes.bool,
+  autoSize: PropTypes.bool,
+  autoSelect: PropTypes.bool,
   className: PropTypes.className,
   multiline: PropTypes.bool,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 }
 
 TextField.defaultProps = {
   as: null,
-  autosize: false,
+  autoSize: false,
+  autoSelect: false,
   className: null,
   multiline: false,
+  value: '',
 }
 
 export default TextField
