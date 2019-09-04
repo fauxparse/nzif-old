@@ -10,7 +10,11 @@ export default gql`
       url
 
       image {
+        name
         thumbnail
+        small
+        medium
+        full
       }
 
       ...on Workshop {
@@ -24,6 +28,14 @@ export default gql`
 
         activity {
           id
+        }
+
+        venue {
+          id
+          name
+          address
+          latitude
+          longitude
         }
       }
     }

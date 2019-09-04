@@ -11,7 +11,7 @@ import '../app/javascript/styles/application.scss'
 addDecorator(withKnobs)
 
 addDecorator((story, { parameters: { options = {} } }) => {
-  const theme = select('Theme', { light: 'light', dark: 'dark' }, 'light')
+  const theme = select('Theme', { light: 'light', dark: 'dark' }, options.theme || 'light')
   const padding = options.padding === false ? 0 : (options.padding || '1rem')
 
   return (

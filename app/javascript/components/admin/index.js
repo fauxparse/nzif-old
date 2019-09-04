@@ -19,6 +19,7 @@ import Content from './content'
 import Dashboard from 'pages/admin/dashboard'
 import Pitches from 'pages/admin/pitches'
 import Registrations from 'pages/admin/registrations'
+import EditActivity from 'pages/admin/activities/edit'
 import NotFound from 'templates/not_found'
 import Profile from '../profile'
 
@@ -83,6 +84,7 @@ const Admin = ({ match, history }) => {
                 pageKey={getPageKey(location.pathname)}
               >
                 <Switch location={location}>
+                  <Route path={`${match.path}/new_activities/:type/:slug`} component={EditActivity} />
                   <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
                   <Route path={`${match.path}/activities`} exact component={Timetable} />
                   <Route path={`${match.path}/people/:id`} exact component={Person} />
