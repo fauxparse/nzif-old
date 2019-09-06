@@ -65,6 +65,7 @@ const Details = ({ activity, presenters, onChange }) => {
         icon="text"
         name="description"
         multiline
+        rows={1}
         autoSize
         value={description}
         onChange={descriptionChanged}

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import copy from 'copy-to-clipboard'
 import PropTypes from 'lib/proptypes'
+import moment from 'lib/moment'
 import pluralize from 'pluralize'
 import Button from 'atoms/button'
 import Tab from 'atoms/tab'
@@ -10,6 +11,7 @@ import TabBar from 'molecules/tab_bar'
 import Header from 'organisms/header'
 import Skeleton from 'effects/skeleton'
 import Details from './details'
+import Session from './session'
 
 import './index.scss'
 
@@ -18,9 +20,11 @@ const Edit = ({
   festival,
   activity,
   presenters,
+  venues,
   tab,
   onTabChange,
-  onChange
+  onChange,
+  onSessionChange,
 }) => {
   const root = useMemo(() => (
     `${window.location.origin}/${festival.year}/${pluralize(activity.type)}`
@@ -42,9 +46,13 @@ const Edit = ({
     }
   }, [activity, onChange])
 
-  const changeTab = useCallback(e => onTabChange(e.target.dataset.tab), [onTabChange])
+  const changeTab = useCallback(e => (
+    onTabChange(e.target.closest('[data-tab]').dataset.tab)
+  ), [onTabChange])
 
   const copyURL = useCallback(() => copy(`${root}/${values.slug}`), [root, values])
+
+  const session = useMemo(() => activity.sessions.find(s => s.id === tab), [activity, tab])
 
   return (
     <div className="edit-activity">
@@ -94,14 +102,32 @@ const Edit = ({
             data-tab="details"
             onClick={changeTab}
           />
+          {activity.sessions.map(session => (
+            <Tab
+              key={session.id}
+              text={moment(session.startsAt).format('dddd D')}
+              selected={tab === session.id}
+              data-tab={session.id}
+              onClick={changeTab}
+            />
+          ))}
         </TabBar>
       </Header>
-      {tab === 'details' && (
+      {tab === 'details' ? (
         <Details
           activity={activity}
           presenters={presenters}
           onChange={onChange}
         />
+      ) : (
+        session && (
+          <Session
+            activity={activity}
+            session={session}
+            venues={venues}
+            onChange={onSessionChange}
+          />
+        )
       )}
     </div>
   )
@@ -112,10 +138,13 @@ Edit.propTypes = {
   festival: PropTypes.shape({
     year: PropTypes.id.isRequired,
   }),
+  presenters: PropTypes.arrayOf(PropTypes.user.isRequired).isRequired,
+  venues: PropTypes.arrayOf(PropTypes.venue.isRequired).isRequired,
   activity: PropTypes.activity.isRequired,
   tab: PropTypes.id.isRequired,
   onTabChange: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  onSessionChange: PropTypes.func.isRequired,
 }
 
 Edit.defaultProps = {

@@ -68,8 +68,29 @@
     }
 
     &__options {
+      max-height: 13.5rem;
+      max-height: 13.5rem;
+      transition: transition(opacity);
+      border-radius: $border-radius;
       background: themed(menu-background);
       color: themed(foreground);
+      opacity: 0;
+      overflow-y: auto;
+
+      &--enter {
+        &-active,
+        &-done {
+          opacity: 1;
+        }
+      }
+
+      &--exit {
+        &-active,
+        &-done {
+          transition-delay: duration(fast);
+          opacity: 0;
+        }
+      }
     }
 
     &__option {

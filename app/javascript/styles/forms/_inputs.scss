@@ -93,113 +93,113 @@
   }
 }
 
-.select {
-  display: inline-block;
-  position: relative;
+// .select {
+//   display: inline-block;
+//   position: relative;
 
-  &__chevron {
-    flex: 0 0 auto;
-    margin: 0 0 -1px 0.5rem;
-    transition: transition(transform);
-  }
+//   &__chevron {
+//     flex: 0 0 auto;
+//     margin: 0 0 -1px 0.5rem;
+//     transition: transition(transform);
+//   }
 
-  &__trigger {
-    @include themify {
-      border-bottom: 1px solid themed(border);
+//   &__trigger {
+//     @include themify {
+//       border-bottom: 1px solid themed(border);
 
-      &:focus,
-      &[aria-expanded] {
-        border-bottom-color: themed(accent);
-        outline: none;
-      }
-    }
+//       &:focus,
+//       &[aria-expanded] {
+//         border-bottom-color: themed(accent);
+//         outline: none;
+//       }
+//     }
 
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+//     display: flex;
+//     align-items: center;
+//     cursor: pointer;
 
-    &[aria-expanded] {
-      .select__chevron {
-        transform: rotate(180deg);
-      }
-    }
-  }
+//     &[aria-expanded] {
+//       .select__chevron {
+//         transform: rotate(180deg);
+//       }
+//     }
+//   }
 
-  &__current-value {
-    @include ellipsis;
-    flex: 1;
-    margin-bottom: -1px;
-    padding: 0.5rem 0;
+//   &__current-value {
+//     @include ellipsis;
+//     flex: 1;
+//     margin-bottom: -1px;
+//     padding: 0.5rem 0;
 
-    @include themify {
-      color: themed(text);
+//     @include themify {
+//       color: themed(text);
 
-      &[data-empty] {
-        color: themed(secondary);
-      }
-    }
-  }
+//       &[data-empty] {
+//         color: themed(secondary);
+//       }
+//     }
+//   }
 
-  &__menu-items {
-    @include elevation-element(menu);
-    @include themify {
-      background: themed(menu-background);
-      color: themed(text);
+//   &__menu-items {
+//     @include elevation-element(menu);
+//     @include themify {
+//       background: themed(menu-background);
+//       color: themed(text);
 
-      &:empty::after {
-        color: themed(disabled);
-      }
-    }
+//       &:empty::after {
+//         color: themed(disabled);
+//       }
+//     }
 
-    position: relative;
-    max-width: 16rem;
-    max-height: 13.5rem;
-    margin: 0;
-    padding: 0.5rem 0;
-    border-radius: $border-radius;
-    list-style: none;
-    z-index: z-index(menu);
-    overflow-y: scroll;
+//     position: relative;
+//     max-width: 16rem;
+//     max-height: 13.5rem;
+//     margin: 0;
+//     padding: 0.5rem 0;
+//     border-radius: $border-radius;
+//     list-style: none;
+//     z-index: z-index(menu);
+//     overflow-y: scroll;
 
-    &:empty::after {
-      display: block;
-      padding: 0.5em 0;
-      text-align: center;
-      content: "(No options)";
-    }
-  }
+//     &:empty::after {
+//       display: block;
+//       padding: 0.5em 0;
+//       text-align: center;
+//       content: "(No options)";
+//     }
+//   }
 
-  &__menu-item {
-    @include ellipsis;
-    display: block;
-    max-width: 100%;
-    margin: 0;
-    padding: 0.5rem 1rem;
-    white-space: nowrap;
-    cursor: pointer;
-    overflow: hidden;
+//   &__menu-item {
+//     @include ellipsis;
+//     display: block;
+//     max-width: 100%;
+//     margin: 0;
+//     padding: 0.5rem 1rem;
+//     white-space: nowrap;
+//     cursor: pointer;
+//     overflow: hidden;
 
-    @include themify {
-      &[aria-selected] {
-        background: themed(panel);
-      }
+//     @include themify {
+//       &[aria-selected] {
+//         background: themed(panel);
+//       }
 
-      &:hover,
-      &:focus {
-        outline: none;
-        background: themed(highlight);
-      }
-    }
-  }
+//       &:hover,
+//       &:focus {
+//         outline: none;
+//         background: themed(highlight);
+//       }
+//     }
+//   }
 
-  &__menu-separator {
-    margin: ($spacing / 2) 0;
+//   &__menu-separator {
+//     margin: ($spacing / 2) 0;
 
-    @include themify {
-      border-top: 1px solid themed(border);
-    }
-  }
-}
+//     @include themify {
+//       border-top: 1px solid themed(border);
+//     }
+//   }
+// }
 
 .editable-title {
   margin: 0 0 1.5rem;

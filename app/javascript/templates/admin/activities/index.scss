@@ -27,10 +27,13 @@
     }
   }
 
-  &__details {
+  &__details,
+  &__session {
     @include autopad;
     @include vertical-padding($padding * 2);
+  }
 
+  &__details {
     .field {
       margin-bottom: $spacing * 2;
     }

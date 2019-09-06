@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import difference from 'lodash/difference'
-import Select from './select'
+import Select from 'molecules/select'
 
 const COUNTRIES_QUERY = gql`{ countries }`
 
