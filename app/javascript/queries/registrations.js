@@ -9,6 +9,7 @@ export default gql`
       user {
         id
         name
+        email
         image {
           thumbnail
           small

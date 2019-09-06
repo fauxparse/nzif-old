@@ -26,7 +26,7 @@ Toast.propTypes = {
 
 const DEFAULT_OPTIONS = {
   position: 'bottom-right',
-  duration: 1000,
+  duration: 3000,
 }
 
 export const notify = (content, { icon, ...options } = {}) =>

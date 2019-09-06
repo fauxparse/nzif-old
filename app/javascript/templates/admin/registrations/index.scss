@@ -1,6 +1,20 @@
 @import "../../../styles/base";
 
 .registrations {
+  &__header {
+    .header__bottom {
+      padding-bottom: 0;
+    }
+
+    .tags {
+      padding: ($padding / 2) 0;
+
+      .tag {
+        text-transform: capitalize;
+      }
+    }
+  }
+
   &__body {
     @include autopad;
   }
