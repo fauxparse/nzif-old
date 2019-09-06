@@ -4,6 +4,7 @@ import { Manager } from 'react-popper'
 import { configure, addDecorator } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { StaticContentProvider, DummyLoader } from 'contexts/static_content'
+import ThemeContext from 'lib/theme_context'
 import Modal from 'react-modal'
 
 import '../app/javascript/styles/application.scss'
@@ -15,11 +16,13 @@ addDecorator((story, { parameters: { options = {} } }) => {
   const padding = options.padding === false ? 0 : (options.padding || '1rem')
 
   return (
-    <div key={theme} data-theme={theme}>
-      <div className="container" style={{ width: '100vw', minHeight: '100vh', padding }}>
-        {story()}
+    <ThemeContext.Provider value={theme}>
+      <div key={theme} data-theme={theme}>
+        <div className="container" style={{ width: '100vw', minHeight: '100vh', padding }}>
+          {story()}
+        </div>
       </div>
-    </div>
+    </ThemeContext.Provider>
   )
 })
 

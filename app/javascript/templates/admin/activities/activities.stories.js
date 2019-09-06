@@ -2,6 +2,9 @@ import React, { useCallback, useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { boolean } from '@storybook/addon-knobs'
 import faker from 'faker'
+import sample from 'lodash/sample'
+import merge from 'lodash/merge'
+import moment from 'lib/moment'
 import Edit from './edit'
 
 const FESTIVAL = {
@@ -14,12 +17,27 @@ const PRESENTERS = new Array(50).fill(0).map(() => ({
   email: faker.internet.email(),
 }))
 
+const VENUES = new Array(5).fill(0).map(() => ({
+  id: faker.random.uuid(),
+  name: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
+  address: faker.address.streetAddress(),
+  latitude: faker.address.latitude(),
+  longitude: faker.address.longitude(),
+}))
+
 const ACTIVITY = {
   id: faker.random.uuid(),
   type: 'workshop',
   name: 'Workshop name',
   slug: 'workshop-name',
+  description: faker.lorem.paragraph(),
   presenters: PRESENTERS.slice(0, 2),
+  sessions: new Array(2).fill(0).map((_, i) => ({
+    id: faker.random.uuid(),
+    startsAt: moment().startOf('day').add(i, 'days').add(10, 'hours'),
+    capacity: 16,
+    venue: sample(VENUES),
+  })),
 }
 
 const EditDemo = (props) => {
@@ -27,18 +45,33 @@ const EditDemo = (props) => {
 
   const [activity, setActivity] = useState(ACTIVITY)
 
-  const change = useCallback(changes => (
-    setActivity({ ...activity, ...changes })
+  const changed = useCallback(changes => (
+    setActivity(merge({}, activity, changes))
   ), [activity, setActivity])
+
+  const sessionChanged = useCallback((session, changes) => {
+    const { venueId, ...rest } = changes
+    const venue = venueId && VENUES.find(v => v.id === venueId)
+
+    changed({
+      sessions: activity.sessions.map(s => (s.id === session.id ? {
+        ...s,
+        venue,
+        ...rest,
+      } : s))
+    })
+  }, [changed, activity])
 
   return (
     <Edit
       festival={FESTIVAL}
       activity={activity}
       presenters={PRESENTERS}
+      venues={VENUES}
       tab={tab}
       onTabChange={setTab}
-      onChange={change}
+      onChange={changed}
+      onSessionChange={sessionChanged}
       {...props}
     />
   )

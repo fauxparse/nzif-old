@@ -37,8 +37,6 @@ const Chooser = ({
 
   const textField = useRef()
 
-  const menu = useRef()
-
   const [search, setSearch] = useState('')
 
   const searchChanged = useCallback(e => setSearch(e.target.value), [setSearch])
@@ -56,7 +54,7 @@ const Chooser = ({
   }, [search, closed, setMenuVisible])
 
   const blur = useCallback((e) => {
-    setTimeout(() => setClosed(true), 250)
+    setClosed(true)
     if (onBlur) onBlur(e)
   }, [setClosed, onBlur])
 
@@ -133,6 +131,9 @@ const Chooser = ({
           select(byId[highlightId])
         }
         break
+      case 'Escape':
+        setClosed(true)
+        break
       case 'Backspace':
         if (!search) {
           const focusedOption = e.target.closest('.selected-option')
@@ -148,7 +149,7 @@ const Chooser = ({
           }
         }
     }
-  }, [moveHighlight, highlightId, byId, select, deselect, search])
+  }, [moveHighlight, highlightId, byId, select, deselect, search, setClosed])
 
   return (
     <div
