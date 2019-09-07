@@ -9,6 +9,7 @@ class Registration < ApplicationRecord
   has_many :preferences, dependent: :destroy, autosave: true, validate: false
   has_many :availability, class_name: 'Availability',
     dependent: :destroy, autosave: true, validate: false
+  has_many :placements, dependent: :destroy, autosave: true
 
   enum state: {
     pending: 'pending',

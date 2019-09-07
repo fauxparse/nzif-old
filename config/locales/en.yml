@@ -28,6 +28,7 @@ en:
         too_long: 'is too long (%{count}/%{maximum} words)'
       invalid_level: 'cannot include ‘%{level}’'
       invalid_role: 'cannot include ‘%{role}’'
+      clashes: 'clashes with another selected session'
 
   pitch:
     type:

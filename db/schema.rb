@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_055437) do
+ActiveRecord::Schema.define(version: 2019_09_07_042739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,15 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.index ["user_id"], name: "index_pitches_on_user_id"
   end
 
+  create_table "placements", force: :cascade do |t|
+    t.bigint "registration_id", null: false
+    t.bigint "session_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_placements_on_registration_id"
+    t.index ["session_id"], name: "index_placements_on_session_id"
+  end
+
   create_table "preferences", force: :cascade do |t|
     t.bigint "registration_id", null: false
     t.bigint "session_id", null: false
@@ -140,6 +149,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "completed_at"
+    t.integer "placements_count", default: 0
     t.index ["festival_id", "state"], name: "index_registrations_on_festival_id_and_state"
     t.index ["festival_id", "user_id"], name: "index_registrations_on_festival_id_and_user_id", unique: true
     t.index ["festival_id"], name: "index_registrations_on_festival_id"
@@ -154,6 +164,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.datetime "updated_at", null: false
     t.bigint "venue_id"
     t.integer "capacity"
+    t.integer "placements_count", default: 0
     t.index ["activity_id"], name: "index_sessions_on_activity_id"
     t.index ["starts_at", "ends_at"], name: "index_sessions_on_starts_at_and_ends_at"
     t.index ["venue_id"], name: "index_sessions_on_venue_id"
@@ -208,6 +219,8 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "pitches", "festivals", on_delete: :cascade
   add_foreign_key "pitches", "users", on_delete: :cascade
+  add_foreign_key "placements", "registrations", on_delete: :cascade
+  add_foreign_key "placements", "sessions", on_delete: :cascade
   add_foreign_key "preferences", "registrations"
   add_foreign_key "preferences", "sessions"
   add_foreign_key "presenters", "activities"

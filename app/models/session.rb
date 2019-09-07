@@ -4,6 +4,7 @@ class Session < ApplicationRecord
   belongs_to :activity
   belongs_to :venue, optional: true
   has_many :preferences, dependent: :destroy
+  has_many :placements, dependent: :destroy, autosave: true
 
   validates :activity, presence: true
   validates :starts_at, :ends_at,
