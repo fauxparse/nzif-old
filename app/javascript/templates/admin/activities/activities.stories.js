@@ -21,8 +21,8 @@ const VENUES = new Array(5).fill(0).map(() => ({
   id: faker.random.uuid(),
   name: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
   address: faker.address.streetAddress(),
-  latitude: faker.address.latitude(),
-  longitude: faker.address.longitude(),
+  latitude: parseFloat(faker.address.latitude()),
+  longitude: parseFloat(faker.address.longitude()),
 }))
 
 const ACTIVITY = {

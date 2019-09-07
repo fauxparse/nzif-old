@@ -71,6 +71,12 @@
     }
   }
 
+  &__portal {
+    > div {
+      z-index: z-index(menu);
+    }
+  }
+
   @include themify {
     &__trigger {
       border-bottom: 1px solid themed(border);
@@ -79,6 +85,7 @@
     &__options {
       background: themed(menu-background);
       color: themed(foreground);
+      backdrop-filter: blur(4px);
     }
 
     &__option {

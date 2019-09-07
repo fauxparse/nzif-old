@@ -31,19 +31,25 @@
   &__session {
     @include autopad;
     @include vertical-padding($padding * 2);
-  }
 
-  &__details {
     .field {
       margin-bottom: $spacing * 2;
     }
+  }
 
+  &__details {
     .tags {
       padding: 0.5rem 0 0.25rem;
 
       .tag__text {
         text-transform: capitalize;
       }
+    }
+  }
+
+  &__session {
+    .number-field__input {
+      width: 6rem;
     }
   }
 }

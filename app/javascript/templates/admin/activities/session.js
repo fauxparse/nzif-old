@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import Label from 'atoms/label'
 import Field from 'molecules/field'
+import NumberField from 'molecules/number_field'
 import Select from 'molecules/select'
 
 const Session = ({ activity, session, venues, onChange }) => {
@@ -11,6 +12,8 @@ const Session = ({ activity, session, venues, onChange }) => {
 
   const venueChanged = useCallback(venueId => changed({ venueId }), [changed])
 
+  const capacityChanged = useCallback(capacity => changed({ capacity }), [changed])
+
   return (
     <div className="edit-activity__session">
       <Field icon="venue">
@@ -19,6 +22,14 @@ const Session = ({ activity, session, venues, onChange }) => {
           value={session.venue && session.venue.id}
           options={venueOptions}
           onChange={venueChanged}
+        />
+      </Field>
+      <Field icon="users">
+        <Label>Capacity</Label>
+        <NumberField
+          value={session.capacity}
+          min={0}
+          onChange={capacityChanged}
         />
       </Field>
     </div>

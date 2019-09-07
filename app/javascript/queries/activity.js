@@ -52,6 +52,7 @@ export default gql`
         id
         startsAt
         endsAt
+        capacity
 
         activity {
           id

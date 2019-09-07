@@ -6,6 +6,7 @@ export default gql`
       id
       startsAt
       endsAt
+      capacity
 
       activity {
         id
@@ -14,6 +15,9 @@ export default gql`
       venue {
         id
         name
+        address
+        latitude
+        longitude
       }
     }
   }

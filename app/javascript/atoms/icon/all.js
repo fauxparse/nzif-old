@@ -47,6 +47,7 @@ export default [
   'send',
   'show',
   'staging',
+  'subtract',
   'text',
   'trash',
   'twitter',

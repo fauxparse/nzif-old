@@ -1,0 +1,48 @@
+@import "../../styles/base";
+
+.number-field {
+  display: inline-flex;
+  align-items: flex-start;
+
+  &__input {
+    @include horizontal-padding($icon-size + 0.5rem)
+    text-align: center;
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__button {
+    margin-top: 0.5rem;
+    padding: 0;
+
+    &--subtract {
+      order: -1;
+      margin-right: -$icon-size;
+    }
+
+    &--add {
+      order: 1;
+      margin-left: -$icon-size;
+    }
+  }
+
+  @include themify {
+    &--focus {
+      .number-field__input {
+        border-bottom-color: themed(accent);
+      }
+    }
+
+    &__button {
+      .button__icon {
+        color: themed(icon);
+      }
+    }
+  }
+}

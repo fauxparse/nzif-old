@@ -30,6 +30,7 @@ const Menu = forwardRef(({ onShow }, ref) => {
 
   return (
     <RelativePortal
+      className="select__portal"
       left={-16}
       top={-48}
       data-theme={theme}

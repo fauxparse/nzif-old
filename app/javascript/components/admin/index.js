@@ -12,7 +12,6 @@ import { SubPageTransition as PageTransition } from '../../components/page_trans
 import Header from './header'
 import Sidebar from './sidebar'
 import Timetable from './timetable'
-import ActivityDetails from './activities/details'
 import People from './people'
 import Person from './people/details'
 import Content from './content'
@@ -84,8 +83,10 @@ const Admin = ({ match, history }) => {
                 pageKey={getPageKey(location.pathname)}
               >
                 <Switch location={location}>
-                  <Route path={`${match.path}/new_activities/:type/:slug`} component={EditActivity} />
-                  <Route path={`${match.path}/activities/:type/:slug`} component={ActivityDetails} />
+                  <Route
+                    path={`${match.path}/activities/:type/:slug/:tab?`}
+                    component={EditActivity}
+                  />
                   <Route path={`${match.path}/activities`} exact component={Timetable} />
                   <Route path={`${match.path}/people/:id`} exact component={Person} />
                   <Route path={`${match.path}/people`} exact component={People} />

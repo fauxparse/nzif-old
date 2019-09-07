@@ -37,6 +37,10 @@
     }
   }
 
+  &__menu {
+    z-index: z-index(menu);
+  }
+
   &__options {
     @include elevation-element(menu);
     min-width: 12rem;
@@ -45,6 +49,7 @@
     padding: 0.5rem 0;
     border-radius: $border-radius;
     overflow-y: auto;
+    backdrop-filter: blur(4px);
   }
 
   @include themify {
