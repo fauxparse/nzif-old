@@ -1,0 +1,100 @@
+@import "../../../styles/base";
+
+.allocation {
+  &__shuffle {
+    .button__text {
+      min-width: 4.5em;
+    }
+  }
+
+  &__timeslot {
+    @include autopad;
+  }
+
+  &__time {
+    margin: 0 0 $spacing;
+    font-size: font-size(2);
+    font-weight: font-weight(light);
+  }
+
+  &__sessions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    grid-column-gap: $spacing;
+  }
+
+  &__session {
+    &-name {
+      @include ellipsis;
+      margin: 0 0 0.5rem;
+      font-size: font-size(0);
+      font-weight: font-weight(normal);
+    }
+  }
+
+  .participant {
+    margin: 0 0 0.25rem;
+    border-radius: 0.75em;
+    font-size: font-size(-1);
+
+    &__summary {
+      display: flex;
+      align-items: center;
+    }
+
+    &__name {
+      @include ellipsis;
+      flex: 1;
+      margin: 0;
+    }
+
+    &__toggle {
+      padding: 1.5px;
+
+      .button__icon {
+        width: 0.75em;
+        height: 0.75em;
+        transition: transition(transform);
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    &--expanded {
+      .participant__toggle {
+        .button__icon {
+          transform: rotate(180deg);
+        }
+      }
+
+      p {
+        margin: 0 0 0 2em;
+      }
+    }
+  }
+
+  @include themify {
+    &__timeslot {
+      border-bottom: 1px solid themed(border);
+    }
+
+    &__time {
+      color: themed(secondary);
+    }
+
+    &__session {
+      &-name {
+      }
+    }
+
+    .participant {
+      background: themed(panel);
+
+      &__toggle {
+        color: themed(disabled);
+      }
+    }
+  }
+}

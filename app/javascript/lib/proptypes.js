@@ -123,6 +123,12 @@ export const preference = PropTypes.shape({
   position: PropTypes.number.isRequired,
 })
 
+export const registration = PropTypes.shape({
+  id: id.isRequired,
+  user: user.isRequired,
+  preferences: PropTypes.arrayOf(preference.isRequired),
+})
+
 export default {
   ...PropTypes,
   activity,
@@ -140,6 +146,7 @@ export default {
   preference,
   presenter,
   ref,
+  registration,
   session,
   time,
   user,

@@ -46,6 +46,7 @@ export default [
   'search',
   'send',
   'show',
+  'shuffle',
   'staging',
   'subtract',
   'text',
