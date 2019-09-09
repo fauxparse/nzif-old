@@ -11,4 +11,11 @@ class UserMailer < ApplicationMailer
     @user = @registration.user
     mail to: recipient(@user), subject: "Your #{@festival} registration"
   end
+
+  def ticket_code(registration)
+    @registration = registration
+    @festival = @registration.festival
+    @user = @registration.user
+    mail to: recipient(@user), subject: "Your #{@festival} discount code"
+  end
 end

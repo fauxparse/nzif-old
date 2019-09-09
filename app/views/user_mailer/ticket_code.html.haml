@@ -1,0 +1,48 @@
+= email_section do
+  %p
+    Kia ora #{@user.name},
+
+  %p
+    Thanks so much for registering for NZIF #{@festival.year}!
+    We’re thrilled you'll be joining us for this massive event.
+
+  %p
+    Being a participant entitles you to purchase $10 tickets to any of our NZIF showcase evening
+    performances, and $5 tickets to our daytime shows for kids.
+
+= email_section class_name: 'section--highlight' do
+  %p
+    The code for evening shows is:
+    %b ROSADIAZ
+    %br
+    ($10 off full price ticket)
+
+  %p
+    The code for kids’ shows is:
+    %b ROSADIAZKIDS
+    %br
+    ($7 off general admission)
+
+  %p
+    = link_to 'Book tickets online', 'https://bats.co.nz/whats-on/?genre=nz-improv-festival', class: 'button'
+
+= email_section do
+  %p Please remember:
+
+  %ul
+    %li
+      This code must not be shared outside of registered NZIF 2019 participants.
+    %li
+      This code must not be used to buy other people’s tickets. It’s just for you.
+    %li
+      Read more about how to use these codes in our
+      = link_to 'FAQ', front_end_url("#{@festival.year}/faq")
+      (under “I want to see shows”!)
+
+  %p
+    Let us know if you have any questions :)
+
+  %p
+    Ngā mihi nui,
+    %br/
+    The NZIF Team

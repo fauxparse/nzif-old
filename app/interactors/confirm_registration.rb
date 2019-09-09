@@ -16,11 +16,16 @@ class ConfirmRegistration < Interaction
   def complete_registration
     registration.complete!
     send_confirmation_email
+    send_ticket_code
     update_subscription
   end
 
   def send_confirmation_email
     UserMailer.registration_confirmation(registration).deliver_later
+  end
+
+  def send_ticket_code
+    UserMailer.ticket_code(registration).deliver_later
   end
 
   def update_subscription
