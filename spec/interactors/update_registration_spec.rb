@@ -297,6 +297,7 @@ RSpec.describe UpdateRegistration, type: :interactor do
 
         before do
           allow(UserMailer).to receive(:registration_confirmation).and_return(email)
+          allow(UserMailer).to receive(:ticket_code).and_return(email)
         end
 
         it { is_expected.to be_success }
@@ -308,6 +309,11 @@ RSpec.describe UpdateRegistration, type: :interactor do
 
         it 'sends a confirmation email' do
           expect(UserMailer).to receive(:registration_confirmation)
+          result
+        end
+
+        it 'sends a code for discount tickets' do
+          expect(UserMailer).to receive(:ticket_code)
           result
         end
       end

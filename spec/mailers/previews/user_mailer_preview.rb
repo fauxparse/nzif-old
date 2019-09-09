@@ -11,4 +11,11 @@ class UserMailerPreview < ActionMailer::Preview
     registration = OpenStruct.new(user: user, festival: festival)
     UserMailer.registration_confirmation(registration)
   end
+
+  def ticket_code
+    user = OpenStruct.new(name: 'Test User', email: 'test@example.com')
+    festival = OpenStruct.new(year: Time.now.year)
+    registration = OpenStruct.new(user: user, festival: festival)
+    UserMailer.ticket_code(registration)
+  end
 end
