@@ -33,6 +33,7 @@ export default [
   'info',
   'levels',
   'link',
+  'lock',
   'log-out',
   'password',
   'payment',

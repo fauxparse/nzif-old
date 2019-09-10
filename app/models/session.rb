@@ -18,6 +18,7 @@ class Session < ApplicationRecord
   after_update :update_preferences, if: :start_time_updated?
 
   scope :on_day, ->(date) { where(starts_at: date.midnight...date.succ.midnight) }
+  scope :workshop, -> { joins(:activity).merge(Workshop.all) }
 
   private
 

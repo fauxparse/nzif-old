@@ -1,5 +1,7 @@
 @import "../../../styles/base";
 
+$choices: color(apple), color(mint, 600), color(grape, 600), color(plum), color(tomato);
+
 .allocation {
   &__shuffle {
     .button__text {
@@ -19,11 +21,22 @@
 
   &__sessions {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    grid-template-columns: repeat(4, minmax(7rem, 1fr));
     grid-column-gap: $spacing;
+    grid-row-gap: $spacing;
   }
 
   &__session {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: stretch;
+    transition: transition(opacity);
+
+    &--disabled {
+      opacity: 0.5;
+    }
+
     &-name {
       @include ellipsis;
       margin: 0 0 0.5rem;
@@ -32,7 +45,24 @@
     }
   }
 
+  &__places {
+    flex: 1;
+    min-height: 4rem;
+
+    &:empty {
+      &::before {
+        display: block;
+        height: 1.5em;
+        border: 1px dashed $white;
+        border-radius: 0.75em;
+        font-size: font-size(-1);
+        content: "";
+      }
+    }
+  }
+
   .participant {
+    position: relative;
     margin: 0 0 0.25rem;
     border-radius: 0.75em;
     font-size: font-size(-1);
@@ -40,6 +70,16 @@
     &__summary {
       display: flex;
       align-items: center;
+      padding-left: 2em;
+      border-radius: 0.75em;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &.participant--dragging {
+      @include elevation(8);
     }
 
     &__name {
@@ -49,12 +89,12 @@
     }
 
     &__toggle {
-      padding: 1.5px;
+      padding: 0;
 
       .button__icon {
-        width: 0.75em;
-        height: 0.75em;
+        margin: 0.25rem;
         transition: transition(transform);
+        font-size: 0.8125rem;
       }
 
       &:focus {
@@ -62,15 +102,96 @@
       }
     }
 
-    &--expanded {
+    &__preferences {
+      .badge,
+      .participant__preferred {
+        display: none;
+      }
+    }
+
+    &__preference {
+      display: flex;
+
+      .badge {
+        flex: 0 0 1.5em;
+
+        .icon {
+          margin: 0.25rem;
+          color: $white;
+          font-size: 0.8125rem;
+        }
+      }
+
+      .participant__preferred {
+        @include ellipsis;
+        flex: 1;
+      }
+    }
+
+    @for $i from 1 through length($choices) {
+      &[data-choice="#{$i}"] {
+        [data-position="#{$i}"] {
+          .badge {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        }
+
+        &.participant--expanded {
+          [data-position="#{$i}"] {
+            .badge {
+              position: static;
+            }
+          }
+        }
+      }
+    }
+
+    &.participant--expanded {
+      .participant__summary {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
       .participant__toggle {
         .button__icon {
           transform: rotate(180deg);
         }
       }
 
-      p {
-        margin: 0 0 0 2em;
+      .participant__preferences {
+        padding: 0.5em 0.5em 0.5em 0;
+        border-bottom-left-radius: 0.75em;
+        border-bottom-right-radius: 0.75em;
+
+        .badge,
+        .participant__preferred {
+          display: block;
+        }
+      }
+    }
+
+    @for $i from 1 through length($choices) {
+      &__preferences {
+        [data-position="#{$i}"] {
+          .badge {
+            background: transparent;
+            color: nth($choices, $i);
+          }
+        }
+      }
+
+      &[data-choice="#{$i}"] {
+        .participant__preferences {
+          [data-position="#{$i}"] {
+            .badge {
+              background: nth($choices, $i);
+              color: $white;
+            }
+          }
+        }
       }
     }
   }
@@ -84,16 +205,46 @@
       color: themed(secondary);
     }
 
-    &__session {
-      &-name {
+    &__places {
+      &:empty {
+        &::before {
+          border-color: themed(border);
+        }
       }
     }
 
     .participant {
-      background: themed(panel);
+      &__summary {
+        background: themed(panel);
+
+        &:focus {
+          box-shadow: 0 0 0 0.125rem themed(outline);
+        }
+      }
+
+      &__preferences {
+        background: change-opacity(themed(panel), 0.625);
+      }
 
       &__toggle {
         color: themed(disabled);
+
+        &:focus {
+          background: themed(outline);
+          color: white;
+        }
+      }
+
+      &__preferred {
+        color: themed(secondary);
+      }
+
+      &--over-capacity {
+        background: color(tomato, 900, 0.625);
+
+        .participant__summary {
+          background: color(tomato, 900);
+        }
       }
     }
   }

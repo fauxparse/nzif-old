@@ -75,6 +75,9 @@ gem 'countries'
 gem 'hashie'
 gem 'to_bool'
 
+# Workshop allocation
+gem 'matchy_matchy'
+
 # Emails
 gem 'premailer-rails'
 

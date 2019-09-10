@@ -1,13 +1,15 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { boolean } from '@storybook/addon-knobs'
 import faker from 'faker'
 import entries from 'lodash/entries'
 import groupBy from 'lodash/groupBy'
+import merge from 'lodash/merge'
 import sampleSize from 'lodash/sampleSize'
 import times from 'lodash/times'
 import moment from 'lib/moment'
 import Allocation from './'
+import { useAllocations } from './hooks'
 
 const year = new Date().getYear() + 1900
 
@@ -57,33 +59,28 @@ const AllocationDemo = (props) => {
 
   const shuffle = () => setSeed(faker.random.number())
 
-  const allocations = useMemo(() => {
+  const newState = () => {
     const timeslots = entries(groupBy(SESSIONS, s => s.startsAt.valueOf()))
-      .map(([, sessions]) => sessions)
 
-    return timeslots.reduce((result, sessions) => ({
+    return timeslots.reduce((result, [time, sessions]) => ({
       ...result,
-      ...sessions.reduce((hash, session) => {
-        const allocated =
+      [time]: sessions.reduce((group, session) => {
+        const all =
           REGISTRATIONS
-            .filter(r => r.preferences.some(p => p.sessionId === session.id && p.position === 1))
-            .map(r => r.id)
-        const time = session.startsAt.valueOf()
-
+          .filter(r => r.preferences.some(p => p.sessionId === session.id && p.position === 1))
+          .map((r, i) => ({ registrationId: r.id, position: i + 1, locked: false }))
         return {
-          ...hash,
-          [session.id]: allocated.slice(0, session.capacity),
-          unallocated: {
-            ...hash.unallocated,
-            [time]: [
-              ...(hash.unallocated[time] || []),
-              ...allocated.slice(session.capacity),
-            ],
-          },
+          ...group,
+          [session.id]: all.slice(0, session.capacity),
+          unallocated: [...group.unallocated, ...all.slice(session.capacity)],
         }
-      }, result),
-    }), { unallocated: {} })
-  }, [seed])
+      }, { unallocated: [] }),
+    }), {})
+  }
+
+  const [allocations, move, reset] = useAllocations(newState())
+
+  useEffect(() => reset(newState()), [seed])
 
   return (
     <Allocation
@@ -93,6 +90,7 @@ const AllocationDemo = (props) => {
       allocations={allocations}
       seed={seed}
       onShuffle={shuffle}
+      onMove={move}
       {...props}
     />
   )

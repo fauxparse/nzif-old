@@ -129,11 +129,18 @@ export const registration = PropTypes.shape({
   preferences: PropTypes.arrayOf(preference.isRequired),
 })
 
+export const allocation = PropTypes.shape({
+  registrationId: id.isRequired,
+  sessionId: id,
+  locked: PropTypes.bool,
+})
+
 export default {
   ...PropTypes,
   activity,
   activityLevel,
   activityType,
+  allocation,
   className,
   color,
   component,

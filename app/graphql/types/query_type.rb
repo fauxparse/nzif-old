@@ -2,6 +2,7 @@ module Types
   class QueryType < Types::BaseObject
     include Queries::Activity
     include Queries::ActivityTypes
+    include Queries::Allocation
     include Queries::Content
     include Queries::Contents
     include Queries::Countries
