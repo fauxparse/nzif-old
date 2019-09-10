@@ -15,14 +15,14 @@ module Queries
           sessions = matches.except('unallocated').map do |session_id, candidate_ids|
             {
               session_id: Session.encode_id(session_id),
-              registration_ids: candidate_ids.map { |id| ::Registration.encode_id(id) }
+              registration_ids: candidate_ids.map { |id| ::Registration.encode_id(id) },
             }
           end
 
           {
             starts_at: time,
             unallocated: (matches['unallocated'] || []).map { |id| ::Registration.encode_id(id) },
-            sessions: sessions
+            sessions: sessions,
           }
         end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_07_042739) do
+ActiveRecord::Schema.define(version: 2019_09_10_071632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,17 @@ ActiveRecord::Schema.define(version: 2019_09_07_042739) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "waitlists", force: :cascade do |t|
+    t.bigint "session_id", null: false
+    t.bigint "registration_id", null: false
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_waitlists_on_registration_id"
+    t.index ["session_id", "registration_id"], name: "index_waitlists_on_session_id_and_registration_id", unique: true
+    t.index ["session_id"], name: "index_waitlists_on_session_id"
+  end
+
   add_foreign_key "activities", "festivals", on_delete: :cascade
   add_foreign_key "activities", "pitches"
   add_foreign_key "availabilities", "registrations"
@@ -230,4 +241,6 @@ ActiveRecord::Schema.define(version: 2019_09_07_042739) do
   add_foreign_key "sessions", "activities", on_delete: :cascade
   add_foreign_key "sessions", "venues", on_delete: :cascade
   add_foreign_key "slots", "festivals", on_delete: :cascade
+  add_foreign_key "waitlists", "registrations", on_delete: :cascade
+  add_foreign_key "waitlists", "sessions", on_delete: :cascade
 end

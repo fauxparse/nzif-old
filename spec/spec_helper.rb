@@ -16,6 +16,7 @@
 
 require 'support/simplecov'
 require 'webmock/rspec'
+require 'rspec/its'
 
 # Namespace for example classes created for testing only
 module Examples; end

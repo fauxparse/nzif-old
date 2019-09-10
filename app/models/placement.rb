@@ -10,6 +10,7 @@ class Placement < ApplicationRecord
   def clashes_with?(other)
     id != other.id &&
       !other.marked_for_destruction? &&
+      !other.destroyed? &&
       session.starts_at == other.session.starts_at
   end
 

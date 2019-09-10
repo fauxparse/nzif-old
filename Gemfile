@@ -135,6 +135,7 @@ end
 
 group :test do
   gem 'email_spec'
+  gem 'rspec-its'
   gem 'shoulda-matchers', '4.0.1'
   gem 'simplecov', require: false
   gem 'stub_env', require: false
