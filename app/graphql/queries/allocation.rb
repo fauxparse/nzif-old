@@ -10,6 +10,8 @@ module Queries
 
       def allocation(year:, seed: nil)
         festival = ::Festival.by_year(year).first
+        return { timeslots: [], finalized: true } if festival.allocation_finalized?
+
         result = MatchWorkshops.call(festival: festival, seed: seed)
         timeslots = result.matches.map do |time, matches|
           sessions = matches.except('unallocated').map do |session_id, candidate_ids|
@@ -26,7 +28,7 @@ module Queries
           }
         end
 
-        { seed: result.seed, timeslots: timeslots }
+        { seed: result.seed, timeslots: timeslots, finalized: false }
       end
     end
   end

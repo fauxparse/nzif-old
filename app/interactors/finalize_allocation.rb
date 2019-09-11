@@ -3,6 +3,7 @@ class FinalizeAllocation < Interaction
 
   def call
     finalize_each_timeslot
+    festival.finalize_allocation!
   end
 
   delegate :festival, :lists, to: :context

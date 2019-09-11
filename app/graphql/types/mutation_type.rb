@@ -4,6 +4,7 @@ module Types
     field :create_session, mutation: Mutations::CreateSession
     field :delete_pitch, mutation: Mutations::DeletePitch
     field :delete_session, mutation: Mutations::DeleteSession
+    field :finalize_allocation, mutation: Mutations::FinalizeAllocation
     field :log_in, mutation: Mutations::LogIn
     field :log_out, mutation: Mutations::LogOut
     field :panic_mode, mutation: Mutations::PanicMode

@@ -52,6 +52,10 @@ RSpec.describe FinalizeAllocation, type: :interactor do
       }
     end
 
+    it 'locks the allocation' do
+      expect { result }.to change { festival.reload.allocation_finalized? }.from(false).to(true)
+    end
+
     it 'creates six placements' do
       expect { result }.to change(Placement, :count).by(6)
     end
