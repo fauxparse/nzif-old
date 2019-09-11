@@ -11,6 +11,7 @@ import Loader from 'atoms/loader'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import Header from 'organisms/header'
 import Timeslot from './timeslot'
+import Finalized from './finalized'
 
 export { useAllocations } from './hooks'
 
@@ -18,6 +19,7 @@ import './index.scss'
 
 const Allocation = ({
   loading,
+  finalized,
   festival,
   seed,
   sessions,
@@ -76,18 +78,22 @@ const Allocation = ({
       </Header>
       <div className="allocation__body">
         {loading ? <Loader /> : (
-          <DragDropContext onDragStart={startDrag} onDragEnd={endDrag}>
-            {timeslots.map(([time, sessions]) => (
-              <Timeslot
-                key={time.valueOf()}
-                time={time}
-                sessions={sessions}
-                allocations={allocations[time.valueOf()] || {}}
-                registrationsById={registrationsById}
-                dragging={dragging}
-              />
-            ))}
-          </DragDropContext>
+          finalized ? (
+            <Finalized />
+          ) : (
+            <DragDropContext onDragStart={startDrag} onDragEnd={endDrag}>
+              {timeslots.map(([time, sessions]) => (
+                <Timeslot
+                  key={time.valueOf()}
+                  time={time}
+                  sessions={sessions}
+                  allocations={allocations[time.valueOf()] || {}}
+                  registrationsById={registrationsById}
+                  dragging={dragging}
+                />
+              ))}
+            </DragDropContext>
+          )
         )}
       </div>
     </div>
@@ -102,6 +108,7 @@ Allocation.propTypes = {
     PropTypes.objectOf(PropTypes.arrayOf(PropTypes.allocation.isRequired)),
   ).isRequired,
   loading: PropTypes.bool,
+  finalized: PropTypes.bool,
   seed: PropTypes.id,
   onShuffle: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
@@ -109,6 +116,7 @@ Allocation.propTypes = {
 
 Allocation.defaultProps = {
   loading: false,
+  finalized: false,
 }
 
 export default Allocation

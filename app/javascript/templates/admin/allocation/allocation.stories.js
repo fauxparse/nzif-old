@@ -101,3 +101,6 @@ storiesOf('Templates|Admin/Activities', module)
   .add('Allocation', () => (
     <AllocationDemo loading={boolean('Loading', false)} />
   ))
+  .add('Allocation finalized', () => (
+    <AllocationDemo finalized />
+  ))

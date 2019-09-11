@@ -3,6 +3,12 @@
 $choices: color(apple), color(mint, 600), color(grape, 600), color(plum), color(tomato);
 
 .allocation {
+  &__body {
+    &--finalized {
+      @include autopad;
+    }
+  }
+
   &__shuffle {
     .button__text {
       min-width: 4.5em;
