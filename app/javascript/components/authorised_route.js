@@ -1,19 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'lib/proptypes'
-import { Route } from 'react-router-dom'
-import CurrentUserContext from 'contexts/current_user'
+import { Route, Redirect } from 'react-router-dom'
+import { CurrentUserContext, CurrentUserLoadingContext } from 'contexts/current_user'
+import Loader from 'atoms/loader'
 
-const AuthorisedRoute = ({ component: Component, authorise, ...props }) => (
-  <CurrentUserContext.Consumer>
-    {user => (
-      <Route {...props} render={({ match, rest }) => (
-        authorise({ match, user })
-          ? <Component match={match} {...rest} />
-          : null
-      )} />
-    )}
-  </CurrentUserContext.Consumer>
-)
+const AuthorisedRoute = ({ component: Component, authorise, ...props }) => {
+  const user = useContext(CurrentUserContext)
+  const loading = useContext(CurrentUserLoadingContext)
+
+  return (
+    <Route
+      {...props}
+      render={({ location, match, rest }) => (
+        loading
+          ? <Loader />
+          : (
+            authorise({ match, user })
+            ? <Component match={match} {...rest} />
+            : <Redirect to={{ pathname: '/login', state: { returnTo: location } }} />
+          )
+      )}
+    />
+  )
+}
 
 AuthorisedRoute.propTypes = {
   component: PropTypes.component.isRequired,
