@@ -40,16 +40,25 @@ class Festival < ApplicationRecord
     registrations_open? && (earlybird_cutoff.blank? || earlybird_cutoff > Time.now)
   end
 
+  def allocation_finalized?
+    allocation_finalized_at.present?
+  end
+
+  def finalize_allocation!
+    update!(allocation_finalized_at: Time.now)
+  end
+
   def state
-    @state ||= if pitches_open?
-      'pitching'
-    elsif earlybird?
-      'earlybird'
-    elsif end_date.past?
-      'finished'
-    else
-      'programming'
-    end
+    @state ||=
+      if pitches_open?
+        'pitching'
+      elsif earlybird?
+        'earlybird'
+      elsif end_date.past?
+        'finished'
+      else
+        'programming'
+      end
   end
 
   def deadline

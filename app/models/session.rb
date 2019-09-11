@@ -2,8 +2,11 @@ class Session < ApplicationRecord
   include Hashid::Rails
 
   belongs_to :activity
+  has_one :festival, through: :activity
   belongs_to :venue, optional: true
   has_many :preferences, dependent: :destroy
+  has_many :placements, dependent: :destroy, autosave: true
+  has_many :waitlists, -> { order(position: :asc) }, dependent: :destroy, autosave: true
 
   validates :activity, presence: true
   validates :starts_at, :ends_at,
@@ -17,6 +20,7 @@ class Session < ApplicationRecord
   after_update :update_preferences, if: :start_time_updated?
 
   scope :on_day, ->(date) { where(starts_at: date.midnight...date.succ.midnight) }
+  scope :workshop, -> { joins(:activity).merge(Workshop.all) }
 
   private
 

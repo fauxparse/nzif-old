@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :availability do
-    session { nil }
-    registration { nil }
-    role { "MyString" }
+    session
+    registration
+    role { 'player' }
   end
 end

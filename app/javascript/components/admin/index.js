@@ -18,6 +18,7 @@ import Content from './content'
 import Dashboard from 'pages/admin/dashboard'
 import Pitches from 'pages/admin/pitches'
 import Registrations from 'pages/admin/registrations'
+import Allocation from 'pages/admin/allocation'
 import EditActivity from 'pages/admin/activities/edit'
 import NotFound from 'templates/not_found'
 import Profile from '../profile'
@@ -94,6 +95,7 @@ const Admin = ({ match, history }) => {
                   <Route path={`${match.path}/content`} component={Content} />
                   <Route path={`${match.path}/pitches`} component={Pitches} />
                   <Route path={`${match.path}/registrations`} component={Registrations} />
+                  <Route path={`${match.path}/allocation`} component={Allocation} />
                   <Route path={`${match.path}/`} exact component={Dashboard} />
                   <Route component={NotFound} />
                 </Switch>

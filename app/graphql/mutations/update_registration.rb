@@ -19,7 +19,7 @@ module Mutations
         attributes: attributes.to_h,
       )
 
-      raise ActiveModel::ValidationError.new(result) if result.failure?
+      raise ActiveModel::ValidationError, result if result.failure?
       log_in_as(result.user) unless logged_in?
       result.registration
     end

@@ -8,12 +8,14 @@ FactoryBot.define do
     end
 
     factory :workshop, class: 'Workshop' do
-      name { 'A workshop' }
+      transient { sequence(:number) }
+      name { "Workshop #{number}" }
       description { 'We learn all the things' }
     end
 
     factory :show, class: 'Show' do
-      name { 'A show' }
+      transient { sequence(:number) }
+      name { "Show #{number}" }
       description { 'We watch all the things' }
     end
 

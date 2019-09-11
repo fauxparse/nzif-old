@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_055437) do
+ActiveRecord::Schema.define(version: 2019_09_11_010155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.datetime "registrations_open_at"
     t.datetime "earlybird_cutoff"
     t.boolean "panic", default: false
+    t.datetime "allocation_finalized_at"
     t.index "date_part('year'::text, start_date)", name: "festivals_by_year", unique: true
   end
 
@@ -108,6 +109,15 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.index ["festival_id", "user_id", "state"], name: "index_pitches_on_festival_id_and_user_id_and_state"
     t.index ["festival_id"], name: "index_pitches_on_festival_id"
     t.index ["user_id"], name: "index_pitches_on_user_id"
+  end
+
+  create_table "placements", force: :cascade do |t|
+    t.bigint "registration_id", null: false
+    t.bigint "session_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_placements_on_registration_id"
+    t.index ["session_id"], name: "index_placements_on_session_id"
   end
 
   create_table "preferences", force: :cascade do |t|
@@ -140,6 +150,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "completed_at"
+    t.integer "placements_count", default: 0
     t.index ["festival_id", "state"], name: "index_registrations_on_festival_id_and_state"
     t.index ["festival_id", "user_id"], name: "index_registrations_on_festival_id_and_user_id", unique: true
     t.index ["festival_id"], name: "index_registrations_on_festival_id"
@@ -154,6 +165,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.datetime "updated_at", null: false
     t.bigint "venue_id"
     t.integer "capacity"
+    t.integer "placements_count", default: 0
     t.index ["activity_id"], name: "index_sessions_on_activity_id"
     t.index ["starts_at", "ends_at"], name: "index_sessions_on_starts_at_and_ends_at"
     t.index ["venue_id"], name: "index_sessions_on_venue_id"
@@ -201,6 +213,17 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "waitlists", force: :cascade do |t|
+    t.bigint "session_id", null: false
+    t.bigint "registration_id", null: false
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_waitlists_on_registration_id"
+    t.index ["session_id", "registration_id"], name: "index_waitlists_on_session_id_and_registration_id", unique: true
+    t.index ["session_id"], name: "index_waitlists_on_session_id"
+  end
+
   add_foreign_key "activities", "festivals", on_delete: :cascade
   add_foreign_key "activities", "pitches"
   add_foreign_key "availabilities", "registrations"
@@ -208,6 +231,8 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "pitches", "festivals", on_delete: :cascade
   add_foreign_key "pitches", "users", on_delete: :cascade
+  add_foreign_key "placements", "registrations", on_delete: :cascade
+  add_foreign_key "placements", "sessions", on_delete: :cascade
   add_foreign_key "preferences", "registrations"
   add_foreign_key "preferences", "sessions"
   add_foreign_key "presenters", "activities"
@@ -217,4 +242,6 @@ ActiveRecord::Schema.define(version: 2019_09_03_055437) do
   add_foreign_key "sessions", "activities", on_delete: :cascade
   add_foreign_key "sessions", "venues", on_delete: :cascade
   add_foreign_key "slots", "festivals", on_delete: :cascade
+  add_foreign_key "waitlists", "registrations", on_delete: :cascade
+  add_foreign_key "waitlists", "sessions", on_delete: :cascade
 end

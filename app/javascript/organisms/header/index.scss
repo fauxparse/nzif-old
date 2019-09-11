@@ -43,6 +43,12 @@ $header-max-height: 20rem;
     justify-content: flex-end;
     order: 1;
 
+    .button {
+      &:not(.button--icon) {
+        margin-left: 0.5rem;
+      }
+    }
+
     .button--icon {
       &:last-child {
         margin-right: -0.5rem;
@@ -119,6 +125,9 @@ $header-max-height: 20rem;
     &__buttons {
       .button {
         color: inherit;
+      }
+
+      .button--icon {
         opacity: opacity(secondary);
 
         &:hover,

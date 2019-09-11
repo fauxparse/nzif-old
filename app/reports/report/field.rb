@@ -11,7 +11,7 @@ module Report
     end
 
     def fetch(row)
-      if (block)
+      if block
         block.call(row)
       else
         row.send(:name)

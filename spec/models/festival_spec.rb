@@ -64,4 +64,19 @@ RSpec.describe Festival, type: :model do
       it { is_expected.to be true }
     end
   end
+
+  describe '#allocation_finalized?' do
+    subject { festival.allocation_finalized? }
+
+    it { is_expected.to be false }
+
+    context 'when allocation is finalized' do
+      it 'is true' do
+        expect { festival.finalize_allocation! }
+          .to change(festival, :allocation_finalized?)
+          .from(false)
+          .to(true)
+      end
+    end
+  end
 end

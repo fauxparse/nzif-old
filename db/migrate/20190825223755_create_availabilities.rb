@@ -7,7 +7,7 @@ class CreateAvailabilities < ActiveRecord::Migration[6.0]
 
       t.timestamps
 
-      t.index %i[registration_id session_id role], unique: true
+      t.index %i(registration_id session_id role), unique: true
     end
   end
 end

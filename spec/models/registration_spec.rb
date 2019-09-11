@@ -33,7 +33,7 @@ RSpec.describe Registration, type: :model do
     it 'sets the completed_at timestamp' do
       Timecop.freeze do
         expect { registration.complete! }
-          .to change { registration.completed_at }
+          .to change(registration, :completed_at)
           .from(nil)
           .to(Time.now)
       end
@@ -42,7 +42,7 @@ RSpec.describe Registration, type: :model do
     it 'doesn’t update completed_at if it was already set' do
       Timecop.freeze do
         registration.update!(completed_at: 1.week.ago)
-        expect { registration.complete! }.not_to change { registration.completed_at }
+        expect { registration.complete! }.not_to change(registration, :completed_at)
       end
     end
   end
