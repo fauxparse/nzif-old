@@ -85,15 +85,15 @@ const Allocation = ({
             onClick={onShuffle}
           />
         )}
-        {!finalized && (
+        {!finalized && !loading && (
           <Header.Button primary text="Finalize" icon="alert" onClick={showConfirmation} />
         )}
         <Header.Title>Workshop allocation</Header.Title>
       </Header>
       <div className="allocation__body">
-        {loading ? <Loader /> : (
-          finalized ? (
-            <Finalized />
+        {finalized ? <Finalized /> : (
+          loading ? (
+            <Loader />
           ) : (
             <Fragment>
               {finalizing ? (
@@ -138,7 +138,7 @@ Allocation.propTypes = {
   seed: PropTypes.id,
   onShuffle: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+  onFinalize: PropTypes.func.isRequired,
 }
 
 Allocation.defaultProps = {

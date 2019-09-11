@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 export default gql`
   query allocation($year: ID!, $seed: BigInt) {
     allocation(year: $year, seed: $seed) {
+      finalized
       seed
       timeslots {
         startsAt

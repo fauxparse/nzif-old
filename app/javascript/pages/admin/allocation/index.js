@@ -1,13 +1,16 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { useQuery } from 'react-apollo'
+import { useQuery, useMutation } from 'react-apollo'
 import { NetworkStatus } from 'apollo-client'
 import queryString from 'query-string'
 import moment from 'lib/moment'
+import entries from 'lodash/entries'
 import isEmpty from 'lodash/isEmpty'
+import { notify } from 'molecules/toast'
 import Template, { useAllocations } from 'templates/admin/allocation'
 import { useFestival } from 'contexts/festival'
 import ALLOCATION from 'queries/allocation'
+import FINALIZE_ALLOCATION from 'queries/mutations/finalize_allocation'
 
 const Allocation = ({ location, history }) => {
   const festival = useFestival()
@@ -74,21 +77,47 @@ const Allocation = ({ location, history }) => {
 
   useEffect(() => {
     const currentSeed = queryString.parse(location.search).seed
-    if (seed !== currentSeed) {
+    if (seed && seed !== currentSeed) {
       history.replace({ ...location, search: `?seed=${seed}` })
     }
   }, [seed, history, location])
+
+  const finalized = data && data.allocation && data.allocation.finalized
+
+  const [finalizing, setFinalizing] = useState(false)
+
+  const [finalizeAllocation] = useMutation(FINALIZE_ALLOCATION)
+
+  const finalize = useCallback(() => {
+    setFinalizing(true)
+
+    const lists = entries(allocations).reduce((result, [, { unallocated, ...sessions }]) => ([
+      ...result,
+      ...entries(sessions).map(([sessionId, allocations]) => ({
+        sessionId,
+        registrationIds: allocations.map(a => a.registrationId)
+      })),
+    ]), [])
+    finalizeAllocation({ variables: { year, lists } })
+      .then(() => {
+        history.push(festival.adminRoot)
+        notify('Workshop allocation finalized!')
+      })
+  }, [setFinalizing, allocations, finalizeAllocation, history, year, festival])
 
   return (
     <Template
       seed={seed}
       festival={festival}
       loading={loading || refetching || isEmpty(allocations)}
+      finalizing={finalizing}
+      finalized={finalized}
       allocations={allocations}
       sessions={sessions}
       registrations={registrations}
       onShuffle={shuffle}
       onMove={move}
+      onFinalize={finalize}
     />
   )
 }
