@@ -1,5 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import PropTypes from 'lib/proptypes'
+import { useToggle } from 'lib/hooks'
 import { DragDropContext } from 'react-beautiful-dnd'
 import moment from 'lib/moment'
 import entries from 'lodash/entries'
@@ -12,6 +13,7 @@ import Breadcrumbs from 'molecules/breadcrumbs'
 import Header from 'organisms/header'
 import Timeslot from './timeslot'
 import Finalized from './finalized'
+import Confirmation from './confirmation'
 
 export { useAllocations } from './hooks'
 
@@ -19,6 +21,7 @@ import './index.scss'
 
 const Allocation = ({
   loading,
+  finalizing,
   finalized,
   festival,
   seed,
@@ -26,7 +29,8 @@ const Allocation = ({
   registrations,
   allocations,
   onShuffle,
-  onMove
+  onMove,
+  onFinalize,
 }) => {
   const timeslots = useMemo(() => (
     sortBy(entries(groupBy(sessions, s => s.startsAt.valueOf())), [first])
@@ -57,6 +61,13 @@ const Allocation = ({
     }
   }, [setDragging, onMove])
 
+  const [confirming, , showConfirmation, hideConfirmation] = useToggle(false)
+
+  const confirmPlacements = useCallback(() => {
+    hideConfirmation()
+    onFinalize()
+  }, [hideConfirmation, onFinalize])
+
   return (
     <div className="allocation">
       <Header className="allocation__header">
@@ -65,7 +76,7 @@ const Allocation = ({
             <Breadcrumbs.Link to={festival.adminRoot}>Dashboard</Breadcrumbs.Link>
           </Breadcrumbs>
         )}
-        {seed && (
+        {!finalized && seed && (
           <Header.Button
             className="allocation__shuffle"
             icon="shuffle"
@@ -74,6 +85,9 @@ const Allocation = ({
             onClick={onShuffle}
           />
         )}
+        {!finalized && (
+          <Header.Button primary text="Finalize" icon="alert" onClick={showConfirmation} />
+        )}
         <Header.Title>Workshop allocation</Header.Title>
       </Header>
       <div className="allocation__body">
@@ -81,18 +95,29 @@ const Allocation = ({
           finalized ? (
             <Finalized />
           ) : (
-            <DragDropContext onDragStart={startDrag} onDragEnd={endDrag}>
-              {timeslots.map(([time, sessions]) => (
-                <Timeslot
-                  key={time.valueOf()}
-                  time={time}
-                  sessions={sessions}
-                  allocations={allocations[time.valueOf()] || {}}
-                  registrationsById={registrationsById}
-                  dragging={dragging}
-                />
-              ))}
-            </DragDropContext>
+            <Fragment>
+              {finalizing ? (
+                <Loader />
+              ) : (
+                <DragDropContext onDragStart={startDrag} onDragEnd={endDrag}>
+                  {timeslots.map(([time, sessions]) => (
+                    <Timeslot
+                      key={time.valueOf()}
+                      time={time}
+                      sessions={sessions}
+                      allocations={allocations[time.valueOf()] || {}}
+                      registrationsById={registrationsById}
+                      dragging={dragging}
+                    />
+                  ))}
+                </DragDropContext>
+              )}
+              <Confirmation
+                open={confirming}
+                onConfirm={confirmPlacements}
+                onCancel={hideConfirmation}
+              />
+            </Fragment>
           )
         )}
       </div>
@@ -108,14 +133,17 @@ Allocation.propTypes = {
     PropTypes.objectOf(PropTypes.arrayOf(PropTypes.allocation.isRequired)),
   ).isRequired,
   loading: PropTypes.bool,
+  finalizing: PropTypes.bool,
   finalized: PropTypes.bool,
   seed: PropTypes.id,
   onShuffle: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 }
 
 Allocation.defaultProps = {
   loading: false,
+  finalizing: false,
   finalized: false,
 }
 

@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { boolean } from '@storybook/addon-knobs'
 import faker from 'faker'
 import entries from 'lodash/entries'
 import groupBy from 'lodash/groupBy'
-import merge from 'lodash/merge'
 import sampleSize from 'lodash/sampleSize'
+import shuffle from 'lodash/shuffle'
 import times from 'lodash/times'
 import moment from 'lib/moment'
+import { useToggle, useChanged } from 'lib/hooks'
 import Allocation from './'
 import { useAllocations } from './hooks'
 
@@ -57,7 +58,7 @@ const REGISTRATIONS = times(50, () => ({
 const AllocationDemo = (props) => {
   const [seed, setSeed] = useState(faker.random.number())
 
-  const shuffle = () => setSeed(faker.random.number())
+  const reseed = () => setSeed(faker.random.number())
 
   const newState = () => {
     const timeslots = entries(groupBy(SESSIONS, s => s.startsAt.valueOf()))
@@ -71,8 +72,8 @@ const AllocationDemo = (props) => {
           .map((r, i) => ({ registrationId: r.id, position: i + 1, locked: false }))
         return {
           ...group,
-          [session.id]: all.slice(0, session.capacity),
-          unallocated: [...group.unallocated, ...all.slice(session.capacity)],
+          [session.id]: shuffle(all.slice(0, session.capacity)),
+          unallocated: shuffle([...group.unallocated, ...all.slice(session.capacity)]),
         }
       }, { unallocated: [] }),
     }), {})
@@ -80,7 +81,9 @@ const AllocationDemo = (props) => {
 
   const [allocations, move, reset] = useAllocations(newState())
 
-  useEffect(() => reset(newState()), [seed])
+  useChanged(() => reset(newState()), [seed], [reset])
+
+  const [finalizing, , finalize] = useToggle(false)
 
   return (
     <Allocation
@@ -89,8 +92,10 @@ const AllocationDemo = (props) => {
       registrations={REGISTRATIONS}
       allocations={allocations}
       seed={seed}
-      onShuffle={shuffle}
+      finalizing={finalizing}
+      onShuffle={reseed}
       onMove={move}
+      onFinalize={finalize}
       {...props}
     />
   )

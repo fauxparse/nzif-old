@@ -159,3 +159,14 @@ export const useToggle = (initialValue = false) => {
 
   return [value, toggle, turnOn, turnOff]
 }
+
+export const useChanged = (callback, watch, dependencies) => {
+  const watched = useRef(watch)
+
+  useEffect(() => {
+    if (!isEqual(watch, watched.current)) {
+      watched.current = watch.slice()
+      callback()
+    }
+  }, [callback, ...watch, ...dependencies]) // eslint-disable-line react-hooks/exhaustive-deps
+}
