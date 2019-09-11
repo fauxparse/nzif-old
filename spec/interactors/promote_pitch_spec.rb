@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PromotePitch, type: :interactor do
   subject(:result) { PromotePitch.call(pitch: pitch) }
+
   let!(:festival) { create(:festival) }
   let!(:user) { create(:user) }
 
@@ -24,7 +25,7 @@ RSpec.describe PromotePitch, type: :interactor do
             email: 'another@example.com',
             city: 'Wellington',
             country: 'New Zealand',
-          }
+          },
         ],
         workshop_description: 'Test workshop description',
         participant_count: 17,

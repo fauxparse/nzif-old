@@ -228,7 +228,7 @@ RSpec.describe UpdateRegistration, type: :interactor do
               preferences: [
                 { session_id: sessions[0].id, position: 1 },
                 { session_id: sessions[0].id, position: 2 },
-              ]
+              ],
             }
           end
 
@@ -270,7 +270,7 @@ RSpec.describe UpdateRegistration, type: :interactor do
               availability: [
                 { session_id: sessions[0].id, role: 'player' },
                 { session_id: sessions[0].id, role: 'player' },
-              ]
+              ],
             }
           end
 

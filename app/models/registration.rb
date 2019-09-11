@@ -7,8 +7,11 @@ class Registration < ApplicationRecord
   # Skip validation when saving these (very simple) records so that bulk updates work
   # Feels risky but there's a unique index on the table so it should be fine?
   has_many :preferences, dependent: :destroy, autosave: true, validate: false
-  has_many :availability, class_name: 'Availability',
-    dependent: :destroy, autosave: true, validate: false
+  has_many :availability,
+    class_name: 'Availability',
+    dependent: :destroy,
+    autosave: true,
+    validate: false
   has_many :placements, dependent: :destroy, autosave: true
   has_many :waitlists, dependent: :destroy, autosave: true
 
@@ -20,7 +23,7 @@ class Registration < ApplicationRecord
   validates :festival_id, uniqueness: { scope: :user_id }, on: :update
   validates :code_of_conduct, acceptance: true, if: :requires_acceptance?
 
-  before_save :set_completed_at, if: %i[state_changed? complete?]
+  before_save :set_completed_at, if: %i(state_changed? complete?)
 
   scope :with_preferences, -> { includes(preferences: { session: :activity }) }
 

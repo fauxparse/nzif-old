@@ -55,8 +55,9 @@ class FinalizeAllocation < Interaction
     registrations.each.with_object([]) do |registration, waitlists|
       next if satisfied.include?(registration.id)
       registration.preferences.each do |preference|
-        waitlists << [registration, preference.session_id, -100] \
-          if lists.include?(preference.session_id)
+        if lists.include?(preference.session_id)
+          waitlists << [registration, preference.session_id, -100]
+        end
       end
     end
   end

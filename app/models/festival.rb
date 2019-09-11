@@ -41,15 +41,16 @@ class Festival < ApplicationRecord
   end
 
   def state
-    @state ||= if pitches_open?
-      'pitching'
-    elsif earlybird?
-      'earlybird'
-    elsif end_date.past?
-      'finished'
-    else
-      'programming'
-    end
+    @state ||=
+      if pitches_open?
+        'pitching'
+      elsif earlybird?
+        'earlybird'
+      elsif end_date.past?
+        'finished'
+      else
+        'programming'
+      end
   end
 
   def deadline

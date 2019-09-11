@@ -27,7 +27,7 @@ module Types
     end
 
     def sessions(type: nil)
-      scope = ::Session
+      ::Session
         .includes(:activity)
         .references(:activity)
         .merge(::Activity.of_type(type))

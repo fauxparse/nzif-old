@@ -7,7 +7,7 @@ class CreateWaitlists < ActiveRecord::Migration[6.0]
 
       t.timestamps
 
-      t.index %i[session_id registration_id], unique: true
+      t.index %i(session_id registration_id), unique: true
     end
   end
 end

@@ -12,7 +12,7 @@ module Queries
         festival = ::Festival.by_year(year).first
         scope = festival.registrations.with_preferences.with_user
 
-        registration = if id.present?
+        if id.present?
           scope.find_by_hashid(id)
         else
           user = environment.current_user

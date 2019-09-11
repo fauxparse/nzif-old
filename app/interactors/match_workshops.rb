@@ -7,7 +7,7 @@ class MatchWorkshops < Interaction
   end
 
   def seed
-    context.seed ||= rand(2 ** 32)
+    context.seed ||= rand(2**32)
   end
 
   delegate :festival, to: :context

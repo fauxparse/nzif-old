@@ -53,7 +53,7 @@ class FindRegistrationUser < Interaction
       identity = user.identities.build({
         type: 'Identity::Password',
         password: password,
-        password_confirmation: password_confirmation
+        password_confirmation: password_confirmation,
       })
     end
 
