@@ -18,6 +18,8 @@ module Types
       case object
       when Workshop then Types::Workshop.graphql_definition
       when Show then Types::Show.graphql_definition
+      when SocialEvent then Types::SocialEvent.graphql_definition
+      when Forum then Types::Forum.graphql_definition
       else
         raise "Unexpected object: #{object.inspect}"
       end

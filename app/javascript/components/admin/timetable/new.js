@@ -4,8 +4,10 @@ import MomentPropTypes from 'react-moment-proptypes'
 import { withApollo } from 'react-apollo'
 import { withRouter } from 'react-router'
 import compose from 'lib/compose'
+import humanize from 'lib/humanize'
 import deburr from 'lodash/deburr'
-import upperFirst from 'lodash/upperFirst'
+import kebabCase from 'lodash/kebabCase'
+import lowerFirst from 'lodash/lowerFirst'
 import Highlighter from 'react-highlight-words'
 import PropTypes from 'lib/proptypes'
 import {
@@ -26,7 +28,7 @@ const MenuItem = ({ label, selected, selectedText, value: { id, type }, ...props
         sanitize={deburr}
       />
       <span className="new-session__activity-description">
-        {id ? upperFirst(type) : `New ${type}`}
+        {id ? humanize(type) : `New ${lowerFirst(humanize(type))}`}
       </span>
     </div>
   </li>
