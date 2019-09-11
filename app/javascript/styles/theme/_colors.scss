@@ -91,7 +91,9 @@ $opacities: (
 
 $activity-colors: (
   workshop: plum,
-  show: grape
+  show: grape,
+  social_event: apple,
+  forum: mint
 );
 
 @function color($color, $shade: 500, $opacity: 1) {

@@ -8,7 +8,7 @@ module Queries
       end
 
       def activity_types
-        %w(Workshop Show)
+        %w(Workshop Show SocialEvent Forum)
       end
     end
   end

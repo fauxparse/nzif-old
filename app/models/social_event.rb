@@ -1,0 +1,2 @@
+class SocialEvent < Activity
+end

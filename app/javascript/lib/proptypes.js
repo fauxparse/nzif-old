@@ -23,6 +23,8 @@ export const color = PropTypes.instanceOf(Color)
 export const activityType = PropTypes.oneOf([
   'workshop',
   'show',
+  'social_event',
+  'forum',
 ])
 
 export const activityLevel = PropTypes.oneOf([
