@@ -1,5 +1,3 @@
-/* global module */
-
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { RegistrationProvider, DummyLoader } from 'contexts/registration'
@@ -12,6 +10,6 @@ storiesOf('Templates|Registration/Form', module)
       {story()}
     </RegistrationProvider>
   ))
-  .add('Blank', () => (
+  .add('Earlybird', () => (
     <RegistrationForm festival={{ year: 2019 }} />
   ))

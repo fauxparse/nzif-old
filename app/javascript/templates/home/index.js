@@ -5,21 +5,31 @@ import Masthead from 'atoms/masthead'
 import PitchCountdown from './pitch_countdown'
 import PitchesClosed from './pitches_closed'
 import EarlybirdRegistration from './earlybird_registration'
+import Finalizing from './finalizing'
+import Registration from './registration'
 import Purpose from './purpose'
 
 import './index.scss'
 
+const CONTENT = {
+  pitching: PitchCountdown,
+  programming: PitchesClosed,
+  earlybird: EarlybirdRegistration,
+  allocating: Finalizing,
+  registration: Registration,
+}
+
 const Home = ({ loading, festival }) => {
   const { state } = festival || {}
+
+  const Content = CONTENT[state]
 
   return (
     <section className="homepage">
       {(!loading && festival) ? (
         <>
           <Masthead festival={festival} />
-          {state === 'pitching' && <PitchCountdown festival={festival} />}
-          {state === 'programming' && <PitchesClosed festival={festival} />}
-          {state === 'earlybird' && <EarlybirdRegistration festival={festival} />}
+          {Content && <Content festival={festival} />}
           <Purpose />
         </>
       ) : <Loader />}

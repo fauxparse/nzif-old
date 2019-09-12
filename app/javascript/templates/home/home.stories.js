@@ -31,11 +31,28 @@ storiesOf('Templates|Home', module)
       }}
     />
   ))
-  .add('Registrations open', () => (
+  .add('Earlybird registration', () => (
     <Home
       festival={{
         ...FESTIVAL,
         state: 'earlybird',
+        deadline: moment().add(1, 'week'),
+      }}
+    />
+  ))
+  .add('Allocating workshops', () => (
+    <Home
+      festival={{
+        ...FESTIVAL,
+        state: 'allocating',
+      }}
+    />
+  ))
+  .add('General registration', () => (
+    <Home
+      festival={{
+        ...FESTIVAL,
+        state: 'registration',
         deadline: moment().add(1, 'week'),
       }}
     />

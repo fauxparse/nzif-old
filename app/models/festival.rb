@@ -32,12 +32,12 @@ class Festival < ApplicationRecord
       (pitches_close_at.blank? || pitches_close_at > Time.now)
   end
 
-  def registrations_open?
+  def registrations_started?
     registrations_open_at.present? && registrations_open_at < Time.now
   end
 
   def earlybird?
-    registrations_open? && (earlybird_cutoff.blank? || earlybird_cutoff > Time.now)
+    registrations_started? && (earlybird_cutoff.blank? || earlybird_cutoff > Time.now)
   end
 
   def allocation_finalized?
@@ -48,16 +48,22 @@ class Festival < ApplicationRecord
     update!(allocation_finalized_at: Time.now)
   end
 
+  def registrations_open?
+    %w(earlybird registration).include?(state)
+  end
+
   def state
     @state ||=
-      if pitches_open?
-        'pitching'
-      elsif earlybird?
-        'earlybird'
-      elsif end_date.past?
-        'finished'
-      else
-        'programming'
+      begin
+        [
+          ['pending', pitches_open_at],
+          ['pitching', pitches_close_at],
+          ['programming', registrations_open_at],
+          ['earlybird', earlybird_cutoff],
+          ['allocating', allocation_finalized_at],
+          ['registration', end_date.succ.midnight],
+          ['finished', nil]
+        ].detect { |(state, time)| time.nil? || time.future? }.first
       end
   end
 
@@ -65,6 +71,7 @@ class Festival < ApplicationRecord
     case state
     when 'pitching' then pitches_close_at
     when 'earlybird' then earlybird_cutoff
+    when 'registration' then sessions.first&.starts_at || start_date.midnight
     else nil
     end
   end
