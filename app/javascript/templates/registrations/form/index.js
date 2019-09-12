@@ -7,6 +7,7 @@ import Header from './header'
 import Pager from './pager'
 import Footer from './footer'
 import PAGES from './pages'
+import RegistrationPaused from './registration_paused'
 import { useRegistration } from 'contexts/registration'
 
 import './index.scss'
@@ -49,11 +50,17 @@ const RegistrationForm = ({ festival, page, onPageChange }) => {
     if (!container.current) return
     const pager = container.current.querySelector('.registration-form__pager')
     const header = container.current.querySelector('.registration-form__header')
+    if (!pager || !header) return
+
     const maxScrollTop = pager.getBoundingClientRect().y + scrollTop.current - header.offsetHeight
     document.documentElement.scrollTop = Math.min(scrollTop.current, maxScrollTop)
   }, [page])
 
   const busy = loading || saving
+
+  if (festival.state === 'allocating') {
+    return <RegistrationPaused />
+  }
 
   return (
     <section
@@ -81,9 +88,7 @@ const RegistrationForm = ({ festival, page, onPageChange }) => {
 }
 
 RegistrationForm.propTypes = {
-  festival: PropTypes.shape({
-    year: PropTypes.id.isRequired,
-  }).isRequired,
+  festival: PropTypes.festival.isRequired,
   page: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),

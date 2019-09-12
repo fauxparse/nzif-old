@@ -614,3 +614,17 @@
     font-weight: font-weight(light);
   }
 }
+
+.registration-paused {
+  @include autopad;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 67vh;
+
+  .registration-form__title {
+    padding: 0;
+    text-align: left;
+  }
+}

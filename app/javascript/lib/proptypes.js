@@ -118,6 +118,15 @@ export const venue = PropTypes.shape({
 
 export const festival = PropTypes.shape({
   year: id.isRequired,
+  state: PropTypes.oneOf([
+    'pending',
+    'pitching',
+    'programming',
+    'earlybird',
+    'allocating',
+    'registration',
+    'finished',
+  ])
 })
 
 export const preference = PropTypes.shape({

@@ -11,5 +11,11 @@ storiesOf('Templates|Registration/Form', module)
     </RegistrationProvider>
   ))
   .add('Earlybird', () => (
-    <RegistrationForm festival={{ year: 2019 }} />
+    <RegistrationForm festival={{ year: 2019, state: 'earlybird' }} />
+  ))
+  .add('In between', () => (
+    <RegistrationForm festival={{ year: 2019, state: 'allocating' }} />
+  ))
+  .add('Registration', () => (
+    <RegistrationForm festival={{ year: 2019, state: 'registration' }} />
   ))
