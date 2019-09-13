@@ -25,7 +25,6 @@ import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
 import SESSION_CHANGED from 'queries/subscriptions/session_changed'
 import CURRENT_USER_QUERY from 'queries/current_user'
 import { notify } from 'molecules/toast'
-import { stripIgnoredCharacters } from 'graphql'
 
 export const RegistrationContext = createContext({})
 
