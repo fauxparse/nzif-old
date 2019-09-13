@@ -23,7 +23,7 @@ const dummyActivity = (index, type) => {
       small: image.abstract(768, 432) + imageId,
       medium: image.abstract(960, 540) + imageId,
       full: image.abstract(1920, 1080) + imageId,
-    }
+    },
   }
 }
 
@@ -32,6 +32,8 @@ export const dummySession = (date, index, type) => ({
   startsAt: date.clone().hour(10),
   endsAt: date.clone().hour(13),
   activity: dummyActivity(index, type),
+  capacity: 16,
+  full: !(index % 5),
 })
 
 export default (type = 'workshop') => {

@@ -90,6 +90,8 @@ export const session = PropTypes.shape({
     PropTypes.string
   ]),
   venueId: id,
+  capacity: PropTypes.number,
+  full: PropTypes.bool,
 })
 
 export const time = PropTypes.oneOfType([

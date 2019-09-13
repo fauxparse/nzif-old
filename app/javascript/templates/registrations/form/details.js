@@ -54,7 +54,7 @@ const Details = () => {
         <Icon name="email" />
       </LabelledField>
 
-      {!currentUser && (
+      {!registration.id && (
         <>
           <div className="field-row">
             <LabelledField

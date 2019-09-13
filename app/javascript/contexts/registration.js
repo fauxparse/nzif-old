@@ -11,7 +11,7 @@ import React, {
 import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
-import { random } from 'faker'
+import faker from 'faker'
 import { useQuery, useMutation } from 'react-apollo-hooks'
 import { useDeepMemo, useDeepState } from 'lib/hooks'
 import PropTypes from 'lib/proptypes'
@@ -51,7 +51,7 @@ const ALL_IN = [
   '2019-10-18T21:00:00+13:00',
 ]
 
-export const DummyLoader = ({ delay = 1000, children }) => {
+export const DummyLoader = ({ delay = 1000, festival, children }) => {
   const [loading, setLoading] = useState(true)
 
   const [saving, setSaving] = useState(false)
@@ -88,22 +88,40 @@ export const DummyLoader = ({ delay = 1000, children }) => {
   useEffect(() => {
     setLoading(true)
     const timeout = setTimeout(() => {
-      setRegistration({
-        ...registration,
-        preferences: [
-          { sessionId: sessions.current[1].id, position: 1 },
-          { sessionId: sessions.current[0].id, position: 2 },
-          { sessionId: sessions.current[3].id, position: 3 },
-          { sessionId: sessions.current[6].id, position: 1 },
-        ],
-      })
+      if (festival && festival.state === 'registration') {
+        setRegistration({
+          ...registration,
+          id: faker.random.uuid(),
+          name: faker.name.findName(),
+          email: faker.internet.email(),
+          phone: faker.phone.phoneNumber(),
+          codeOfConductAcceptedAt: moment().subtract(1, 'week'),
+          user: { id: faker.random.uuid() },
+          preferences: [
+            { sessionId: sessions.current[1].id, position: 1 },
+            { sessionId: sessions.current[0].id, position: 2 },
+            { sessionId: sessions.current[3].id, position: 3 },
+            { sessionId: sessions.current[6].id, position: 1 },
+          ],
+        })
+      } else {
+        setRegistration({
+          ...registration,
+          preferences: [
+            { sessionId: sessions.current[1].id, position: 1 },
+            { sessionId: sessions.current[0].id, position: 2 },
+            { sessionId: sessions.current[3].id, position: 3 },
+            { sessionId: sessions.current[6].id, position: 1 },
+          ],
+        })
+      }
       setLoading(false)
     }, delay)
     return () => clearTimeout(timeout)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const allInShows = useMemo(() => ALL_IN.map(t => {
-    const id = random.uuid()
+    const id = faker.random.uuid()
     const startsAt = moment(t)
     return { id, startsAt, endsAt: startsAt.clone().add(1, 'hour') }
   }), [])
@@ -124,6 +142,7 @@ export const DummyLoader = ({ delay = 1000, children }) => {
 
 DummyLoader.proptypes = {
   delay: PropTypes.number,
+  festival: PropTypes.festival,
 }
 
 export const ApolloLoader = ({ children }) => {

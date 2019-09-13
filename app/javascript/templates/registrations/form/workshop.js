@@ -1,8 +1,10 @@
 import React, { Fragment, useCallback } from 'react'
 import PropTypes from 'lib/proptypes'
+import classNames from 'classnames'
 import Sentence from 'atoms/sentence'
 import Button from 'atoms/button'
 import Level from 'atoms/level'
+import Tooltip from 'atoms/tooltip'
 import Card from 'molecules/card'
 import Skeleton from 'effects/skeleton'
 
@@ -25,7 +27,11 @@ const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) 
 
   return (
     <Card
-      className="workshop registration-form__workshop"
+      className={classNames(
+        'workshop',
+        'registration-form__workshop',
+        session.full && 'registration-form__workshop--full',
+      )}
       loading={loading}
       aria-selected={selected || undefined}
       aria-disabled={disabled || undefined}
@@ -37,6 +43,16 @@ const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) 
         className="button--icon workshop__position"
         text={selected ? position.toString() : ' '}
       />
+      <Fragment>
+        {session.full && (
+          <Tooltip
+            className="workshop__full"
+            title="This workshop is sold out. Click to join the waitlist."
+          >
+            Sold out!
+          </Tooltip>
+        )}
+      </Fragment>
       <Card.Title>{name}</Card.Title>
       <Card.Description>
         <Sentence>

@@ -58,7 +58,7 @@ const RegistrationForm = ({ festival, page, onPageChange }) => {
 
   const busy = loading || saving
 
-  if (festival.state === 'allocating') {
+  if (festival && festival.state === 'allocating') {
     return <RegistrationPaused />
   }
 

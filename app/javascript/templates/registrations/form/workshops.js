@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
+import PropTypes from 'lib/proptypes'
 import { usePreferentialOrdering } from 'lib/hooks'
 import moment from 'lib/moment'
 import sortBy from 'lodash/sortBy'
@@ -19,13 +20,15 @@ import Heading from './heading'
 import Day from './workshop_day'
 import WorkshopDetails from './workshop_details'
 
-const Workshops = () => {
+const Workshops = ({ festival }) => {
   const {
     loading,
     sessions,
     registration: { preferences },
     change,
   } = useContext(RegistrationContext)
+
+  const earlybird = festival && festival.state === 'earlybird'
 
   const container = useRef()
 
@@ -92,12 +95,19 @@ const Workshops = () => {
   return (
     <section ref={container} className="registration-form__section registration-form__workshops">
       <Heading>Select your workshops</Heading>
-      <p>
-        Select as many workshops as you’re interested in, in order of preference (per time slot).
-        Once earlybird registrations are closed, we’ll allocate the available places based
-        on your preferences. If some workshops are popular you might not get all your first choices,
-        so be sure to give backup options to get the most out of your NZIF experience.
-      </p>
+      {earlybird ? (
+        <p>
+          Select as many workshops as you’re interested in, in order of preference (per time slot).
+          Once earlybird registrations are closed, we’ll allocate the available places based
+          on your preferences. If some workshops are popular you might not get all your first
+          choices, so be sure to give backup options to get the most out of your NZIF experience.
+        </p>
+      ) : (
+        <p>
+          Select your workshops from the list below, up to one per slot. Some workshops may be full
+          already (sorry!) but you can join the waitlist in case a spot opens up.
+        </p>
+      )}
       {sessionsByDay.map(([date, sessions]) => (
         <Day
           key={date.toISOString()}
@@ -113,6 +123,10 @@ const Workshops = () => {
       <WorkshopDetails session={selected} onClose={deselect} />
     </section>
   )
+}
+
+Workshops.propTypes = {
+  festival: PropTypes.festival,
 }
 
 export default Workshops
