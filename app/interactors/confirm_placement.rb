@@ -1,10 +1,9 @@
 class ConfirmPlacement < Interaction
-  include Transactional
-
   def call
     remove_from_other_sessions
     create_placement
     remove_from_waitlists
+    session.notify_change if session.full?
   end
 
   delegate :registration, :session, to: :context
@@ -39,6 +38,7 @@ class ConfirmPlacement < Interaction
 
   def create_placement
     session.placements.create!(registration: registration)
+    registration.placements.reload if registration.placements.loaded?
   end
 
   def remove_from_other_sessions

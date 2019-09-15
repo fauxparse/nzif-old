@@ -12,7 +12,7 @@ import isEqual from 'lodash/isEqual'
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 import faker from 'faker'
-import { useQuery, useMutation } from 'react-apollo-hooks'
+import { useQuery, useMutation, useSubscription } from 'react-apollo-hooks'
 import { useDeepMemo, useDeepState } from 'lib/hooks'
 import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
@@ -22,6 +22,7 @@ import { useCurrentUser } from 'contexts/current_user'
 import dummyWorkshops from 'templates/activities/overview/dummy'
 import REGISTRATION_FORM from 'queries/registration_form'
 import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
+import SESSION_CHANGED from 'queries/subscriptions/session_changed'
 import CURRENT_USER_QUERY from 'queries/current_user'
 import { notify } from 'molecules/toast'
 
@@ -237,6 +238,31 @@ export const ApolloLoader = ({ children }) => {
     })
   }, [year, setSaving, setErrors, updateRegistration, currentUser])
 
+  useSubscription(SESSION_CHANGED, {
+    onSubscriptionData: ({ client, subscriptionData }) => {
+      if (subscriptionData && !subscriptionData.error) {
+        const update = subscriptionData.data.sessionChanged
+        const variables = { year }
+        const existing = client.readQuery({ query: REGISTRATION_FORM, variables })
+        const sessions = existing.festival.sessions.map(s => (s.id === update.id ? {
+          ...s,
+          ...update,
+        } : s))
+        client.writeQuery({
+          query: REGISTRATION_FORM,
+          variables,
+          data: {
+            ...existing,
+            festival: {
+              ...existing.festival,
+              sessions,
+            }
+          }
+        })
+      }
+    }
+  })
+
   return cloneElement(children, {
     value: {
       loading,
@@ -270,6 +296,7 @@ const RegistrationMemoizer = ({ value, save, children }) => {
     ...value,
     registration: {
       ...value.registration,
+      originalWorkshops: value.registration.workshops,
       ...unsavedChanges,
     },
     change: addUnsavedChanges,
@@ -292,6 +319,7 @@ RegistrationMemoizer.propTypes = {
         sessionId: PropTypes.id.isRequired,
         position: PropTypes.number.isRequired,
       }).isRequired).isRequired,
+      workshops: PropTypes.arrayOf(PropTypes.id.isRequired),
     }).isRequired,
   }),
   save: PropTypes.func,

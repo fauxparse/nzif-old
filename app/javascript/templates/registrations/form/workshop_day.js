@@ -47,7 +47,7 @@ WorkshopDay.propTypes = {
   sessions: PropTypes.arrayOf(PropTypes.session.isRequired).isRequired,
   offset: PropTypes.number,
   ordering:
-    PropTypes.objectOf(PropTypes.arrayOf(PropTypes.session.isRequired).isRequired).isRequired,
+    PropTypes.objectOf(PropTypes.arrayOf(PropTypes.id.isRequired).isRequired).isRequired,
   onToggleActivity: PropTypes.func.isRequired,
   onSelectActivity: PropTypes.func.isRequired,
 }

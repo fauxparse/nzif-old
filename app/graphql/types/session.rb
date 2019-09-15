@@ -7,6 +7,7 @@ module Types
     field :ends_at, Types::Time, null: false
     field :venue, Types::Venue, null: true
     field :capacity, Integer, null: true
+    field :placements_count, Integer, null: false
     field :full, Boolean, null: false
 
     def id
@@ -14,7 +15,7 @@ module Types
     end
 
     def full
-      object.placements_count >= object.capacity
+      object.full?
     end
   end
 end

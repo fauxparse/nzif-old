@@ -21,4 +21,33 @@ RSpec.describe Session, type: :model do
       expect(session).to have_exactly(1).error_on :ends_at
     end
   end
+
+  describe '#full?' do
+    let(:registration) { create(:registration, festival: session.festival) }
+
+    before do
+      session.update!(capacity: 1)
+    end
+
+    it 'is true when the last placement is created' do
+      expect { ConfirmPlacement.call(session: session, registration: registration) }
+        .to change(session, :full?)
+        .from(false)
+        .to(true)
+    end
+
+    it 'is false when the last placement is destroyed' do
+      ConfirmPlacement.call(session: session, registration: registration)
+      expect(session).to be_full
+      expect { RemoveFromSession.call(session: session, registration: registration) }
+        .to change(session, :full?)
+        .from(true)
+        .to(false)
+    end
+
+    it do
+      ConfirmPlacement.call(session: session, registration: registration)
+      RemoveFromSession.call(session: session, registration: registration)
+    end
+  end
 end

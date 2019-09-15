@@ -130,7 +130,7 @@ export const usePreferentialOrdering = (initialOrder) => {
       const order = ordering[key] || []
       return {
         ...ordering,
-        [key]: order.includes(item) ? order.filter(i => i !== item) : [...order, item],
+        [key]: order.includes(item.id) ? order.filter(i => i !== item.id) : [...order, item.id],
       }
     }
 

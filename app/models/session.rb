@@ -22,6 +22,26 @@ class Session < ApplicationRecord
   scope :on_day, ->(date) { where(starts_at: date.midnight...date.succ.midnight) }
   scope :workshop, -> { joins(:activity).merge(Workshop.all) }
 
+  def self.silence_notifications(&block)
+    @notifications_silenced = (@notifications_silenced || 0) + 1
+    yield
+    @notifications_silenced -= 1
+  end
+
+  def self.notifications_silenced?
+    (@notifications_silenced ||= 0).positive?
+  end
+
+  def full?
+    placements.count >= capacity
+  end
+
+  def notify_change
+    unless self.class.notifications_silenced?
+      NzifSchema.subscriptions.trigger('sessionChanged', {}, self)
+    end
+  end
+
   private
 
   def update_preferences

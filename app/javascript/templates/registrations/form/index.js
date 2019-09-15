@@ -74,7 +74,7 @@ const RegistrationForm = ({ festival, page, onPageChange }) => {
       <Header loading={loading} pageIndex={pageIndex} onStepClick={stepClicked} />
       <Pager pageIndex={pageIndex}>
         {!loading && (
-          <Component />
+          <Component festival={festival} />
         )}
       </Pager>
       <Footer

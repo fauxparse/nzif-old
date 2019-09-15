@@ -26,7 +26,7 @@ const Workshops = ({ festival }) => {
   const {
     loading,
     sessions,
-    registration: { preferences, workshops, waitlists },
+    registration: { preferences, workshops, waitlists, originalWorkshops = [] },
     change,
   } = useContext(RegistrationContext)
 
@@ -87,7 +87,7 @@ const Workshops = ({ festival }) => {
         message:
           'If you leave this waitlist and change your mind later, you’ll go to the back of the queue.',
       }).then(() => change({ waitlists: without(waitlists, session.id) }))
-    } else if (session.full) {
+    } else if (session.full && !originalWorkshops.includes(session.id)) {
       confirm('joinWaitlist', {
         title: 'Join waitlist?',
         message:
@@ -98,19 +98,21 @@ const Workshops = ({ festival }) => {
         workshop.startsAt.isSame(session.startsAt)
       ))
 
-      if (clash && clash.full) {
-        confirm('switchWorkshop', {
-          title: 'Switch workshops?',
-          message:
-            'You are currently in a sold out workshop at this time. If you change your selection, your place in the other workshop will not be held for you.',
-        }).then(() => {
+      if (clash) {
+        if (clash.full) {
+          confirm('switchWorkshop', {
+            title: 'Switch workshops?',
+            message:
+              'You are currently in a sold out workshop at this time. If you change your selection, your place in the other workshop will not be held for you.',
+          }).then(() => {
+            change({ workshops: [...workshops.filter(id => id !== clash.id), session.id] })
+          })
+        } else {
           change({ workshops: [...workshops.filter(id => id !== clash.id), session.id] })
-        })
+        }
       } else {
         change({ workshops: [...workshops, session.id] })
       }
-
-      // change({ workshops: [...withoutClashes, session.id] })
     }
   }, [confirm, earlybird, toggle, change, workshops, waitlists, sessionsById])
 
@@ -120,8 +122,8 @@ const Workshops = ({ festival }) => {
     if (!loading && !loaded.current) {
       reset(
         groupBy(
-          sortBy(preferences, [p => p.position]).map((p) => sessionsById[p.sessionId]),
-          a => a.startsAt.valueOf()
+          sortBy(preferences, [p => p.position]).map((p) => p.sessionId),
+          id => sessionsById[id].startsAt.valueOf()
         )
       )
       loaded.current = true
@@ -131,7 +133,7 @@ const Workshops = ({ festival }) => {
   useEffect(() => {
     if (!loading && loaded.current && ordering) {
       const preferences = entries(ordering).reduce((result, [_, list]) => (
-        [...result, ...list.map((w, i) => ({ sessionId: w.id, position: i + 1 }))]
+        [...result, ...list.map((w, i) => ({ sessionId: w, position: i + 1 }))]
       ), [])
 
       change({ preferences })

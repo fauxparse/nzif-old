@@ -62,7 +62,7 @@ class Festival < ApplicationRecord
           ['earlybird', earlybird_cutoff],
           ['allocating', allocation_finalized_at],
           ['registration', end_date.succ.midnight],
-          ['finished', nil]
+          ['finished', nil],
         ].detect { |(state, time)| time.nil? || time.future? }.first
       end
   end

@@ -11,6 +11,9 @@ class PromoteFromWaitlist < Interaction
   private
 
   def confirm_placement
-    ConfirmPlacement.call(registration: registration, session: session)
+    ConfirmPlacement.call(
+      registration: registration,
+      session: session,
+    )
   end
 end

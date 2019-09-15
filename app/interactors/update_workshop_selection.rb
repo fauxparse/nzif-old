@@ -18,11 +18,13 @@ class UpdateWorkshopSelection < Interaction
     # TODO: confirm all movements are possible
 
     (existing - fresh).each do |id|
-      RemoveFromSession.call(registration: registration, session: Session.find(id))
+      session = festival.sessions.includes(:placements).find(id)
+      RemoveFromSession.call(registration: registration, session: session)
     end
 
     (fresh - existing).each do |id|
-      ConfirmPlacement.call(registration: registration, session: Session.find(id))
+      session = festival.sessions.includes(:placements).find(id)
+      ConfirmPlacement.call(registration: registration, session: session)
     end
   end
 

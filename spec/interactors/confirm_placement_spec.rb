@@ -88,5 +88,32 @@ RSpec.describe ConfirmPlacement, type: :interactor do
         end
       end
     end
+
+    context 'when allocating a place in a workshop' do
+      let(:workshop) { create(:workshop, festival: festival) }
+
+      let(:session) { create(:session, activity: workshop, capacity: 2) }
+
+      context 'that leaves room for more' do
+        it 'does not notify subscribers' do
+          expect(NzifSchema.subscriptions).not_to receive(:trigger)
+          result
+        end
+      end
+
+      context 'that would fill it up' do
+        before do
+          other_registration = create(:registration, festival: festival)
+          create(:placement, session: session, registration: other_registration)
+        end
+
+        it 'notifies subscribers that the workshop is full' do
+          expect(NzifSchema.subscriptions)
+            .to receive(:trigger).with('sessionChanged', {}, session)
+            .and_return(true)
+          result
+        end
+      end
+    end
   end
 end

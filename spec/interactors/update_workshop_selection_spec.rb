@@ -13,6 +13,7 @@ RSpec.describe UpdateWorkshopSelection, type: :interactor do
       registration.placements.create!(session: sessions[0])
       registration.placements.create!(session: sessions[3])
       registration.waitlists.create!(session: sessions[1])
+      sessions.each { |session| session.update!(capacity: 1) }
     end
 
     let(:attributes) do
@@ -32,6 +33,16 @@ RSpec.describe UpdateWorkshopSelection, type: :interactor do
       result
       expect(registration.reload.waitlists.map(&:session))
         .to contain_exactly(sessions[4], sessions[5])
+    end
+
+    it 'notifies subscribers' do
+      expect(NzifSchema.subscriptions)
+        .to receive(:trigger)
+        .with('sessionChanged', {}, sessions[0])
+      expect(NzifSchema.subscriptions)
+        .to receive(:trigger)
+        .with('sessionChanged', {}, sessions[2])
+      result
     end
   end
 end

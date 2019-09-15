@@ -16,9 +16,9 @@ const WorkshopTimeslot = ({
 }) => {
   const user = useCurrentUser()
 
-  const { registration } = useRegistration()
+  const { earlybird, registration } = useRegistration()
 
-  const { earlybird, workshops, waitlists } = registration
+  const { workshops, waitlists } = registration
 
   const teachingThisSlot = useMemo(() => (
     !loading &&
@@ -36,11 +36,12 @@ const WorkshopTimeslot = ({
           loading={loading}
           disabled={teachingThisSlot}
           position={earlybird ? (
-            (ordering[session.startsAt.valueOf()] || []).indexOf(session) + 1
+            (ordering[session.startsAt.valueOf()] || []).indexOf(session.id) + 1
           ) : (
             undefined
           )}
           selected={earlybird ? undefined : workshops.includes(session.id)}
+          wasSelected={(registration.originalWorkshops || []).includes(session.id)}
           waitlisted={earlybird ? undefined : waitlists.includes(session.id)}
           onToggle={onToggleActivity}
           onSelect={onSelectActivity}
@@ -56,7 +57,7 @@ WorkshopTimeslot.propTypes = {
   sessions: PropTypes.arrayOf(PropTypes.session.isRequired).isRequired,
   offset: PropTypes.number,
   ordering:
-    PropTypes.objectOf(PropTypes.arrayOf(PropTypes.session.isRequired).isRequired).isRequired,
+    PropTypes.objectOf(PropTypes.arrayOf(PropTypes.id.isRequired).isRequired).isRequired,
   onToggleActivity: PropTypes.func.isRequired,
   onSelectActivity: PropTypes.func.isRequired,
 }

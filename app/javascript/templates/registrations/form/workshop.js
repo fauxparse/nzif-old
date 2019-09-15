@@ -13,6 +13,7 @@ const Workshop = ({
   session,
   position,
   selected,
+  wasSelected,
   waitlisted,
   disabled,
   onToggle,
@@ -32,6 +33,8 @@ const Workshop = ({
 
   const captureClick = (e) => e.stopPropagation()
 
+  const full = session.full && (selected || !wasSelected)
+
   const fullTitle =
     selected
       ? 'Don’t worry! You’ve already got a spot in this workshop.'
@@ -45,7 +48,7 @@ const Workshop = ({
         'workshop',
         'registration-form__workshop',
         selected && 'registration-form__workshop--selected',
-        session.full && 'registration-form__workshop--full',
+        full && 'registration-form__workshop--full',
       )}
       loading={loading}
       aria-selected={selected || position > 0 || undefined}
@@ -60,7 +63,7 @@ const Workshop = ({
         icon={selected ? 'check' : (waitlisted ? 'waitlist' : undefined)}
       />
       <Fragment>
-        {session.full && (
+        {full && (
           <Tooltip className="workshop__full" title={fullTitle}>
             Sold out!
           </Tooltip>
@@ -96,6 +99,7 @@ Workshop.propTypes = {
   session: PropTypes.session.isRequired,
   position: PropTypes.number,
   selected: PropTypes.bool,
+  wasSelected: PropTypes.bool,
   waitlisted: PropTypes.bool,
   disabled: PropTypes.bool,
   onToggle: PropTypes.func.isRequired,
@@ -107,6 +111,7 @@ Workshop.defaultProps = {
   loading: false,
   disabled: false,
   selected: false,
+  wasSelected: false,
   waitlisted: false,
 }
 
