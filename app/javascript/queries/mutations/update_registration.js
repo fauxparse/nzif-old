@@ -13,6 +13,8 @@ export default gql`
         sessionId
         position
       }
+      workshops
+      waitlists
       availability {
         sessionId
         role

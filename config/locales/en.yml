@@ -29,6 +29,7 @@ en:
       invalid_level: 'cannot include ‘%{level}’'
       invalid_role: 'cannot include ‘%{role}’'
       clashes: 'clashes with another selected session'
+      already_selected: 'has already been selected'
 
   pitch:
     type:

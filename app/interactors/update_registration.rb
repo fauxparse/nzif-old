@@ -25,6 +25,7 @@ class UpdateRegistration
     FindRegistrationUser,
     AcceptCodeOfConduct,
     UpdateRegistrationPreferences,
+    UpdateWorkshopSelection,
     UpdateAvailability,
     ConfirmRegistration,
   )

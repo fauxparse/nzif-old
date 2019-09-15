@@ -1,13 +1,15 @@
 class UpdateRegistrationPreferences < Interaction
   def call
-    update_preferences if attributes.include?(:preferences)
+    if festival.earlybird? && attributes.include?(:preferences)
+      update_preferences
+    end
 
   rescue ActiveRecord::RecordNotUnique
     errors.add(:preferences, 'must be unique by registration and session')
     context.fail!
   end
 
-  delegate :registration, :attributes, :errors, to: :context
+  delegate :registration, :attributes, :festival, :errors, to: :context
 
   private
 
@@ -36,7 +38,7 @@ class UpdateRegistrationPreferences < Interaction
   end
 
   def set_from(preferences)
-    preferences.map { |pref| [decode_id(pref.session_id), pref.position] }
+    Set.new(preferences.map { |pref| [decode_id(pref.session_id), pref.position] })
   end
 
   def decode_id(id)

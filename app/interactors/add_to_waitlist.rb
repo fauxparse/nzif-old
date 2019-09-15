@@ -2,7 +2,7 @@ class AddToWaitlist < Interaction
   include Interactor
 
   def call
-    context.waitlist = Waitlist.create!(session: session, registration: registration)
+    context.waitlist = registration.waitlists.create!(session: session)
   rescue ActiveRecord::RecordInvalid
     context.fail!
   end
