@@ -114,7 +114,7 @@ const Workshops = ({ festival }) => {
         change({ workshops: [...workshops, session.id] })
       }
     }
-  }, [confirm, earlybird, toggle, change, workshops, waitlists, sessionsById])
+  }, [earlybird, workshops, waitlists, originalWorkshops, toggle, confirm, change, sessionsById])
 
   const loaded = useRef(false)
 
