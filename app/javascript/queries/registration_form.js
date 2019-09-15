@@ -18,6 +18,8 @@ export default gql`
         sessionId
         position
       }
+      workshops
+      waitlists
       availability {
         sessionId
         role
@@ -27,10 +29,13 @@ export default gql`
 
     festival(year: $year) {
       year
+      state
       sessions(type: "workshop") {
         id
         startsAt
         endsAt
+        capacity
+        full
 
         activity {
           ...ActivitySummaryFields

@@ -8,7 +8,7 @@ import PAGES from './pages'
 
 window.top.validate = validate
 
-const Header = ({ pageIndex, onStepClick }) => {
+const Header = ({ loading, pageIndex, onStepClick }) => {
   const { registration } = useRegistration()
 
   const ref = useSticky()
@@ -23,10 +23,10 @@ const Header = ({ pageIndex, onStepClick }) => {
   }, [registration])
 
   useEffect(() => {
-    if (!valid[pageIndex]) {
+    if (!loading && !valid[pageIndex]) {
       onStepClick(PAGES[Math.max(valid.indexOf(true), 0)])
     }
-  }, [valid, pageIndex, onStepClick])
+  }, [loading, valid, pageIndex, onStepClick])
 
   return (
     <header ref={ref} className="registration-form__header">
@@ -49,8 +49,13 @@ const Header = ({ pageIndex, onStepClick }) => {
 }
 
 Header.propTypes = {
+  loading: PropTypes.bool,
   pageIndex: PropTypes.number.isRequired,
   onStepClick: PropTypes.func.isRequired,
+}
+
+Header.defaultProps = {
+  loading: false,
 }
 
 export default Header

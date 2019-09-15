@@ -8,15 +8,22 @@ import Tooltip from 'atoms/tooltip'
 import Card from 'molecules/card'
 import Skeleton from 'effects/skeleton'
 
-const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) => {
+const Workshop = ({
+  loading,
+  session,
+  position,
+  selected,
+  waitlisted,
+  disabled,
+  onToggle,
+  onSelect
+}) => {
   const { activity } = session
   const { name, image, presenters, levels = [] } = activity
 
   const toggle = useCallback(() => {
     if (!disabled) onToggle(session)
   }, [disabled, onToggle, session])
-
-  const selected = position > 0
 
   const infoClicked = useCallback((e) => {
     e.stopPropagation()
@@ -25,15 +32,23 @@ const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) 
 
   const captureClick = (e) => e.stopPropagation()
 
+  const fullTitle =
+    selected
+      ? 'Don’t worry! You’ve already got a spot in this workshop.'
+      : waitlisted
+        ? 'You’re on the waitlist. We’ll contact you if a spot comes up.'
+        : 'This workshop is full. Click to join the waitlist.'
+
   return (
     <Card
       className={classNames(
         'workshop',
         'registration-form__workshop',
+        selected && 'registration-form__workshop--selected',
         session.full && 'registration-form__workshop--full',
       )}
       loading={loading}
-      aria-selected={selected || undefined}
+      aria-selected={selected || position > 0 || undefined}
       aria-disabled={disabled || undefined}
       onClick={toggle}
     >
@@ -41,14 +56,12 @@ const Workshop = ({ loading, session, position, disabled, onToggle, onSelect }) 
       <Skeleton
         as={Button}
         className="button--icon workshop__position"
-        text={selected ? position.toString() : ' '}
+        text={position > 0 && position.toString() || ''}
+        icon={selected ? 'check' : (waitlisted ? 'waitlist' : undefined)}
       />
       <Fragment>
         {session.full && (
-          <Tooltip
-            className="workshop__full"
-            title="This workshop is sold out. Click to join the waitlist."
-          >
+          <Tooltip className="workshop__full" title={fullTitle}>
             Sold out!
           </Tooltip>
         )}
@@ -82,6 +95,8 @@ Workshop.propTypes = {
   loading: PropTypes.bool,
   session: PropTypes.session.isRequired,
   position: PropTypes.number,
+  selected: PropTypes.bool,
+  waitlisted: PropTypes.bool,
   disabled: PropTypes.bool,
   onToggle: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
@@ -91,6 +106,8 @@ Workshop.defaultProps = {
   position: undefined,
   loading: false,
   disabled: false,
+  selected: false,
+  waitlisted: false,
 }
 
 export default Workshop

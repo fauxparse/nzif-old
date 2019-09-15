@@ -4,11 +4,13 @@ import Price from 'atoms/price'
 import RegistrationContext from 'contexts/registration'
 
 const Cart = () => {
-  const { prices, registration: { preferences } } = useContext(RegistrationContext)
+  const { prices, registration } = useContext(RegistrationContext)
 
   const workshopCount = useMemo(() => (
-    preferences.filter(({ position }) => position === 1).length
-  ), [preferences])
+    registration.earlybird
+      ? registration.preferences.filter(({ position }) => position === 1).length
+      : (registration.workshops || []).length
+  ), [registration])
 
   const value = useMemo(() => prices[1] * workshopCount, [prices, workshopCount])
 

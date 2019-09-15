@@ -4,6 +4,7 @@ import { Manager } from 'react-popper'
 import { configure, addDecorator } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { StaticContentProvider, DummyLoader } from 'contexts/static_content'
+import { ConfirmationManager } from 'molecules/confirmation'
 import ThemeContext from 'lib/theme_context'
 import Modal from 'react-modal'
 
@@ -36,6 +37,12 @@ addDecorator(story => (
   <Manager>
     {story()}
   </Manager>
+))
+
+addDecorator(story => (
+  <ConfirmationManager>
+    {story()}
+  </ConfirmationManager>
 ))
 
 addDecorator(story => (

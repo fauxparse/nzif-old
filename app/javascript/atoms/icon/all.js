@@ -59,5 +59,6 @@ export default [
   'user',
   'users',
   'venue',
+  'waitlist',
   'workshop',
 ]

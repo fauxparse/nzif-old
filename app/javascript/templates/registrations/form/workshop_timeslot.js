@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import Timeslot from 'molecules/timeslot'
 import { useCurrentUser } from 'contexts/current_user'
+import { useRegistration } from 'contexts/registration'
 import Workshop from './workshop'
 
 const WorkshopTimeslot = ({
@@ -14,6 +15,10 @@ const WorkshopTimeslot = ({
   onSelectActivity,
 }) => {
   const user = useCurrentUser()
+
+  const { registration } = useRegistration()
+
+  const { earlybird, workshops, waitlists } = registration
 
   const teachingThisSlot = useMemo(() => (
     !loading &&
@@ -30,7 +35,13 @@ const WorkshopTimeslot = ({
           session={session}
           loading={loading}
           disabled={teachingThisSlot}
-          position={(ordering[session.startsAt.valueOf()] || []).indexOf(session) + 1}
+          position={earlybird ? (
+            (ordering[session.startsAt.valueOf()] || []).indexOf(session) + 1
+          ) : (
+            undefined
+          )}
+          selected={earlybird ? undefined : workshops.includes(session.id)}
+          waitlisted={earlybird ? undefined : waitlists.includes(session.id)}
           onToggle={onToggleActivity}
           onSelect={onSelectActivity}
         />

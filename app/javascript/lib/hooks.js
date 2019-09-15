@@ -170,3 +170,37 @@ export const useChanged = (callback, watch, dependencies) => {
     }
   }, [callback, ...watch, ...dependencies]) // eslint-disable-line react-hooks/exhaustive-deps
 }
+
+export const useLocalStorage = (key, initialValue) => {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key)
+      return item ? JSON.parse(item) : initialValue
+    } catch (error) {
+      console.log(error) // eslint-disable-line no-console
+      return initialValue
+    }
+  })
+
+  const setValue = (value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value
+      setStoredValue(valueToStore)
+      window.localStorage.setItem(key, JSON.stringify(valueToStore))
+    } catch (error) {
+      console.log(error) // eslint-disable-line no-console
+    }
+  }
+
+  return [storedValue, setValue]
+}
+
+export const useLocalStorageReducer = (key, reducer, initialValue) => {
+  const [state, setState] = useLocalStorage(key, initialValue)
+
+  const dispatch = useCallback((action) => {
+    setState(reducer(state, action))
+  }, [state, setState, reducer])
+
+  return [state, dispatch]
+}

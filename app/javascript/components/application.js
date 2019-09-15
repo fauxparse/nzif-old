@@ -14,6 +14,7 @@ import { CurrentUserProvider } from 'contexts/current_user'
 import { StaticContentProvider } from 'contexts/static_content'
 import { AdminRoute } from './authorised_route'
 import Returning from 'lib/returning'
+import { ConfirmationManager } from 'molecules/confirmation'
 
 import '../styles/application'
 
@@ -29,32 +30,34 @@ export default class Application extends React.Component {
         <ApolloHooksProvider client={client}>
           <Manager>
             <StaticContentProvider>
-              <Router>
-                <CurrentUserProvider>
-                  <LastLocationProvider>
-                    <Route
-                      render={({ location }) => (
-                        <PageTransition pageKey={getPageKey(location)}>
-                          <Switch location={location}>
-                            <AdminRoute
-                              path="/admin/:year(\d{4})"
-                              component={Admin}
-                            />
-                            <Route path="/:year(\d{4})" component={Festival} />
-                            <Route
-                              path="/:login(login|logout|signup|password)"
-                              component={Authentication}
-                            />
-                            <Route path="/returning/:path*" component={Returning} />
-                            <Route path="/:path*" component={CurrentFestival} />
-                          </Switch>
-                        </PageTransition>
-                      )}
-                    />
-                  </LastLocationProvider>
-                </CurrentUserProvider>
-              </Router>
-              <Environment />
+              <ConfirmationManager>
+                <Router>
+                  <CurrentUserProvider>
+                    <LastLocationProvider>
+                      <Route
+                        render={({ location }) => (
+                          <PageTransition pageKey={getPageKey(location)}>
+                            <Switch location={location}>
+                              <AdminRoute
+                                path="/admin/:year(\d{4})"
+                                component={Admin}
+                              />
+                              <Route path="/:year(\d{4})" component={Festival} />
+                              <Route
+                                path="/:login(login|logout|signup|password)"
+                                component={Authentication}
+                              />
+                              <Route path="/returning/:path*" component={Returning} />
+                              <Route path="/:path*" component={CurrentFestival} />
+                            </Switch>
+                          </PageTransition>
+                        )}
+                      />
+                    </LastLocationProvider>
+                  </CurrentUserProvider>
+                </Router>
+                <Environment />
+              </ConfirmationManager>
             </StaticContentProvider>
           </Manager>
         </ApolloHooksProvider>

@@ -71,7 +71,7 @@ const RegistrationForm = ({ festival, page, onPageChange }) => {
         <title>{`Register for NZIF ${festival.year}`}</title>
       </Helmet>
       <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
-      <Header pageIndex={pageIndex} onStepClick={stepClicked} />
+      <Header loading={loading} pageIndex={pageIndex} onStepClick={stepClicked} />
       <Pager pageIndex={pageIndex}>
         {!loading && (
           <Component />

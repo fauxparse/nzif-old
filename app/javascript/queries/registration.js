@@ -30,10 +30,13 @@ export default gql`
 
     festival(year: $year) {
       year
+      state
       sessions(type: "workshop") {
         id
         startsAt
         endsAt
+        capacity
+        full
 
         activity {
           name

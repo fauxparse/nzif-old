@@ -14,8 +14,10 @@ import sortBy from 'lodash/sortBy'
 import keyBy from 'lodash/keyBy'
 import groupBy from 'lodash/groupBy'
 import entries from 'lodash/entries'
+import without from 'lodash/without'
 import dummy from 'templates/activities/overview/dummy'
 import RegistrationContext from 'contexts/registration'
+import { useConfirmation } from 'molecules/confirmation'
 import Heading from './heading'
 import Day from './workshop_day'
 import WorkshopDetails from './workshop_details'
@@ -24,7 +26,7 @@ const Workshops = ({ festival }) => {
   const {
     loading,
     sessions,
-    registration: { preferences },
+    registration: { preferences, workshops, waitlists },
     change,
   } = useContext(RegistrationContext)
 
@@ -61,6 +63,56 @@ const Workshops = ({ festival }) => {
   ), [sessionsByDay])
 
   const [ordering, toggle, reset] = usePreferentialOrdering()
+
+  const { confirm } = useConfirmation()
+
+  const changeSelection = useCallback((session) => {
+    if (earlybird) {
+      toggle(session)
+    } else if (workshops.includes(session.id)) {
+      if (session.full) {
+        confirm('leaveFullWorkshop', {
+          title: 'Leave this workshop?',
+          message:
+            'This workshop is sold out. If you give up your spot, you’ll have to join the waitlist if you change your mind.',
+        })
+          .then(() => change({ workshops: without(workshops, session.id) }))
+          .catch(() => {})
+      } else {
+        change({ workshops: without(workshops, session.id) })
+      }
+    } else if (waitlists.includes(session.id)) {
+      confirm('leaveWaitlist', {
+        title: 'Leave the waitlist?',
+        message:
+          'If you leave this waitlist and change your mind later, you’ll go to the back of the queue.',
+      }).then(() => change({ waitlists: without(waitlists, session.id) }))
+    } else if (session.full) {
+      confirm('joinWaitlist', {
+        title: 'Join waitlist?',
+        message:
+          'If a place comes up for you in this workshop, you will automatically be moved out of any other workshop in the same timeslot.',
+      }).then(() => change({ waitlists: [...waitlists, session.id] }))
+    } else {
+      const clash = workshops.map(id => sessionsById[id]).find(workshop => (
+        workshop.startsAt.isSame(session.startsAt)
+      ))
+
+      if (clash && clash.full) {
+        confirm('switchWorkshop', {
+          title: 'Switch workshops?',
+          message:
+            'You are currently in a sold out workshop at this time. If you change your selection, your place in the other workshop will not be held for you.',
+        }).then(() => {
+          change({ workshops: [...workshops.filter(id => id !== clash.id), session.id] })
+        })
+      } else {
+        change({ workshops: [...workshops, session.id] })
+      }
+
+      // change({ workshops: [...withoutClashes, session.id] })
+    }
+  }, [confirm, earlybird, toggle, change, workshops, waitlists, sessionsById])
 
   const loaded = useRef(false)
 
@@ -116,7 +168,7 @@ const Workshops = ({ festival }) => {
           sessions={sessions}
           offset={offset}
           ordering={ordering || {}}
-          onToggleActivity={toggle}
+          onToggleActivity={changeSelection}
           onSelectActivity={setSelected}
         />
       ))}

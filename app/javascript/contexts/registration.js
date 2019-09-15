@@ -103,6 +103,8 @@ export const DummyLoader = ({ delay = 1000, festival, children }) => {
             { sessionId: sessions.current[3].id, position: 3 },
             { sessionId: sessions.current[6].id, position: 1 },
           ],
+          workshops: [sessions.current[0].id],
+          waitlists: [sessions.current[1].id],
         })
       } else {
         setRegistration({
@@ -113,6 +115,8 @@ export const DummyLoader = ({ delay = 1000, festival, children }) => {
             { sessionId: sessions.current[3].id, position: 3 },
             { sessionId: sessions.current[6].id, position: 1 },
           ],
+          workshops: [],
+          waitlists: [],
         })
       }
       setLoading(false)
@@ -134,6 +138,7 @@ export const DummyLoader = ({ delay = 1000, festival, children }) => {
       allInShows,
       sessions: sessions.current,
       registration,
+      earlybird: festival && festival.state === 'earlybird',
       errors: {},
     },
     save,
@@ -177,6 +182,8 @@ export const ApolloLoader = ({ children }) => {
     prices: [0],
     preferences: [],
   }), [data])
+
+  const earlybird = useMemo(() => data.festival && data.festival.state === 'earlybird', [data])
 
   const [saving, setSaving] = useState(false)
 
@@ -238,6 +245,7 @@ export const ApolloLoader = ({ children }) => {
       sessions,
       allInShows,
       registration,
+      earlybird,
       errors,
     },
     save,

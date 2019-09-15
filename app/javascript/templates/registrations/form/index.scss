@@ -319,10 +319,10 @@
       left: 0.75rem;
       width: 2rem;
       height: 2rem;
-      padding: 0;
+      padding: 0.25rem;
       font-size: font-size(2);
       font-weight: font-weight(bold);
-      line-height: 2rem;
+      line-height: 1.5rem;
 
       @include themify {
         background: themed(panel);
@@ -338,6 +338,15 @@
       }
     }
 
+    @include themify {
+      &.registration-form__workshop--selected {
+        .workshop__position {
+          background: color(apple);
+          color: $white;
+        }
+      }
+    }
+
     .workshop__levels {
       display: flex;
 
@@ -350,9 +359,6 @@
       @include all-caps;
       display: inline-block;
       position: relative;
-      // position: relative;
-      // margin: -2.5rem 0 0.5rem;
-      // padding: 0.25rem;
       margin: 0 auto 0.25rem 0;
       padding: 0 0.5rem;
       border-radius: 0.25rem;
@@ -361,7 +367,6 @@
       font-size: font-size(-1);
       font-weight: font-weight(bold);
       line-height: 1.5;
-      // text-align: center;
     }
 
     &,
@@ -381,11 +386,17 @@
       @include elevation(0);
 
       .card__image {
-        filter: grayscale(0);
+        border-radius: $border-radius;
+        filter: grayscale(0.85);
       }
 
       .workshop__levels {
         opacity: opacity(disabled);
+      }
+
+      .workshop__full {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
       }
 
       @include themify {
