@@ -13,6 +13,7 @@ module Types
     field :waitlists, [GraphQL::Types::ID], null: false
     field :availability, [Availability], null: false
     field :prices, [Integer], null: false
+    field :payments, [Types::Payment], null: false
     field :completed_at, Types::Time, null: true
 
     def id

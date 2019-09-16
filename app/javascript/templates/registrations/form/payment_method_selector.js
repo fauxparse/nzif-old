@@ -15,8 +15,8 @@ const PaymentMethodSelector = ({ paymentMethod, onChange }) => {
       <div className="payment-methods">
         <Checkbox
           className="payment-method"
-          checked={paymentMethod === 'credit-card'}
-          value="credit-card"
+          checked={paymentMethod === 'credit_card'}
+          value="credit_card"
           onChange={paymentMethodChanged}
         >
           <span className="payment-method__name">Credit card</span>
@@ -27,8 +27,8 @@ const PaymentMethodSelector = ({ paymentMethod, onChange }) => {
         </Checkbox>
         <Checkbox
           className="payment-method"
-          checked={paymentMethod === 'internet-banking'}
-          value="internet-banking"
+          checked={paymentMethod === 'internet_banking'}
+          value="internet_banking"
           onChange={paymentMethodChanged}
         >
           <span className="payment-method__name">Internet banking</span>

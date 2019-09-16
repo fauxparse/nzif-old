@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_11_010155) do
+ActiveRecord::Schema.define(version: 2019_09_16_205820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,17 @@ ActiveRecord::Schema.define(version: 2019_09_11_010155) do
     t.index ["reset_token"], name: "index_identities_on_reset_token", unique: true
     t.index ["type", "uid"], name: "index_identities_on_type_and_uid", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "type"
+    t.bigint "registration_id", null: false
+    t.integer "amount_cents"
+    t.string "state", default: "pending", null: false
+    t.string "reference"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_payments_on_registration_id"
   end
 
   create_table "pitches", force: :cascade do |t|
@@ -229,6 +240,7 @@ ActiveRecord::Schema.define(version: 2019_09_11_010155) do
   add_foreign_key "availabilities", "registrations"
   add_foreign_key "availabilities", "sessions"
   add_foreign_key "identities", "users", on_delete: :cascade
+  add_foreign_key "payments", "registrations"
   add_foreign_key "pitches", "festivals", on_delete: :cascade
   add_foreign_key "pitches", "users", on_delete: :cascade
   add_foreign_key "placements", "registrations", on_delete: :cascade

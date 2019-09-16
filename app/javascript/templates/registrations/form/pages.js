@@ -48,14 +48,14 @@ export default [{
   icon: 'payment',
   component: Payment,
   validations: {
-    paymentMethod: (_, { totalToPay }) => {
-      return totalToPay ? { presence: { allowEmpty: false } } : 0
-    },
+    paymentMethod: (_, { totalToPay }) => totalToPay ? { presence: { allowEmpty: false } } : 0,
   },
 }, {
   name: 'confirmation',
   label: 'Confirmation',
   icon: 'check',
   component: Confirmation,
-  validations: {},
+  validations: {
+    paymentMethod: (_, { totalToPay }) => totalToPay ? { presence: { allowEmpty: false } } : 0,
+  },
 }]

@@ -88,6 +88,9 @@ gem 'paper_trail'
 gem 'axlsx', '~> 2.0.1', git: 'https://github.com/semaperepelitsa/axlsx', branch: '2.0-rubyzip'
 gem 'rubyzip', '>= 1.2.2'
 
+# Payments
+gem 'money-rails'
+
 gem 'jwt'
 
 gem 'acts_as_list'

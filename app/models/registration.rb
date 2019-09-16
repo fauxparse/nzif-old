@@ -14,6 +14,7 @@ class Registration < ApplicationRecord
     validate: false
   has_many :placements, dependent: :destroy, autosave: true
   has_many :waitlists, dependent: :destroy, autosave: true
+  has_many :payments, dependent: :destroy
 
   enum state: {
     pending: 'pending',

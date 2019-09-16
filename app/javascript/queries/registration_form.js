@@ -25,6 +25,11 @@ export default gql`
         role
       }
       prices
+      payments {
+        type
+        amount
+        state
+      }
     }
 
     festival(year: $year) {
