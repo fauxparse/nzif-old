@@ -27,12 +27,13 @@ Section.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.icon,
   open: PropTypes.bool,
-  onToggle: PropTypes.func.isRequired,
+  onToggle: PropTypes.func,
 }
 
 Section.defaultProps = {
   icon: undefined,
   open: false,
+  onToggle: () => {},
 }
 
 export default Section

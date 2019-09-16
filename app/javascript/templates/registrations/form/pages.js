@@ -47,7 +47,11 @@ export default [{
   label: 'Payment',
   icon: 'payment',
   component: Payment,
-  validations: {},
+  validations: {
+    paymentMethod: (_, { totalToPay }) => {
+      return totalToPay ? { presence: { allowEmpty: false } } : 0
+    },
+  },
 }, {
   name: 'confirmation',
   label: 'Confirmation',

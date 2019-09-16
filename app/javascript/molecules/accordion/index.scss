@@ -25,6 +25,10 @@
       padding: 0;
       text-align: left;
     }
+
+    .ripple__container {
+      border-radius: 0;
+    }
   }
 
   &__panel {

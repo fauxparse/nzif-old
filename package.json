@@ -64,6 +64,7 @@
     "react-tippy": "^1.2.3",
     "react-transition-group": "^2.5.0",
     "recompose": "^0.30.0",
+    "resize-observer": "^1.0.0",
     "stickybits": "^3.6.1",
     "stickyfilljs": "^2.1.0",
     "styled-components": "^4.0.3",

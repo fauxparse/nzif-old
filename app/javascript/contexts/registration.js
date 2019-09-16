@@ -217,7 +217,14 @@ export const ApolloLoader = ({ children }) => {
           updateRegistration({
             variables: {
               year,
-              attributes: omit(attributes, ['id', 'user', 'prices', 'completedAt']),
+              attributes: omit(attributes, [
+                'id',
+                'user',
+                'prices',
+                'completedAt',
+                'totalToPay',
+                'originalWorkshops',
+              ]),
             },
             refetchQueries: currentUser ? [] : [{ query: CURRENT_USER_QUERY }],
           }),
@@ -321,6 +328,7 @@ RegistrationMemoizer.propTypes = {
       }).isRequired).isRequired,
       workshops: PropTypes.arrayOf(PropTypes.id.isRequired),
     }).isRequired,
+    earlybird: PropTypes.bool,
   }),
   save: PropTypes.func,
 }

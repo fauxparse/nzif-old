@@ -12,5 +12,6 @@ module Types
     argument :workshops, [GraphQL::Types::ID], required: false
     argument :waitlists, [GraphQL::Types::ID], required: false
     argument :availability, [Types::AvailabilityAttributes], required: false
+    argument :payment_method, String, required: false
   end
 end
