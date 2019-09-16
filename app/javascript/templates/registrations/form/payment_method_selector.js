@@ -43,7 +43,7 @@ const PaymentMethodSelector = ({ paymentMethod, onChange }) => {
 }
 
 PaymentMethodSelector.propTypes = {
-  paymentMethod: PropTypes.oneOf(['credit-card', 'internet-banking']),
+  paymentMethod: PropTypes.oneOf(['credit_card', 'internet_banking']),
   onChange: PropTypes.func.isRequired,
 }
 

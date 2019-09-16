@@ -15,6 +15,12 @@ export default gql`
       }
       workshops
       waitlists
+      payments {
+        type
+        amount
+        state
+      }
+      totalToPay
       availability {
         sessionId
         role

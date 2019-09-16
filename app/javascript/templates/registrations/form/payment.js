@@ -46,8 +46,8 @@ const Payment = () => {
   }, [change])
 
   useEffect(() => {
-    change({ state: 'complete', totalToPay })
-  }, [change, totalToPay])
+    change({ state: 'complete' })
+  }, [change])
 
   return (
     <section className="registration-form__section registration-form__payment">

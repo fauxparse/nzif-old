@@ -30,6 +30,7 @@ export default gql`
         amount
         state
       }
+      totalToPay
     }
 
     festival(year: $year) {

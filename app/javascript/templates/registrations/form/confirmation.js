@@ -4,7 +4,7 @@ import Button from 'atoms/button'
 import Heading from './heading'
 
 const Confirmation = () => {
-  const { registration } = useRegistration()
+  const { earlybird } = useRegistration()
 
   return (
     <section className="registration-form__section registration-form__confirmation">
@@ -13,8 +13,10 @@ const Confirmation = () => {
         <b>Congratulations! You’re coming to NZIF!</b>
       </p>
       <p>
-        Check your email for a confirmation message. You’ll receive another email when we
-        confirm your workshop allocations, including an invoice for your total registration fee.
+        Check your email for a confirmation message.
+        {earlybird && (
+          'You’ll receive another email when we confirm your workshop allocations, including an invoice for your total registration fee.'
+        )}
       </p>
       <p>
         In the meantime, all the cool kids are hanging out in the NZIF Green Room on Facebook.

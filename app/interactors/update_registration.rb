@@ -28,5 +28,6 @@ class UpdateRegistration
     UpdateWorkshopSelection,
     UpdateAvailability,
     ConfirmRegistration,
+    CreatePayments,
   )
 end

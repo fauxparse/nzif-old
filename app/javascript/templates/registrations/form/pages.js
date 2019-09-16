@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty'
 import Details from './details'
 import CodeOfConduct from './code_of_conduct'
 import Workshops from './workshops'
@@ -48,7 +49,7 @@ export default [{
   icon: 'payment',
   component: Payment,
   validations: {
-    paymentMethod: (_, { totalToPay }) => totalToPay ? { presence: { allowEmpty: false } } : 0,
+    paymentMethod: (_, { totalToPay }) => totalToPay ? { presence: { allowEmpty: false } } : null,
   },
 }, {
   name: 'confirmation',
@@ -56,6 +57,7 @@ export default [{
   icon: 'check',
   component: Confirmation,
   validations: {
-    paymentMethod: (_, { totalToPay }) => totalToPay ? { presence: { allowEmpty: false } } : 0,
+    payments: (_, { workshops }) =>
+      !isEmpty(workshops) ? { presence: { allowEmpty: false } } : null,
   },
 }]

@@ -24,7 +24,7 @@ const Header = ({ loading, pageIndex, onStepClick }) => {
 
   useEffect(() => {
     if (!loading && !valid[pageIndex]) {
-      onStepClick(PAGES[Math.max(valid.indexOf(true), 0)])
+      onStepClick(PAGES[Math.max(valid.lastIndexOf(true), 0)])
     }
   }, [loading, valid, pageIndex, onStepClick])
 

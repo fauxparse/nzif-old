@@ -14,6 +14,7 @@ module Types
     field :availability, [Availability], null: false
     field :prices, [Integer], null: false
     field :payments, [Types::Payment], null: false
+    field :total_to_pay, Integer, null: false
     field :completed_at, Types::Time, null: true
 
     def id
@@ -42,6 +43,10 @@ module Types
 
     def waitlists
       encode_session_ids(object.waitlists)
+    end
+
+    def total_to_pay
+      object.cart.total_to_pay - object.cart.pending
     end
 
     def encode_session_ids(scope)

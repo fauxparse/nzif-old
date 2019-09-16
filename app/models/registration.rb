@@ -27,7 +27,8 @@ class Registration < ApplicationRecord
   before_save :set_completed_at, if: %i(state_changed? complete?)
 
   scope :with_preferences, -> { includes(preferences: { session: :activity }) }
-
+  scope :with_placements, -> { includes(placements: { session: :activity }) }
+  scope :with_payments, -> { includes(:payments) }
   scope :with_user, -> { includes(:user) }
 
   def code_of_conduct_accepted?
@@ -57,6 +58,10 @@ class Registration < ApplicationRecord
 
   def prices
     PRICES
+  end
+
+  def cart
+    @cart ||= Cart.new(self)
   end
 
   alias code_of_conduct code_of_conduct_accepted?
