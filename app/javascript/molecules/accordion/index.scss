@@ -1,0 +1,71 @@
+@import "../../styles/base";
+
+.accordion {
+  &__section {
+    position: relative;
+
+    &:not(:first-of-type) {
+      margin-top: -1px;
+    }
+  }
+    
+  &__button {
+    display: flex;
+    position: static;
+    width: 100%;
+    padding: 0.5rem 0;
+    border: 0;
+    border-radius: 0;
+
+    .button__icon {
+      margin: 0 2rem 0 1rem;
+    }
+
+    .button__text {
+      padding: 0;
+      text-align: left;
+    }
+  }
+
+  &__panel {
+    height: 0;
+    transition: transition(height);
+    overflow: hidden;
+  }
+
+  &__content {
+    padding: $padding $padding $padding $keyline;
+  }
+
+  @include themify {
+    &__section {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+
+      &--open {
+        border-color: themed(border);
+      }
+    }
+
+    &__button {
+      border-color: transparent;
+      color: themed(secondary);
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      .button__icon {
+        color: inherit;
+      }
+
+      &--open {
+        color: themed(text);
+
+        .button__icon {
+          color: themed(accent);
+        }
+      }
+    }
+  }
+}
