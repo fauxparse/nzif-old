@@ -45,6 +45,10 @@ module Types
       encode_session_ids(object.waitlists)
     end
 
+    def payments
+      object.payments.all.reject(&:cancelled?)
+    end
+
     def total_to_pay
       object.cart.total_to_pay - object.cart.pending
     end

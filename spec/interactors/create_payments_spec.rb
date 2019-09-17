@@ -20,7 +20,7 @@ RSpec.describe CreatePayments, type: :interactor do
   context 'when a payment method is selected' do
     let(:attributes) do
       {
-        payment_method: 'InternetBanking'
+        payment_method: 'InternetBanking',
       }
     end
 

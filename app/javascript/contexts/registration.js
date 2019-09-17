@@ -1,3 +1,5 @@
+/* global stripe */
+
 import React, {
   cloneElement,
   createContext,
@@ -25,6 +27,7 @@ import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
 import SESSION_CHANGED from 'queries/subscriptions/session_changed'
 import CURRENT_USER_QUERY from 'queries/current_user'
 import { notify } from 'molecules/toast'
+import { stripIgnoredCharacters } from 'graphql'
 
 export const RegistrationContext = createContext({})
 
@@ -205,6 +208,16 @@ export const ApolloLoader = ({ children }) => {
           },
         },
       })
+
+      const pendingCreditCardPayment = updateRegistration.payments.find(payment => (
+        payment.state === 'pending' &&
+        payment.type === 'credit_card' &&
+        payment.reference
+      ))
+
+      if (pendingCreditCardPayment) {
+        stripe.redirectToCheckout({ sessionId: pendingCreditCardPayment.reference })
+      }
     },
   })
 
@@ -224,6 +237,7 @@ export const ApolloLoader = ({ children }) => {
                 'completedAt',
                 'totalToPay',
                 'originalWorkshops',
+                'payments',
               ]),
             },
             refetchQueries: currentUser ? [] : [{ query: CURRENT_USER_QUERY }],

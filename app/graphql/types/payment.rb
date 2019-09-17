@@ -4,5 +4,6 @@ module Types
     field :type, Types::PaymentType, null: false
     field :amount, Integer, null: false
     field :state, String, null: false
+    field :reference, String, null: true
   end
 end

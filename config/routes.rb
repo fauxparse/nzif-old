@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/subscriptions'
 
+  mount Stripe::Engine => '/stripe'
+
   post '/graphql', to: 'graphql#execute', as: :graphql
 
   match '/auth/:provider/callback',

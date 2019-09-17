@@ -26,8 +26,6 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'foreman'
-
 gem 'haml', github: 'haml/haml'
 gem 'haml-rails', github: 'indirect/haml-rails'
 
@@ -90,6 +88,7 @@ gem 'rubyzip', '>= 1.2.2'
 
 # Payments
 gem 'money-rails'
+gem 'stripe-rails'
 
 gem 'jwt'
 
@@ -120,6 +119,8 @@ group :development, :test do
   gem 'parallel_tests'
 
   gem 'webmock'
+
+  gem 'dotenv-rails'
 end
 
 group :development do

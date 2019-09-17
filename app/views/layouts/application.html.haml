@@ -10,5 +10,6 @@
     = include_fonts
     = stylesheet_pack_tag 'application', media: 'all'
     = svg_sprite_sheet
+    = content_for :head
   %body{data: { theme: :light }}
     = yield
