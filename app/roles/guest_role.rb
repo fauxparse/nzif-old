@@ -11,5 +11,9 @@ class GuestRole < AccessGranted::Role
     can [:read, :update], Registration do |registration, user|
       registration.user == user
     end
+
+    can [:cancel], Payment do |payment, user|
+      user == payment.registration.user
+    end
   end
 end

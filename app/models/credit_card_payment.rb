@@ -1,6 +1,5 @@
 class CreditCardPayment < Payment
   include Stripe::Callbacks
-  include Hashid::Rails
 
   after_create :initialize_stripe_payment
 
@@ -21,17 +20,22 @@ class CreditCardPayment < Payment
         amount: amount_cents,
         currency: 'nzd',
       }],
-      success_url: registration_url('confirmation'),
-      cancel_url: registration_url('payment'),
+      success_url: success_url,
+      cancel_url: cancel_url,
     )
 
     update!(reference: session.id)
   end
 
-  def registration_url(step)
-    Rails.application.routes.url_helpers.front_end_url(
-      "#{registration.festival.year}/register/#{step}",
-      protocol: :https
-    )
+  def success_url
+    url_helpers.front_end_url("#{registration.festival.year}/register/payment", protocol: :https)
+  end
+
+  def cancel_url
+    url_helpers.cancel_payment_url(self, protocol: :https)
+  end
+
+  def url_helpers
+    Rails.application.routes.url_helpers
   end
 end

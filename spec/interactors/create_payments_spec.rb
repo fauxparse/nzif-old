@@ -20,7 +20,7 @@ RSpec.describe CreatePayments, type: :interactor do
   context 'when a payment method is selected' do
     let(:attributes) do
       {
-        payment_method: 'InternetBanking',
+        payment_method: 'InternetBankingPayment',
       }
     end
 
@@ -31,7 +31,7 @@ RSpec.describe CreatePayments, type: :interactor do
     describe 'the payment' do
       subject(:payment) { result.payment }
 
-      it { is_expected.to be_an_instance_of InternetBanking }
+      it { is_expected.to be_an_instance_of InternetBankingPayment }
 
       it { is_expected.to be_pending }
 
@@ -42,7 +42,7 @@ RSpec.describe CreatePayments, type: :interactor do
       context 'when there is an existing payment' do
         context 'with a smaller amount' do
           let!(:existing_payment) do
-            InternetBanking.create!(registration: registration, amount: Money.new(55_00))
+            InternetBankingPayment.create!(registration: registration, amount: Money.new(55_00))
           end
 
           it 'charges the full amount' do
@@ -66,7 +66,7 @@ RSpec.describe CreatePayments, type: :interactor do
 
         context 'with the correct amount' do
           let!(:existing_payment) do
-            InternetBanking.create!(registration: registration, amount: Money.new(105_00))
+            InternetBankingPayment.create!(registration: registration, amount: Money.new(105_00))
           end
 
           it 'does not create a new payment' do
