@@ -14,7 +14,8 @@ MailToLink.propTypes = {
 }
 
 const TextLink = ({ className, external, rel, children, target, ...props }) => {
-  const Component = (props.to || props.href || '').toString().match(/^mailto:/) ? MailToLink : Link
+  const Component = props.as ||
+    ((props.to || props.href || '').toString().match(/^mailto:/) ? MailToLink : Link)
 
   return (
     <Component
@@ -29,6 +30,7 @@ const TextLink = ({ className, external, rel, children, target, ...props }) => {
 }
 
 TextLink.propTypes = {
+  as: PropTypes.component,
   className: PropTypes.className,
   external: PropTypes.bool,
   rel: PropTypes.string,
@@ -38,6 +40,7 @@ TextLink.propTypes = {
 }
 
 TextLink.defaultProps = {
+  as: null,
   className: null,
   external: false,
   rel: null,

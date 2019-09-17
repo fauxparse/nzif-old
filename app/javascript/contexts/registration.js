@@ -92,8 +92,8 @@ export const DummyLoader = ({ delay = 1000, children }) => {
         ...registration,
         preferences: [
           { sessionId: sessions.current[1].id, position: 1 },
-          { sessionId: sessions.current[0].id, position: 1 },
-          { sessionId: sessions.current[3].id, position: 1 },
+          { sessionId: sessions.current[0].id, position: 2 },
+          { sessionId: sessions.current[3].id, position: 3 },
           { sessionId: sessions.current[6].id, position: 1 },
         ],
       })

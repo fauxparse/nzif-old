@@ -61,7 +61,7 @@ const RegistrationForm = ({ festival, page, onPageChange }) => {
       className={classNames('registration-form', busy && 'registration-form--busy')}
     >
       <Helmet>
-        <title>Register for NZIF {festival.year}</title>
+        <title>{`Register for NZIF ${festival.year}`}</title>
       </Helmet>
       <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
       <Header pageIndex={pageIndex} onStepClick={stepClicked} />

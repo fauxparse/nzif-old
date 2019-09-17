@@ -120,7 +120,11 @@ const Payment = () => {
           so you have time before we lock in your selections to decide what you want to commit to.
         </p>
         <p>
-          <TextLink external to="https://forms.gle/z2PD7gvRxVUBRJFWA">
+          <TextLink
+            as="a"
+            external
+            href="https://improvfest.nz/news/2019/9/10/financial-assistance-2019"
+          >
             Read more about what we can offer and apply here
           </TextLink>
         </p>
