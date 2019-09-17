@@ -29,6 +29,7 @@ export default gql`
         type
         amount
         state
+        reference
       }
       totalToPay
     }

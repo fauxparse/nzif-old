@@ -19,3 +19,6 @@ storiesOf('Templates|Registration', module)
   .add('Registration', ({ parameters }) => (
     <RegistrationForm festival={parameters.festival} />
   ), { festival: { year: 2019, state: 'registration' } })
+  .add('Redirecting', ({ parameters }) => (
+    <RegistrationForm festival={parameters.festival} redirecting />
+  ), { festival: { year: 2019, state: 'registration' } })

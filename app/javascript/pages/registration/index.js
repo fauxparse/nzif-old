@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { withRouter } from 'react-router-dom'
-import RegistrationForm from 'templates/registrations/form'
 import { RegistrationProvider } from 'contexts/registration'
 import FestivalContext from 'contexts/festival'
 import Loader from 'atoms/loader'
 import PAGES from 'templates/registrations/form/pages'
+import Form from './form'
 
 const RegistrationPage = ({ match, history }) => {
   const festival = useContext(FestivalContext)
@@ -36,7 +36,7 @@ const RegistrationPage = ({ match, history }) => {
 
   return festival ? (
     <RegistrationProvider>
-      <RegistrationForm
+      <Form
         festival={festival}
         page={currentPage}
         onPageChange={pageChanged}

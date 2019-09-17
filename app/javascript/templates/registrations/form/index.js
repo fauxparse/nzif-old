@@ -8,11 +8,12 @@ import Pager from './pager'
 import Footer from './footer'
 import PAGES from './pages'
 import RegistrationPaused from './registration_paused'
+import Redirect from './redirect'
 import { useRegistration } from 'contexts/registration'
 
 import './index.scss'
 
-const RegistrationForm = ({ festival, page, onPageChange }) => {
+const RegistrationForm = ({ festival, page, redirecting, onPageChange }) => {
   const { loading, saving, save } = useRegistration()
 
   const container = useRef()
@@ -73,9 +74,11 @@ const RegistrationForm = ({ festival, page, onPageChange }) => {
       <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
       <Header loading={loading} pageIndex={pageIndex} onStepClick={stepClicked} />
       <Pager pageIndex={pageIndex}>
-        {!loading && (
+        {redirecting ? (
+          <Redirect />
+        ) : (!loading && (
           <Component festival={festival} />
-        )}
+        ))}
       </Pager>
       <Footer
         pageIndex={pageIndex}
@@ -92,11 +95,13 @@ RegistrationForm.propTypes = {
   page: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
+  redirecting: PropTypes.bool,
   onPageChange: PropTypes.func,
 }
 
 RegistrationForm.defaultProps = {
   page: PAGES[0],
+  redirecting: false,
   onPageChange: null,
 }
 

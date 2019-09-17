@@ -108,6 +108,38 @@
     touch-action: none;
   }
 
+  &__redirect {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+    touch-action: none;
+
+    .redirect__loader {
+      position: static;
+      margin: 0 0 $spacing;
+    }
+
+    .redirect__message {
+      font-size: font-size(-1);
+    }
+
+    @include themify {
+      background: change-opacity(themed(background), secondary);
+
+      .redirect__message {
+        color: themed(secondary);
+      }
+    }
+  }
+
   .page {
     &--left--enter,
     &--right--enter,

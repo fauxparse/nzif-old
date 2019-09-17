@@ -1,10 +1,17 @@
 import isEmpty from 'lodash/isEmpty'
+import validate from 'validate.js'
 import Details from './details'
 import CodeOfConduct from './code_of_conduct'
 import Workshops from './workshops'
 import Availability from './availability'
 import Payment from './payment'
 import Confirmation from './confirmation'
+
+validate.validators.noPendingCreditCardPayments = (payments) => {
+  if (payments && payments.find(p => p.type === 'credit_card' && p.state === 'pending' && p.reference)) {
+    return 'will redirect now'
+  }
+}
 
 export default [{
   name: 'details',
@@ -50,6 +57,7 @@ export default [{
   component: Payment,
   validations: {
     paymentMethod: (_, { totalToPay }) => totalToPay ? { presence: { allowEmpty: false } } : null,
+    payments: { noPendingCreditCardPayments: true },
   },
 }, {
   name: 'confirmation',

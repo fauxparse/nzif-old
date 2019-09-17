@@ -21,16 +21,16 @@ class CreditCardPayment < Payment
         amount: amount_cents,
         currency: 'nzd',
       }],
-      success_url: payment_url,
-      cancel_url: payment_url,
+      success_url: registration_url('confirmation'),
+      cancel_url: registration_url('payment'),
     )
 
     update!(reference: session.id)
   end
 
-  def payment_url
+  def registration_url(step)
     Rails.application.routes.url_helpers.front_end_url(
-      "#{registration.festival.year}/register/confirmation",
+      "#{registration.festival.year}/register/#{step}",
       protocol: :https
     )
   end

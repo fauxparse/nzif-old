@@ -1,5 +1,3 @@
-/* global stripe */
-
 import React, {
   cloneElement,
   createContext,
@@ -208,16 +206,6 @@ export const ApolloLoader = ({ children }) => {
           },
         },
       })
-
-      const pendingCreditCardPayment = updateRegistration.payments.find(payment => (
-        payment.state === 'pending' &&
-        payment.type === 'credit_card' &&
-        payment.reference
-      ))
-
-      if (pendingCreditCardPayment) {
-        stripe.redirectToCheckout({ sessionId: pendingCreditCardPayment.reference })
-      }
     },
   })
 

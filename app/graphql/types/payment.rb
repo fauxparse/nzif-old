@@ -5,5 +5,9 @@ module Types
     field :amount, Integer, null: false
     field :state, String, null: false
     field :reference, String, null: true
+
+    def amount
+      object.amount_cents
+    end
   end
 end
