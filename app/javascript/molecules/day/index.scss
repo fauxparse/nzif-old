@@ -10,7 +10,7 @@
     font-weight: font-weight(light);
     line-height: 2rem;
     text-indent: 4.5em;
-    z-index: 1;
+    z-index: 2;
     backdrop-filter: blur(4px);
 
     @include themify {
