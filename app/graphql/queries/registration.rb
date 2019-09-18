@@ -10,7 +10,7 @@ module Queries
 
       def registration(year:, id: nil)
         festival = ::Festival.by_year(year).first
-        scope = festival.registrations.with_preferences.with_user
+        scope = festival.registrations.with_user.includes(:preferences)
 
         if id.present?
           scope.find_by_hashid(id)

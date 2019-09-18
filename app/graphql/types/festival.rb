@@ -27,11 +27,20 @@ module Types
     end
 
     def sessions(type: nil)
-      ::Session
-        .includes(:activity)
-        .references(:activity)
+      object
+        .sessions
+        .includes(
+          :venue,
+          activity: [
+            :festival,
+            {
+              image_attachment: :blob,
+              presenters: { user: { image_attachment: :blob } },
+            },
+          ]
+        )
+        .references(:activities)
         .merge(::Activity.of_type(type))
-        .where({ activities: { festival_id: object.id } })
     end
 
     def programme_launched

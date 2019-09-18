@@ -121,6 +121,8 @@ group :development, :test do
   gem 'webmock'
 
   gem 'dotenv-rails'
+
+  gem 'bullet'
 end
 
 group :development do

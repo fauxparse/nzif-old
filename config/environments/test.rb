@@ -49,4 +49,9 @@ Rails.application.configure do
   # config.action_view.finalize_compiled_template_methods = false
 
   Rails.application.default_url_options = { host: 'nzif.test' }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+  end
 end

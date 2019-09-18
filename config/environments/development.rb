@@ -66,4 +66,10 @@ Rails.application.configure do
   config.hosts << 'nzif.ngrok.io'
   Rails.application.default_url_options = { host: 'nzif.ngrok.io', protocol: 'https' }
   # Rails.application.default_url_options = { host: 'localhost:3000' }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+    Bullet.unused_eager_loading_enable = false
+  end
 end
