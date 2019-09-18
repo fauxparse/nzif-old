@@ -86,13 +86,13 @@ const Workshops = ({ festival }) => {
         title: 'Leave the waitlist?',
         message:
           'If you leave this waitlist and change your mind later, you’ll go to the back of the queue.',
-      }).then(() => change({ waitlists: without(waitlists, session.id) }))
+      }).then(() => change({ waitlists: without(waitlists, session.id) })).catch(() => {})
     } else if (session.full && !originalWorkshops.includes(session.id)) {
       confirm('joinWaitlist', {
         title: 'Join waitlist?',
         message:
           'If a place comes up for you in this workshop, you will automatically be moved out of any other workshop in the same timeslot.',
-      }).then(() => change({ waitlists: [...waitlists, session.id] }))
+      }).then(() => change({ waitlists: [...waitlists, session.id] })).catch(() => {})
     } else {
       const clash = workshops.map(id => sessionsById[id]).find(workshop => (
         workshop.startsAt.isSame(session.startsAt)

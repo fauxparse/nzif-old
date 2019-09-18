@@ -33,7 +33,7 @@ const ConfirmationManager = ({ children }) => {
           onCancel: () => reject(),
         })
       }
-    }).finally(() => setOpen(false)).catch(() => {})
+    }).finally(() => setOpen(false))
 
     return promise
   }, [dontShow, setDialog])
