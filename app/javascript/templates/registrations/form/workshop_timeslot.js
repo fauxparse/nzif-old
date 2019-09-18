@@ -27,6 +27,8 @@ const WorkshopTimeslot = ({
       sessions.some(session => session.activity.presenters.some(p => p.id === user.id))
   ), [user, loading, sessions])
 
+  const past = time.isBefore(moment())
+
   return (
     <Timeslot time={time} offset={offset} loading={loading}>
       {sessions.map(session => (
@@ -34,7 +36,7 @@ const WorkshopTimeslot = ({
           key={session.id}
           session={session}
           loading={loading}
-          disabled={teachingThisSlot}
+          disabled={teachingThisSlot || past}
           position={earlybird ? (
             (ordering[session.startsAt.valueOf()] || []).indexOf(session.id) + 1
           ) : (
