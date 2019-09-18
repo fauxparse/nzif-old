@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import Helmet from 'react-helmet'
+import { useBeforeunload } from 'react-beforeunload'
 import IntermittentLoader from 'molecules/intermittent_loader'
 import Header from './header'
 import Pager from './pager'
@@ -14,7 +15,7 @@ import { useRegistration } from 'contexts/registration'
 import './index.scss'
 
 const RegistrationForm = ({ festival, page, redirecting, onPageChange }) => {
-  const { loading, saving, save } = useRegistration()
+  const { loading, saving, save, hasUnsavedChanges } = useRegistration()
 
   const container = useRef()
 
@@ -40,6 +41,12 @@ const RegistrationForm = ({ festival, page, redirecting, onPageChange }) => {
   }, [save, pageIndex, goToPage])
 
   const Component = useMemo(() => PAGES[pageIndex].component, [pageIndex])
+
+  useBeforeunload(() => {
+    if (hasUnsavedChanges) {
+      return 'You have unsaved changes!'
+    }
+  })
 
   useEffect(() => {
     if (onPageChange) {

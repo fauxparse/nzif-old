@@ -310,6 +310,7 @@ const RegistrationMemoizer = ({ value, save, children }) => {
     },
     change: addUnsavedChanges,
     save: saveChanges,
+    hasUnsavedChanges: !isEmpty(unsavedChanges),
   }), [value, unsavedChanges, addUnsavedChanges, saveChanges])
 
   return (
