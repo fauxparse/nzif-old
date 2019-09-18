@@ -16,10 +16,12 @@ export default gql`
       workshops
       waitlists
       payments {
+        id
         type
         amount
         state
         reference
+        createdAt
       }
       totalToPay
       availability {

@@ -148,6 +148,14 @@ export const allocation = PropTypes.shape({
   locked: PropTypes.bool,
 })
 
+export const payment = PropTypes.shape({
+  id: id.isRequired,
+  amount: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  createdAt: time,
+  state: PropTypes.oneOf(['pending', 'approved', 'declined', 'cancelled']),
+})
+
 export default {
   ...PropTypes,
   activity,
@@ -162,6 +170,7 @@ export default {
   id,
   image,
   location,
+  payment,
   pitch,
   preference,
   presenter,

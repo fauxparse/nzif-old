@@ -26,10 +26,12 @@ export default gql`
       }
       prices
       payments {
+        id
         type
         amount
         state
         reference
+        createdAt
       }
       totalToPay
     }

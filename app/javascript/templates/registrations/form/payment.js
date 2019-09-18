@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { useToggle } from 'lib/hooks'
 import { useRegistration } from 'contexts/registration'
+import sortBy from 'lodash/sortBy'
 import Divider from 'atoms/divider'
 import Icon from 'atoms/icon'
 import Price from 'atoms/price'
 import TextLink from 'atoms/text_link'
 import Heading from './heading'
 import PaymentMethodSelector from './payment_method_selector'
+import LineItem from './line_item'
 
 const Payment = () => {
   const {
@@ -14,6 +16,7 @@ const Payment = () => {
       preferences,
       workshops,
       paymentMethod,
+      payments,
     },
     earlybird,
     prices,
@@ -37,7 +40,15 @@ const Payment = () => {
 
   const total = prices[workshopCount]
 
-  const totalToPay = earlybird ? 0 : total
+  const approvedPayments = useMemo(() => (
+    sortBy(payments.filter(p => p.state === 'approved'), [p => p.createdAt])
+  ), [payments])
+
+  const paid = useMemo(() => (
+    approvedPayments.reduce((total, payment) => total + payment.amount, 0)
+  ), [approvedPayments])
+
+  const totalToPay = earlybird ? 0 : Math.max(0, total - paid)
 
   const discount = value - total
 
@@ -111,6 +122,9 @@ const Payment = () => {
               <Price value={value - discount} />
             </td>
           </tr>
+          {payments.map(payment => (
+            <LineItem key={payment.id} payment={payment} />
+          ))}
         </tbody>
         <tfoot>
           <tr className="total">
@@ -119,7 +133,7 @@ const Payment = () => {
               Total to pay
             </th>
             <td className="total__cost">
-              <Price value={total} />
+              <Price value={totalToPay} />
             </td>
           </tr>
         </tfoot>
@@ -127,6 +141,13 @@ const Payment = () => {
 
       {totalToPay > 0 && (
         <PaymentMethodSelector paymentMethod={paymentMethod} onChange={setPaymentMethod} />
+      )}
+
+      {(earlybird || !totalToPay) && (
+        <p>
+          You have nothing to pay right now.
+          Click <b>Finish</b> to confirm your registration.
+        </p>
       )}
 
       {earlybird && (
