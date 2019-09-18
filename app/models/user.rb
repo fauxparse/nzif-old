@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :pitches, dependent: :destroy
   has_many :registrations, dependent: :destroy
   has_one_attached :image
+  has_one :stripe_customer, dependent: :destroy
 
   validates :name, :email, presence: true
   validates :email, email: true, uniqueness: { case_sensitive: false }, if: :email?

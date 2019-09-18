@@ -143,6 +143,10 @@ group :test do
   gem 'rspec-its'
   gem 'shoulda-matchers', '4.0.1'
   gem 'simplecov', require: false
+  gem 'stripe-ruby-mock',
+    require: false,
+    github: 'fauxparse/stripe-ruby-mock',
+    branch: 'support_checkout_sessions'
   gem 'stub_env', require: false
   gem 'timecop', require: false
 end

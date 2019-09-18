@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_16_205820) do
+ActiveRecord::Schema.define(version: 2019_09_17_224216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,15 @@ ActiveRecord::Schema.define(version: 2019_09_16_205820) do
     t.index ["festival_id"], name: "index_slots_on_festival_id"
   end
 
+  create_table "stripe_customers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "stripe_customer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stripe_customer_id"], name: "index_stripe_customers_on_stripe_customer_id", unique: true
+    t.index ["user_id"], name: "index_stripe_customers_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -254,6 +263,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_205820) do
   add_foreign_key "sessions", "activities", on_delete: :cascade
   add_foreign_key "sessions", "venues", on_delete: :cascade
   add_foreign_key "slots", "festivals", on_delete: :cascade
+  add_foreign_key "stripe_customers", "users", on_delete: :cascade
   add_foreign_key "waitlists", "registrations", on_delete: :cascade
   add_foreign_key "waitlists", "sessions", on_delete: :cascade
 end

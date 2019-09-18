@@ -9,10 +9,12 @@ class CreditCardPayment < Payment
 
   private
 
+  delegate :user, to: :registration
+
   def initialize_stripe_payment
     session = Stripe::Checkout::Session.create(
       client_reference_id: to_param,
-      customer_email: registration.user.email,
+      customer: customer_id,
       payment_method_types: ['card'],
       line_items: [{
         name: 'NZIF registration',
@@ -27,8 +29,16 @@ class CreditCardPayment < Payment
     update!(reference: session.id)
   end
 
+  def customer_id
+    user.create_stripe_customer! if user.create_stripe_customer.blank?
+    user.stripe_customer.stripe_customer_id
+  end
+
   def success_url
-    url_helpers.front_end_url("#{registration.festival.year}/register/payment", protocol: :https)
+    url_helpers.front_end_url(
+      "#{registration.festival.year}/register/confirmation",
+      protocol: :https
+    )
   end
 
   def cancel_url
