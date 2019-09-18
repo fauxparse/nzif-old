@@ -12,7 +12,8 @@ const RegistrationPage = ({ match, history }) => {
 
   const { year, page } = match.params
 
-  const [currentPage, setCurrentPage] = useState(PAGES.find(({ name }) => name === page))
+  const [currentPage, setCurrentPage] =
+    useState(() => PAGES.find(({ name }) => name === page) || PAGES[0])
 
   useEffect(() => {
     setCurrentPage(PAGES.find(({ name }) => name === page))
