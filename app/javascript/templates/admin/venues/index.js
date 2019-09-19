@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'lib/proptypes'
+import Loader from 'atoms/loader'
 import Breadcrumbs from 'molecules/breadcrumbs'
 import List from 'molecules/list'
 import Header from 'organisms/header'
@@ -8,10 +9,12 @@ import VenueEditor from './venue_editor'
 
 import './index.scss'
 
-const Venues = ({ festival, venues, onAddVenue, onDeleteVenue, onUpdateVenue }) => {
+const Venues = ({ loading, festival, venues, onAddVenue, onDeleteVenue, onUpdateVenue }) => {
   const [venue, setVenue] = useState()
 
   const newVenue = useCallback(() => setVenue({ name: '', address: '' }), [setVenue])
+
+  const editorClosed = useCallback(() => setVenue(undefined), [setVenue])
 
   return (
     <section className="venue-admin">
@@ -23,21 +26,24 @@ const Venues = ({ festival, venues, onAddVenue, onDeleteVenue, onUpdateVenue }) 
         <Header.Title>Venues</Header.Title>
       </Header>
       <div className="venue-admin__body">
-        <List className="venues">
-          {venues.map(venue => (
-            <Venue
-              key={venue.id}
-              venue={venue}
-              onClick={setVenue}
-            />
-          ))}
-        </List>
+        {loading ? <Loader /> : (
+          <List className="venues">
+            {venues.map(venue => (
+              <Venue
+                key={venue.id}
+                venue={venue}
+                onClick={setVenue}
+              />
+            ))}
+          </List>
+        )}
       </div>
       <VenueEditor
         venue={venue}
         onAddVenue={onAddVenue}
         onDeleteVenue={onDeleteVenue}
         onUpdateVenue={onUpdateVenue}
+        onClose={editorClosed}
       />
     </section>
   )

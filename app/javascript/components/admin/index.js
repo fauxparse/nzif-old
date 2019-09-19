@@ -8,6 +8,7 @@ import DetectLocationChange from 'lib/detect_location_change'
 import ThemeContext from 'lib/theme_context'
 import { HOMEPAGE_QUERY } from 'queries/homepage'
 import Context from 'contexts/festival'
+import Loader from 'atoms/loader'
 import { SubPageTransition as PageTransition } from '../../components/page_transition'
 import Header from './header'
 import Sidebar from './sidebar'
@@ -20,6 +21,7 @@ import Pitches from 'pages/admin/pitches'
 import Registrations from 'pages/admin/registrations'
 import Allocation from 'pages/admin/allocation'
 import EditActivity from 'pages/admin/activities/edit'
+import Venues from 'pages/admin/venues'
 import NotFound from 'templates/not_found'
 import Profile from '../profile'
 
@@ -34,7 +36,7 @@ const Page = ({ className, children, ...props }) => (
 const Admin = ({ match, history }) => {
   const { year } = match.params
 
-  const { data = {} } = useQuery(HOMEPAGE_QUERY, { variables: { year } })
+  const { loading, data = {} } = useQuery(HOMEPAGE_QUERY, { variables: { year } })
 
   const { festival } = data
 
@@ -64,53 +66,56 @@ const Admin = ({ match, history }) => {
 
   return (
     <ThemeContext.Provider value='dark'>
-      <Context.Provider value={festival || { year }}>
-        <div className="admin" data-theme='dark'>
-          <Header
-            menuOpen={sidebarOpen}
-            onLogin={logIn}
-            onHamburgerClick={toggleSidebar}
-          />
+      {loading ? <Loader /> : (
+        <Context.Provider value={festival || { year }}>
+          <div className="admin" data-theme='dark'>
+            <Header
+              menuOpen={sidebarOpen}
+              onLogin={logIn}
+              onHamburgerClick={toggleSidebar}
+            />
 
-          <Helmet>
-            <title>{`NZIF ${year} Admin`}</title>
-          </Helmet>
+            <Helmet>
+              <title>{`NZIF ${year} Admin`}</title>
+            </Helmet>
 
-          <Route
-            render={({ location }) => (
-              <PageTransition
-                component={Page}
-                location={location}
-                pageKey={getPageKey(location.pathname)}
-              >
-                <Switch location={location}>
-                  <Route
-                    path={`${match.path}/activities/:type/:slug/:tab?`}
-                    component={EditActivity}
-                  />
-                  <Route path={`${match.path}/activities`} exact component={Timetable} />
-                  <Route path={`${match.path}/people/:id`} exact component={Person} />
-                  <Route path={`${match.path}/people`} exact component={People} />
-                  <Route path={`${match.path}/profile`} exact component={Profile} />
-                  <Route path={`${match.path}/content`} component={Content} />
-                  <Route path={`${match.path}/pitches`} component={Pitches} />
-                  <Route path={`${match.path}/registrations`} component={Registrations} />
-                  <Route path={`${match.path}/allocation`} component={Allocation} />
-                  <Route path={`${match.path}/`} exact component={Dashboard} />
-                  <Route component={NotFound} />
-                </Switch>
-              </PageTransition>
-            )}
-          />
+            <Route
+              render={({ location }) => (
+                <PageTransition
+                  component={Page}
+                  location={location}
+                  pageKey={getPageKey(location.pathname)}
+                >
+                  <Switch location={location}>
+                    <Route
+                      path={`${match.path}/activities/:type/:slug/:tab?`}
+                      component={EditActivity}
+                    />
+                    <Route path={`${match.path}/activities`} exact component={Timetable} />
+                    <Route path={`${match.path}/people/:id`} exact component={Person} />
+                    <Route path={`${match.path}/people`} exact component={People} />
+                    <Route path={`${match.path}/profile`} exact component={Profile} />
+                    <Route path={`${match.path}/content`} component={Content} />
+                    <Route path={`${match.path}/pitches`} component={Pitches} />
+                    <Route path={`${match.path}/registrations`} component={Registrations} />
+                    <Route path={`${match.path}/venues`} component={Venues} />
+                    <Route path={`${match.path}/allocation`} component={Allocation} />
+                    <Route path={`${match.path}/`} exact component={Dashboard} />
+                    <Route component={NotFound} />
+                  </Switch>
+                </PageTransition>
+              )}
+            />
 
-          <Sidebar
-            festival={festival}
-            open={sidebarOpen}
-            onClickOutside={closeSidebar}
-          />
-        </div>
-        <DetectLocationChange onChange={locationChanged} />
-      </Context.Provider>
+            <Sidebar
+              festival={festival}
+              open={sidebarOpen}
+              onClickOutside={closeSidebar}
+            />
+          </div>
+          <DetectLocationChange onChange={locationChanged} />
+        </Context.Provider>
+      )}
     </ThemeContext.Provider>
   )
 }

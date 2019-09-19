@@ -5,7 +5,7 @@ import Button from 'atoms/button'
 import Modal from 'molecules/modal'
 import LabelledField from 'molecules/labelled_field'
 
-const VenueEditor = ({ venue, onAddVenue, onDeleteVenue, onUpdateVenue }) => {
+const VenueEditor = ({ venue, onAddVenue, onDeleteVenue, onUpdateVenue, onClose }) => {
   const [open, , show, hide] = useToggle()
 
   const [attributes, dispatch] = useReducer((state, action) => {
@@ -27,12 +27,14 @@ const VenueEditor = ({ venue, onAddVenue, onDeleteVenue, onUpdateVenue }) => {
   const save = useCallback(() => {
     (venue.id ? onUpdateVenue : onAddVenue)(attributes)
     hide()
-  }, [venue, attributes, onAddVenue, onUpdateVenue, hide])
+    onClose()
+  }, [venue, attributes, onAddVenue, onUpdateVenue, hide, onClose])
 
   const cancel = useCallback(() => {
     hide()
     dispatch({ type: 'reset', venue })
-  }, [hide, dispatch, venue])
+    onClose()
+  }, [hide, dispatch, venue, onClose])
 
   const deleteVenue = useCallback(() => {
     hide()
@@ -81,7 +83,7 @@ const VenueEditor = ({ venue, onAddVenue, onDeleteVenue, onUpdateVenue }) => {
       </div>
       <footer className="modal__footer">
         <Button primary text="Save" onClick={save} />
-        {venue.id && (
+        {attributes.id && (
           <Button text="Delete" onClick={deleteVenue} />
         )}
       </footer>
@@ -94,6 +96,7 @@ VenueEditor.propTypes = {
   onAddVenue: PropTypes.func.isRequired,
   onDeleteVenue: PropTypes.func.isRequired,
   onUpdateVenue: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 export default VenueEditor
