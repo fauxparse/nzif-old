@@ -109,9 +109,9 @@ export const pitch = PropTypes.shape({
 export const venue = PropTypes.shape({
   id,
   name: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
+  address: PropTypes.string,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
 })
 
 export const festival = PropTypes.shape({
