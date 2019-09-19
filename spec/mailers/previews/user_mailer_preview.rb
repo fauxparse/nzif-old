@@ -18,4 +18,8 @@ class UserMailerPreview < ActionMailer::Preview
     registration = OpenStruct.new(user: user, festival: festival)
     UserMailer.ticket_code(registration)
   end
+
+  def itinerary
+    UserMailer.itinerary(Registration.complete.first)
+  end
 end

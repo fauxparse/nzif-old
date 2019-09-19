@@ -90,6 +90,9 @@ gem 'rubyzip', '>= 1.2.2'
 gem 'money-rails'
 gem 'stripe-rails'
 
+# Calendar integration
+gem 'icalendar'
+
 gem 'jwt'
 
 gem 'acts_as_list'

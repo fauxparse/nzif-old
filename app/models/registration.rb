@@ -13,6 +13,7 @@ class Registration < ApplicationRecord
     autosave: true,
     validate: false
   has_many :placements, dependent: :destroy, autosave: true
+  has_many :sessions, through: :placements
   has_many :waitlists, dependent: :destroy, autosave: true
   has_many :payments, dependent: :destroy
 
