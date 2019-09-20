@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import copy from 'copy-to-clipboard'
 import PropTypes from 'lib/proptypes'
 import moment from 'lib/moment'
 import pluralize from 'pluralize'
 import Button from 'atoms/button'
+import Loader from 'atoms/loader'
 import Tab from 'atoms/tab'
 import TextField from 'atoms/text_field'
 import Breadcrumbs from 'molecules/breadcrumbs'
@@ -54,11 +55,13 @@ const Edit = ({
 
   const session = useMemo(() => activity.sessions.find(s => s.id === tab), [activity, tab])
 
+  if (!festival || !festival.adminRoot) return <Loader />
+
   return (
     <div className="edit-activity">
       <Header>
-        <Breadcrumbs back="/">
-          <Breadcrumbs.Link to="/">Activities</Breadcrumbs.Link>
+        <Breadcrumbs back={`${festival.adminRoot}/activities`}>
+          <Breadcrumbs.Link to={`${festival.adminRoot}/activities`}>Activities</Breadcrumbs.Link>
         </Breadcrumbs>
         {loading ? (
           <Skeleton loading className="header__title">{values.slug}</Skeleton>
@@ -135,9 +138,7 @@ const Edit = ({
 
 Edit.propTypes = {
   loading: PropTypes.bool,
-  festival: PropTypes.shape({
-    year: PropTypes.id.isRequired,
-  }),
+  festival: PropTypes.festival,
   presenters: PropTypes.arrayOf(PropTypes.user.isRequired).isRequired,
   venues: PropTypes.arrayOf(PropTypes.venue.isRequired).isRequired,
   activity: PropTypes.activity.isRequired,
