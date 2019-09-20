@@ -2,8 +2,10 @@ module Types
   class MutationType < Types::BaseObject
     field :create_activity, mutation: Mutations::CreateActivity
     field :create_session, mutation: Mutations::CreateSession
+    field :create_venue, mutation: Mutations::CreateVenue
     field :delete_pitch, mutation: Mutations::DeletePitch
     field :delete_session, mutation: Mutations::DeleteSession
+    field :delete_venue, mutation: Mutations::DeleteVenue
     field :finalize_allocation, mutation: Mutations::FinalizeAllocation
     field :log_in, mutation: Mutations::LogIn
     field :log_out, mutation: Mutations::LogOut
@@ -18,5 +20,6 @@ module Types
     field :update_registration, mutation: Mutations::UpdateRegistration
     field :update_session, mutation: Mutations::UpdateSession
     field :update_user, mutation: Mutations::UpdateUser
+    field :update_venue, mutation: Mutations::UpdateVenue
   end
 end
