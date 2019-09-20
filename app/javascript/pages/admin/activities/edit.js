@@ -18,7 +18,7 @@ const Edit = ({ match, history }) => {
 
   const festival = useFestival()
 
-  const type = singular(types)
+  const type = singular(types).replace(/-/, '_')
 
   const variables = { year, type, slug }
 
