@@ -5,17 +5,17 @@ import classNames from 'classnames'
 
 import './index.scss'
 
-const MailToLink = ({ to = undefined, href = undefined, ...props }) =>
+const AnchorLink = ({ to = undefined, href = undefined, ...props }) =>
   <a href={to || href} {...props} />
 
-MailToLink.propTypes = {
+AnchorLink.propTypes = {
   to: PropTypes.location,
   href: PropTypes.location,
 }
 
 const TextLink = ({ className, external, rel, children, target, ...props }) => {
   const Component = props.as ||
-    ((props.to || props.href || '').toString().match(/^mailto:/) ? MailToLink : Link)
+    ((props.to || props.href || '').toString().match(/^(mailto|https?):/) ? AnchorLink : Link)
 
   return (
     <Component
