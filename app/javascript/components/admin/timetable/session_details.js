@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
-import upperFirst from 'lodash/upperFirst'
+import humanize from 'lib/humanize'
 import Date from 'atoms/date'
 import Time from 'atoms/time'
 import Icon from '../../../atoms/icon'
@@ -91,7 +91,7 @@ class SessionDetails extends Component {
         </div>
         <div className="session-summary__buttons">
           <Button onClick={this.showDetails}>
-            {upperFirst(activity.type)} details
+            {humanize(activity.type)} details
           </Button>
         </div>
       </div>
