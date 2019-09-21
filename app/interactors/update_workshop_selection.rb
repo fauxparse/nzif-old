@@ -1,8 +1,8 @@
 class UpdateWorkshopSelection < Interaction
   def call
-    if !festival.earlybird?
-      update_workshop_selections if attributes[:workshops].present?
-      update_waitlists if attributes[:waitlists].present?
+    update_workshop_selections if attributes.include?(:workshops)
+    update_waitlists if attributes.include?(:waitlists)
+    if attributes.include?(:workshops) || attributes.include?(:waitlists)
       registration.save!
     end
   end

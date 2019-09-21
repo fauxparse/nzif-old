@@ -1,8 +1,6 @@
 class UpdateRegistrationPreferences < Interaction
   def call
-    if festival.earlybird? && attributes.include?(:preferences)
-      update_preferences
-    end
+    update_preferences if attributes.include?(:preferences)
 
   rescue ActiveRecord::RecordNotUnique
     errors.add(:preferences, 'must be unique by registration and session')

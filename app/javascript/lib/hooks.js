@@ -139,7 +139,7 @@ export const usePreferentialOrdering = (initialOrder) => {
     }
 
     return ordering
-  }, initialOrder)
+  }, initialOrder && initialOrder())
 
   const toggle = useCallback(item => dispatch({ item }), [dispatch])
 

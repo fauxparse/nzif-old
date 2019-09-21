@@ -20,17 +20,16 @@ const Preferences = ({ sessions, preferences, onChange }) => {
 
   const sessionsById = useMemo(() => (keyBy(sessions, session => session.id)), [sessions])
 
-  const [ordering, toggle] = usePreferentialOrdering(groupBy(
-    sortBy(preferences, [p => p.position]).map((p) => sessionsById[p.sessionId]),
-    a => a.startsAt.valueOf()
+  const [ordering, toggle] = usePreferentialOrdering(() => groupBy(
+    sortBy(preferences, [p => p.position]).map((p) => p.sessionId),
+    id => sessionsById[id].startsAt.valueOf()
   ))
 
   const positions = useMemo(() => (
     sessions.reduce((h, session) => ({
       ...h,
       [session.id]:
-        (ordering[session.startsAt.valueOf()] || [])
-          .findIndex(s => s.id === session.id) + 1 || undefined,
+        (ordering[session.startsAt.valueOf()] || []).indexOf(session.id) + 1 || undefined,
     }), {})
   ), [sessions, ordering])
 
@@ -41,7 +40,7 @@ const Preferences = ({ sessions, preferences, onChange }) => {
   useEffect(() => {
     const changed = entries(ordering).reduce((result, [_, list]) => ([
       ...result,
-      ...list.map((w, i) => ({ sessionId: w.id, position: i + 1, __typename: 'Preference' }))
+      ...list.map((sessionId, i) => ({ sessionId, position: i + 1, __typename: 'Preference' }))
     ]), [])
 
     if (onChange && !isEqual(changed, preferences)) {
@@ -65,17 +64,19 @@ const Preferences = ({ sessions, preferences, onChange }) => {
         <section key={time.valueOf()} className="preferences__time">
           <h3><Time time={time} format="hh:mm A, ddd D MMM" /></h3>
           <List className="preferences__sessions">
-            {group.map(session => (
-              <List.Item
-                key={session.id}
-                className="preferences__session"
-                primary={session.activity.name}
-                data-position={positions[session.id]}
-                onClick={() => toggle(session)}
-              >
-                <Badge>{positions[session.id]}</Badge>
-              </List.Item>
-            ))}
+            {group.map(session => {
+              return (
+                <List.Item
+                  key={session.id}
+                  className="preferences__session"
+                  primary={session.activity.name}
+                  data-position={positions[session.id]}
+                  onClick={() => toggle(session)}
+                >
+                  <Badge>{positions[session.id]}</Badge>
+                </List.Item>
+              )
+            })}
           </List>
         </section>
       ))}
