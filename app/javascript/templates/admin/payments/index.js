@@ -65,9 +65,11 @@ const Payments = ({ festival, loading, payments, onAddPayment, onUpdatePayment }
   return (
     <section className="payments-admin">
       <Header>
-        <Breadcrumbs back={festival.adminRoot}>
-          <Breadcrumbs.Link to={festival.adminRoot}>Dashboard</Breadcrumbs.Link>
-        </Breadcrumbs>
+        {festival && (
+          <Breadcrumbs back={festival.adminRoot}>
+            <Breadcrumbs.Link to={festival.adminRoot}>Dashboard</Breadcrumbs.Link>
+          </Breadcrumbs>
+        )}
         <Header.Title>Payments</Header.Title>
         <Tags
           tags={['Approved', 'Pending', 'Cancelled']}
@@ -116,7 +118,7 @@ const Payments = ({ festival, loading, payments, onAddPayment, onUpdatePayment }
 }
 
 Payments.propTypes = {
-  festival: PropTypes.festival.isRequired,
+  festival: PropTypes.festival,
   loading: PropTypes.bool,
   payments: PropTypes.arrayOf(PropTypes.payment.isRequired),
   onAddPayment: PropTypes.func.isRequired,
@@ -124,6 +126,7 @@ Payments.propTypes = {
 }
 
 Payments.defaultProps = {
+  festival: null,
   loading: false,
   payments: [],
 }

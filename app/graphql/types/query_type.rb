@@ -8,6 +8,7 @@ module Types
     include Queries::Countries
     include Queries::CurrentUser
     include Queries::Festival
+    include Queries::Payments
     include Queries::Pitch
     include Queries::Pitches
     include Queries::Registration

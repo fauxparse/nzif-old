@@ -62,6 +62,13 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
 
   const textMask = useMemo(() => createNumberMask({ allowDecimal: true }))
 
+  const keyPressed = useCallback((e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      save()
+    }
+  }, [save])
+
   useEffect(() => {
     if (payment) {
       dispatch({ type: 'reset', payment })
@@ -92,6 +99,7 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
             mask={textMask}
             value={amount}
             onChange={amountChanged}
+            onKeyPress={keyPressed}
           />
         </Field>
       </div>

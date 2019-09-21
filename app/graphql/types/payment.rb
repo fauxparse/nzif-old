@@ -6,6 +6,7 @@ module Types
     field :state, String, null: false
     field :reference, String, null: true
     field :created_at, Types::Time, null: false
+    field :registration, Types::Registration, null: false
 
     def amount
       object.amount_cents
