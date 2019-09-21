@@ -106,6 +106,7 @@ export const DummyLoader = ({ delay = 1000, festival, children }) => {
           ],
           workshops: [sessions.current[0].id],
           waitlists: [sessions.current[1].id],
+          payments: [],
         })
       } else {
         setRegistration({
@@ -118,6 +119,7 @@ export const DummyLoader = ({ delay = 1000, festival, children }) => {
           ],
           workshops: [],
           waitlists: [],
+          payments: [],
         })
       }
       setLoading(false)

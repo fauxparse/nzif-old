@@ -6,9 +6,9 @@ import Divider from 'atoms/divider'
 import Icon from 'atoms/icon'
 import Price from 'atoms/price'
 import TextLink from 'atoms/text_link'
+import PaymentSummary from 'molecules/payment_summary'
 import Heading from './heading'
 import PaymentMethodSelector from './payment_method_selector'
-import LineItem from './line_item'
 
 const Payment = () => {
   const {
@@ -84,60 +84,11 @@ const Payment = () => {
           )}
         </div>
       )}
-      <table className="payment-summary">
-        <tbody>
-          <tr className="line-item payment-summary__line-item">
-            <td className="payment-summary__icon">
-              <Icon name="workshop" />
-            </td>
-            <td className="line-item__description">
-              Workshops
-            </td>
-            <td className="line-item__quantity">
-              {workshopCount}
-              {' @ '}
-              <Price value={prices[1]} currency={null} />
-            </td>
-            <td className="line-item__cost">
-              <Price value={value} />
-            </td>
-          </tr>
-          <tr className="line-item payment-summary__line-item">
-            <td className="payment-summary__icon">
-              <Icon name="heart" />
-            </td>
-            <td className="line-item__description" colSpan="2">
-              Discount
-            </td>
-            <td className="line-item__cost">
-              <Price value={-discount} />
-            </td>
-          </tr>
-          <tr className="subtotal payment-summary__subtotal">
-            <td></td>
-            <th className="subtotal__description" colSpan="2">
-              Subtotal
-            </th>
-            <td className="subtotal__cost">
-              <Price value={value - discount} />
-            </td>
-          </tr>
-          {payments.map(payment => (
-            <LineItem key={payment.id} payment={payment} />
-          ))}
-        </tbody>
-        <tfoot>
-          <tr className="total">
-            <td></td>
-            <th className="total__description" colSpan="2">
-              Total to pay
-            </th>
-            <td className="total__cost">
-              <Price value={totalToPay} />
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+      <PaymentSummary
+        payments={payments}
+        workshopCount={workshopCount}
+        prices={prices}
+      />
 
       {totalToPay > 0 && (
         <PaymentMethodSelector paymentMethod={paymentMethod} onChange={setPaymentMethod} />

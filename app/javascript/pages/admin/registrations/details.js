@@ -1,19 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { useQuery, useMutation } from 'react-apollo-hooks'
+import { useQuery, useMutation } from 'react-apollo'
 import faker from 'faker'
 import isEqual from 'lodash/isEqual'
+import pick from 'lodash/pick'
 import moment from 'lib/moment'
 import Template from 'templates/admin/registrations/details'
 import REGISTRATION from 'queries/registration'
 import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
+import UPDATE_PAYMENT from 'queries/mutations/update_payment'
 
 const Details = ({ match }) => {
   const { year, id } = match.params
 
   const { loading, data } = useQuery(REGISTRATION, { variables: { year, id } })
 
-  const updateRegistration = useMutation(UPDATE_REGISTRATION, {
+  const [updateRegistration] = useMutation(UPDATE_REGISTRATION, {
     update: (cache, { data: { updateRegistration } }) => {
       const variables = { year, id }
       const existing = cache.readQuery({ query: REGISTRATION, variables })
@@ -55,6 +57,35 @@ const Details = ({ match }) => {
     }
   }
 
+  const [updatePayment] = useMutation(UPDATE_PAYMENT, {
+    update: (cache, { data: { updatePayment } }) => {
+      const variables = { year, id }
+      const existing = cache.readQuery({ query: REGISTRATION, variables })
+      cache.writeQuery({
+        query: REGISTRATION,
+        variables,
+        data: {
+          ...existing,
+          registration: {
+            ...existing.registration,
+            payments: existing.registration.payments.map(p => (p.id === updatePayment.id ? {
+              ...p,
+              ...updatePayment,
+            } : p))
+          },
+        },
+      })
+    }
+  })
+
+  const paymentChanged = useCallback(({ id, ...payment }) => {
+    const attributes = pick(payment, ['amount', 'state'])
+    updatePayment({
+      variables: { id, attributes },
+      optimisticResponse: { updatePayment: { id, ...attributes } },
+    })
+  }, [updatePayment])
+
   const [sessions, setSessions] = useState()
 
   const [allIn, setAllIn] = useState()
@@ -84,11 +115,12 @@ const Details = ({ match }) => {
   return (
     <Template
       loading={loading}
-      festival={{ year }}
+      festival={loading ? { year } : data.festival}
       registration={registration}
       sessions={sessions}
       allInShows={allIn}
       onChange={saveChanges}
+      onPaymentChanged={paymentChanged}
     />
   )
 }

@@ -1,0 +1,68 @@
+@import "../../styles/base";
+
+.payment-summary {
+  width: 100%;
+  margin: 0 0 $spacing;
+  font-size: font-size(-1);
+  border-collapse: separate;
+  border-spacing: 0;
+
+  .icon {
+    display: block;
+  }
+
+  td,
+  th {
+    padding: ($padding / 2) $padding;
+    line-height: 1.5rem;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+
+    &:first-child {
+      display: none;
+    }
+
+    &:nth-child(2) {
+      width: 99%;
+    }
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  .line-item__date {
+    display: block;
+    font-size: font-size(-1);
+  }
+
+  .line-item__quantity {
+    text-align: right;
+  }
+
+  @include themify {
+    .subtotal,
+    .total,
+    .subtotal:not(:last-child) + tr {
+      th,
+      td {
+        border-top: 1px solid themed(border);
+      }
+    }
+
+    .line-item__date,
+    .line-item__quantity {
+      color: themed(secondary);
+    }
+  }
+
+  @include media(medium) {
+    td:first-child {
+      display: table-cell;
+      padding-right: 0;
+    }
+
+    font-size: font-size(1);
+  }
+}

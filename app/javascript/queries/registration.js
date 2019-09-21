@@ -22,10 +22,22 @@ export default gql`
         sessionId
         position
       }
+      workshops
+      waitlists
       availability {
         sessionId
         role
       }
+      prices
+      payments {
+        id
+        type
+        amount
+        state
+        reference
+        createdAt
+      }
+      totalToPay
     }
 
     festival(year: $year) {

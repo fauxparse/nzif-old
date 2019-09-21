@@ -13,10 +13,19 @@ import Skeleton from 'effects/skeleton'
 import UserDetails from './user_details'
 import Preferences from './preferences'
 import Availability from './availability'
+import Payments from './payments'
 
 import './index.scss'
 
-const Details = ({ loading, festival, sessions, allInShows, registration, onChange }) => {
+const Details = ({
+  loading,
+  festival,
+  sessions,
+  allInShows,
+  registration,
+  onChange,
+  onPaymentChanged,
+}) => {
   const back = `/admin/${festival.year}/registrations`
 
   const { user, state, completedAt, preferences, availability } = registration
@@ -62,6 +71,11 @@ const Details = ({ loading, festival, sessions, allInShows, registration, onChan
             selected={tab === 'availability'}
             onClick={() => setTab('availability')}
           />
+          <Tab
+            text="Payment"
+            selected={tab === 'payments'}
+            onClick={() => setTab('payments')}
+          />
         </TabBar>
       </Header>
 
@@ -89,6 +103,14 @@ const Details = ({ loading, festival, sessions, allInShows, registration, onChan
                 onChange={onChange}
               />
             )}
+            {tab === 'payments' && (
+              <Payments
+                earlybird={festival.state === 'earlybird'}
+                registration={registration}
+                payments={registration.payments}
+                onChange={onPaymentChanged}
+              />
+            )}
           </>
         )}
       </div>
@@ -99,23 +121,19 @@ const Details = ({ loading, festival, sessions, allInShows, registration, onChan
 Details.propTypes = {
   loading: PropTypes.bool,
   festival: PropTypes.festival.isRequired,
-  registration: PropTypes.shape({
-    id: PropTypes.id,
-    name: PropTypes.string,
-    preferences: PropTypes.arrayOf(PropTypes.preference.isRequired),
-    user: PropTypes.user,
-    state: PropTypes.string,
-    completedAt: PropTypes.time,
-  }),
+  registration: PropTypes.registration,
   sessions: PropTypes.arrayOf(PropTypes.session.isRequired),
+  allInShows: PropTypes.arrayOf(PropTypes.session.isRequired),
   onChange: PropTypes.func,
+  onPaymentChanged: PropTypes.func,
 }
 
 Details.defaultProps = {
   loading: false,
   registration: {},
   sessions: [],
-  onChange: null,
+  onChange: () => {},
+  onPaymentChanged: () => {},
 }
 
 export default Details

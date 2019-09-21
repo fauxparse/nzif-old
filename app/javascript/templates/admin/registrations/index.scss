@@ -154,6 +154,10 @@
     @include autopad;
   }
 
+  &__payments {
+    @include autopad;
+  }
+
   @include themify {
     &__state {
       color: transparent;
