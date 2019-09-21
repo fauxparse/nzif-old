@@ -36,5 +36,9 @@
     &:focus {
       border-bottom-color: themed(accent);
     }
+
+    &::placeholder {
+      color: themed(secondary);
+    }
   }
 }

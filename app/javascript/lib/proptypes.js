@@ -140,6 +140,7 @@ export const registration = PropTypes.shape({
   id: id.isRequired,
   user: user.isRequired,
   preferences: PropTypes.arrayOf(preference.isRequired),
+  payments: PropTypes.array,
 })
 
 export const allocation = PropTypes.shape({
@@ -154,6 +155,7 @@ export const payment = PropTypes.shape({
   type: PropTypes.string.isRequired,
   createdAt: time,
   state: PropTypes.oneOf(['pending', 'approved', 'declined', 'cancelled']),
+  registration,
 })
 
 export default {

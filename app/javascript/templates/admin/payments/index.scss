@@ -1,0 +1,63 @@
+@import "../../../styles/base";
+
+.payments-admin {
+  &__body {
+    @include autopad;
+
+    @include media(medium) {
+      .payments {
+        margin-left: -$keyline;
+      }
+    }
+  }
+
+  .payment {
+    cursor: pointer;
+
+    .list-item__wrapper {
+      align-items: flex-start;
+    }
+
+    .list-item__content {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    &__state {
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+      border-radius: 1rem;
+      color: white;
+      font-size: 1rem;
+    }
+
+    &__details {
+      flex: 1;
+    }
+
+    &__amount {
+      font-size: font-size(2);
+    }
+  }
+
+  @include themify {
+    .payment--pending {
+      .payment__state {
+        background: color(mandarin);
+      }
+    }
+
+    .payment--cancelled {
+      .payment__state {
+        background: color(tomato);
+      }
+    }
+
+    .payment--approved {
+      .payment__state {
+        background: color(apple);
+      }
+    }
+  }
+}
