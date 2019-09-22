@@ -30,6 +30,10 @@ RSpec.describe ConfirmRegistration, type: :interactor do
       expect(registration.reload).to be_complete
     end
 
+    it 'leaves a trail' do
+      expect { result }.to change(History::CompletedRegistration, :count).by(1)
+    end
+
     it 'sends a code for discount tickets' do
       expect(UserMailer).to receive(:ticket_code)
       result
