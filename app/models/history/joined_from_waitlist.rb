@@ -1,7 +1,7 @@
 module History
-  class WaitlistFilled < Item
+  class JoinedFromWaitlist < Item
     description <<~EOS
-      <%= user %> was added to <%= session %> from the waitlist
+      <%= user %> joined <%= session %> from the waitlist
     EOS
 
     mentions :user

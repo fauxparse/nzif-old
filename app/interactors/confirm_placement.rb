@@ -1,5 +1,6 @@
 class ConfirmPlacement < Interaction
   def call
+    leave_trail
     remove_from_other_sessions
     create_placement
     remove_from_waitlists
@@ -51,5 +52,14 @@ class ConfirmPlacement < Interaction
     [session, *lower_priority_sessions].each do |other_session|
       RemoveFromWaitlist.call(registration: registration, session: other_session)
     end
+  end
+
+  def leave_trail
+    History.record(
+      History::JoinedSession,
+      current_user: context.current_user,
+      user: registration.user,
+      session: session,
+    )
   end
 end

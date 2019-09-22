@@ -3,6 +3,8 @@ class RemoveFromSession < Interaction
     if placement
       @session_was_full = session.full?
 
+      leave_trail
+
       # Don't send full/not-full status to the client until we've finished
       # shuffling everyone around
       Session.silence_notifications do
@@ -37,6 +39,15 @@ class RemoveFromSession < Interaction
 
   def session_no_longer_full?
     @session_was_full && !session.full?
+  end
+
+  def leave_trail
+    History.record(
+      History::LeftSession,
+      current_user: context.current_user,
+      user: registration.user,
+      session: session,
+    )
   end
 
   def notify_change

@@ -33,7 +33,7 @@ class Session < ApplicationRecord
   end
 
   def to_s
-    activity.name
+    "#{activity.name} (#{starts_at.strftime('%A %l:%M %p').gsub(/\s+/, ' ')})"
   end
 
   def full?

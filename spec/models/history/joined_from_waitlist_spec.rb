@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe History::WaitlistFilled, type: :model do
-  subject(:item) { History::WaitlistFilled.create(user: user, session: session) }
+RSpec.describe History::JoinedFromWaitlist, type: :model do
+  subject(:item) { History::JoinedFromWaitlist.create(user: user, session: session) }
 
   let(:user) { create(:user) }
   let(:session) { create(:session) }
@@ -10,7 +10,7 @@ RSpec.describe History::WaitlistFilled, type: :model do
 
   it 'has the correct description' do
     expect(item.description)
-      .to eq "#{user.name} was added to #{session.activity.name} from the waitlist"
+      .to eq "#{user.name} joined #{session.activity.name} (Saturday 2:00 PM) from the waitlist"
   end
 
   context 'when reloaded' do

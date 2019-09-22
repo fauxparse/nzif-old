@@ -15,6 +15,10 @@ RSpec.describe ConfirmPlacement, type: :interactor do
       expect { result }.to change(Placement, :count).by(1)
     end
 
+    it 'leaves a trail' do
+      expect { result }.to change(History::JoinedSession, :count).by(1)
+    end
+
     context 'when the user is on the waitlist' do
       before do
         AddToWaitlist.call(registration: registration, session: session)

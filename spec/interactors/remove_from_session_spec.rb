@@ -31,6 +31,10 @@ RSpec.describe RemoveFromSession, type: :interactor do
         result
       end
 
+      it 'leaves a trail' do
+        expect { result }.to change(History::LeftSession, :count).by(1)
+      end
+
       context 'and there is a waitlist' do
         let(:waiting) { create(:registration, festival: festival) }
 

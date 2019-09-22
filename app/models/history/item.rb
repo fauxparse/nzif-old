@@ -5,6 +5,9 @@ class History::Item < ApplicationRecord
 
   validates :description, presence: true
 
+  scope :oldest_first, -> { order(created_at: :asc) }
+  scope :newest_first, -> { order(created_at: :desc) }
+
   def self.mentions(relationship, required: true)
     define_method(relationship) do
       find_subject_of(relationship)
@@ -21,22 +24,33 @@ class History::Item < ApplicationRecord
     self.description_template = ERB.new(template.strip)
   end
 
+  description 'Please give me a proper description'
+
   def description
     super || (self.description = self.class.description_template.result(binding).strip)
   end
 
   private
 
-  def mention(relationship)
-    mentions.detect { |m| m.relationship == relationship.to_s } ||
-      mentions.build(relationship: relationship)
+  def find_mention(relationship)
+    mentions.detect { |m| m.relationship == relationship.to_s }
+  end
+
+  def find_or_build_mention(relationship)
+    find_mention(relationship) || mentions.build(relationship: relationship)
   end
 
   def find_subject_of(relationship)
-    mention(relationship).subject
+    find_mention(relationship)&.subject
   end
 
   def set_subject_of(relationship, subject)
-    mention(relationship).subject = subject
+    if subject.present?
+      find_or_build_mention(relationship).subject = subject
+    else
+      # Avoids creating empty mentions for nil subjects
+      mention = find_mention(relationship)
+      mention.subject = subject if mention
+    end
   end
 end
