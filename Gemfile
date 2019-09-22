@@ -93,6 +93,9 @@ gem 'stripe-rails'
 # Calendar integration
 gem 'icalendar'
 
+# Full-text search
+gem 'pg_search'
+
 gem 'jwt'
 
 gem 'acts_as_list'

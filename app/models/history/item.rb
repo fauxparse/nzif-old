@@ -1,4 +1,6 @@
 class History::Item < ApplicationRecord
+  include PgSearch::Model
+
   class_attribute :description_template
 
   has_many :mentions, dependent: :destroy, autosave: true
@@ -7,6 +9,16 @@ class History::Item < ApplicationRecord
 
   scope :oldest_first, -> { order(created_at: :asc) }
   scope :newest_first, -> { order(created_at: :desc) }
+
+  pg_search_scope :search,
+    against: %i(description),
+    using: {
+      tsearch: {
+        dictionary: 'english',
+        prefix: true,
+      },
+    },
+    ignoring: :accents
 
   def self.mentions(relationship, required: true)
     define_method(relationship) do
