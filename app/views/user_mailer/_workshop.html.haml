@@ -1,0 +1,4 @@
+.workshop{class: confirmed ? 'workshop--confirmed' : 'workshop--unconfirmed'}
+  .workshop__time= l workshop.starts_at, format: :session
+  .workshop__name= workshop.activity.name
+  .workshop__presenters= workshop.activity.presenters.map { |p| p.user.name }.to_sentence

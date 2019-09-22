@@ -7,7 +7,7 @@
     You’re on your way to NZIF #{@festival.year}!
 
   %p
-    = link_to 'View your registration', front_end_url("#{@festival.year}/register"), class: 'button'
+    = link_to 'View your registration', front_end_url("returning/#{@festival.year}/register/workshops"), class: 'button'
 
 = email_section do
   %p

@@ -1,5 +1,6 @@
 @import "./theme/index";
 @import "./typography";
+@import "./mixins/index";
 
 body {
   margin: 0;
@@ -7,6 +8,18 @@ body {
   background: white;
   color: color(grey, 900);
   font-family: "Work Sans", sans-serif;
+}
+
+h2,
+h3 {
+  margin: $spacing 0;
+  color: color(grey, 700);
+  font-size: font-size(2);
+  font-weight: normal;
+}
+
+h2 {
+  font-size: font-size(3);
 }
 
 p {
@@ -66,6 +79,98 @@ a {
   font-size: font-size(2);
 
   &[href] {
+    text-decoration: none;
+  }
+}
+
+.workshop {
+  margin: 0;
+  padding: 0.5rem 0 1rem 0.75rem;
+  border-left: 0.25rem solid color(tomato);
+
+  &:last-child {
+    padding-bottom: 0.5rem;
+  }
+
+  &--unconfirmed {
+    border-left-color: color(grey, 300);
+  }
+
+  &__time {
+    @include all-caps;
+    display: block;
+    color: color(grey, 700);
+    font-size: font-size(-1);
+  }
+
+  &__name {
+    margin: 0.5rem 0;
+    font-size: font-size(1);
+  }
+
+  &__presenters {
+    color: color(grey, 700);
+  }
+}
+
+.payment-summary {
+  width: 100%;
+  margin: 0 0 $spacing;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  .icon {
+    display: block;
+  }
+
+  td,
+  th {
+    padding: ($padding / 2) $padding;
+    line-height: 1.5rem;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+
+    &:nth-child(1) {
+      width: 99%;
+    }
+
+    &:last-child {
+      text-align: right;
+    }
+    
+    .badge {
+      padding: 0.25em 0.5em;
+      line-height: 1em;
+      vertical-align: baseline;
+    }
+  }
+
+  .line-item__date {
+    display: block;
+    font-size: font-size(-1);
+  }
+
+  .line-item__quantity {
+    text-align: right;
+  }
+
+  .subtotal,
+  .total,
+  .subtotal:not(:last-child) + tr {
+    th,
+    td {
+      border-top: 1px solid color(grey, 300);
+    }
+  }
+
+  .line-item__date,
+  .line-item__quantity {
+    color: color(grey, 700);
+  }
+
+  abbr {
+    color: color(grey, 700);
     text-decoration: none;
   }
 }

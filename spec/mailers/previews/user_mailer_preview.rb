@@ -20,6 +20,6 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def itinerary
-    UserMailer.itinerary(Registration.complete.first)
+    UserMailer.itinerary(Registration.complete.includes(:preferences).second)
   end
 end

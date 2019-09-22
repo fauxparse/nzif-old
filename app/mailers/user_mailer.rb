@@ -23,10 +23,8 @@ class UserMailer < ApplicationMailer
     @registration = registration
     @festival = @registration.festival
     @user = @registration.user
-    @sessions = @registration.sessions.includes(:venue, activity: { presenters: :user })
-
-    itinerary_attachment = ItineraryAttachment.new(@registration)
-    attachments[itinerary_attachment.name] = itinerary_attachment.as_attachment
+    @itinerary = Itinerary.new(@registration)
+    @cart = Cart.new(registration)
 
     mail to: recipient(@user), subject: "Your #{@festival} itinerary"
   end

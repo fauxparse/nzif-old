@@ -37,3 +37,7 @@ en:
       directed: 'New works'
       season: 'Mini season'
       young: 'Improv for young audiences'
+
+  time:
+    formats:
+      session: '%l:%M %p, %A %e %B'
