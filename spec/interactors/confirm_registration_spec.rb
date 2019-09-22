@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'support/example_groups/registration_context'
+require 'timecop'
 
 RSpec.describe ConfirmRegistration, type: :interactor do
   include_context 'registration'
@@ -29,14 +30,43 @@ RSpec.describe ConfirmRegistration, type: :interactor do
       expect(registration.reload).to be_complete
     end
 
-    it 'sends a confirmation email' do
-      expect(UserMailer).to receive(:registration_confirmation)
-      result
-    end
-
     it 'sends a code for discount tickets' do
       expect(UserMailer).to receive(:ticket_code)
       result
+    end
+
+    context 'during earlybird registration' do
+      around do |example|
+        festival.update!(
+          registrations_open_at: festival.start_date.midnight - 1.month,
+          earlybird_cutoff: festival.start_date.midnight - 1.week
+        )
+        Timecop.freeze(festival.earlybird_cutoff - 1.day) do
+          example.run
+        end
+      end
+
+      it 'sends a confirmation email' do
+        expect(UserMailer).to receive(:registration_confirmation).and_call_original
+        result
+      end
+    end
+
+    context 'after earlybird registration' do
+      around do |example|
+        festival.update!(
+          registrations_open_at: festival.start_date.midnight - 1.month,
+          earlybird_cutoff: festival.start_date.midnight - 1.week
+        )
+        Timecop.freeze(festival.earlybird_cutoff + 1.day) do
+          example.run
+        end
+      end
+
+      it 'sends a confirmation email' do
+        expect(UserMailer).to receive(:itinerary).and_call_original
+        result
+      end
     end
   end
 end

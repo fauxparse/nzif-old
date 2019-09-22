@@ -21,7 +21,11 @@ class ConfirmRegistration < Interaction
   end
 
   def send_confirmation_email
-    UserMailer.registration_confirmation(registration).deliver_later
+    if festival.earlybird?
+      UserMailer.registration_confirmation(registration).deliver_later
+    else
+      UserMailer.itinerary(registration).deliver_later
+    end
   end
 
   def send_ticket_code
