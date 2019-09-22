@@ -12,6 +12,7 @@ export default gql`
       codeOfConductAcceptedAt
       user {
         id
+        name
         image {
           thumbnail
           small
@@ -34,6 +35,7 @@ export default gql`
         type
         amount
         state
+        description
         reference
         createdAt
       }

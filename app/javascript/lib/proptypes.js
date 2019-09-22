@@ -150,7 +150,7 @@ export const allocation = PropTypes.shape({
 })
 
 export const payment = PropTypes.shape({
-  id: id.isRequired,
+  id: id,
   amount: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   createdAt: time,

@@ -10,7 +10,7 @@ import Label from 'atoms/label'
 import TextField from 'atoms/text_field'
 import Modal from 'molecules/modal'
 import Field from 'molecules/field'
-import LabelledField from 'molecules/labelled_field'
+import Select from 'molecules/select'
 
 const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => {
   const [open, , show, hide] = useToggle()
@@ -25,11 +25,6 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
         return state
     }
   }, payment)
-
-  const changed = useCallback((e) => {
-    const { name, value } = e.target
-    dispatch({ type: 'change', name, value })
-  }, [dispatch])
 
   const save = useCallback((state) => {
     (payment.id ? onUpdatePayment : onAddPayment)({ ...attributes, state })
@@ -49,6 +44,11 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
     onClose()
   }, [hide, dispatch, payment, onClose])
 
+  const changed = useCallback((e) => {
+    const { name, value } = e.target
+    dispatch({ type: 'change', name, value })
+  }, [dispatch])
+
   const [amount, setAmount] = useState()
 
   const amountChanged = useCallback((e) => {
@@ -56,7 +56,7 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
     dispatch({ 
       type: 'change',
       name: 'amount',
-      value: parseFloat(e.target.value.replace(/[\$,]/g, '') * 100)
+      value: parseFloat(e.target.value.replace(/[$,]/g, '') * 100)
     })
   }, [setAmount])
 
@@ -69,6 +69,10 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
     }
   }, [save])
 
+  const typeChanged = useCallback((value) => {
+    dispatch({ type: 'change', name: 'type', value })
+  }, [dispatch])
+
   useEffect(() => {
     if (payment) {
       dispatch({ type: 'reset', payment })
@@ -79,18 +83,40 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
 
   return attributes ? (
     <Modal
+      className="payment-details"
       isOpen={open}
       onRequestClose={hide}
     >
       <header className="modal__header">
-        <h2 className="modal__title">{attributes.registration && attributes.registration.user.name}</h2>
+        <h2 className="modal__title">
+          {
+            attributes.id
+              ? (attributes.registration && attributes.registration.user.name)
+              : 'New payment'
+          }
+        </h2>
         <Button className="modal__close" icon="close" onClick={cancel} />
       </header>
       <div className="modal__body">
-        <p>
-          {humanize(attributes.type)}<br/>
-          <Date date={attributes.createdAt} />
-        </p>
+        {attributes.createdAt && (
+          <p>
+            {humanize(attributes.type)}<br/>
+            <Date date={attributes.createdAt} />
+          </p>
+        )}
+        {!attributes.id && (
+          <Field>
+            <Label>Payment type</Label>
+            <Select
+              options={[
+                { id: 'internet_banking', label: 'Internet banking' },
+                { id: 'voucher', label: 'Voucher' },
+              ]}
+              value={attributes.type}
+              onChange={typeChanged}
+            />
+          </Field>
+        )}
         <Field>
           <Label htmlFor="payment_amount">Amount</Label>
           <TextField
@@ -98,8 +124,19 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
             as={TextMask}
             mask={textMask}
             value={amount}
+            autoFocus
             onChange={amountChanged}
             onKeyPress={keyPressed}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor="payment_description">Description</Label>
+          <TextField
+            multiline
+            autoSize
+            name="description"
+            value={attributes.description || ''}
+            onChange={changed}
           />
         </Field>
       </div>

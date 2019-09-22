@@ -9,6 +9,7 @@ import Template from 'templates/admin/registrations/details'
 import REGISTRATION from 'queries/registration'
 import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
 import UPDATE_PAYMENT from 'queries/mutations/update_payment'
+import ADD_PAYMENT from 'queries/mutations/add_payment'
 
 const Details = ({ match }) => {
   const { year, id } = match.params
@@ -82,9 +83,37 @@ const Details = ({ match }) => {
     const attributes = pick(payment, ['amount', 'state'])
     updatePayment({
       variables: { id, attributes },
-      optimisticResponse: { updatePayment: { id, ...attributes } },
     })
   }, [updatePayment])
+
+  const [addPayment] = useMutation(ADD_PAYMENT, {
+    update: (cache, { data: { addPayment } }) => {
+      const variables = { year, id }
+      const existing = cache.readQuery({ query: REGISTRATION, variables })
+      cache.writeQuery({
+        query: REGISTRATION,
+        variables,
+        data: {
+          ...existing,
+          registration: {
+            ...existing.registration,
+            payments: [...existing.registration.payments, addPayment],
+          },
+        },
+      })
+    }
+  })
+
+  const paymentAdded = useCallback((payment) => {
+    const attributes = {
+      ...pick(payment, ['amount', 'state', 'type', 'description']),
+      registrationId: id,
+    }
+
+    addPayment({
+      variables: { attributes },
+    })
+  }, [addPayment, id])
 
   const [sessions, setSessions] = useState()
 
@@ -120,6 +149,7 @@ const Details = ({ match }) => {
       sessions={sessions}
       allInShows={allIn}
       onChange={saveChanges}
+      onPaymentAdded={paymentAdded}
       onPaymentChanged={paymentChanged}
     />
   )

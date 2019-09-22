@@ -1,0 +1,2 @@
+class VoucherPayment < Payment
+end

@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import PropTypes from 'lib/proptypes'
 import kebabCase from 'lodash/kebabCase'
 import humanize from 'lib/humanize'
+import Badge from 'atoms/badge'
 import Button from 'atoms/button'
 import Date from 'atoms/date'
 import Icon from 'atoms/icon'
@@ -17,7 +18,8 @@ const Payment = ({ payment, onEdit }) => {
       </td>
       <td className="line-item__description" colSpan={onEdit ? 1 : 2}>
         {humanize(payment.type)} payment
-      <small className="line-item__date">
+        <small className="line-item__date">
+          {payment.state !== 'approved' && <Badge>{humanize(payment.state)}</Badge>}
           <Date date={payment.createdAt} format="D MMMM" />
         </small>
       </td>

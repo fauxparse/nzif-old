@@ -160,7 +160,9 @@
 
   @include themify {
     &__state {
-      color: transparent;
+      &.skeleton--loading {
+        color: transparent;
+      }
     }
   }
 }

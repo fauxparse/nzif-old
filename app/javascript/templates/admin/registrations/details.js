@@ -24,6 +24,7 @@ const Details = ({
   allInShows,
   registration,
   onChange,
+  onPaymentAdded,
   onPaymentChanged,
 }) => {
   const back = `/admin/${festival.year}/registrations`
@@ -108,6 +109,7 @@ const Details = ({
                 earlybird={festival.state === 'earlybird'}
                 registration={registration}
                 payments={registration.payments}
+                onAdd={onPaymentAdded}
                 onChange={onPaymentChanged}
               />
             )}
@@ -125,6 +127,7 @@ Details.propTypes = {
   sessions: PropTypes.arrayOf(PropTypes.session.isRequired),
   allInShows: PropTypes.arrayOf(PropTypes.session.isRequired),
   onChange: PropTypes.func,
+  onPaymentAdded: PropTypes.func,
   onPaymentChanged: PropTypes.func,
 }
 
@@ -133,6 +136,7 @@ Details.defaultProps = {
   registration: {},
   sessions: [],
   onChange: () => {},
+  onPaymentAdded: () => {},
   onPaymentChanged: () => {},
 }
 

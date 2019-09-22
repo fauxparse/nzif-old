@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  mutation UpdatePayment($id: ID!, $attributes: PaymentAttributes!) {
-    updatePayment(id: $id, attributes: $attributes) {
+  mutation AddPayment($attributes: PaymentAttributes!) {
+    addPayment(attributes: $attributes) {
       id
       type
       amount

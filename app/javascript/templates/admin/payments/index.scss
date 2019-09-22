@@ -61,3 +61,12 @@
     }
   }
 }
+
+.payment-details {
+  &.modal {
+    .select {
+      display: block;
+      margin-bottom: $spacing;
+    }
+  }
+}

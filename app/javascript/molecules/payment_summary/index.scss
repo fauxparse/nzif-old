@@ -30,6 +30,12 @@
     &:last-child {
       text-align: right;
     }
+    
+    .badge {
+      padding: 0.25em 0.5em;
+      line-height: 1em;
+      vertical-align: baseline;
+    }
   }
 
   .line-item__date {

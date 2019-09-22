@@ -1,5 +1,6 @@
 module Types
   class MutationType < Types::BaseObject
+    field :add_payment, mutation: Mutations::AddPayment
     field :create_activity, mutation: Mutations::CreateActivity
     field :create_session, mutation: Mutations::CreateSession
     field :create_venue, mutation: Mutations::CreateVenue

@@ -4,6 +4,7 @@ module Types
     field :type, Types::PaymentType, null: false
     field :amount, Integer, null: false
     field :state, String, null: false
+    field :description, String, null: true
     field :reference, String, null: true
     field :created_at, Types::Time, null: false
     field :registration, Types::Registration, null: false
