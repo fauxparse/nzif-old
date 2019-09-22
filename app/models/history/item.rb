@@ -9,6 +9,7 @@ class History::Item < ApplicationRecord
 
   scope :oldest_first, -> { order(created_at: :asc) }
   scope :newest_first, -> { order(created_at: :desc) }
+  scope :before, ->(id) { where('id < ?', id) }
 
   pg_search_scope :search,
     against: %i(description),
