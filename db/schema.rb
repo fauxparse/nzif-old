@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_21_233700) do
+ActiveRecord::Schema.define(version: 2019_09_22_080124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,23 @@ ActiveRecord::Schema.define(version: 2019_09_21_233700) do
     t.boolean "panic", default: false
     t.datetime "allocation_finalized_at"
     t.index "date_part('year'::text, start_date)", name: "festivals_by_year", unique: true
+  end
+
+  create_table "history_items", force: :cascade do |t|
+    t.string "type"
+    t.string "description"
+    t.text "data"
+    t.datetime "created_at"
+  end
+
+  create_table "history_mentions", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.string "subject_type", null: false
+    t.bigint "subject_id", null: false
+    t.string "relationship"
+    t.index ["item_id", "relationship"], name: "index_history_mentions_on_item_id_and_relationship"
+    t.index ["item_id"], name: "index_history_mentions_on_item_id"
+    t.index ["subject_type", "subject_id"], name: "index_history_mentions_on_subject_type_and_subject_id"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -249,6 +266,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_233700) do
   add_foreign_key "activities", "pitches"
   add_foreign_key "availabilities", "registrations"
   add_foreign_key "availabilities", "sessions"
+  add_foreign_key "history_mentions", "history_items", column: "item_id", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "payments", "registrations"
   add_foreign_key "pitches", "festivals", on_delete: :cascade

@@ -12,5 +12,9 @@ RSpec.describe PromoteFromWaitlist, type: :interactor do
       expect(ConfirmPlacement).to receive(:call).with(registration: registration, session: session)
       result
     end
+
+    it 'leaves an audit trail' do
+      expect { result }.to change(History::WaitlistFilled, :count).by(1)
+    end
   end
 end

@@ -21,4 +21,8 @@ class User < ApplicationRecord
   def self.never_logged_in
     left_outer_joins(:identities).where(identities: { id: nil })
   end
+
+  def to_s
+    name
+  end
 end

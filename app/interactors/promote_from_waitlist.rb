@@ -3,6 +3,7 @@ class PromoteFromWaitlist < Interaction
 
   def call
     confirm_placement
+    leave_trail
   end
 
   delegate :waitlist, to: :context
@@ -15,5 +16,9 @@ class PromoteFromWaitlist < Interaction
       registration: registration,
       session: session,
     )
+  end
+
+  def leave_trail
+    History::WaitlistFilled.create(user: registration.user, session: session)
   end
 end

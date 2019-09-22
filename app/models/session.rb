@@ -32,6 +32,10 @@ class Session < ApplicationRecord
     (@notifications_silenced ||= 0).positive?
   end
 
+  def to_s
+    activity.name
+  end
+
   def full?
     placements.count >= capacity
   end
