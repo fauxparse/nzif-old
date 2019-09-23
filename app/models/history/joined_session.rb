@@ -11,5 +11,9 @@ module History
     mentions :current_user, required: false
     mentions :user
     mentions :session
+
+    def icon
+      'add'
+    end
   end
 end

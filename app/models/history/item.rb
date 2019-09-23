@@ -43,6 +43,10 @@ class History::Item < ApplicationRecord
     super || (self.description = self.class.description_template.result(binding).strip)
   end
 
+  def icon
+    'clock'
+  end
+
   private
 
   def find_mention(relationship)

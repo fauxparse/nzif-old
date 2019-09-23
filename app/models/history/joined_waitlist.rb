@@ -1,10 +1,10 @@
 module History
-  class LeftSession < Item
+  class JoinedWaitlist < Item
     description <<~EOS
       <% if !current_user || current_user == user %>
-        <%= user %> left <%= session %>
+        <%= user %> joined the waitlist for <%= session %>
       <% else %>
-        <%= user %> was removed from <%= session %> by <%= current_user %>
+        <%= user %> was added to the waitlist for <%= session %> by <%= current_user %>
       <% end %>
     EOS
 
@@ -13,7 +13,7 @@ module History
     mentions :session
 
     def icon
-      'close'
+      'join-waitlist'
     end
   end
 end

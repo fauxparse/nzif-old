@@ -10,12 +10,20 @@ RSpec.describe AddToWaitlist, type: :interactor do
   describe '.call' do
     it { is_expected.to be_success }
 
+    it 'leaves a trail' do
+      expect { result }.to change(History::JoinedWaitlist, :count).by(1)
+    end
+
     context 'when the user is already on the waitlist' do
       before do
         registration.waitlists.create!(session: session)
       end
 
       it { is_expected.to be_failure }
+
+      it 'does not leave a trail' do
+        expect { result }.not_to change(History::JoinedWaitlist, :count)
+      end
     end
   end
 

@@ -23,6 +23,7 @@ import Allocation from 'pages/admin/allocation'
 import EditActivity from 'pages/admin/activities/edit'
 import Payments from 'pages/admin/payments'
 import Venues from 'pages/admin/venues'
+import History from 'pages/admin/history'
 import NotFound from 'templates/not_found'
 import Profile from '../profile'
 
@@ -101,6 +102,7 @@ const Admin = ({ match, history }) => {
                     <Route path={`${match.path}/registrations`} component={Registrations} />
                     <Route path={`${match.path}/payments`} component={Payments} />
                     <Route path={`${match.path}/venues`} component={Venues} />
+                    <Route path={`${match.path}/history`} component={History} />
                     <Route path={`${match.path}/allocation`} component={Allocation} />
                     <Route path={`${match.path}/`} exact component={Dashboard} />
                     <Route component={NotFound} />

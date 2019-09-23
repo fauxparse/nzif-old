@@ -23,7 +23,11 @@ class RemoveFromSession < Interaction
   private
 
   def placement
-    @placement ||= registration.placements.detect { |p| p.session_id == session.id }
+    @placement ||= registration.placements.detect do |p|
+      p.session_id == session.id &&
+        !p.destroyed? &&
+        !p.marked_for_destruction?
+    end
   end
 
   def bump_up_waitlist

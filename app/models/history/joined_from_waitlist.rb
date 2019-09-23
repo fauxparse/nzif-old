@@ -6,5 +6,9 @@ module History
 
     mentions :user
     mentions :session
+
+    def icon
+      'join-from-waitlist'
+    end
   end
 end
