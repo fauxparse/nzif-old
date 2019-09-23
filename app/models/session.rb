@@ -37,6 +37,7 @@ class Session < ApplicationRecord
   end
 
   def full?
+    return false unless capacity?
     placements.count >= capacity
   end
 
