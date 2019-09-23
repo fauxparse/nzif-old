@@ -137,7 +137,12 @@ class NewSession extends React.Component {
     return (
       <section className="new-session">
         <Autocomplete
-          options={activities.map(a => ({ id: a.id, label: a.name, value: a }))}
+          options={activities.map(a => ({
+            id: a.id,
+            label: a.name,
+            value: a,
+            key: `${a.type}--${a.id}`,
+          }))}
           placeholder="Type activity name…"
           menuItemComponent={MenuItem}
           search={this.search}

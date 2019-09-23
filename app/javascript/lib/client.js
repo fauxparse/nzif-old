@@ -25,6 +25,12 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
             },
             {
               name: 'Workshop'
+            },
+            {
+              name: 'SocialEvent'
+            },
+            {
+              name: 'Forum'
             }
           ]
         }

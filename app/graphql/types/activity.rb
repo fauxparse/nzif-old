@@ -25,6 +25,10 @@ module Types
       end
     end
 
+    def id
+      object.id
+    end
+
     def presenters
       object.presenters.includes(:user).map(&:user)
     end

@@ -22,7 +22,7 @@ const Menu = forwardRef(({
     >
       {options.map((option, i) => (
         <MenuItemComponent
-          key={option.id}
+          key={option.key || option.id}
           selected={selectedIndex === i}
           selectedText={selectedText}
           onClick={onClick}
