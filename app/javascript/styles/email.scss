@@ -31,6 +31,10 @@ p {
   }
 }
 
+ul {
+  line-height: 1.75;
+}
+
 a {
   color: color(tomato, 500);
 }
@@ -49,6 +53,12 @@ a {
 
     a {
       color: white;
+    }
+
+    b {
+      color: white;
+      font-weight: normal;
+      font-size: font-size(1);
     }
 
     td {

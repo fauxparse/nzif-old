@@ -22,4 +22,11 @@ class UserMailerPreview < ActionMailer::Preview
   def itinerary
     UserMailer.itinerary(Registration.complete.includes(:preferences).second)
   end
+
+  def waitlist_success
+    UserMailer.waitlist_success(
+      Registration.complete.first,
+      Session.workshop.first,
+    )
+  end
 end

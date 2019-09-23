@@ -5,6 +5,7 @@ class PromoteFromWaitlist < Interaction
     leave_trail
     remove_from_existing
     confirm_placement
+    send_confirmation_email
   end
 
   delegate :waitlist, to: :context
@@ -33,5 +34,9 @@ class PromoteFromWaitlist < Interaction
 
   def leave_trail
     History.record History::JoinedFromWaitlist, user: registration.user, session: session
+  end
+
+  def send_confirmation_email
+    UserMailer.waitlist_success(registration, session).deliver_later
   end
 end

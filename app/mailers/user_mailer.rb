@@ -28,4 +28,17 @@ class UserMailer < ApplicationMailer
 
     mail to: recipient(@user), subject: "Your #{@festival} itinerary"
   end
+
+  def waitlist_success(registration, session)
+    @registration = registration
+    @festival = @registration.festival
+    @user = @registration.user
+    @session = session
+
+    mail(
+      to: recipient(@user),
+      bcc: 'matt@improvfest.nz',
+      subject: "You’re in! #{@session.activity.name}"
+    )
+  end
 end

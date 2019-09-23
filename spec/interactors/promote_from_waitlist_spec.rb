@@ -9,6 +9,12 @@ RSpec.describe PromoteFromWaitlist, type: :interactor do
   let(:registration) { create(:registration, festival: festival) }
 
   describe '.call' do
+    let(:email) { double('email', deliver_later: true) }
+
+    before do
+      allow(UserMailer).to receive(:waitlist_success).and_return(email)
+    end
+
     it 'confirms the placement' do
       expect(ConfirmPlacement).to receive(:call).with(registration: registration, session: session)
       result
@@ -16,6 +22,13 @@ RSpec.describe PromoteFromWaitlist, type: :interactor do
 
     it 'leaves an audit trail' do
       expect { result }.to change(History::JoinedFromWaitlist, :count).by(1)
+    end
+
+    it 'sends a confirmation email' do
+      expect(UserMailer)
+        .to receive(:waitlist_success)
+        .with(registration, session)
+      result
     end
 
     context 'when there is a chain reaction' do

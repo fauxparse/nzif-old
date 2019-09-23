@@ -1,0 +1,40 @@
+= email_section do
+  %p
+    Kia ora #{@user.name},
+
+  %p
+    Thanks for your patience! We’re pleased to confirm you now have a spot in the following workshop:
+
+= email_section class_name: 'section--highlight' do
+  %p
+    %b= @session.activity.name
+    %br
+    = l @session.starts_at, format: :session
+
+  %p
+    = link_to 'Your itinerary', front_end_url("returning/#{@festival.year}/register/workshops"), class: 'button'
+
+= email_section do
+  %p Please note:
+
+  %ul
+    %li
+      If you were in another workshop at this time, you have been switched to this one.
+    %li
+      If this increases your total number of workshops, you will have some money to pay: please check
+      = link_to 'your registration', front_end_url("returning/#{@festival.year}/register/payment")
+      for details.
+    %li
+      Read more about how waitlists work in our
+      = link_to 'FAQ', front_end_url("#{@festival.year}/faq")
+
+  %p
+    If for any reason you
+    %b do not
+    wish to accept this space, please let us know as soon as possible
+    so that we can offer it to the next person in line.
+
+  %p
+    Ngā mihi nui,
+    %br/
+    The NZIF Team
