@@ -150,12 +150,19 @@ export const allocation = PropTypes.shape({
 })
 
 export const payment = PropTypes.shape({
-  id: id,
+  id,
   amount: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   createdAt: time,
   state: PropTypes.oneOf(['pending', 'approved', 'declined', 'cancelled']),
   registration,
+})
+
+export const historyItem = PropTypes.shape({
+  id,
+  icon,
+  description: PropTypes.string,
+  timestamp: PropTypes.time,
 })
 
 export default {
@@ -168,6 +175,7 @@ export default {
   color,
   component,
   festival,
+  historyItem,
   icon,
   id,
   image,

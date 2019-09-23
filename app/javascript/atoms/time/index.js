@@ -6,6 +6,7 @@ import moment from 'lib/moment'
 export const TIME_FORMATS = {
   default: 'h:mm A',
   short: 'h:mm',
+  full: 'h:mm A, dddd D MMMM',
 }
 
 const ensureTime = t => moment.isMoment(t) ? t : moment(t)

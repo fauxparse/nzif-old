@@ -204,3 +204,18 @@ export const useLocalStorageReducer = (key, reducer, initialValue) => {
 
   return [state, dispatch]
 }
+
+export const useOnScreen = (ref) => {
+  const [isIntersecting, setIntersecting] = useState(false)
+  const element = ref.current
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setIntersecting(entry.isIntersecting))
+    if (element) {
+      observer.observe(element)
+      return () => observer.unobserve(element)
+    }
+  }, [element])
+
+  return element && isIntersecting
+}

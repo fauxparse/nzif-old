@@ -32,6 +32,10 @@ class Session < ApplicationRecord
     (@notifications_silenced ||= 0).positive?
   end
 
+  def to_s
+    "#{activity.name} (#{starts_at.strftime('%A %l:%M %p').gsub(/\s+/, ' ')})"
+  end
+
   def full?
     placements.count >= capacity
   end

@@ -23,6 +23,7 @@ const AdminSidebar = ({ match, history, location, staticContext, festival, ...pr
         <List.Link to={`${match.url}/people`} icon="users" primary="People" />
         <List.Link to={`${match.url}/pitches`} icon="pitch" primary="Pitches" />
         <List.Link to={`${match.url}/content`} icon="content" primary="Static content" />
+        <List.Link to={`${match.url}/history`} icon="clock" primary="History" />
       </List>
     </Sidebar>
   )

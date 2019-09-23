@@ -1,0 +1,17 @@
+@import "../../../styles/base";
+
+.history {
+  &__body {
+    @include autopad;
+
+    @include media(medium) {
+      .history-list {
+        margin-left: -$keyline;
+      }
+    }
+  }
+
+  &__list-bottom {
+    height: $padding * 2;
+  }
+}

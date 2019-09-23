@@ -18,6 +18,11 @@ class ConfirmRegistration < Interaction
     send_confirmation_email
     send_ticket_code
     update_subscription
+    History.record(
+      History::CompletedRegistration,
+      user: registration.user,
+      festival: registration.festival,
+    )
   end
 
   def send_confirmation_email
