@@ -1,4 +1,4 @@
-class CreatePayments < ActiveRecord::Migration[6.0]
+class CreatePaymentsModel < ActiveRecord::Migration[6.0]
   def change
     create_table :payments do |t|
       t.string :type
