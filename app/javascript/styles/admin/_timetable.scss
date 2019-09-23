@@ -248,7 +248,7 @@
   }
 
   &__icon {
-    margin: calc((#{font-size(4)} * #{line-height(normal)} - 1.5rem) / 2) 0 0 1rem;
+    margin: calc((#{font-size(4)} * #{line-height(normal)} - 1.5rem) / 2) 1rem 0 0;
   }
 
   &__activity-name {

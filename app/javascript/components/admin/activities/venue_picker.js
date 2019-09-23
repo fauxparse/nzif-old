@@ -8,7 +8,7 @@ const VenuePicker = ({ value, data: { venues = [] }, onChange }) => (
   <Select
     options={venues.map(venue => ({ label: venue.name, id: venue.id }))}
     value={value && value.id}
-    onChange={({ id }) => onChange(id && venues.find(v => v.id === id))}
+    onChange={(id) => onChange(id && venues.find(v => v.id === id))}
     placeholder="Select a venue…"
   />
 )

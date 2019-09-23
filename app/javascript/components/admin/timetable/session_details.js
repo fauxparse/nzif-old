@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import humanize from 'lib/humanize'
+import kebabCase from 'lodash/kebabCase'
 import Date from 'atoms/date'
 import Time from 'atoms/time'
 import Icon from '../../../atoms/icon'
@@ -77,7 +78,7 @@ class SessionDetails extends Component {
           <Button className="session-summary__action" icon="copy" onClick={this.duplicate} />
           <Button className="session-summary__action" icon="close" onClick={onClose} />
         </div>
-        <Icon className="session-summary__icon" name={activity.type} />
+        <Icon className="session-summary__icon" name={kebabCase(activity.type)} />
         <h3 className="session-summary__activity-name">{activity.name}</h3>
         <div className="session-summary__row">
           <Time time={[startsAt, endsAt]} />
