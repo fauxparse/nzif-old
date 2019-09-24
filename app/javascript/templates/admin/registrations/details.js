@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import humanize from 'lib/humanize'
 import Avatar from 'atoms/avatar'
@@ -8,6 +8,7 @@ import Tab from 'atoms/tab'
 import Tag from 'atoms/tag'
 import TabBar from 'molecules/tab_bar'
 import Breadcrumbs from 'molecules/breadcrumbs'
+import { useConfirmation } from 'molecules/confirmation'
 import Header from 'organisms/header'
 import Skeleton from 'effects/skeleton'
 import UserDetails from './user_details'
@@ -26,6 +27,7 @@ const Details = ({
   onChange,
   onPaymentAdded,
   onPaymentChanged,
+  onResendItinerary,
 }) => {
   const back = `/admin/${festival.year}/registrations`
 
@@ -40,12 +42,25 @@ const Details = ({
     name: registration.name,
   }), [registration])
 
+  const { confirm } = useConfirmation()
+
+  const resendItinerary = useCallback(() => {
+    confirm('resendItinerary', {
+      title: 'Send itinerary email?',
+      message: 'This will send an email with the participant’s current itinerary',
+    }).then(() => onResendItinerary()).catch(() => {})
+  }, [confirm, onResendItinerary])
+
   return (
     <section className="registration-details">
       <Header>
         <Breadcrumbs back={back}>
           <Breadcrumbs.Link to={back}>{festival.year} registrations</Breadcrumbs.Link>
         </Breadcrumbs>
+        <Header.Button
+          icon="email"
+          onClick={resendItinerary}
+        />
         <Skeleton loading={loading}>
           <Avatar className="registration-details__avatar" {...avatar} />
         </Skeleton>
@@ -129,6 +144,7 @@ Details.propTypes = {
   onChange: PropTypes.func,
   onPaymentAdded: PropTypes.func,
   onPaymentChanged: PropTypes.func,
+  onResendItinerary: PropTypes.func,
 }
 
 Details.defaultProps = {
@@ -138,6 +154,7 @@ Details.defaultProps = {
   onChange: () => {},
   onPaymentAdded: () => {},
   onPaymentChanged: () => {},
+  onResendItinerary: () => {},
 }
 
 export default Details

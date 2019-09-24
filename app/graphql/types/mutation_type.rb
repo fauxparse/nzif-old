@@ -13,6 +13,7 @@ module Types
     field :panic_mode, mutation: Mutations::PanicMode
     field :promote_pitch, mutation: Mutations::PromotePitch
     field :request_password_reset, mutation: Mutations::RequestPasswordReset
+    field :resend_itinerary, mutation: Mutations::ResendItinerary
     field :reset_password, mutation: Mutations::ResetPassword
     field :sign_up, mutation: Mutations::SignUp
     field :update_activity, mutation: Mutations::UpdateActivity

@@ -5,11 +5,19 @@ import faker from 'faker'
 import isEqual from 'lodash/isEqual'
 import pick from 'lodash/pick'
 import moment from 'lib/moment'
+import gql from 'graphql-tag'
+import { notify } from 'molecules/toast'
 import Template from 'templates/admin/registrations/details'
 import REGISTRATION from 'queries/registration'
 import UPDATE_REGISTRATION from 'queries/mutations/update_registration'
 import UPDATE_PAYMENT from 'queries/mutations/update_payment'
 import ADD_PAYMENT from 'queries/mutations/add_payment'
+
+const RESEND_ITINERARY = gql`
+  mutation ResendItinerary($id: ID!) {
+    resendItinerary(id: $id)
+  }
+`
 
 const Details = ({ match }) => {
   const { year, id } = match.params
@@ -115,6 +123,12 @@ const Details = ({ match }) => {
     })
   }, [addPayment, id])
 
+  const [resendItinerary] = useMutation(RESEND_ITINERARY)
+
+  const doResendItinerary = useCallback(() => {
+    resendItinerary({ variables: { id } }).then(() => notify('Email sent!'))
+  }, [resendItinerary, id])
+
   const [sessions, setSessions] = useState()
 
   const [allIn, setAllIn] = useState()
@@ -151,6 +165,7 @@ const Details = ({ match }) => {
       onChange={saveChanges}
       onPaymentAdded={paymentAdded}
       onPaymentChanged={paymentChanged}
+      onResendItinerary={doResendItinerary}
     />
   )
 }
