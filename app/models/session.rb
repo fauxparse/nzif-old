@@ -39,7 +39,7 @@ class Session < ApplicationRecord
 
   def full?
     return false unless capacity?
-    placements.count >= capacity
+    placements_count >= capacity
   end
 
   def notify_change

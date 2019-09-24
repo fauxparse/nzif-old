@@ -6,7 +6,7 @@ class Cart
   end
 
   def count
-    registration.placements.count
+    registration.placements_count
   end
 
   def per_workshop
