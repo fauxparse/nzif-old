@@ -16,7 +16,7 @@ module Queries
         timeslots = result.matches.map do |time, matches|
           sessions = matches.except('unallocated').map do |session_id, candidate_ids|
             {
-              session_id: Session.encode_id(session_id),
+              session_id: ::Session.encode_id(session_id),
               registration_ids: candidate_ids.map { |id| ::Registration.encode_id(id) },
             }
           end
