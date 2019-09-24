@@ -16,8 +16,6 @@ const Statistics = ({ allocations, registrations }) => {
       }), {})
   ), [allocations])
 
-  console.log(sessions)
-
   const firstChoicePercentage = useCallback((registration) => {
     const firstChoices = registration.preferences.filter(p => p.position === 1)
     if (!firstChoices.length) return 0
