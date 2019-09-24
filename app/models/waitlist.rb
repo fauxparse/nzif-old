@@ -9,6 +9,8 @@ class Waitlist < ApplicationRecord
   validates :registration_id, uniqueness: { scope: :session_id }
   validate :not_in_session
 
+  scope :sorted, -> { order(position: :asc) }
+
   private
 
   def not_in_session

@@ -33,7 +33,11 @@ class PromoteFromWaitlist < Interaction
   end
 
   def leave_trail
-    History.record History::JoinedFromWaitlist, user: registration.user, session: session
+    History.record(
+      History::JoinedFromWaitlist,
+      user: registration.user,
+      session: session
+    )
   end
 
   def send_confirmation_email

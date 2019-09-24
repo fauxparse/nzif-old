@@ -26,6 +26,7 @@ const Edit = ({
   onTabChange,
   onChange,
   onSessionChange,
+  onRollChange,
 }) => {
   const root = useMemo(() => (
     `${window.location.origin}/${festival.year}/${pluralize(activity.type)}`
@@ -108,7 +109,7 @@ const Edit = ({
           {activity.sessions.map(session => (
             <Tab
               key={session.id}
-              text={moment(session.startsAt).format('dddd D')}
+              text={moment(session.startsAt).format('ddd D MMM')}
               selected={tab === session.id}
               data-tab={session.id}
               onClick={changeTab}
@@ -129,6 +130,7 @@ const Edit = ({
             session={session}
             venues={venues}
             onChange={onSessionChange}
+            onRollChange={onRollChange}
           />
         )
       )}
@@ -146,6 +148,7 @@ Edit.propTypes = {
   onTabChange: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onSessionChange: PropTypes.func.isRequired,
+  onRollChange: PropTypes.func.isRequired,
 }
 
 Edit.defaultProps = {

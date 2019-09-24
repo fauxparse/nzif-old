@@ -9,7 +9,7 @@ class RemoveFromSession < Interaction
       # shuffling everyone around
       Session.silence_notifications do
         placement.destroy!
-        bump_up_waitlist
+        bump_up_waitlist if bump_waitlist?
       end
 
       notify_change
@@ -21,6 +21,10 @@ class RemoveFromSession < Interaction
   delegate :registration, :session, to: :context
 
   private
+
+  def bump_waitlist?
+    context[:bump_waitlist] != false
+  end
 
   def placement
     @placement ||= registration.placements.detect do |p|

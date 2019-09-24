@@ -15,6 +15,7 @@ module Types
     include Queries::Registration
     include Queries::RegistrationCount
     include Queries::Registrations
+    include Queries::Session
     include Queries::Sessions
     include Queries::User
     include Queries::Users

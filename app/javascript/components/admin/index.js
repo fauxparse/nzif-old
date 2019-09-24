@@ -25,6 +25,7 @@ import Payments from 'pages/admin/payments'
 import Venues from 'pages/admin/venues'
 import History from 'pages/admin/history'
 import NotFound from 'templates/not_found'
+import { ConfirmationManager } from 'molecules/confirmation'
 import Profile from '../profile'
 
 const getPageKey = path => path.split('/').slice(0, 6).join('/')
@@ -71,51 +72,53 @@ const Admin = ({ match, history }) => {
       {loading ? <Loader /> : (
         <Context.Provider value={festival || { year }}>
           <div className="admin" data-theme='dark'>
-            <Header
-              menuOpen={sidebarOpen}
-              onLogin={logIn}
-              onHamburgerClick={toggleSidebar}
-            />
+            <ConfirmationManager>
+              <Header
+                menuOpen={sidebarOpen}
+                onLogin={logIn}
+                onHamburgerClick={toggleSidebar}
+              />
 
-            <Helmet>
-              <title>{`NZIF ${year} Admin`}</title>
-            </Helmet>
+              <Helmet>
+                <title>{`NZIF ${year} Admin`}</title>
+              </Helmet>
 
-            <Route
-              render={({ location }) => (
-                <PageTransition
-                  component={Page}
-                  location={location}
-                  pageKey={getPageKey(location.pathname)}
-                >
-                  <Switch location={location}>
-                    <Route
-                      path={`${match.path}/activities/:type/:slug/:tab?`}
-                      component={EditActivity}
-                    />
-                    <Route path={`${match.path}/activities`} exact component={Timetable} />
-                    <Route path={`${match.path}/people/:id`} exact component={Person} />
-                    <Route path={`${match.path}/people`} exact component={People} />
-                    <Route path={`${match.path}/profile`} exact component={Profile} />
-                    <Route path={`${match.path}/content`} component={Content} />
-                    <Route path={`${match.path}/pitches`} component={Pitches} />
-                    <Route path={`${match.path}/registrations`} component={Registrations} />
-                    <Route path={`${match.path}/payments`} component={Payments} />
-                    <Route path={`${match.path}/venues`} component={Venues} />
-                    <Route path={`${match.path}/history`} component={History} />
-                    <Route path={`${match.path}/allocation`} component={Allocation} />
-                    <Route path={`${match.path}/`} exact component={Dashboard} />
-                    <Route component={NotFound} />
-                  </Switch>
-                </PageTransition>
-              )}
-            />
+              <Route
+                render={({ location }) => (
+                  <PageTransition
+                    component={Page}
+                    location={location}
+                    pageKey={getPageKey(location.pathname)}
+                  >
+                    <Switch location={location}>
+                      <Route
+                        path={`${match.path}/activities/:type/:slug/:tab?`}
+                        component={EditActivity}
+                      />
+                      <Route path={`${match.path}/activities`} exact component={Timetable} />
+                      <Route path={`${match.path}/people/:id`} exact component={Person} />
+                      <Route path={`${match.path}/people`} exact component={People} />
+                      <Route path={`${match.path}/profile`} exact component={Profile} />
+                      <Route path={`${match.path}/content`} component={Content} />
+                      <Route path={`${match.path}/pitches`} component={Pitches} />
+                      <Route path={`${match.path}/registrations`} component={Registrations} />
+                      <Route path={`${match.path}/payments`} component={Payments} />
+                      <Route path={`${match.path}/venues`} component={Venues} />
+                      <Route path={`${match.path}/history`} component={History} />
+                      <Route path={`${match.path}/allocation`} component={Allocation} />
+                      <Route path={`${match.path}/`} exact component={Dashboard} />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </PageTransition>
+                )}
+              />
 
-            <Sidebar
-              festival={festival}
-              open={sidebarOpen}
-              onClickOutside={closeSidebar}
-            />
+              <Sidebar
+                festival={festival}
+                open={sidebarOpen}
+                onClickOutside={closeSidebar}
+              />
+            </ConfirmationManager>
           </div>
           <DetectLocationChange onChange={locationChanged} />
         </Context.Provider>

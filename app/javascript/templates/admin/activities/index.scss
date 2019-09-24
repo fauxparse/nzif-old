@@ -37,6 +37,20 @@
     }
   }
 
+  &__session-details {
+    display: flex;
+
+    .field {
+      &:first-of-type {
+        margin-right: $spacing;
+
+        .select {
+          display: block;
+        }
+      }
+    }
+  }
+
   &__details {
     .tags {
       padding: 0.5rem 0 0.25rem;
@@ -50,6 +64,39 @@
   &__session {
     .number-field__input {
       width: 6rem;
+    }
+  }
+
+  &__roll {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    grid-column-gap: $spacing;
+
+    .roll__section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roll__title {
+      margin: 0 0 $spacing;
+      font-size: font-size(-1);
+      font-weight: font-weight(normal);
+    }
+
+    .roll__list {
+      flex: 1;
+      min-height: $spacing * 4;
+    }
+
+    .roll__participant {
+      display: flex;
+      margin: 0 0 0.25rem;
+    }
+  }
+
+  @include themify {
+    .roll__title {
+      color: themed(secondary);
     }
   }
 }

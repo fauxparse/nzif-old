@@ -165,6 +165,11 @@ export const historyItem = PropTypes.shape({
   timestamp: PropTypes.time,
 })
 
+export const draggableRegistration = PropTypes.shape({
+  id,
+  user,
+})
+
 export default {
   ...PropTypes,
   activity,
@@ -174,6 +179,7 @@ export default {
   className,
   color,
   component,
+  draggableRegistration,
   festival,
   historyItem,
   icon,

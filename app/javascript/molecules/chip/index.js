@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react'
+import React, { forwardRef, useCallback } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import Avatar from 'atoms/avatar'
 import Button from 'atoms/button'
 import './index.scss'
 
-const Chip = ({ className, user, small, onDelete, children, ...props }) => {
+const Chip = forwardRef(({ className, user, small, onDelete, children, ...props }, ref) => {
   const deleteFocused = e => e.target.blur()
 
   const deleteClicked = useCallback(() => onDelete && onDelete(user), [onDelete, user])
@@ -19,6 +19,7 @@ const Chip = ({ className, user, small, onDelete, children, ...props }) => {
 
   return (
     <div
+      ref={ref}
       className={classNames(
         'chip',
         small && 'chip--small',
@@ -42,7 +43,9 @@ const Chip = ({ className, user, small, onDelete, children, ...props }) => {
       {children}
     </div>
   )
-}
+})
+
+Chip.displayName = 'Chip'
 
 Chip.propTypes = {
   className: PropTypes.className,

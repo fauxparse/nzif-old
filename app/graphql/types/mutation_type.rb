@@ -20,6 +20,7 @@ module Types
     field :update_payment, mutation: Mutations::UpdatePayment
     field :update_pitch, mutation: Mutations::UpdatePitch
     field :update_registration, mutation: Mutations::UpdateRegistration
+    field :update_roll, mutation: Mutations::UpdateRoll
     field :update_session, mutation: Mutations::UpdateSession
     field :update_user, mutation: Mutations::UpdateUser
     field :update_venue, mutation: Mutations::UpdateVenue

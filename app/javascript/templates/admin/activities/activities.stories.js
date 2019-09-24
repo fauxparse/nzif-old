@@ -8,7 +8,8 @@ import moment from 'lib/moment'
 import Edit from './edit'
 
 const FESTIVAL = {
-  year: new Date().getYear() + 1900,
+  year: 2019,
+  adminRoot: '/admin/2019',
 }
 
 const PRESENTERS = new Array(50).fill(0).map(() => ({
@@ -36,6 +37,8 @@ const ACTIVITY = {
     id: faker.random.uuid(),
     startsAt: moment().startOf('day').add(i, 'days').add(10, 'hours'),
     capacity: 16,
+    placements: [],
+    waitlist: [],
     venue: sample(VENUES),
   })),
 }
@@ -72,6 +75,7 @@ const EditDemo = (props) => {
       onTabChange={setTab}
       onChange={changed}
       onSessionChange={sessionChanged}
+      onRollChanged={() => {}}
       {...props}
     />
   )

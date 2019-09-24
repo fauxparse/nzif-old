@@ -8,6 +8,8 @@ module Types
     field :venue, Types::Venue, null: true
     field :capacity, Integer, null: true
     field :placements_count, Integer, null: false
+    field :placements, [Registration], null: false
+    field :waitlist, [Registration], null: false
     field :full, Boolean, null: false
 
     def id
@@ -16,6 +18,14 @@ module Types
 
     def full
       object.full?
+    end
+
+    def placements
+      object.placements.includes(registration: :user).map(&:registration)
+    end
+
+    def waitlist
+      object.waitlists.includes(registration: :user).sorted.map(&:registration)
     end
   end
 end
