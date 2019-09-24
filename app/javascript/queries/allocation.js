@@ -15,7 +15,7 @@ export default gql`
       }
     }
 
-    registrations(year: $year) {
+    registrations(year: $year, state: "complete") {
       id
 
       user {

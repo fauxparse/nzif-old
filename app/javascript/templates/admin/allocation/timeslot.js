@@ -55,6 +55,8 @@ const Timeslot = ({ time, sessions, allocations, registrationsById, dragging }) 
                 key={session.id}
               >
                 <h3 className="allocation__session-name">
+                  ({allocations[session.id].length}/{session.capacity || '∞'})
+                  {' '}
                   {session.activity.name}
                 </h3>
                 <div
@@ -80,7 +82,9 @@ const Timeslot = ({ time, sessions, allocations, registrationsById, dragging }) 
         >
           {provided => (
             <div className="allocation__session allocation__session--unsuccessful">
-              <h3 className="allocation__session-name">Unallocated</h3>
+              <h3 className="allocation__session-name">
+                ({allocations.unallocated.length}) Unallocated
+              </h3>
               <div
                 ref={provided.innerRef}
                 className="allocation__places"

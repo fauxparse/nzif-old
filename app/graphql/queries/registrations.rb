@@ -7,14 +7,16 @@ module Queries
         description 'Get all registrations'
 
         argument :year, GraphQL::Types::ID, required: true
+        argument :state, String, required: false
       end
 
-      def registrations(year:)
-        festival(year: year)
+      def registrations(year:, state: nil)
+        scope = festival(year: year)
           .registrations
           .with_preferences
           .with_user
-          .select { |registration| can?(:read, registration) }
+        scope = scope.send(state) if state.present?
+        scope.select { |registration| can?(:read, registration) }
       end
     end
   end

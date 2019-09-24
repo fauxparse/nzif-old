@@ -14,6 +14,7 @@ import Header from 'organisms/header'
 import Timeslot from './timeslot'
 import Finalized from './finalized'
 import Confirmation from './confirmation'
+import Statistics from './statistics'
 
 export { useAllocations } from './hooks'
 
@@ -89,6 +90,12 @@ const Allocation = ({
           <Header.Button primary text="Finalize" icon="alert" onClick={showConfirmation} />
         )}
         <Header.Title>Workshop allocation</Header.Title>
+        {!loading && (
+          <Statistics
+            allocations={allocations}
+            registrations={registrations}
+          />
+        )}
       </Header>
       <div className="allocation__body">
         {finalized ? <Finalized /> : (

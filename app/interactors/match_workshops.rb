@@ -15,7 +15,11 @@ class MatchWorkshops < Interaction
   private
 
   def sessions
-    @sessions ||= festival.workshops.includes(sessions: :preferences).flat_map(&:sessions)
+    @sessions ||=
+      festival
+        .workshops
+        .includes(sessions: { preferences: :registration })
+        .flat_map(&:sessions)
   end
 
   def timeslots
@@ -37,14 +41,24 @@ class MatchWorkshops < Interaction
 
   def session_targets(sessions)
     sessions.map do |s|
-      [s.id, [s.preferences.map(&:registration_id).shuffle, s.capacity]]
+      [
+        s.id,
+        [
+          s.preferences.select { |p| p.registration.complete? }.map(&:registration_id).shuffle,
+          s.capacity,
+        ],
+      ]
     end
   end
 
   def session_candidates(sessions)
-    sessions.flat_map(&:preferences).group_by(&:registration_id).transform_values do |preferences|
-      preferences.sort_by(&:position).map(&:session_id)
-    end
+    sessions
+      .flat_map(&:preferences)
+      .select { |p| p.registration.complete? }
+      .group_by(&:registration_id)
+      .transform_values do |preferences|
+        preferences.sort_by(&:position).map(&:session_id)
+      end
   end
 
   def unallocated(results)

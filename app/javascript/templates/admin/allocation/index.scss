@@ -15,6 +15,27 @@ $choices: color(apple), color(mint, 600), color(grape, 600), color(plum), color(
     }
   }
 
+  &__statistics {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: 10rem auto;
+
+    dt {
+      grid-column: 1 / span 1;
+    }
+
+    dd {
+      grid-column: 2 / span 1;
+    }
+
+    @include themify {
+      dt {
+        color: themed(secondary);
+      }
+    }
+  }
+
   &__timeslot {
     @include autopad;
   }
