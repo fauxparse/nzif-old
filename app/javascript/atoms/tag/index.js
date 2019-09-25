@@ -11,6 +11,7 @@ const Tag = ({ className, selected, small, children, ...props }) => (
       small && 'tag--small',
       className
     )}
+    aria-selected={selected || undefined}
     {...props}
   >
     <span className="tag__text">{children}</span>
