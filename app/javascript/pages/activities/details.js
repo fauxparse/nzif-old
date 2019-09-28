@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery } from 'react-apollo-hooks'
+import snakeCase from 'lodash/snakeCase'
 import Template from 'templates/activities/details'
 import ACTIVITY_QUERY from 'queries/activity'
 
 const Details = ({ match }) => {
   const { year, slug } = match.params
 
-  const type = match.params.type.replace(/s$/, '')
+  const type = snakeCase(match.params.type).replace(/s$/, '')
 
   const { loading, data } = useQuery(ACTIVITY_QUERY, { variables: { year, type, slug } })
 

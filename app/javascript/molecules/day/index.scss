@@ -9,7 +9,6 @@
     font-size: font-size(3);
     font-weight: font-weight(light);
     line-height: 2rem;
-    text-indent: 4.5em;
     z-index: 2;
     backdrop-filter: blur(4px);
 
@@ -24,6 +23,12 @@
       @include media(medium) {
         content: attr(data-long);
       }
+    }
+  }
+
+  &[data-type="workshop"] {
+    .day__date {
+      text-indent: 4.5em;
     }
   }
 

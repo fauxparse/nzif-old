@@ -25,7 +25,7 @@ import { HOMEPAGE_QUERY } from '../../queries/homepage'
 export { default as CurrentFestival } from './current'
 
 const ACTIVITY_TYPES = [
-  'workshop', 'show'
+  'workshop', 'show', 'social-event', 'forum',
 ]
 
 const Festival = ({ match, history }) => {
@@ -88,7 +88,7 @@ const Festival = ({ match, history }) => {
                 <PageTransition pageKey={pageKey(location, match)}>
                   <Switch location={location}>
                     <Route
-                      path={`${match.path}/:type(shows|workshops)`}
+                      path={`${match.path}/:type(shows|workshops|social-events|forums)`}
                       render={({ match }) => (
                         <Switch>
                           <Route path={`${match.path}/:slug`} exact component={ActivityDetails} />

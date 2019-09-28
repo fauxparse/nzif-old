@@ -13,7 +13,7 @@ const Timeslot = ({ time, loading, offset, children }) => {
   return (
     <div className="timeslot">
       <Skeleton ref={header} as="h3" className="timeslot__time" loading={loading && false}>
-        {time.format('h:mm A')}
+        {time.hour() ? time.format('h:mm A') : null}
       </Skeleton>
       <div className="timeslot__activities">
         {children}

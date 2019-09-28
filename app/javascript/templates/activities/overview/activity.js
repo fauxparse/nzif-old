@@ -1,11 +1,23 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
+import humanize from 'lib/humanize'
 import { Link } from 'react-router-dom'
-import Level from 'atoms/level'
+import Time from 'atoms/time'
 import Sentence from 'atoms/sentence'
 import Card from 'molecules/card'
 
-const Activity = ({ loading, id, type, url, name, image, presenters, levels }) => {
+const Activity = ({
+  loading,
+  id,
+  type,
+  url,
+  name,
+  image,
+  presenters,
+  startsAt,
+  endsAt,
+  levels,
+}) => {
   return (
     <Card
       key={id}
@@ -14,7 +26,9 @@ const Activity = ({ loading, id, type, url, name, image, presenters, levels }) =
       loading={loading}
     >
       <Card.Image image={image} alt={name} />
-      <Card.Category>{type}</Card.Category>
+      <Card.Category>
+        <Time time={[startsAt, endsAt]} />
+      </Card.Category>
       <Card.Title>{name}</Card.Title>
       <Card.Description>
         <Sentence>

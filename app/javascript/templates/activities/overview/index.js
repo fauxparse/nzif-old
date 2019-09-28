@@ -57,12 +57,25 @@ const Overview = ({ loading, type, sessions, festival }) => {
             selected={type === 'show'}
             text="Shows"
           />
+          <Tab
+            as={Link}
+            to={`/${festival.year}/social-events`}
+            selected={type === 'social_event'}
+            text="Social Events"
+          />
+          <Tab
+            as={Link}
+            to={`/${festival.year}/forums`}
+            selected={type === 'forum'}
+            text="Forums"
+          />
         </TabBar>
       </Header>
       <div className="activities-overview__days">
         {sessionsByDay.map(([date, sessions]) => (
           <Day
             key={date.valueOf()}
+            type={type}
             date={date}
             sessions={sessions}
             loading={loading}

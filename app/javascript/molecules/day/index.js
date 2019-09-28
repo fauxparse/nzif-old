@@ -6,7 +6,7 @@ import Skeleton from 'effects/skeleton'
 
 import './index.scss'
 
-const Day = ({ date, loading, offset, children }) => {
+const Day = ({ date, type, loading, offset, children }) => {
   const options = useMemo(() => ({ stickyBitStickyOffset: offset }), [offset])
 
   const header = useSticky(options)
@@ -14,7 +14,7 @@ const Day = ({ date, loading, offset, children }) => {
   const day = useMemo(() => moment(date), [date])
 
   return (
-    <section className="day">
+    <section className="day" data-type={type}>
       <Skeleton
         ref={header}
         as="h2"
@@ -33,11 +33,13 @@ Day.propTypes = {
   date: PropTypes.time.isRequired,
   loading: PropTypes.bool,
   offset: PropTypes.number,
+  type: PropTypes.string,
 }
 
 Day.defaultProps = {
   loading: false,
   offset: 0,
+  type: 'workshop',
 }
 
 export default Day

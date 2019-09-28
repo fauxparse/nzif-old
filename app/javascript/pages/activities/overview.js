@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
 import { useQuery } from 'react-apollo-hooks'
+import snakeCase from 'lodash/snakeCase'
 import moment from 'lib/moment'
 import Template from 'templates/activities/overview'
 import SESSIONS from 'queries/sessions'
@@ -8,7 +9,7 @@ import SESSIONS from 'queries/sessions'
 const Overview = ({ match }) => {
   const { year } = match.params
 
-  const type = match.params.type.replace(/s$/, '')
+  const type = snakeCase(match.params.type).replace(/s$/, '')
 
   const { loading, data } = useQuery(SESSIONS, { variables: { year, type } })
 

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'lib/proptypes'
 import pluralize from 'pluralize'
 import humanize from 'lib/humanize'
+import kebabCase from 'lodash/kebabCase'
 import { Picture } from 'react-responsive-picture'
 import Helmet from 'react-helmet'
 import Skeleton from 'effects/skeleton'
@@ -28,7 +29,7 @@ const Details = ({ loading, festival, activity }) => {
     associated = [],
   } = (!loading && activity) || dummy()
 
-  const back = `/${festival.year}/${pluralize(type)}`
+  const back = `/${festival.year}/${pluralize(kebabCase(type))}`
 
   return (
     <div className="activity-details">
