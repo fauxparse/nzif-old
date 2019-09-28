@@ -27,11 +27,15 @@ const FestivalSidebar = ({ festival, registration, ...props }) => {
         ) : (
           <List.Link to={`/${year}/register`} icon="registration" primary="Register now" />
         )}
+        {user && (state === 'pitching') && (
+          <List.Link to={`/${year}/pitches`} icon="pitch" primary="Your pitches" />
+        )}
+        <List.Link to={`/${year}/calendar`} icon="calendar" primary="Calendar" />
+        <Divider inset />
         <List.Link to={`/${year}/workshops`} icon="workshop" primary="Workshops" />
         <List.Link to={`/${year}/shows`} icon="show" primary="Shows" />
-        {user && (state === 'pitching') && (
-          <List.Link to={`/${year}/pitches`} icon="pitch" primary="My pitches" />
-        )}
+        <List.Link to={`/${year}/social-events`} icon="social-event" primary="Social Events" />
+        <List.Link to={`/${year}/forums`} icon="forum" primary="Forums" />
       </List>
       {isAdmin && (
         <>

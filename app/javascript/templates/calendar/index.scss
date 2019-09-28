@@ -1,0 +1,225 @@
+@import "../../styles/base";
+
+.calendar {
+  display: flex;
+  position: fixed;
+  top: 3.5rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 0.5rem;
+
+    .calendar__back {
+      margin-right: 1.5rem;
+    }
+
+    h1 {
+      flex: 1;
+      margin: 0;
+      font-size: font-size(2);
+      font-weight: font-weight(normal);
+    }
+  }
+
+  &__body {
+    position: relative;
+    flex: 1;
+  }
+
+  &__dates {
+    position: relative;
+    flex: 1;
+    align-items: stretch;
+    align-self: stretch;
+    overflow: hidden;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 1rem;
+      content: "";
+    }
+
+    .inner {
+      display: flex;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      will-change: transform;
+    }
+
+    .calendar__date {
+      width: calc(100vw - #{$keyline});
+      padding: 0 1rem;
+      line-height: line-height(tight);
+
+      span {
+        display: block;
+      }
+    }
+  }
+
+  &__times {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $keyline;
+    overflow: hidden;
+
+    .inner {
+      will-change: transform;
+    }
+
+    .calendar__time {
+      position: relative;
+      height: 3rem;
+
+      .time {
+        position: absolute;
+        top: -0.5rem;
+        right: 1rem;
+        font-size: font-size(-2);
+        line-height: 1rem;
+      }
+
+      &:first-of-type {
+        .time {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__scrollable-area {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: -1px;
+    left: $keyline;
+    align-items: flex-start;
+    overflow: scroll;
+    scroll-snap-type: x mandatory;
+
+    .inner {
+      display: flex;
+      width: fit-content;
+      height: fit-content;
+    }
+  }
+
+  &__day {
+    display: grid;
+    width: calc(100vw - #{$keyline});
+    grid-template-rows: repeat(64, 0.75rem);
+    grid-template-columns: repeat(16, 1rem);
+    scroll-snap-align: start;
+  }
+
+  &__group {
+    position: relative;
+  }
+
+  &__session {
+    position: absolute;
+    top: -1px;
+    bottom: 0px;
+    left: -1px;
+    width: calc(100vw - #{$keyline} - 1rem);
+    padding: 0.25rem;
+    border-top: 2px solid transparent;
+    font-size: font-size(-2);
+    line-height: line-height(tight);
+    overflow: hidden;
+
+    @mixin session($base) {
+      border-color: color($base);
+      background: color($base, 100, 0.75);
+      color: color($base, 900);
+
+      .session__times {
+        color: color($base, 900, secondary);
+      }
+    }
+
+    &[data-type="workshop"] {
+      @include session(apple);
+    }
+
+    &[data-type="show"] {
+      @include session(grape);
+    }
+
+    &[data-type="social_event"] {
+      @include session(plum);
+    }
+
+    &[data-type="forum"] {
+      @include session(tomato);
+    }
+  }
+
+  @include themify {
+    &__header {
+      border-bottom: 1px solid themed(border);
+
+      .button {
+        color: themed(icon);
+      }
+      
+      h1 {
+        color: themed(secondary);
+      }
+    }
+
+    &__dates {
+      &::after {
+        background: linear-gradient(to right, themed(background), change-opacity(themed(background), 0));
+      }
+
+      .date__day {
+        color: themed(secondary);
+      }
+
+      .calendar__date--today {
+        .date__weekday {
+          color: themed(accent);
+          font-weight: font-weight(bold);
+        }
+      }
+    }
+
+    &__times {
+      border-right: 1px solid themed(border);
+      color: themed(secondary);
+    }
+
+    &__day {
+      background:
+        linear-gradient(to top, themed(border) 1px, transparent 1px),
+        linear-gradient(to top, transparent 50%, change-opacity(themed(border), 0.15) 50%, transparent calc(50% + 1px)),
+        linear-gradient(to left, themed(border) 1px, transparent 1px);
+      background-size: 100% 3rem;
+    }
+  }
+
+  @include media(#{$keyline + 16rem}) {
+    .calendar__day,
+    .calendar__date {
+      width: 16rem;
+    }
+
+    .calendar__session {
+      width: 15rem;
+    }
+  }
+}
