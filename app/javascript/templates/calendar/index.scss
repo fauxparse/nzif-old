@@ -127,6 +127,11 @@
 
   &__group {
     position: relative;
+    opacity: opacity(disabled);
+
+    &--selected {
+      opacity: 1;
+    }
   }
 
   &__session {

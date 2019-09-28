@@ -12,6 +12,7 @@ module Types
     include Queries::Payments
     include Queries::Pitch
     include Queries::Pitches
+    include Queries::Presenting
     include Queries::Registration
     include Queries::RegistrationCount
     include Queries::Registrations

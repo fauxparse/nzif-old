@@ -7,17 +7,23 @@ import values from 'lodash/values'
 import moment from 'lib/moment'
 import { useFestival } from 'contexts/festival'
 import Template from 'templates/calendar'
-import TIMETABLE from 'queries/timetable'
+import CALENDAR from 'queries/calendar'
 
 const Calendar = ({ match }) => {
   const { year } = match.params
 
   const festival = useFestival() || { year }
 
-  const { loading, data } = useQuery(TIMETABLE, { variables: { year } })
+  const { loading, data } = useQuery(CALENDAR, { variables: { year } })
 
   const sessions = useMemo(() => {
     if (loading || !data.sessions) return []
+
+    const selected = data.registration.state === 'complete'
+      ? data.registration.workshops
+      : []
+
+    const presenting = data.presenting.map(s => s.id)
       
     return values(
       groupBy(
@@ -26,7 +32,10 @@ const Calendar = ({ match }) => {
             ...s,
             startsAt: moment(s.startsAt),
             endsAt: moment(s.endsAt),
-            activity: data.festival.activities.find(a => a.id === s.activity.id),
+            selected:
+              s.activity.type !== 'workshop' ||
+              selected.includes(s.id) ||
+              presenting.includes(s.id),
           })),
           [s => s.startsAt.valueOf()]
         ),
