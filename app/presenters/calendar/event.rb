@@ -43,7 +43,7 @@ class Calendar
       end
     end
 
-    delegate :description, :description=, :location, :location=, to: :ical_event
+    delegate :description, :description=, :location, :location=, :url, :url=, to: :ical_event
 
     private
 

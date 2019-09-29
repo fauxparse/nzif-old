@@ -12,6 +12,7 @@ class Calendar
       event.starts_at = session.starts_at
       event.ends_at = session.ends_at
       event.location = location if session.venue.present?
+      event.url = url
       event.alarm!
     end
 
@@ -27,6 +28,10 @@ class Calendar
 
     def location
       [session.venue.name, session.venue.address, 'Wellington'].join(', ')
+    end
+
+    def url
+      Rails.application.routes.url_helpers.front_end_url(session.activity.url.sub(%r{^/}, ''))
     end
   end
 end

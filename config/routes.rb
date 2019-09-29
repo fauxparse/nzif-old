@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     via: %i(get post),
     as: 'cancel_payment'
 
+  match '/calendar/:id',
+    to: 'calendars#show',
+    via: %i(get),
+    as: 'calendar'
+
   get(
     '*path' => 'festivals#show',
     constraints: lambda { |req| req.path.exclude?('active_storage') },

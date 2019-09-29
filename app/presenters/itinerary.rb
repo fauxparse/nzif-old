@@ -15,6 +15,14 @@ class Itinerary
         .order(starts_at: :asc)
   end
 
+  def sessions
+    [
+      *workshops.all,
+      *teaching.all,
+      *free_events.all,
+    ]
+  end
+
   def preferences
     @preferences ||= registration.preferences.all
   end
@@ -23,7 +31,7 @@ class Itinerary
     @waitlists ||=
       registration
         .waitlists
-        .includes(session: { activity: { presenters: :user } })
+        .includes(session: [:venue, { activity: { presenters: :user } }])
         .references(:sessions)
         .order('sessions.starts_at ASC')
   end
@@ -40,4 +48,24 @@ class Itinerary
   def days_to_go
     @days_to_go ||= (registration.festival.start_date - Time.zone.now.to_date).to_i
   end
+
+  def teaching
+    @teaching ||=
+      festival
+        .sessions
+        .includes(:venue, activity: { presenters: :user })
+        .references(:presenters)
+        .where(presenters: { user_id: registration.user_id })
+  end
+
+  def free_events
+    @free_events ||=
+      festival
+        .sessions
+        .includes(:venue, activity: { presenters: :user })
+        .references(:activities)
+        .where.not(activities: { type: 'Workshop' })
+  end
+
+  delegate :festival, to: :registration
 end

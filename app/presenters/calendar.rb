@@ -2,7 +2,7 @@ require 'icalendar/tzinfo'
 
 class Calendar
   def self.generate(&block)
-    self.new.tap(&block)
+    new.tap(&block).tap(&:publish)
   end
 
   def timezone
@@ -15,7 +15,7 @@ class Calendar
     end
   end
 
-  delegate :to_ical, to: :icalendar
+  delegate :to_ical, :publish, to: :icalendar
 
   private
 
