@@ -1,12 +1,16 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
 import classNames from 'classnames'
 import pluralize from 'pluralize'
 import humanize from 'lib/humanize'
 import Time from 'atoms/time'
 
-const Session = ({ group }) => {
+const Session = ({ group, onClick }) => {
   const selected = useMemo(() => group.activities.find(s => s.selected), [group])
+
+  const clicked = useCallback(() => {
+    onClick(group)
+  }, [group, onClick])
 
   return (
     <div
@@ -16,7 +20,7 @@ const Session = ({ group }) => {
         gridRowEnd: group.endRow,
       }}
     >
-      <div className="calendar__session" data-type={group.type}>
+      <div className="calendar__session" data-type={group.type} onClick={clicked}>
         <span className="session__name">
           {selected ? selected.name : pluralize(humanize(group.type))}
         </span>
@@ -38,6 +42,7 @@ Session.propTypes = {
     type: PropTypes.activityType.isRequired,
     activities: PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired,
   }).isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default Session

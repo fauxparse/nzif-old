@@ -144,7 +144,9 @@
     border-top: 2px solid transparent;
     font-size: font-size(-2);
     line-height: line-height(tight);
+    cursor: pointer;
     overflow: hidden;
+    user-select: none;
 
     @mixin session($base) {
       border-color: color($base);
@@ -225,6 +227,24 @@
 
     .calendar__session {
       width: 15rem;
+    }
+  }
+}
+
+.session-details {
+  .modal__title {
+    small {
+      @include all-caps;
+      display: block;
+      font-size: font-size(-1);
+    }
+  }
+
+  @include themify {
+    .modal__title {
+      small {
+        color: themed(secondary);
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useCallback } from 'react'
+import React, {  useCallback, useMemo, useRef, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
@@ -10,6 +10,7 @@ import Loader from 'atoms/loader'
 import Date from 'atoms/date'
 import Skeleton from 'effects/skeleton'
 import Day from './day'
+import Details from './details'
 
 import './index.scss'
 
@@ -58,6 +59,12 @@ const Calendar = ({ loading, festival, sessions }) => {
     groupBy(sessions, group => group[0].startsAt.clone().startOf('day').valueOf())
   ), [sessions])
 
+  const [selected, setSelected] = useState(null)
+
+  const showDetails = setSelected
+
+  const hideDetails = useCallback(() => setSelected(null), [setSelected])
+
   return (
     <section className="calendar">
       <header className="calendar__header">
@@ -100,10 +107,12 @@ const Calendar = ({ loading, festival, sessions }) => {
               date={date}
               today={date.isSame(today, 'day')}
               sessions={sessionsByDay[date.valueOf()] || []}
+              onSessionClicked={showDetails}
             />
           ))}
         </div>
       </div>
+      <Details session={selected} onClose={hideDetails} />
     </section>
   )
 }
