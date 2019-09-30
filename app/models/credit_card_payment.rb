@@ -5,7 +5,7 @@ class CreditCardPayment < Payment
 
   after_checkout_session_completed! do |session, event|
     payment = CreditCardPayment.find(session.client_reference_id)
-    ApprovePayment.call(payment) if payment
+    ApprovePayment.call(payment: payment) if payment
   end
 
   private
