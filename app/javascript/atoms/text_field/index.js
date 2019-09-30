@@ -91,7 +91,7 @@ const TextField = forwardRef(({
         autoSize && 'text-field--autosize',
         className
       )}
-      value={value}
+      value={value || ''}
       ref={input}
       onChange={changed}
       {...props}

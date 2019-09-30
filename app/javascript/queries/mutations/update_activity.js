@@ -9,6 +9,17 @@ export default gql`
       slug
       url
 
+      presenters {
+        id
+        name
+        origin
+        bio
+        image {
+          small
+          medium
+        }
+      }
+
       image {
         name
         thumbnail
@@ -26,6 +37,30 @@ export default gql`
         startsAt
         endsAt
         capacity
+
+        placements {
+          id
+          user {
+            id
+            name
+            image {
+              small
+              medium
+            }
+          }
+        }
+
+        waitlist {
+          id
+          user {
+            id
+            name
+            image {
+              small
+              medium
+            }
+          }
+        }
 
         activity {
           id

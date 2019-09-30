@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import PropTypes from 'lib/proptypes'
+import omit from 'lodash/omit'
 import Label from 'atoms/label'
 import Field from 'molecules/field'
 import LabelledField from 'molecules/labelled_field'
@@ -22,7 +23,7 @@ const Details = ({ activity, presenters, onChange }) => {
   ), [activity, presenterOptions])
 
   const presentersChanged = useCallback((options) => {
-    onChange({ presenters: options.map(p => presentersById[p.id]) })
+    onChange({ presenters: options.map(p => omit(presentersById[p.id], ['image'])) })
   }, [onChange, presentersById])
 
   const [description, setDescription] = useState(activity.description)
