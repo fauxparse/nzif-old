@@ -3,6 +3,7 @@ import PropTypes from 'lib/proptypes'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 import moment from 'lib/moment'
+import { useToggle } from 'lib/hooks'
 import groupBy from 'lodash/groupBy'
 import times from 'lodash/times'
 import Button from 'atoms/button'
@@ -11,10 +12,11 @@ import Date from 'atoms/date'
 import Skeleton from 'effects/skeleton'
 import Day from './day'
 import Details from './details'
+import Instructions from './instructions'
 
 import './index.scss'
 
-const Calendar = ({ loading, festival, sessions }) => {
+const Calendar = ({ loading, festival, sessions, registration }) => {
   const scrollableArea = useRef()
 
   const timeColumn = useRef()
@@ -65,6 +67,14 @@ const Calendar = ({ loading, festival, sessions }) => {
 
   const hideDetails = useCallback(() => setSelected(null), [setSelected])
 
+  const [instructionsOpen, , showInstructions, hideInstructions] = useToggle(false)
+
+  const url = useMemo(() => {
+    return registration
+      ? `${window.location.origin}/calendar/${registration.id}.ics`
+      : null
+  }, [registration])
+
   return (
     <section className="calendar">
       <header className="calendar__header">
@@ -113,6 +123,18 @@ const Calendar = ({ loading, festival, sessions }) => {
         </div>
       </div>
       <Details session={selected} onClose={hideDetails} />
+      <Instructions
+        open={instructionsOpen}
+        url={url}
+        onClose={hideInstructions}
+      />
+      <Button
+        primary
+        icon="calendar"
+        className="button--floating" 
+        aria-label="Instructions"
+        onClick={showInstructions}
+      />
     </section>
   )
 }
@@ -121,10 +143,12 @@ Calendar.propTypes = {
   loading: PropTypes.bool,
   festival: PropTypes.festival.isRequired,
   sessions: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.session.isRequired).isRequired),
+  registration: PropTypes.shape({ id: PropTypes.id }),
 }
 
 Calendar.defaultProps = {
   loading: false,
+  registration: undefined,
 }
 
 export default Calendar

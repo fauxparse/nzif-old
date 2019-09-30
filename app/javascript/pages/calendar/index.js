@@ -44,8 +44,19 @@ const Calendar = ({ match }) => {
     )
   }, [loading, data])
 
+  const registration = useMemo(() => {
+    if (data && data.registration && data.registration.id) {
+      return data.registration
+    }
+  }, [data])
+
   return (
-    <Template loading={loading || !festival.startDate} festival={festival} sessions={sessions} />
+    <Template
+      loading={loading || !festival.startDate}
+      festival={festival}
+      sessions={sessions}
+      registration={registration}
+    />
   )
 }
 

@@ -21,6 +21,7 @@ export default [
   'country',
   'credit-card',
   'development',
+  'download',
   'edit',
   'email',
   'error',

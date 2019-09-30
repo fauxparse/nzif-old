@@ -175,6 +175,41 @@
     }
   }
 
+  &__instructions {
+    .accordion__panel {
+      font-size: font-size(-1);
+    }
+
+    ol {
+      margin: 0;
+      padding: 0;
+      counter-reset: step;
+
+      li {
+        display: block;
+        position: relative;
+        margin: 0 0 0.5rem;
+        list-style: none;
+        counter-increment: step;
+
+        &::before {
+          position: absolute;
+          top: 0;
+          left: -3rem;
+          content: counter(step);
+        }
+      }
+    }
+  }
+
+  .button--floating {
+    @include elevation-element(fab);
+    position: fixed;
+    right: $spacing;
+    bottom: $spacing;
+    padding: 1rem;
+  }
+
   @include themify {
     &__header {
       border-bottom: 1px solid themed(border);
@@ -216,6 +251,22 @@
         linear-gradient(to top, transparent 50%, change-opacity(themed(border), 0.15) 50%, transparent calc(50% + 1px)),
         linear-gradient(to left, themed(border) 1px, transparent 1px);
       background-size: 100% 3rem;
+    }
+
+    &__instructions {
+      .accordion {
+        margin: 0 0 $spacing;
+      }
+
+      .accordion__panel {
+        ol {
+          li {
+            &::before {
+              color: themed(secondary);
+            }
+          }
+        }
+      }
     }
   }
 
