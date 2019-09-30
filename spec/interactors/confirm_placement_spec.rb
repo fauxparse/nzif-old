@@ -98,13 +98,6 @@ RSpec.describe ConfirmPlacement, type: :interactor do
 
       let(:session) { create(:session, activity: workshop, capacity: 2) }
 
-      context 'that leaves room for more' do
-        it 'does not notify subscribers' do
-          expect(NzifSchema.subscriptions).not_to receive(:trigger)
-          result
-        end
-      end
-
       context 'that would fill it up' do
         before do
           other_registration = create(:registration, festival: festival)

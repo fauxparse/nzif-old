@@ -46,11 +46,6 @@ RSpec.describe RemoveFromSession, type: :interactor do
             .with(waitlist: waitlist, notify_subscribers: false)
           result
         end
-
-        it 'does not notify subscribers' do
-          expect(NzifSchema.subscriptions).not_to receive(:trigger)
-          result
-        end
       end
     end
   end
