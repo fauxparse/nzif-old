@@ -15,7 +15,7 @@ RSpec.describe MatchWorkshops, type: :interactor do
 
   let!(:registrations) do
     srand(seed)
-    create_list(:registration, 16, festival: festival).each do |registration|
+    create_list(:registration, 16, :complete, festival: festival).each do |registration|
       sessions.shuffle[0, rand(sessions.size) + 1].each do |session|
         registration.preferences.create!(session: session)
       end
