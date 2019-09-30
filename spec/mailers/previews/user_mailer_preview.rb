@@ -29,4 +29,8 @@ class UserMailerPreview < ActionMailer::Preview
       Session.workshop.first,
     )
   end
+
+  def payment_confirmation
+    UserMailer.payment_confirmation(Payment.approved.first)
+  end
 end

@@ -42,47 +42,7 @@
 - unless @cart.paid?
   = email_section do
     %h2 Payment
-    %table.payment-summary
-      %tbody
-        %tr.line-item
-          %td.line-item__description
-            Workshops
-          %td.line-item__quantity
-            = @cart.count
-            @
-            = @cart.per_workshop.format
-          %td.line-item__cost
-            = @cart.value.format
-            %abbr{title: 'New Zealand Dollars'} NZD
-        - if @cart.discount > 0
-          %tr.line-item
-            %td.line-item__description{colspan: 2}
-              Discount
-            %td.line-item__cost
-              = '-' + @cart.discount.format
-              %abbr{title: 'New Zealand Dollars'} NZD
-        %tr.subtotal
-          %th.subtotal__description{colspan: 2}
-            Subtotal
-          %td.subtotal__cost
-            = @cart.cost.format
-            %abbr{title: 'New Zealand Dollars'} NZD
-        - @cart.payments.select(&:approved?).each do |payment|
-          %tr.line-item
-            %td.line-item__description{colspan: 2}
-              %span
-                = payment.type.sub(/Payment$/, '').humanize
-                payment
-            %td.line-item__cost
-              = payment.amount.format
-              %abbr{title: 'New Zealand Dollars'} NZD
-      %tfoot
-        %tr.total
-          %th.total__description{colspan: 2}
-            Total to pay
-          %td.total__cost
-            = @cart.total_to_pay.format
-            %abbr{title: 'New Zealand Dollars'} NZD
+    = render 'cart'
 
     %h3 Paying by credit card
 

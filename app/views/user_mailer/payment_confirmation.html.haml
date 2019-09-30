@@ -1,0 +1,19 @@
+= email_section do
+  %p
+    Kia ora #{@user.name},
+
+= email_section class_name: 'section--highlight' do
+  %p
+    Your payment of
+    %br
+    %b= @payment.amount.format
+    %br
+    was received.
+
+= email_section do
+  = render 'cart'
+
+  %p
+    Ngā mihi nui,
+    %br/
+    The NZIF Team

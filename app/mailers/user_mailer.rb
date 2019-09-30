@@ -24,7 +24,7 @@ class UserMailer < ApplicationMailer
     @festival = @registration.festival
     @user = @registration.user
     @itinerary = Itinerary.new(@registration)
-    @cart = Cart.new(registration)
+    @cart = Cart.new(@registration)
 
     mail to: recipient(@user), subject: "Your #{@festival} itinerary"
   end
@@ -40,5 +40,15 @@ class UserMailer < ApplicationMailer
       bcc: 'matt@improvfest.nz',
       subject: "You’re in! #{@session.activity.name}"
     )
+  end
+
+  def payment_confirmation(payment)
+    @payment = payment
+    @registration = @payment.registration
+    @user = @registration.user
+    @festival = @registration.festival
+    @cart = Cart.new(@registration)
+
+    mail to: recipient(@user), subject: 'Thanks for your payment'
   end
 end

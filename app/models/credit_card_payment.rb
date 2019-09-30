@@ -4,7 +4,8 @@ class CreditCardPayment < Payment
   after_create :initialize_stripe_payment
 
   after_checkout_session_completed! do |session, event|
-    CreditCardPayment.find(session.client_reference_id)&.approved!
+    payment = CreditCardPayment.find(session.client_reference_id)
+    ApprovePayment.call(payment) if payment
   end
 
   private
