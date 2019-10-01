@@ -11,6 +11,7 @@ module Types
     field :bio, String, null: true
     field :phone, String, null: true
     field :image, Types::UserImage, null: true
+    field :presenter, Boolean, null: false
 
     def notifications_count
       0
@@ -18,6 +19,10 @@ module Types
 
     def image
       object.image.attached? ? object.image : nil
+    end
+
+    def presenter
+      object.presenters.exists?
     end
   end
 end

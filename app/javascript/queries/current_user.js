@@ -10,6 +10,7 @@ export const CURRENT_USER_FIELDS = gql`
     roles
     phone
     notificationsCount
+    presenter
 
     image {
       name

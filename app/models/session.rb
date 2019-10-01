@@ -22,6 +22,8 @@ class Session < ApplicationRecord
   scope :on_day, ->(date) { where(starts_at: date.midnight...date.succ.midnight) }
   scope :workshop, -> { joins(:activity).merge(Workshop.all) }
   scope :with_roll, -> { includes(placements: :registration, waitlists: :registration) }
+  scope :presented_by,
+    ->(user_id) { joins(activity: :presenters).where(presenters: { user_id: user_id }) }
 
   def self.silence_notifications(&block)
     @notifications_silenced = (@notifications_silenced || 0) + 1

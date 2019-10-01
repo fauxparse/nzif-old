@@ -27,6 +27,9 @@ const FestivalSidebar = ({ festival, registration, ...props }) => {
         ) : (
           <List.Link to={`/${year}/register`} icon="registration" primary="Register now" />
         )}
+        {user && user.presenter && (
+          <List.Link to={`/${year}/teaching`} icon="workshop" primary="Your workshops" />
+        )}
         {user && (state === 'pitching') && (
           <List.Link to={`/${year}/pitches`} icon="pitch" primary="Your pitches" />
         )}

@@ -1,0 +1,46 @@
+@import "../../styles/base";
+
+.teaching {
+  .tab {
+    display: block;
+    min-width: 1%;
+
+    .tab__text {
+      display: block;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    &__text--secondary {
+      font-size: font-size(-1);
+    }
+  }
+
+  &__heading {
+    margin: $spacing * 2 0;
+    font-size: font-size(2);
+    font-weight: font-weight(normal);
+  }
+
+  &__session {
+    @include autopad;
+
+    .participant-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      grid-column-gap: $spacing;
+      grid-row-gap: $spacing / 2;
+      margin: 0 0 $spacing;
+    }
+  }
+
+  @include themify {
+    .tab__text--secondary {
+      color: themed(secondary);
+    }
+
+    &__heading {
+      color: themed(secondary);
+    }
+  }
+}

@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Menu from 'molecules/menu'
 import Avatar from 'atoms/avatar'
 
-const CurrentUser = forwardRef(({ className, user, children, ...props }, ref) => (
+const CurrentUser = forwardRef(({ className, user: { presenter, ...user }, children, ...props }, ref) => (
   <Menu.Button
     ref={ref}
     className={classNames('user-menu__current-user', className)}

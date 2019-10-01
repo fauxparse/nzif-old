@@ -13,6 +13,7 @@ import ActivityDetails from 'pages/activities/details'
 import RegistrationPage from 'pages/registration'
 import Calendar from 'pages/calendar'
 import Home from 'pages/home'
+import Teaching from 'pages/teaching'
 import Profile from '../profile'
 import Map from '../map'
 import Pitches from '../pitches'
@@ -106,6 +107,7 @@ const Festival = ({ match, history }) => {
                     <Route path={`${match.path}/pitches`} component={Pitches} />
                     <Route path={`${match.path}/map`} component={Map} />
                     <Route path={`${match.path}/calendar`} component={Calendar} />
+                    <Route path={`${match.path}/teaching`} component={Teaching} />
                     <Route path={`${match.path}/`} exact component={Home} />
                     <Route path={`${match.path}/:slug`} exact component={StaticContent} />
                     <Route component={NotFound} />
