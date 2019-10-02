@@ -62,4 +62,14 @@ class UserMailer < ApplicationMailer
       subject: "NZIF: #{@message.subject}"
     )
   end
+
+  def bcc_test
+    mail(
+      to: 'matt@improvfest.nz',
+      bcc: 'matt.powell@optimalworkshop.com',
+      subject: 'testing BCC',
+      body: 'This is a test message, please ignore',
+      content_type: 'text/plain'
+    )
+  end
 end
