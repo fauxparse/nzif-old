@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_22_213222) do
+ActiveRecord::Schema.define(version: 2019_10_02_004043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -282,7 +282,7 @@ ActiveRecord::Schema.define(version: 2019_09_22_213222) do
   add_foreign_key "registrations", "festivals"
   add_foreign_key "registrations", "users"
   add_foreign_key "sessions", "activities", on_delete: :cascade
-  add_foreign_key "sessions", "venues", on_delete: :cascade
+  add_foreign_key "sessions", "venues", on_delete: :nullify
   add_foreign_key "slots", "festivals", on_delete: :cascade
   add_foreign_key "stripe_customers", "users", on_delete: :cascade
   add_foreign_key "waitlists", "registrations", on_delete: :cascade
