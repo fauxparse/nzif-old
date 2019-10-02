@@ -144,6 +144,12 @@ $header-max-height: 20rem;
       margin-left: $keyline;
     }
 
+    &__background {
+      img {
+        width: 100vw;
+      }
+    }
+
     &__title {
       font-size: font-size(6);
     }

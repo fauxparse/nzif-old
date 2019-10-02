@@ -73,7 +73,6 @@ const Details = ({ loading, festival, activity }) => {
                   }
                 ]}
               />
-              <img src={image.full} />
             </Duotone>
           </Header.Background>
         )}
@@ -88,6 +87,7 @@ const Details = ({ loading, festival, activity }) => {
               loading={loading}
               startsAt={session.startsAt}
               endsAt={session.endsAt}
+              venue={session.venue}
             />
           ))}
         </div>

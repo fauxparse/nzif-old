@@ -10,12 +10,9 @@
     line-height: 1.25rem;
   }
 
-  &__time {
-
-  }
-
   @include themify {
-    &__time {
+    &__time,
+    &__venue {
       color: themed(secondary);
     }
   }
