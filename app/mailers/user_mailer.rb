@@ -65,8 +65,8 @@ class UserMailer < ApplicationMailer
 
   def bcc_test
     mail(
-      to: 'matt@improvfest.nz',
-      bcc: 'matt.powell@optimalworkshop.com',
+      to: 'matt.powell@optimalworkshop.com',
+      bcc: 'matt@improvfest.nz',
       subject: 'testing BCC',
       body: 'This is a test message, please ignore',
       content_type: 'text/plain'
