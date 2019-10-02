@@ -10,6 +10,7 @@ module Types
     field :placements_count, Integer, null: false
     field :placements, [Registration], null: false
     field :waitlist, [Registration], null: false
+    field :messages, [Message], null: false
     field :full, Boolean, null: false
 
     def id

@@ -10,7 +10,7 @@ import Session from './session'
 
 import './index.scss'
 
-const Teaching = ({ loading, sessions }) => {
+const Teaching = ({ loading, sessions, onSendMessage }) => {
   const [tab, setTab] = useState()
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Teaching = ({ loading, sessions }) => {
           ? <Loader />
           : (
             sessions.length ? (
-              selectedSession && <Session session={selectedSession} />
+              selectedSession && <Session session={selectedSession} onSendMessage={onSendMessage} />
             ) : (
               <div className="teaching__nothing">
                 <p>You don’t appear to be teaching any workshops, sorry!</p>
@@ -71,6 +71,7 @@ const Teaching = ({ loading, sessions }) => {
 Teaching.propTypes = {
   loading: PropTypes.bool,
   sessions: PropTypes.arrayOf(PropTypes.session.isRequired),
+  onSendMessage: PropTypes.func.isRequired,
 }
 
 Teaching.defaultProps = {

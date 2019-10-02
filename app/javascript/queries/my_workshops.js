@@ -32,6 +32,13 @@ export default gql`
       waitlist {
         id
       }
+
+      messages {
+        id
+        createdAt
+        subject
+        body
+      }
     }
   }
 `
