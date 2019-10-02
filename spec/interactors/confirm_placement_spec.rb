@@ -111,6 +111,17 @@ RSpec.describe ConfirmPlacement, type: :interactor do
           result
         end
       end
+
+      context 'when there is a message waiting' do
+        let(:message) { create(:message, messageable: session) }
+
+        it 'sends the message to the new participant' do
+          expect(SendMessage)
+            .to receive(:call)
+            .with(a_hash_including(message: message, recipients: [registration.user])).and_call_original
+          result
+        end
+      end
     end
   end
 end

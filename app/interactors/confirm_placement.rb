@@ -4,6 +4,7 @@ class ConfirmPlacement < Interaction
     remove_from_other_sessions
     create_placement
     remove_from_waitlists
+    send_previous_messages
     session.notify_change if session.full?
   end
 
@@ -61,5 +62,11 @@ class ConfirmPlacement < Interaction
       user: registration.user,
       session: session,
     )
+  end
+
+  def send_previous_messages
+    session.messages.each do |message|
+      SendMessage.call(message: message, recipients: [registration.user])
+    end
   end
 end
