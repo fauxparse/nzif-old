@@ -1,0 +1,13 @@
+= email_section do
+  %p
+    Kia ora #{@user.name},
+
+  %p
+    #{@message.sender} has sent you a message about #{@message.messageable}.
+    You can reply to them by hitting the “reply” button in your email software.
+  
+  %hr/
+
+= email_section do
+  :markdown
+    #{@message.body}

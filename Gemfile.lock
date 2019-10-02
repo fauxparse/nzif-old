@@ -418,6 +418,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     rbtree3 (0.5.0)
+    redcarpet (3.4.0)
     redis (4.0.3)
     request_store (1.4.1)
       rack (>= 1.4)
@@ -596,6 +597,7 @@ DEPENDENCIES
   pry-rails (~> 0.3.9)
   puma (~> 3.11)
   rails (= 6.0.0)
+  redcarpet
   redis (~> 4.0)
   rspec-collection_matchers
   rspec-its

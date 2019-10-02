@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_004043) do
+ActiveRecord::Schema.define(version: 2019_10_02_021308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -113,6 +113,19 @@ ActiveRecord::Schema.define(version: 2019_10_02_004043) do
     t.index ["reset_token"], name: "index_identities_on_reset_token", unique: true
     t.index ["type", "uid"], name: "index_identities_on_type_and_uid", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "messageable_type", null: false
+    t.bigint "messageable_id", null: false
+    t.bigint "sender_id", null: false
+    t.string "subject"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["messageable_type", "messageable_id", "created_at"], name: "messages_on_messageable"
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable_type_and_messageable_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -270,6 +283,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_004043) do
   add_foreign_key "availabilities", "sessions"
   add_foreign_key "history_mentions", "history_items", column: "item_id", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
+  add_foreign_key "messages", "users", column: "sender_id", on_delete: :restrict
   add_foreign_key "payments", "registrations"
   add_foreign_key "pitches", "festivals", on_delete: :cascade
   add_foreign_key "pitches", "users", on_delete: :cascade

@@ -33,4 +33,17 @@ class UserMailerPreview < ActionMailer::Preview
   def payment_confirmation
     UserMailer.payment_confirmation(Payment.approved.first)
   end
+
+  def broadcast_message
+    user = OpenStruct.new(name: 'Test User', email: 'test@example.com')
+    session = Session.workshop.first
+    sender = session.activity.presenters.first.user
+    message = Message.new(
+      sender: sender,
+      messageable: session,
+      subject: 'Hello',
+      body: session.activity.description
+    )
+    UserMailer.broadcast_message(message, user)
+  end
 end

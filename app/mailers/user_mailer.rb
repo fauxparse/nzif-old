@@ -51,4 +51,15 @@ class UserMailer < ApplicationMailer
 
     mail to: recipient(@user), subject: 'Thanks for your payment'
   end
+
+  def broadcast_message(message, user)
+    @user = user
+    @message = message
+
+    mail(
+      to: recipient(@user),
+      reply_to: recipient(@message.sender),
+      subject: "NZIF: #{@message.subject}"
+    )
+  end
 end

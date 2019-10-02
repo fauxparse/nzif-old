@@ -1,5 +1,6 @@
 class Session < ApplicationRecord
   include Hashid::Rails
+  include Messageable
 
   belongs_to :activity
   has_one :festival, through: :activity
@@ -48,6 +49,10 @@ class Session < ApplicationRecord
     unless self.class.notifications_silenced?
       NzifSchema.subscriptions.trigger('sessionChanged', {}, self)
     end
+  end
+
+  def recipients
+    placements.includes(registration: :user).map { |p| p.registration.user }
   end
 
   private
