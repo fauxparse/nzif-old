@@ -1,4 +1,6 @@
 class Incident < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :festival
   belongs_to :user, required: false
 

@@ -9,6 +9,7 @@ module Types
     include Queries::CurrentUser
     include Queries::Festival
     include Queries::History
+    include Queries::Incidents
     include Queries::Payments
     include Queries::Pitch
     include Queries::Pitches
