@@ -150,6 +150,24 @@
     }
   }
 
+  &__itinerary {
+    @include autopad;
+
+    .itinerary__time {
+      padding: $spacing 0;
+
+      h3 {
+        margin: $spacing 0 0 $keyline;
+        font-size: font-size(2);
+        font-weight: font-weight(normal);
+      }
+
+      @include media(medium) {
+        margin-left: -$keyline;
+      }
+    }
+  }
+
   &__availability {
     @include autopad;
   }

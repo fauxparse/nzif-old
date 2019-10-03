@@ -54,6 +54,7 @@ export default gql`
 
         activity {
           name
+          slug
         }
       }
       activities(type: "show", slug: "all-in") {

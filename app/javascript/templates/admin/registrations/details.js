@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import PropTypes from 'lib/proptypes'
 import humanize from 'lib/humanize'
+import get from 'lodash/get'
 import Avatar from 'atoms/avatar'
 import Date from 'atoms/date'
 import Loader from 'atoms/loader'
@@ -14,6 +15,7 @@ import Skeleton from 'effects/skeleton'
 import UserDetails from './user_details'
 import Preferences from './preferences'
 import Availability from './availability'
+import Itinerary from './itinerary'
 import Payments from './payments'
 
 import './index.scss'
@@ -31,11 +33,13 @@ const Details = ({
 }) => {
   const back = `/admin/${festival.year}/registrations`
 
-  const { user, state, completedAt, preferences, availability } = registration
+  const { user, state, completedAt, preferences, workshops, waitlists, availability } = registration
+
+  const earlybird = get(registration, 'festival.state') === 'earlybird'
 
   const errors = {}
 
-  const [tab, setTab] = useState('details')
+  const [tab, setTab] = useState('itinerary')
 
   const avatar = useMemo(() => ({
     ...registration.user,
@@ -57,10 +61,6 @@ const Details = ({
         <Breadcrumbs back={back}>
           <Breadcrumbs.Link to={back}>{festival.year} registrations</Breadcrumbs.Link>
         </Breadcrumbs>
-        <Header.Button
-          icon="email"
-          onClick={resendItinerary}
-        />
         <Skeleton loading={loading}>
           <Avatar className="registration-details__avatar" {...avatar} />
         </Skeleton>
@@ -77,11 +77,19 @@ const Details = ({
             selected={tab === 'details'}
             onClick={() => setTab('details')}
           />
-          <Tab
-            text="Preferences"
-            selected={tab === 'preferences'}
-            onClick={() => setTab('preferences')}
-          />
+          {earlybird ? (
+            <Tab
+              text="Preferences"
+              selected={tab === 'preferences'}
+              onClick={() => setTab('preferences')}
+            />
+          ) : (
+            <Tab
+              text="Itinerary"
+              selected={tab === 'itinerary'}
+              onClick={() => setTab('itinerary')}
+            />
+          )}
           <Tab
             text="Availability"
             selected={tab === 'availability'}
@@ -103,6 +111,15 @@ const Details = ({
                 registration={registration}
                 errors={errors}
                 onChange={onChange}
+              />
+            )}
+            {tab === 'itinerary' && (
+              <Itinerary
+                sessions={sessions}
+                workshops={workshops}
+                waitlists={waitlists}
+                preferences={preferences}
+                onResendItinerary={resendItinerary}
               />
             )}
             {tab === 'preferences' && (
