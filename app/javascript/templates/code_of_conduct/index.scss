@@ -1,0 +1,13 @@
+@import "../../styles/base";
+
+.code-of-conduct {
+  &__accepted {
+    @include autopad;
+    background: color(mandarin, 200);
+    color: color(mandarin, 700);
+
+    p {
+      margin: 0;
+    }
+  }
+}
