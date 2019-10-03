@@ -118,7 +118,8 @@ RSpec.describe ConfirmPlacement, type: :interactor do
         it 'sends the message to the new participant' do
           expect(SendMessage)
             .to receive(:call)
-            .with(a_hash_including(message: message, recipients: [registration.user])).and_call_original
+            .with(a_hash_including(message: message, recipients: [registration.user]))
+            .and_call_original
           result
         end
       end
