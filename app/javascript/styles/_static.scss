@@ -40,6 +40,12 @@
     font-weight: font-weight(normal);
   }
 
+  h4 {
+    margin: $spacing 0;
+    font-size: font-size(1);
+    font-weight: font-weight(normal);
+  }
+
   > blockquote {
     margin: 0 0 $spacing;
     padding: $padding;

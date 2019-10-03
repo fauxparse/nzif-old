@@ -11,3 +11,32 @@
     }
   }
 }
+
+.incident-report {
+  .modal__body {
+    padding: $padding 0 0;
+
+    p,
+    .static-content {
+      margin: 0 $padding $padding;
+
+      p {
+        margin: 0 0 $spacing;
+      }
+    }
+
+    .text-field {
+      min-height: 6rem;
+      max-height: 50vh;
+      margin: 0;
+      padding: 0 $padding;
+    }
+  }
+
+  .modal__footer {
+    .checkbox {
+      flex: 1;
+      order: 1;
+    }
+  }
+}
