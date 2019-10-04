@@ -43,7 +43,7 @@ const RegistrationForm = ({ festival, page, redirecting, onPageChange }) => {
   const Component = useMemo(() => PAGES[pageIndex].component, [pageIndex])
 
   useBeforeunload(() => {
-    if (hasUnsavedChanges) {
+    if (hasUnsavedChanges && !redirecting) {
       return 'You have unsaved changes!'
     }
   })
