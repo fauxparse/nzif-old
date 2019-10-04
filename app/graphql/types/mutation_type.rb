@@ -20,6 +20,7 @@ module Types
     field :sign_up, mutation: Mutations::SignUp
     field :update_activity, mutation: Mutations::UpdateActivity
     field :update_content, mutation: Mutations::UpdateContent
+    field :update_incident, mutation: Mutations::UpdateIncident
     field :update_payment, mutation: Mutations::UpdatePayment
     field :update_pitch, mutation: Mutations::UpdatePitch
     field :update_registration, mutation: Mutations::UpdateRegistration
