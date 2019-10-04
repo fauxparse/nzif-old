@@ -33,7 +33,7 @@ module Report
     def each
       return enum_for(:each) unless block_given?
 
-      scope.in_batches(of: 100).each_record do |record|
+      scope.each do |record|
         yield Row.new(self, record)
       end
     end
