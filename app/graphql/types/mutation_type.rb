@@ -2,6 +2,7 @@ module Types
   class MutationType < Types::BaseObject
     field :add_payment, mutation: Mutations::AddPayment
     field :create_activity, mutation: Mutations::CreateActivity
+    field :create_incident, mutation: Mutations::CreateIncident
     field :create_message, mutation: Mutations::CreateMessage
     field :create_session, mutation: Mutations::CreateSession
     field :create_venue, mutation: Mutations::CreateVenue
@@ -19,6 +20,7 @@ module Types
     field :sign_up, mutation: Mutations::SignUp
     field :update_activity, mutation: Mutations::UpdateActivity
     field :update_content, mutation: Mutations::UpdateContent
+    field :update_incident, mutation: Mutations::UpdateIncident
     field :update_payment, mutation: Mutations::UpdatePayment
     field :update_pitch, mutation: Mutations::UpdatePitch
     field :update_registration, mutation: Mutations::UpdateRegistration

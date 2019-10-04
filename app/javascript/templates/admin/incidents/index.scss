@@ -1,0 +1,45 @@
+@import "../../../styles/base";
+
+.incidents {
+  &__header {
+    .header__bottom {
+      padding-bottom: 0;
+    }
+
+    .tags {
+      padding: ($padding / 2) 0;
+
+      .tag {
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  &__body {
+    @include autopad;
+  }
+
+  &__list {
+    margin: 0 -$padding;
+
+    @include media(medium) {
+      margin-left: -$keyline;
+    }
+  }
+}
+
+.incident-details {
+  &__summary {
+    @include all-caps;
+    margin: 0 0 $spacing;
+    font-size: font-size(-1);
+
+    @include themify {
+      color: themed(secondary);
+    }
+  }
+
+  &__body {
+    @include autopad;
+  }
+}

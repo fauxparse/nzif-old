@@ -185,5 +185,11 @@ $header-max-height: 20rem;
         }
       }
     }
+
+    .header__bottom {
+      .button {
+        color: white;
+      }
+    }
   }
 }
