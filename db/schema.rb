@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_193845) do
+ActiveRecord::Schema.define(version: 2019_10_06_220946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -222,7 +222,9 @@ ActiveRecord::Schema.define(version: 2019_10_03_193845) do
     t.bigint "venue_id"
     t.integer "capacity"
     t.integer "placements_count", default: 0
+    t.datetime "feedback_requested_at"
     t.index ["activity_id"], name: "index_sessions_on_activity_id"
+    t.index ["feedback_requested_at"], name: "index_sessions_on_feedback_requested_at"
     t.index ["starts_at", "ends_at"], name: "index_sessions_on_starts_at_and_ends_at"
     t.index ["venue_id"], name: "index_sessions_on_venue_id"
   end
@@ -243,6 +245,20 @@ ActiveRecord::Schema.define(version: 2019_10_03_193845) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["stripe_customer_id"], name: "index_stripe_customers_on_stripe_customer_id", unique: true
     t.index ["user_id"], name: "index_stripe_customers_on_user_id"
+  end
+
+  create_table "survey_responses", force: :cascade do |t|
+    t.bigint "registration_id", null: false
+    t.bigint "session_id", null: false
+    t.integer "expectations"
+    t.integer "difficulty"
+    t.text "good"
+    t.text "bad"
+    t.text "testimonial"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_survey_responses_on_registration_id"
+    t.index ["session_id"], name: "index_survey_responses_on_session_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -313,6 +329,8 @@ ActiveRecord::Schema.define(version: 2019_10_03_193845) do
   add_foreign_key "sessions", "venues", on_delete: :nullify
   add_foreign_key "slots", "festivals", on_delete: :cascade
   add_foreign_key "stripe_customers", "users", on_delete: :cascade
+  add_foreign_key "survey_responses", "registrations"
+  add_foreign_key "survey_responses", "sessions"
   add_foreign_key "waitlists", "registrations", on_delete: :cascade
   add_foreign_key "waitlists", "sessions", on_delete: :cascade
 end

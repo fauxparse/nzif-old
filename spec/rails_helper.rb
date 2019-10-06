@@ -10,6 +10,7 @@ require 'rspec/rails'
 require 'stub_env'
 require 'email_spec'
 require 'email_spec/rspec'
+require Rails.root.join('spec', 'support', 'tasks')
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

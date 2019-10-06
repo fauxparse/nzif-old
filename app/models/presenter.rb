@@ -6,4 +6,8 @@ class Presenter < ApplicationRecord
 
   validates :user_id, :activity, presence: true
   validates :user_id, uniqueness: { scope: :activity_id }
+
+  def to_s
+    user.name
+  end
 end

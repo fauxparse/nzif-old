@@ -9,7 +9,7 @@ module Queries
       end
 
       def session(id:)
-        Session.find(id)
+        ::Session.find(id)
       end
     end
   end

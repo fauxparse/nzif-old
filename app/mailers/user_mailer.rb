@@ -62,4 +62,12 @@ class UserMailer < ApplicationMailer
       subject: "NZIF: #{@message.subject}"
     )
   end
+
+  def feedback_request(session, user)
+    @user = user
+    @session = session
+    @festival = session.festival
+
+    mail to: recipient(@user), subject: "Workshop feedback: #{@session}"
+  end
 end
