@@ -22,6 +22,10 @@ RSpec.describe SendFeedbackRequests, type: :interactor do
 
   around do |example|
     Timecop.freeze(sessions.second.ends_at + 10.minutes) do
+      [sessions[0], sessions[3]].each do |session|
+        session.update!(feedback_requested_at: 1.day.ago)
+      end
+
       example.run
     end
   end
@@ -36,6 +40,16 @@ RSpec.describe SendFeedbackRequests, type: :interactor do
         .with(sessions.second, registration.user)
         .and_call_original
       result
+    end
+
+    it 'updates feedback_requested_at' do
+      expect { result }
+        .to change { sessions.second.reload.feedback_requested_at }
+        .from(nil)
+        .to(Time.now)
+        .and change { sessions.fifth.reload.feedback_requested_at }
+        .from(nil)
+        .to(Time.now)
     end
   end
 end

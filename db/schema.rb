@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_06_063530) do
+ActiveRecord::Schema.define(version: 2019_10_06_220946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -222,7 +222,9 @@ ActiveRecord::Schema.define(version: 2019_10_06_063530) do
     t.bigint "venue_id"
     t.integer "capacity"
     t.integer "placements_count", default: 0
+    t.datetime "feedback_requested_at"
     t.index ["activity_id"], name: "index_sessions_on_activity_id"
+    t.index ["feedback_requested_at"], name: "index_sessions_on_feedback_requested_at"
     t.index ["starts_at", "ends_at"], name: "index_sessions_on_starts_at_and_ends_at"
     t.index ["venue_id"], name: "index_sessions_on_venue_id"
   end
