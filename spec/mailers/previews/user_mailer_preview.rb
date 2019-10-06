@@ -46,4 +46,10 @@ class UserMailerPreview < ActionMailer::Preview
     )
     UserMailer.broadcast_message(message, user)
   end
+
+  def feedback_request
+    user = OpenStruct.new(name: 'Test User', email: 'test@example.com')
+    session = Session.workshop.first
+    UserMailer.feedback_request(session, user)
+  end
 end

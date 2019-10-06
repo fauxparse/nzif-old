@@ -1,0 +1,42 @@
+= email_section do
+  %p
+    Tēnā koe #{@user.name},
+
+  %p
+    You just finished the workshop #{@session.activity.name} with
+    #{@session.activity.presenters.to_sentence}. We hope it was rewarding and
+    enjoyable.
+
+  %p
+    We would love to get some feedback from you as a participant on your
+    experience with this specific workshop. You don't have to do it right now,
+    but it only takes a few minutes to get your impressions down while
+    they're fresh. All questions are optional, and your feedback will be
+    collated and anonymised before being made available to the teacher.
+
+= email_section class_name: 'section--highlight' do
+  %p
+    %b= @session.activity.name
+    %br
+    = l @session.starts_at, format: :session
+
+  %p
+    = link_to 'Give us your feedback', front_end_url("#{@festival.year}/feedback/#{@session.to_param}"), class: 'button'
+
+= email_section do
+  %p
+    For more specific or reflective feedback, you're always
+    welcome to talk to or email the workshop teacher or a member of the
+    Festival team.
+
+  %p
+    We will also send out a more general participant survey after the Festival:
+    this one is specifically for the above workshop.
+
+  %p
+    Have a great day, and enjoy the rest of the Festival!
+
+  %p
+    Ngā mihi nui,
+    %br/
+    The NZIF Team
