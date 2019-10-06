@@ -1,0 +1,112 @@
+@import "../../styles/base";
+
+.likert {
+  margin: $spacing 0;
+
+  &__options {
+    display: block;
+    margin: 0 0 0 2rem;
+    padding: 0;
+    list-style: none;
+    counter-reset: likert;
+  }
+
+  &__option {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    counter-increment: likert;
+
+    &::before {
+      position: absolute;
+      top: 0.25rem;
+      right: 100%;
+      width: 2rem;
+      font-size: font-size(-1);
+      line-height: 2rem;
+      text-align: center;
+      content: counter(likert);
+    }
+  }
+
+  @include media(medium) {
+    &__options {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      margin: 0;
+      padding: 1.5rem 0 0;
+    }
+
+    &__option {
+      display: flex;
+      position: relative;
+      flex: 0 0 2rem;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+
+      .radio {
+        display: flex;
+
+        &__icon {
+          margin-right: 0rem;
+          margin-left: 0rem;
+        }
+
+        &__label {
+          display: none;
+        }
+      }
+
+      &::before {
+        position: absolute;
+        top: auto;
+        right: auto;
+        bottom: 100%;
+        left: 0;
+        content: counter(likert);
+      }
+
+      &:first-of-type {
+        flex-grow: 1;
+        justify-content: flex-end;
+
+        .radio__label {
+          display: initial;
+          order: -1;
+          padding-right: $spacing;
+        }
+
+        &::before {
+          right: 0;
+          left: auto;
+        }
+      }
+
+      &:last-of-type {
+        flex-grow: 1;
+        justify-content: flex-start;
+
+        .radio__label {
+          display: initial;
+          order: 1;
+          padding-left: $spacing;
+        }
+
+        &::before {
+          width: 2rem;
+        }
+      }
+    }
+  }
+
+  @include themify {
+    &__option {
+      &::before {
+        color: themed(secondary);
+      }
+    }
+  }
+}

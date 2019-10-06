@@ -1,0 +1,67 @@
+@import "../../styles/base";
+
+.radio {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+  cursor: pointer;
+
+  [type="radio"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    &:disabled {
+      ~ * {
+        opacity: opacity(disabled);
+      }
+    }
+  }
+}
+
+.radio__icon {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  margin: -0.25rem ($spacing - 0.25rem) -0.25rem -0.25rem;
+  cursor: pointer;
+
+  .radio__check {
+    transform: scale(0);
+    transition: transition(transform, $duration: fast, $easing: bounce);
+    stroke: none;
+
+    @include themify {
+      fill: currentColor;
+    }
+  }
+
+  .radio__focus {
+    stroke: none;
+    fill: none;
+  }
+
+  :checked ~ & {
+    .radio__check {
+      transform: scale(1);
+    }
+
+    @include themify {
+      color: themed(accent);
+    }
+  }
+
+  :focus ~ &,
+  :active ~ & {
+    .radio__focus {
+      stroke-width: 4px;
+
+      @include themify {
+        stroke: themed(outline);
+      }
+    }
+  }
+}

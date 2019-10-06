@@ -1,0 +1,85 @@
+@import "../../styles/base";
+
+.workshop-survey {
+  .header__title,
+  &__date {
+    @include all-caps;
+    margin: 0;
+    font-size: font-size(0);
+    opacity: opacity(secondary);
+  }
+
+  &__name {
+    margin: 0;
+    font-size: font-size(4);
+    font-weight: font-weight(light);
+    line-height: line-height(tight);
+  }
+
+  &__introduction,
+  &__outro,
+  &__sent {
+    @include autopad;
+  }
+
+  .survey {
+    &__question {
+      @include autopad;
+      padding-top: 0;
+      padding-bottom: $padding * 2;
+
+      .likert {
+        margin-bottom: 0;
+      }
+
+      &:first-of-type {
+        padding-top: $padding * 2;
+      }
+    }
+
+    &__text-field {
+      min-height: 5.5rem;
+      padding: 0.4375rem;
+      border: 0;
+      border-radius: $border-radius;
+    }
+  }
+
+  @include media(medium) {
+    &__name {
+      font-size: font-size(6);
+    }
+
+    .survey {
+      &__text-field {
+        margin: 0 -0.5rem;
+      }
+    }
+  }
+
+  @include themify {
+    &__questions,
+    &__outro {
+      border-top: 1px solid themed(border);
+    }
+
+    .survey {
+      &__question {
+        background: themed(panel);
+      }
+
+      &__label {
+        color: themed(secondary);
+      }
+      
+      &__text-field {
+        border: 1px solid themed(border);
+        background: themed(background);
+      }
+
+      .radio__circle {
+        fill: themed(background);
+      }
+    }
+  }
+}
