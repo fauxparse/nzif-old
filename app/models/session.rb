@@ -8,6 +8,7 @@ class Session < ApplicationRecord
   has_many :preferences, dependent: :destroy
   has_many :placements, dependent: :destroy, autosave: true
   has_many :waitlists, -> { order(position: :asc) }, dependent: :destroy, autosave: true
+  has_many :survey_responses, dependent: :destroy
 
   validates :activity, presence: true
   validates :starts_at, :ends_at,

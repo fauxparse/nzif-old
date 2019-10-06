@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_193845) do
+ActiveRecord::Schema.define(version: 2019_10_06_063530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -245,6 +245,20 @@ ActiveRecord::Schema.define(version: 2019_10_03_193845) do
     t.index ["user_id"], name: "index_stripe_customers_on_user_id"
   end
 
+  create_table "survey_responses", force: :cascade do |t|
+    t.bigint "registration_id", null: false
+    t.bigint "session_id", null: false
+    t.integer "expectations"
+    t.integer "difficulty"
+    t.text "good"
+    t.text "bad"
+    t.text "testimonial"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["registration_id"], name: "index_survey_responses_on_registration_id"
+    t.index ["session_id"], name: "index_survey_responses_on_session_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -313,6 +327,8 @@ ActiveRecord::Schema.define(version: 2019_10_03_193845) do
   add_foreign_key "sessions", "venues", on_delete: :nullify
   add_foreign_key "slots", "festivals", on_delete: :cascade
   add_foreign_key "stripe_customers", "users", on_delete: :cascade
+  add_foreign_key "survey_responses", "registrations"
+  add_foreign_key "survey_responses", "sessions"
   add_foreign_key "waitlists", "registrations", on_delete: :cascade
   add_foreign_key "waitlists", "sessions", on_delete: :cascade
 end
