@@ -6,27 +6,27 @@ import Date from 'atoms/date'
 import Loader from 'atoms/loader'
 import Sentence from 'atoms/sentence'
 import TextLink from 'atoms/text_link'
-import TextField from 'atoms/text_field'
 import Breadcrumbs from 'molecules/breadcrumbs'
+import LabelledField from 'molecules/labelled_field'
 import Likert from 'molecules/likert'
 import Header from 'organisms/header'
 
 import './index.scss'
 
-const Survey = ({ session, loading, sending, sent }) => {
+const Survey = ({ session, loading, sending, sent, onSend }) => {
   const [expectations, setExpectations] = useState()
 
   const [difficulty, setDifficulty] = useState()
 
-  const [loved, setLoved] = useState('')
+  const [good, setGood] = useState('')
 
-  const [improve, setImprove] = useState('')
+  const [bad, setBad] = useState('')
 
   const [testimonial, setTestimonial] = useState('')
 
-  const lovedChanged = useCallback(e => setLoved(e.target.value), [setLoved])
+  const goodChanged = useCallback(e => setGood(e.target.value), [setGood])
 
-  const improveChanged = useCallback(e => setImprove(e.target.value), [setImprove])
+  const badChanged = useCallback(e => setBad(e.target.value), [setBad])
 
   const testimonialChanged = useCallback(e => setTestimonial(e.target.value), [setTestimonial])
 
@@ -35,6 +35,12 @@ const Survey = ({ session, loading, sending, sent }) => {
   const { presenters, levels } = session.activity
 
   const back = `/${moment(session.startsAt).year()}`
+
+  const thisTeacher = presenters && presenters.length > 1 ? 'these teachers' : 'this teacher'
+
+  const send = useCallback(() => {
+    onSend({ expectations, difficulty, good, bad, testimonial })
+  }, [expectations, difficulty, good, bad, testimonial, onSend])
 
   return (
     <section className="workshop-survey">
@@ -77,15 +83,16 @@ const Survey = ({ session, loading, sending, sent }) => {
               </p>
               <ul>
                 <li>
-                  To make sure we are providing good and accurate information about workshops and shows
+                  To make sure we are providing good and accurate information about workshops
+                  and shows
                 </li>
                 <li>
-                  To find out what our attendees value in workshops and thus deliver appropriate content
-                  in future festivals
+                  To find out what our attendees value in workshops and thus deliver appropriate
+                  content in future festivals
                 </li>
                 <li>
-                  To provide opportunities for teachers to gain new knowledge about their teaching and
-                  lesson planning
+                  To provide opportunities for teachers to gain new knowledge about their teaching
+                  and lesson planning
                 </li>
               </ul>
               <p>
@@ -93,8 +100,8 @@ const Survey = ({ session, loading, sending, sent }) => {
                 teacher, so please feel free to be honest and constructive.
               </p>
               <p>
-                If there is anything you’d like to share with us that might be better communicated as
-                an incident report,
+                If there is anything you’d like to share with us that might be better communicated
+                as an incident report,
                 you can <TextLink to="/code-of-conduct">send us a report here</TextLink>.
               </p>
             </div>
@@ -119,7 +126,8 @@ const Survey = ({ session, loading, sending, sent }) => {
               {levels.length && levels.length < 3 && (
                 <div className="survey__question survey__question--likert">
                   <p className="survey__label">
-                    This workshop was labelled as suitable for {session.activity.levels.join('/')} improvisors.
+                    This workshop was labelled as suitable
+                    for {session.activity.levels.join('/')} improvisors.
                     Did it feel suitable for that level? (3 is “about right”)
                   </p>
                   <Likert
@@ -137,40 +145,33 @@ const Survey = ({ session, loading, sending, sent }) => {
               )}
 
               <div className="survey__question survey__question--text">
-                <p className="survey__label">
-                  What did you love about this workshop?
-                </p>
-                <TextField
+                <LabelledField
                   className="survey__text-field"
+                  label="What did you love about this workshop?"
                   autoSize
                   multiline
-                  name="loved"
-                  value={loved}
-                  onChange={lovedChanged}
+                  name="good"
+                  value={good}
+                  onChange={goodChanged}
                 />
               </div>
 
               <div className="survey__question survey__question--text">
-                <p className="survey__label">
-                  Could anything have improved your experience?
-                </p>
-                <TextField
+                <LabelledField
                   className="survey__text-field"
+                  label="Could anything have badd your experience?"
                   autoSize
                   multiline
-                  name="improve"
-                  value={improve}
-                  onChange={improveChanged}
+                  name="bad"
+                  value={bad}
+                  onChange={badChanged}
                 />
               </div>
 
               <div className="survey__question survey__question--text">
-                <p className="survey__label">
-                  Would you like to provide a testimonial
-                  for {presenters.length > 1 ? 'these teachers' : 'this teacher'}?
-                </p>
-                <TextField
+                <LabelledField
                   className="survey__text-field"
+                  label={`Would you like to provide a testimonial for ${thisTeacher}?`}
                   autoSize
                   multiline
                   name="testimonial"
@@ -182,7 +183,7 @@ const Survey = ({ session, loading, sending, sent }) => {
               <div className="workshop-survey__outro">
                 <p>That’s it! Thanks so much for your feedback, we really appreciate it.</p>
                 <p>
-                  <Button primary icon="send" text="Send my response" />
+                  <Button primary icon="send" text="Send my response" onClick={send} />
                 </p>
               </div>
             </fieldset>
@@ -198,6 +199,7 @@ Survey.propTypes = {
   loading: PropTypes.bool,
   sending: PropTypes.bool,
   sent: PropTypes.bool,
+  onSend: PropTypes.func.isRequired,
 }
 
 Survey.defaultProps = {

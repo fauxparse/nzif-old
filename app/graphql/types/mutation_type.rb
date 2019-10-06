@@ -5,6 +5,7 @@ module Types
     field :create_incident, mutation: Mutations::CreateIncident
     field :create_message, mutation: Mutations::CreateMessage
     field :create_session, mutation: Mutations::CreateSession
+    field :create_survey_response, mutation: Mutations::CreateSurveyResponse
     field :create_venue, mutation: Mutations::CreateVenue
     field :delete_pitch, mutation: Mutations::DeletePitch
     field :delete_session, mutation: Mutations::DeleteSession

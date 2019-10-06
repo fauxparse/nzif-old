@@ -20,6 +20,7 @@ module Types
     include Queries::Registrations
     include Queries::Session
     include Queries::Sessions
+    include Queries::SurveyResponse
     include Queries::User
     include Queries::Users
     include Queries::ValidatePasswordReset

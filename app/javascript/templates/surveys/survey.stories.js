@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 import moment from 'lib/moment'
 import faker from 'faker'
 import Survey from './survey'
@@ -23,7 +24,7 @@ const SESSION = {
 
 storiesOf('Templates|Surveys', module)
   .addParameters({ options: { padding: false } })
-  .add('Survey', () => <Survey session={SESSION} />)
-  .add('Loading', () => <Survey loading />)
-  .add('Sending', () => <Survey session={SESSION} sending />)
-  .add('Sent', () => <Survey session={SESSION} sent />)
+  .add('Survey', () => <Survey session={SESSION} onSend={action('send')} />)
+  .add('Loading', () => <Survey loading onSend={action('send')} />)
+  .add('Sending', () => <Survey session={SESSION} sending onSend={action('send')} />)
+  .add('Sent', () => <Survey session={SESSION} sent onSend={action('send')} />)
