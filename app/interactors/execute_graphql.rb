@@ -53,8 +53,8 @@ class ExecuteGraphql < Interaction
         message: e.message,
         status: :not_found,
         detail: {
-          model: e.model.name,
-          id: e.primary_key,
+          model: e.model,
+          id: e.id,
         }
       )
     when ActiveRecord::RecordInvalid, ActiveModel::ValidationError
