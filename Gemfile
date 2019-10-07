@@ -102,6 +102,7 @@ gem 'jwt'
 gem 'acts_as_list'
 
 gem 'airbrake'
+gem 'bugsnag'
 gem 'colorize'
 
 group :development, :test do

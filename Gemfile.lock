@@ -180,6 +180,8 @@ GEM
     bindex (0.5.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
+    bugsnag (6.11.1)
+      concurrent-ruby (~> 1.0)
     builder (3.2.3)
     bullet (6.0.2)
       activesupport (>= 3.0.0)
@@ -553,6 +555,7 @@ DEPENDENCIES
   axlsx (~> 2.0.1)!
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
+  bugsnag
   bullet
   byebug
   colorize
