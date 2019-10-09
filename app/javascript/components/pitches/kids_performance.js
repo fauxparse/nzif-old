@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import TextLink from 'atoms/text_link'
-import { Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
+import { Errors, Field, Hint, Textarea, WordCount } from '../form'
 
 const KidsPerformance = ({ pitch, errors, onChange }) => {
   const {
@@ -191,6 +190,15 @@ const KidsPerformance = ({ pitch, errors, onChange }) => {
 KidsPerformance.propTypes = {
   pitch: PropTypes.shape({
     name: PropTypes.string,
+    showDescription: PropTypes.string,
+    casting: PropTypes.string,
+    castDetails: PropTypes.string,
+    castRequirements: PropTypes.string,
+    performedBefore: PropTypes.string,
+    workshopDescription: PropTypes.string,
+    taughtBefore: PropTypes.string,
+    accessibility: PropTypes.string,
+    otherInfo: PropTypes.string,
   }).isRequired,
   errors: PropTypes.object,
   onChange: PropTypes.func.isRequired,

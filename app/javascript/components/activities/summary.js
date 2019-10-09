@@ -31,7 +31,10 @@ const ActivitySummary = ({ activity }) => (
 )
 
 ActivitySummary.propTypes = {
-  activity: PropTypes.shape({}).isRequired
+  activity: PropTypes.shape({
+    levels: PropTypes.arrayOf(PropTypes.string),
+    sessions: PropTypes.arrayOf(PropTypes.session.isRequired),
+  }).isRequired
 }
 
 export default ActivitySummary

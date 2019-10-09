@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import entries from 'lodash/entries'
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
@@ -9,13 +9,14 @@ import Template from 'molecules/day'
 import Activity from './activity'
 
 const Day = ({ date, type, sessions, loading }) => {
-  const group = (session) =>
+  const group = useCallback((session) => (
     (type === 'workshop' ? session.startsAt : session.startsAt.clone().startOf('day')).valueOf()
+  ), [type])
 
   const slots = useMemo(() => (
     sortBy(entries(groupBy(sessions, group), [([time]) => time]))
-      .map(([time, sessions]) => [moment(parseInt(time, 10)), sessions])
-  ), [type, sessions])
+      .map(([time, s]) => [moment(parseInt(time, 10)), s])
+  ), [sessions, group])
 
   return (
     <Template date={date} type={type} loading={loading}>

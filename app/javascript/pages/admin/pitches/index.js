@@ -9,7 +9,7 @@ import Promote from './promote'
 
 import './index.scss'
 
-const Pitches = ({ className, location, match }) => (
+const Pitches = ({ className, match }) => (
   <section className={classNames('pitches', className)}>
     <Switch>
       <Route path={match.path} exact component={List} />

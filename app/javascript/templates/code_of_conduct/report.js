@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react'
 import PropTypes from 'lib/proptypes'
-import { useToggle } from 'lib/hooks'
 import Button from 'atoms/button'
 import Checkbox from 'atoms/checkbox'
 import Divider from 'atoms/divider'

@@ -27,7 +27,12 @@ class Timetable extends Component {
       activityTypes: PropTypes.arrayOf(PropTypes.activityType.isRequired),
       festival: PropTypes.shape({
         activities: PropTypes.arrayOf(PropTypes.activity.isRequired),
+        startDate: PropTypes.string,
+        endDate: PropTypes.string,
       }),
+      loading: PropTypes.bool,
+      error: PropTypes.any,
+      sessions: PropTypes.arrayOf(PropTypes.session),
     }),
   }
 

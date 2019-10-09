@@ -75,6 +75,7 @@ Availability.propTypes = {
   pitch: PropTypes.shape({
     activityType: PropTypes.string.isRequired,
     slots: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    availability: PropTypes.string,
     festival: PropTypes.shape({
       startDate: PropTypes.string.isRequired,
       endDate: PropTypes.string.isRequired,

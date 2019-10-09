@@ -93,6 +93,9 @@ Presenter.propTypes = ({
   presenter: PropTypes.shape({
     name: PropTypes.string,
     email: PropTypes.string,
+    password: PropTypes.string,
+    city: PropTypes.string,
+    country: PropTypes.string,
   }).isRequired,
   passwordRequired: PropTypes.bool,
   disabled: PropTypes.bool,

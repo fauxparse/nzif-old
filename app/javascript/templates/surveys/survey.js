@@ -30,8 +30,6 @@ const Survey = ({ session, loading, sending, sent, onSend }) => {
 
   const testimonialChanged = useCallback(e => setTestimonial(e.target.value), [setTestimonial])
 
-  if (loading) return <Loader />
-
   const { presenters, levels } = session.activity
 
   const back = `/${moment(session.startsAt).year()}`
@@ -41,6 +39,8 @@ const Survey = ({ session, loading, sending, sent, onSend }) => {
   const send = useCallback(() => {
     onSend({ expectations, difficulty, good, bad, testimonial })
   }, [expectations, difficulty, good, bad, testimonial, onSend])
+
+  if (loading) return <Loader />
 
   return (
     <section className="workshop-survey">

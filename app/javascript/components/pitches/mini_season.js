@@ -131,6 +131,12 @@ const MiniSeason = ({ pitch, errors, onChange }) => {
 MiniSeason.propTypes = {
   pitch: PropTypes.shape({
     name: PropTypes.string,
+    showDescription: PropTypes.string,
+    performedBefore: PropTypes.string,
+    castDetails: PropTypes.string,
+    castRequirements: PropTypes.string,
+    accessibility: PropTypes.string,
+    otherInfo: PropTypes.string,
   }).isRequired,
   errors: PropTypes.object,
   onChange: PropTypes.func.isRequired,

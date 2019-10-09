@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'lib/proptypes'
-import humanize from 'lib/humanize'
 import { Link } from 'react-router-dom'
 import Time from 'atoms/time'
 import Sentence from 'atoms/sentence'
@@ -9,14 +8,12 @@ import Card from 'molecules/card'
 const Activity = ({
   loading,
   id,
-  type,
   url,
   name,
   image,
   presenters,
   startsAt,
   endsAt,
-  levels,
 }) => {
   return (
     <Card
@@ -45,13 +42,13 @@ Activity.propTypes = {
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   type: PropTypes.activityType.isRequired,
-  levels: PropTypes.arrayOf(PropTypes.string),
   presenters: PropTypes.arrayOf(PropTypes.presenter.isRequired),
   image: PropTypes.image,
+  startsAt: PropTypes.time.isRequired,
+  endsAt: PropTypes.time.isRequired,
 }
 
 Activity.defaultProps = {
-  levels: [],
   presenters: [],
   image: undefined,
 }

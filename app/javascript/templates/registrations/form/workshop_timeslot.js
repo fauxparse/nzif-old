@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'lib/proptypes'
+import moment from 'lib/moment'
 import Timeslot from 'molecules/timeslot'
 import { useCurrentUser } from 'contexts/current_user'
 import { useRegistration } from 'contexts/registration'

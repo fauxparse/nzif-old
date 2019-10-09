@@ -63,13 +63,13 @@ const Ripple = ({ className, center, disabled, ...props }) => {
     setParent(ref.current.offsetParent)
   }, [])
 
-  const contains = (el) => {
+  const contains = useCallback((el) => {
     while (el) {
       if (el === parent) return true
       el = el.parentElement
     }
     return false
-  }
+  }, [parent])
 
   const start = useCallback((e, coordinates) => {
     if (disabled || e.defaultPrevented) return
@@ -84,7 +84,7 @@ const Ripple = ({ className, center, disabled, ...props }) => {
     const r = Math.sqrt(rx ** 2 + ry ** 2)
 
     addRipple({ x, y, r, key: Date.now().toString() })
-  }, [parent, center, disabled, addRipple])
+  }, [parent, center, disabled, addRipple, contains])
 
   const mouseDown = useCallback(e => start(e, { x: e.clientX, y: e.clientY }), [start])
 

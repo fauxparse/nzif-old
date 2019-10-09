@@ -58,7 +58,7 @@ const Promote = ({ location }) => {
         })
       ])
       .then(() => setState('finished'))
-  }, [setState, selected, promotePitch, setState, finished])
+  }, [setState, selected, promotePitch, finished, wait])
 
   return (
     <div>

@@ -60,7 +60,7 @@ const PaymentDetails = ({ payment, onUpdatePayment, onAddPayment, onClose }) => 
     })
   }, [setAmount])
 
-  const textMask = useMemo(() => createNumberMask({ allowDecimal: true }))
+  const textMask = useMemo(() => createNumberMask({ allowDecimal: true }), [])
 
   const keyPressed = useCallback((e) => {
     if (e.key === 'Enter') {

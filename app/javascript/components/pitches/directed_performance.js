@@ -160,6 +160,13 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
 DirectedPerformance.propTypes = {
   pitch: PropTypes.shape({
     name: PropTypes.string,
+    showDescription: PropTypes.string,
+    castSize: PropTypes.number,
+    performedBefore: PropTypes.string,
+    workshopDescription: PropTypes.string,
+    taughtBefore: PropTypes.string,
+    accessibility: PropTypes.string,
+    otherInfo: PropTypes.string,
   }).isRequired,
   errors: PropTypes.object,
   onChange: PropTypes.func.isRequired,

@@ -4,7 +4,6 @@ import TextLink from 'atoms/text_link'
 import Icon from 'atoms/icon'
 import LabelledField from 'molecules/labelled_field'
 import { useRegistration } from 'contexts/registration'
-import { useCurrentUser } from 'contexts/current_user'
 import Heading from './heading'
 
 const Details = () => {
@@ -14,8 +13,6 @@ const Details = () => {
     ...state,
     [name]: value,
   }), { ...registration })
-
-  const currentUser = useCurrentUser()
 
   const changed = useCallback(({ target }) => dispatch(target), [dispatch])
 

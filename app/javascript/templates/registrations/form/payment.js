@@ -4,7 +4,6 @@ import { useRegistration } from 'contexts/registration'
 import sortBy from 'lodash/sortBy'
 import Divider from 'atoms/divider'
 import Icon from 'atoms/icon'
-import Price from 'atoms/price'
 import TextLink from 'atoms/text_link'
 import PaymentSummary from 'molecules/payment_summary'
 import Heading from './heading'
@@ -36,8 +35,6 @@ const Payment = () => {
       : workshops.length
   ), [earlybird, workshops, preferences])
 
-  const value = workshopCount * prices[1]
-
   const total = prices[workshopCount]
 
   const approvedPayments = useMemo(() => (
@@ -49,8 +46,6 @@ const Payment = () => {
   ), [approvedPayments])
 
   const totalToPay = earlybird ? 0 : Math.max(0, total - paid)
-
-  const discount = value - total
 
   const setPaymentMethod = useCallback((paymentMethod) => {
     change({ paymentMethod })

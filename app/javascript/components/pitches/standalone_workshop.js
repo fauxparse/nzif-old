@@ -161,6 +161,8 @@ StandaloneWorkshop.propTypes = {
     participantCount: PropTypes.number,
     taughtBefore: PropTypes.string,
     otherInfo: PropTypes.string,
+    teens: PropTypes.bool,
+    accessibility: PropTypes.string,
   }).isRequired,
   errors: PropTypes.object,
   onChange: PropTypes.func.isRequired,

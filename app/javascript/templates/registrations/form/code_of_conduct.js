@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import moment from 'lib/moment'
 import Checkbox from 'atoms/checkbox'
 import Loader from 'atoms/loader'

@@ -29,7 +29,7 @@ const PaymentsDemo = () => {
   }, [payments, setPayments])
 
   const addPayment = useCallback((payment) => {
-    setPayments([...payments, p])
+    setPayments([...payments, payment])
   }, [payments, setPayments])
 
   return (

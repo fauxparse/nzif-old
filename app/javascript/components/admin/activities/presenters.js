@@ -18,7 +18,7 @@ const Presenters = ({ activity, presenters, onChange }) => {
   const addPresenter = useCallback((presenter) => {
     closeDialog()
     onChange([...presenters, presenter])
-  }, [presenters, onChange])
+  }, [presenters, onChange, closeDialog])
 
   const deletePresenter = useCallback((presenter) => {
     onChange(presenters.filter(p => p !== presenter))

@@ -169,6 +169,13 @@ const ExperimentalPerformance = ({ pitch, errors, onChange }) => {
 ExperimentalPerformance.propTypes = {
   pitch: PropTypes.shape({
     name: PropTypes.string,
+    experience: PropTypes.string,
+    showDescription: PropTypes.string,
+    castSize: PropTypes.number,
+    performedBefore: PropTypes.string,
+    workshopDescription: PropTypes.string,
+    taughtBefore: PropTypes.string,
+    otherInfo: PropTypes.string,
   }).isRequired,
   errors: PropTypes.object,
   onChange: PropTypes.func.isRequired,

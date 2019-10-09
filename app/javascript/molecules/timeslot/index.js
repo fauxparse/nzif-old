@@ -26,6 +26,7 @@ Timeslot.propTypes = {
   loading: PropTypes.bool.isRequired,
   time: PropTypes.shape({
     format: PropTypes.func.isRequired,
+    hour: PropTypes.func.isRequired,
   }).isRequired,
   offset: PropTypes.number,
 }

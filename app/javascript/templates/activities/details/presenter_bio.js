@@ -17,4 +17,12 @@ const PresenterBio = ({ className, presenter }) => (
   </div>
 )
 
+PresenterBio.propTypes = {
+  presenter: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    origin: PropTypes.string,
+    bio: PropTypes.string,
+  }).isRequired,
+}
+
 export default PresenterBio

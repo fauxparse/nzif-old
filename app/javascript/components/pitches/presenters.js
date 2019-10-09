@@ -8,12 +8,10 @@ import { Checkbox, Errors, Field, Hint, Textarea, WordCount } from '../form'
 
 const Presenters = ({ pitch, errors, onChange }) => {
   const {
-    festival,
     presenters,
     company,
     bio,
     presentedBefore,
-    availability,
     codeOfConduct,
   } = pitch
 
@@ -141,6 +139,10 @@ const Presenters = ({ pitch, errors, onChange }) => {
 Presenters.propTypes = {
   pitch: PropTypes.shape({
     presenters: PropTypes.array,
+    company: PropTypes.string.isRequired,
+    bio: PropTypes.string.isRequired,
+    presentedBefore: PropTypes.string.isRequired,
+    codeOfConduct: PropTypes.string.isRequired,
   }).isRequired,
   errors: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,

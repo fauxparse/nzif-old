@@ -4,17 +4,19 @@ import classNames from 'classnames'
 import Menu from 'molecules/menu'
 import Avatar from 'atoms/avatar'
 
-const CurrentUser = forwardRef(({ className, user: { presenter, ...user }, children, ...props }, ref) => (
-  <Menu.Button
-    ref={ref}
-    className={classNames('user-menu__current-user', className)}
-    text={user.name}
-    {...props}
-  >
-    <Avatar className="user-menu__avatar" {...user} />
-    {children}
-  </Menu.Button>
-))
+const CurrentUser = forwardRef(
+  ({ className, user: { presenter, ...user }, children, ...props }, ref) => (
+    <Menu.Button
+      ref={ref}
+      className={classNames('user-menu__current-user', className)}
+      text={user.name}
+      {...props}
+    >
+      <Avatar className="user-menu__avatar" {...user} />
+      {children}
+    </Menu.Button>
+  )
+)
 
 CurrentUser.propTypes = {
   user: PropTypes.user,

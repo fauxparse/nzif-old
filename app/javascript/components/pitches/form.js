@@ -108,7 +108,9 @@ const PitchForm = ({ location, history, pitch, errors, onSave, onClose }) => {
 
 PitchForm.propTypes = {
   location: ReactRouterPropTypes.location.isRequired,
-  pitch: PropTypes.shape({}).isRequired,
+  pitch: PropTypes.shape({
+    state: PropTypes.string,
+  }).isRequired,
   errors: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onClose: PropTypes.func,

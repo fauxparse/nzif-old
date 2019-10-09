@@ -32,8 +32,11 @@ const ActivityDescription = ({ loading, activity }) => (
 ActivityDescription.propTypes = {
   loading: PropTypes.bool.isRequired,
   activity: PropTypes.shape({
-    description: PropTypes.string
-  })
+    description: PropTypes.string,
+    associated: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.id,
+    }).isRequired),
+  }),
 }
 
 export default ActivityDescription

@@ -45,7 +45,7 @@ const Calendar = ({ match }) => {
         s => `${s.activity.type}|${s.startsAt.valueOf()}|${s.endsAt.valueOf()}`
       )
     )
-  }, [loading, data])
+  }, [loading, data, excluded])
 
   const registration = useMemo(() => {
     if (data && data.registration && data.registration.id) {
