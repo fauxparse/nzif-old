@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useMemo } from 'react'
+import React, { Fragment, useState, useEffect, useMemo, useCallback } from 'react'
 import PropTypes from 'lib/proptypes'
 import pluralize from 'pluralize'
 import humanize from 'lib/humanize'
@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom'
 import Button from 'atoms/button'
 import Time from 'atoms/time'
 import Date from 'atoms/date'
+import Checkbox from 'atoms/checkbox'
 import List from 'molecules/list'
 import Modal from 'molecules/modal'
 
-const Details = ({ session: sessionProp, onClose }) => {
+const Details = ({ session: sessionProp, registration, onChange, onClose }) => {
   const [session, setSession] = useState(sessionProp)
 
   useEffect(() => {
@@ -22,6 +23,14 @@ const Details = ({ session: sessionProp, onClose }) => {
       return activity ? [activity] : session.activities
     }
   }, [session])
+
+  const excluded = useMemo(() => (
+    session && registration && registration.excluded.includes(session.id)
+  ), [session, registration])
+
+  const excludedChanged = useCallback((e) => {
+    onChange(sessionProp.id, { excluded: e.target.checked })
+  }, [sessionProp, onChange])
 
   return (
     <Modal
@@ -53,7 +62,7 @@ const Details = ({ session: sessionProp, onClose }) => {
                     : 'Location TBC'
               )}
             </div>
-            {selected.length > 1 && (
+            {selected.length > 1 ? (
               <List>
                 {selected.map(s => (
                   <List.Item
@@ -65,7 +74,10 @@ const Details = ({ session: sessionProp, onClose }) => {
                   />
                 ))}
               </List>
-
+            ) : (registration &&
+              <Checkbox checked={excluded} onChange={excludedChanged}>
+                Hide from my calendar
+              </Checkbox>
             )}
           </div>
           <footer className="modal__footer">
@@ -85,6 +97,10 @@ const Details = ({ session: sessionProp, onClose }) => {
 
 Details.propTypes = {
   session: PropTypes.session,
+  registration: PropTypes.shape({
+    excluded: PropTypes.arrayOf(PropTypes.id.isRequired).isRequired,
+  }),
+  onChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 }
 

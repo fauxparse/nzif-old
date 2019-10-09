@@ -21,6 +21,8 @@ class CalendarsController < ApplicationController
     @calendar ||=
       Calendar.generate do |calendar|
         itinerary.sessions.each do |session|
+          next if itinerary.excludes?(session)
+
           calendar.event do |event|
             Calendar::Session.new(session).populate_event(event)
           end

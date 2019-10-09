@@ -15,6 +15,14 @@ class Itinerary
         .order(starts_at: :asc)
   end
 
+  def excluded_sessions
+    @excluded_sessions ||= registration.calendar_exclusions.includes(:session).map(&:session)
+  end
+
+  def excludes?(session)
+    excluded_sessions.include?(session)
+  end
+
   def sessions
     [
       *workshops.all,

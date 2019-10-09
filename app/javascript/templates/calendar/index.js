@@ -16,7 +16,7 @@ import Instructions from './instructions'
 
 import './index.scss'
 
-const Calendar = ({ loading, festival, sessions, registration }) => {
+const Calendar = ({ loading, festival, sessions, registration, onChange }) => {
   const scrollableArea = useRef()
 
   const timeColumn = useRef()
@@ -122,7 +122,12 @@ const Calendar = ({ loading, festival, sessions, registration }) => {
           ))}
         </div>
       </div>
-      <Details session={selected} onClose={hideDetails} />
+      <Details
+        session={selected}
+        registration={registration}
+        onClose={hideDetails}
+        onChange={onChange}
+      />
       <Instructions
         open={instructionsOpen}
         url={url}
@@ -144,6 +149,7 @@ Calendar.propTypes = {
   festival: PropTypes.festival.isRequired,
   sessions: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.session.isRequired).isRequired),
   registration: PropTypes.shape({ id: PropTypes.id }),
+  onChange: PropTypes.func.isRequired,
 }
 
 Calendar.defaultProps = {

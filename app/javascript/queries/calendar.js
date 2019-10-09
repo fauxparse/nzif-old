@@ -25,10 +25,17 @@ export default gql`
       id
       state
       workshops
+      excluded
     }
 
     presenting(year: $year) {
       id
     }
+  }
+`
+
+export const UPDATE_EXCLUSIONS = gql`
+  mutation updateExclusions($registrationId: ID!, $ids: [ID!]!) {
+    updateCalendarExclusions(registrationId: $registrationId, ids: $ids)
   }
 `

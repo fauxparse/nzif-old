@@ -11,6 +11,7 @@ module Types
     field :preferences, [Preference], null: false
     field :workshops, [GraphQL::Types::ID], null: false
     field :waitlists, [GraphQL::Types::ID], null: false
+    field :excluded, [GraphQL::Types::ID], null: false
     field :availability, [Availability], null: false
     field :prices, [Integer], null: false
     field :payments, [Types::Payment], null: false
@@ -43,6 +44,10 @@ module Types
 
     def waitlists
       encode_session_ids(object.waitlists)
+    end
+
+    def excluded
+      encode_session_ids(object.calendar_exclusions)
     end
 
     def payments

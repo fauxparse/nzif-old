@@ -1,13 +1,13 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { useQuery } from 'react-apollo'
+import { useQuery, useMutation } from 'react-apollo'
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 import values from 'lodash/values'
 import moment from 'lib/moment'
 import { useFestival } from 'contexts/festival'
 import Template from 'templates/calendar'
-import CALENDAR from 'queries/calendar'
+import CALENDAR, { UPDATE_EXCLUSIONS } from 'queries/calendar'
 
 const Calendar = ({ match }) => {
   const { year } = match.params
@@ -15,6 +15,8 @@ const Calendar = ({ match }) => {
   const festival = useFestival() || { year }
 
   const { loading, data } = useQuery(CALENDAR, { variables: { year } })
+
+  const excluded = useMemo(() => data.registration ? data.registration.excluded : [], [data])
 
   const sessions = useMemo(() => {
     if (loading || !data.sessions) return []
@@ -36,6 +38,7 @@ const Calendar = ({ match }) => {
               s.activity.type !== 'workshop' ||
               selected.includes(s.id) ||
               presenting.includes(s.id),
+            excluded: excluded.includes(s.id),
           })),
           [s => s.startsAt.valueOf()]
         ),
@@ -50,12 +53,41 @@ const Calendar = ({ match }) => {
     }
   }, [data])
 
+  const [updateExclusions] = useMutation(UPDATE_EXCLUSIONS, {
+    update: (cache, { data: { updateCalendarExclusions } }) => {
+      const existing = cache.readQuery({ query: CALENDAR, variables: { year } })
+      cache.writeQuery({
+        query: CALENDAR,
+        variables: { year },
+        data: {
+          ...existing,
+          registration: {
+            ...existing.registration,
+            excluded: updateCalendarExclusions,
+          },
+        },
+      })
+    }
+  })
+
+  const sessionChanged = useCallback((sessionId, attributes) => {
+    if (attributes.hasOwnProperty('excluded')) {
+      const excluded = data.registration.excluded.filter(id => id !== sessionId)
+      if (attributes.excluded) excluded.push(sessionId)
+      updateExclusions({
+        variables: { registrationId: data.registration.id, ids: excluded },
+        optimisticResponse: { updateCalendarExclusions: excluded },
+      })
+    }
+  }, [data, updateExclusions])
+
   return (
     <Template
       loading={loading || !festival.startDate}
       festival={festival}
       sessions={sessions}
       registration={registration}
+      onChange={sessionChanged}
     />
   )
 }

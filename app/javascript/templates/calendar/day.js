@@ -9,6 +9,7 @@ const Day = ({ date, sessions, onSessionClicked }) => {
     sessions.map(group => ({
       ...group[0],
       type: group[0].activity.type,
+      excluded: group.some(s => s.excluded),
       activities: group.map(s => ({ ...s.activity, selected: s.selected, venue: s.venue })),
       startRow: group[0].startsAt.diff(startTime, 'minutes') / 15 + 1,
       endRow: group[0].endsAt.diff(startTime, 'minutes') / 15 + 1,
@@ -18,7 +19,12 @@ const Day = ({ date, sessions, onSessionClicked }) => {
   return (
     <div className="calendar__day">
       {groups.map(group => (
-        <Session key={group.id} group={group} onClick={onSessionClicked} />
+        <Session
+          key={group.id}
+          group={group}
+          excluded={group.excluded}
+          onClick={onSessionClicked}
+        />
       ))}
     </div>
   )

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_06_220946) do
+ActiveRecord::Schema.define(version: 2019_10_08_200050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 2019_10_06_220946) do
     t.index ["registration_id", "session_id", "role"], name: "index_availabilities_on_registration_id_and_session_id_and_role", unique: true
     t.index ["registration_id"], name: "index_availabilities_on_registration_id"
     t.index ["session_id"], name: "index_availabilities_on_session_id"
+  end
+
+  create_table "calendar_exclusions", force: :cascade do |t|
+    t.bigint "session_id", null: false
+    t.bigint "registration_id", null: false
+    t.index ["registration_id", "session_id"], name: "index_calendar_exclusions_on_registration_id_and_session_id", unique: true
+    t.index ["registration_id"], name: "index_calendar_exclusions_on_registration_id"
+    t.index ["session_id"], name: "index_calendar_exclusions_on_session_id"
   end
 
   create_table "contents", force: :cascade do |t|
@@ -309,6 +317,8 @@ ActiveRecord::Schema.define(version: 2019_10_06_220946) do
   add_foreign_key "activities", "pitches"
   add_foreign_key "availabilities", "registrations"
   add_foreign_key "availabilities", "sessions"
+  add_foreign_key "calendar_exclusions", "registrations", on_delete: :cascade
+  add_foreign_key "calendar_exclusions", "sessions", on_delete: :cascade
   add_foreign_key "history_mentions", "history_items", column: "item_id", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "incidents", "festivals", on_delete: :cascade

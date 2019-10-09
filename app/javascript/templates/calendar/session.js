@@ -5,7 +5,7 @@ import pluralize from 'pluralize'
 import humanize from 'lib/humanize'
 import Time from 'atoms/time'
 
-const Session = ({ group, onClick }) => {
+const Session = ({ group, excluded, onClick }) => {
   const selected = useMemo(() => group.activities.find(s => s.selected), [group])
 
   const clicked = useCallback(() => {
@@ -14,7 +14,11 @@ const Session = ({ group, onClick }) => {
 
   return (
     <div
-      className={classNames('calendar__group', selected && 'calendar__group--selected')}
+      className={classNames(
+        'calendar__group',
+        selected && !excluded && 'calendar__group--selected',
+        excluded && 'calendar__group--excluded'
+      )}
       style={{
         gridRowStart: group.startRow,
         gridRowEnd: group.endRow,
@@ -42,7 +46,12 @@ Session.propTypes = {
     type: PropTypes.activityType.isRequired,
     activities: PropTypes.arrayOf(PropTypes.activity.isRequired).isRequired,
   }).isRequired,
+  excluded: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
+}
+
+Session.defaultProps = {
+  excluded: false,
 }
 
 export default Session

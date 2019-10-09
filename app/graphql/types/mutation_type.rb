@@ -20,6 +20,7 @@ module Types
     field :reset_password, mutation: Mutations::ResetPassword
     field :sign_up, mutation: Mutations::SignUp
     field :update_activity, mutation: Mutations::UpdateActivity
+    field :update_calendar_exclusions, mutation: Mutations::UpdateCalendarExclusions
     field :update_content, mutation: Mutations::UpdateContent
     field :update_incident, mutation: Mutations::UpdateIncident
     field :update_payment, mutation: Mutations::UpdatePayment
