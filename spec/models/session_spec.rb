@@ -49,5 +49,14 @@ RSpec.describe Session, type: :model do
       ConfirmPlacement.call(session: session, registration: registration)
       RemoveFromSession.call(session: session, registration: registration)
     end
+
+    describe '.presented_by' do
+      subject(:sessions) { Session.presented_by(user) }
+
+      let(:user) { create(:user) }
+      let!(:presenter) { create(:presenter, activity: session.activity, user: user) }
+
+      it { is_expected.to include(session) }
+    end
   end
 end

@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   match '/auth/:provider/callback',
     to: 'oauth#callback',
     via: %i(get post),
-    provider: %r{facebook|twitter|google}
+    provider: %r{facebook|twitter|google},
+    as: :omniauth_callback
 
   match '/payments/:id/cancel',
     to: 'payments#cancel',

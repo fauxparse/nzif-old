@@ -5,6 +5,8 @@ RSpec.describe History::Item, type: :model do
 
   it { is_expected.to be_valid }
 
+  its(:icon) { is_expected.to eq 'clock' }
+
   describe '#mentions' do
     subject(:mentions) { item.mentions }
 

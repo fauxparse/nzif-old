@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'stripe_mock'
 
 RSpec.describe StripeCustomer, type: :model do
-  subject { create(:stripe_customer) }
+  subject(:stripe_customer) { create(:stripe_customer) }
 
   around do |example|
     StripeMock.start
@@ -11,4 +11,11 @@ RSpec.describe StripeCustomer, type: :model do
   end
 
   it { is_expected.to be_valid }
+
+  context 'when reloaded' do
+    it 'retrieves the customer' do
+      customer = StripeCustomer.find(stripe_customer.id)
+      expect(customer).to be_present
+    end
+  end
 end

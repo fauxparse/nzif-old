@@ -38,7 +38,7 @@ class Cart
   end
 
   def total_to_pay
-    [cost - paid, 0].max
+    Money.new([cost - paid, 0].max)
   end
 
   def paid?

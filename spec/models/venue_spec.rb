@@ -17,4 +17,10 @@ RSpec.describe Venue, type: :model do
     expect(venue.latitude).to be_within(1e-4).of Venue.origin.latitude
     expect(venue.longitude).to be_within(1e-4).of Venue.origin.longitude
   end
+
+  describe '#to_s' do
+    subject { venue.to_s }
+
+    it { is_expected.to eq venue.name }
+  end
 end

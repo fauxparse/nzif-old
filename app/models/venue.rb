@@ -6,7 +6,7 @@ class Venue < ApplicationRecord
   )
 
   geocoded_by :full_address
-  before_validation :geocode
+  before_validation :geocode, if: :requires_geocoding?
 
   validates :latitude, :longitude, presence: true, numericality: true
 
@@ -29,5 +29,11 @@ class Venue < ApplicationRecord
   # BATS, home to us all
   def self.origin
     @origin ||= Geokit::LatLng.new(-41.2935391, 174.784505).freeze
+  end
+
+  private
+
+  def requires_geocoding?
+    new_record? && (!latitude? || !longitude?)
   end
 end

@@ -45,4 +45,26 @@ RSpec.describe UpdateWorkshopSelection, type: :interactor do
       result
     end
   end
+
+  describe '#decode_id' do
+    subject { described_class.new.send(:decode_id, id) }
+
+    context 'for a numeric id' do
+      let(:id) { 123 }
+
+      it { is_expected.to eq 123 }
+    end
+
+    context 'for a stringified numeric id' do
+      let(:id) { '123' }
+
+      it { is_expected.to eq 123 }
+    end
+
+    context 'for a hashed id' do
+      let(:id) { Session.encode_id(123) }
+
+      it { is_expected.to eq 123 }
+    end
+  end
 end
