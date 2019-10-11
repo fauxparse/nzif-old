@@ -15,7 +15,7 @@ class SendFeedbackRequests < Interaction
 
   def send_requests_for(session)
     session.placements.each do |placement|
-      UserMailer.feedback_request(session, placement.registration.user).deliver_later
+      UserMailer.feedback_request(session, placement.registration.user).deliver_now
     end
     session.update!(feedback_requested_at: Time.now)
   end
