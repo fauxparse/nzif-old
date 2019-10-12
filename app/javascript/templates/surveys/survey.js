@@ -159,7 +159,7 @@ const Survey = ({ session, loading, sending, sent, onSend }) => {
               <div className="survey__question survey__question--text">
                 <LabelledField
                   className="survey__text-field"
-                  label="Could anything have badd your experience?"
+                  label="Could anything have improved your experience?"
                   autoSize
                   multiline
                   name="bad"
