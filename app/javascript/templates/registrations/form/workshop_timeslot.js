@@ -28,7 +28,7 @@ const WorkshopTimeslot = ({
       sessions.some(session => session.activity.presenters.some(p => p.id === user.id))
   ), [user, loading, sessions])
 
-  const past = time.isBefore(moment())
+  const past = time.isBefore(moment().add(1, 'hour'))
 
   return (
     <Timeslot time={time} offset={offset} loading={loading}>
