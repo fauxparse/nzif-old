@@ -34,6 +34,7 @@ const Message = ({ open, onCancel, onSend }) => {
           onChange={subjectChanged}
         />
         <LabelledField
+          className="message-body"
           label="Message"
           autoSize
           multiline

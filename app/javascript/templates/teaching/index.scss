@@ -54,3 +54,11 @@
     }
   }
 }
+
+.compose-message {
+  .message-body {
+    min-height: 6rem;
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+}
