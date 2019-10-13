@@ -158,7 +158,7 @@ const Details = ({ match }) => {
   return (
     <Template
       loading={loading}
-      festival={loading ? { year } : data.festival}
+      festival={loading || !data ? { year } : data.festival}
       registration={registration}
       sessions={sessions}
       allInShows={allIn}
