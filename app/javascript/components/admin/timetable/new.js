@@ -6,6 +6,7 @@ import { withRouter } from 'react-router'
 import compose from 'lib/compose'
 import humanize from 'lib/humanize'
 import deburr from 'lodash/deburr'
+import kebabCase from 'lodash/kebabCase'
 import lowerFirst from 'lodash/lowerFirst'
 import Highlighter from 'react-highlight-words'
 import PropTypes from 'lib/proptypes'
@@ -18,7 +19,7 @@ import Autocomplete from '../../autocomplete'
 
 const MenuItem = ({ label, selected, selectedText, value: { id, type }, ...props }) => (
   <li className="new-session__menu-item" aria-selected={selected || undefined} {...props}>
-    <Icon name={id ? type : 'add'} />
+    <Icon name={id ? kebabCase(type) : 'add'} />
     <div className="new-session__activity-details">
       <Highlighter
         className="highlight"
@@ -38,7 +39,7 @@ MenuItem.propTypes = {
   selected: PropTypes.bool.isRequired,
   selectedText: PropTypes.string.isRequired,
   value: PropTypes.shape({
-    id: PropTypes.id.isRequired,
+    id: PropTypes.id,
     type: PropTypes.string.isRequired,
   }).isRequired,
 }
