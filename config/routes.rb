@@ -22,6 +22,11 @@ Rails.application.routes.draw do
     via: %i(get),
     as: 'calendar'
 
+  get '/:year/reports/:report',
+    to: 'reports#show',
+    as: 'report',
+    defaults: { format: 'csv' }
+
   get(
     '*path' => 'festivals#show',
     constraints: lambda { |req| req.path.exclude?('active_storage') },

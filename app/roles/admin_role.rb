@@ -6,5 +6,6 @@ class AdminRole < AccessGranted::Role
   def configure
     can :process, Pitch
     can :manage, Object
+    can :view, Report::Base
   end
 end
