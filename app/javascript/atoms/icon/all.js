@@ -20,6 +20,7 @@ export default [
   'copy',
   'country',
   'credit-card',
+  'csv',
   'development',
   'download',
   'edit',
@@ -68,4 +69,5 @@ export default [
   'voucher',
   'waitlist',
   'workshop',
+  'xlsx',
 ]

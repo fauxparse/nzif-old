@@ -63,6 +63,32 @@
     }
   }
 
+  &__reports {
+    .list {
+      padding: 0;
+    }
+
+    .list-item {
+      .list-item__wrapper {
+        padding-right: 0;
+        padding-left: 0;
+      }
+      
+      &__content {
+        display: flex;
+        align-items: center;
+      }
+
+      &__primary {
+        flex: 1;
+      }
+
+      .icon {
+        margin: 0;
+      }
+    }
+  }
+
   @include themify {
     .panel {
       background: themed(panel);
