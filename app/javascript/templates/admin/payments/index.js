@@ -20,7 +20,7 @@ import './index.scss'
 const Payments = ({ festival, loading, payments, onAddPayment, onUpdatePayment }) => {
   const [states, setStates] = useState(['Pending', 'Approved'])
 
-  const [types, setTypes] = useState(['Internet banking', 'Credit card'])
+  const [types, setTypes] = useState(['Internet banking', 'Credit card', 'Voucher'])
 
   const [search, setSearch] = useState('')
 
@@ -77,7 +77,7 @@ const Payments = ({ festival, loading, payments, onAddPayment, onUpdatePayment }
           onChange={setStates}
         />
         <Tags
-          tags={['Internet banking', 'Credit card']}
+          tags={['Internet banking', 'Credit card', 'Voucher']}
           selected={types}
           onChange={setTypes}
         />
