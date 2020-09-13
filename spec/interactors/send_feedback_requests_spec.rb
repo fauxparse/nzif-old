@@ -31,6 +31,19 @@ RSpec.describe SendFeedbackRequests, type: :interactor do
   end
 
   describe '.call' do
+    before do
+      stub_request(:get, "https://fonts.googleapis.com/css?family=Work%20Sans:400,600")
+        .with(
+          headers: {
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Host' => 'fonts.googleapis.com',
+            'User-Agent' => 'Ruby',
+          }
+        )
+        .to_return(status: 200, body: '', headers: {})
+    end
+
     it { is_expected.to be_success }
 
     it 'sends an email for only the session that has just finished' do

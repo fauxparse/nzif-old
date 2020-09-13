@@ -74,7 +74,7 @@ RSpec.describe ExecuteGraphql, type: :interactor do
           variables: variables,
           context: a_hash_including(environment: environment),
           operation_name: operation_name
-        ) { raise ActiveRecord::RecordNotFound.new('[message]', Object, 123) }
+        ) { raise ActiveRecord::RecordNotFound.new('[message]', Object, 'id', 123) }
       end
 
       it { is_expected.to be_a_failure }
@@ -90,7 +90,7 @@ RSpec.describe ExecuteGraphql, type: :interactor do
             message: '[message]',
             status: 'NOT_FOUND',
             detail: a_hash_including(
-              model: 'Object',
+              model: Object,
               id: 123
             )
           )
