@@ -228,7 +228,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     formatador (0.2.5)
-    geocoder (1.5.1)
+    geocoder (1.6.1)
     geokit (1.13.1)
     geokit-rails (2.3.1)
       geokit (~> 1.5)
