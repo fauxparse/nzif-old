@@ -21,7 +21,7 @@ RSpec.shared_context 'registration' do
     double('Interactor')
   end
 
-  let(:festival) { create(:festival) }
+  let(:festival) { create(:festival, :with_prices) }
 
   let(:workshops) do
     create_list(:workshop, 12, festival: festival)

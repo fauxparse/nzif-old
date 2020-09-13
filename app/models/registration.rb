@@ -59,7 +59,13 @@ class Registration < ApplicationRecord
   ].freeze
 
   def prices
-    PRICES
+    @prices ||=
+      festival
+        .prices
+        .select { |p| p.activity_type == 'Workshop' }
+        .inject({ 0 => 0 }) do |hash, price|
+          hash.update(price.quantity => price.amount_cents)
+        end
   end
 
   def cart
