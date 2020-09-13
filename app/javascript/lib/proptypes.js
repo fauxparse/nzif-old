@@ -158,6 +158,11 @@ export const payment = PropTypes.shape({
   registration,
 })
 
+export const price = PropTypes.shape({
+  amount: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+})
+
 export const historyItem = PropTypes.shape({
   id,
   icon,
@@ -190,6 +195,7 @@ export default {
   pitch,
   preference,
   presenter,
+  price,
   ref,
   registration,
   session,
