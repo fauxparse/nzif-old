@@ -48,6 +48,7 @@ export default [
   'phone',
   'pin',
   'pitch',
+  'price',
   'print',
   'privacy',
   'registration',

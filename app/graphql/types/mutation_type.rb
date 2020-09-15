@@ -25,6 +25,7 @@ module Types
     field :update_incident, mutation: Mutations::UpdateIncident
     field :update_payment, mutation: Mutations::UpdatePayment
     field :update_pitch, mutation: Mutations::UpdatePitch
+    field :update_prices, mutation: Mutations::UpdatePrices
     field :update_registration, mutation: Mutations::UpdateRegistration
     field :update_roll, mutation: Mutations::UpdateRoll
     field :update_session, mutation: Mutations::UpdateSession

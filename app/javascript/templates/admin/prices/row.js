@@ -38,7 +38,7 @@ const PriceRow = ({ price, onChange, onDelete }) => {
         )}
       </td>
       <td>
-        <Button toolbar icon="trash" onClick={deleteClicked} />
+        <Button icon="trash" onClick={deleteClicked} />
       </td>
     </tr>
   )

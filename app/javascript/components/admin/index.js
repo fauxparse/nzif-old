@@ -23,6 +23,7 @@ import Allocation from 'pages/admin/allocation'
 import Incidents from 'pages/admin/incidents'
 import EditActivity from 'pages/admin/activities/edit'
 import Payments from 'pages/admin/payments'
+import Prices from 'pages/admin/prices'
 import Venues from 'pages/admin/venues'
 import History from 'pages/admin/history'
 import NotFound from 'templates/not_found'
@@ -104,6 +105,7 @@ const Admin = ({ match, history }) => {
                       <Route path={`${match.path}/pitches`} component={Pitches} />
                       <Route path={`${match.path}/registrations`} component={Registrations} />
                       <Route path={`${match.path}/payments`} component={Payments} />
+                      <Route path={`${match.path}/prices`} component={Prices} />
                       <Route path={`${match.path}/venues`} component={Venues} />
                       <Route path={`${match.path}/history`} component={History} />
                       <Route path={`${match.path}/allocation`} component={Allocation} />
