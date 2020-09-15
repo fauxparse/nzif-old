@@ -1,0 +1,52 @@
+@import "../../../styles/base";
+
+.prices-admin {
+  &__body {
+    @include autopad;
+
+    @include media(medium) {
+      .payments {
+        margin-left: -$keyline;
+      }
+    }
+
+    table {
+      margin-bottom: $spacing;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem 0;
+      text-align: left;
+      
+      @include themify {
+        border-bottom: 1px solid themed(border);
+      }
+    }
+
+    th {
+      padding-right: $spacing;
+      font-weight: normal;
+    }
+
+    td {
+      &:last-child {
+        padding: 0 0 0 $spacing;
+      }
+    }
+
+    .text-field {
+      margin: -0.5rem 0 -0.625rem;
+      padding: 0.5rem 0;
+
+      &::-webkit-inner-spin-button, 
+      &::-webkit-outer-spin-button { 
+        appearance: none; 
+        margin: 0; 
+      }
+    }
+  }
+}

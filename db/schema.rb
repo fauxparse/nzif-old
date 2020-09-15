@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_08_200050) do
+ActiveRecord::Schema.define(version: 2020_09_13_025029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -206,6 +206,16 @@ ActiveRecord::Schema.define(version: 2019_10_08_200050) do
     t.index ["user_id"], name: "index_presenters_on_user_id"
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.bigint "festival_id", null: false
+    t.string "activity_type"
+    t.integer "quantity"
+    t.integer "amount_cents"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["festival_id"], name: "index_prices_on_festival_id"
+  end
+
   create_table "registrations", force: :cascade do |t|
     t.bigint "festival_id", null: false
     t.bigint "user_id", null: false
@@ -333,6 +343,7 @@ ActiveRecord::Schema.define(version: 2019_10_08_200050) do
   add_foreign_key "preferences", "sessions"
   add_foreign_key "presenters", "activities"
   add_foreign_key "presenters", "users"
+  add_foreign_key "prices", "festivals"
   add_foreign_key "registrations", "festivals"
   add_foreign_key "registrations", "users"
   add_foreign_key "sessions", "activities", on_delete: :cascade

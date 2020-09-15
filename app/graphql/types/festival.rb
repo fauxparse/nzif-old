@@ -18,6 +18,7 @@ module Types
     field :root, String, null: false
     field :admin_root, String, null: false
     field :panic, GraphQL::Types::Boolean, null: false
+    field :prices, [Types::Price], null: false
 
     def activities(type: nil, slug: nil)
       scope = object.activities.with_attached_image.order(:id)
@@ -41,6 +42,10 @@ module Types
         )
         .references(:activities)
         .merge(::Activity.of_type(type))
+    end
+
+    def prices
+      object.prices.by_quantity.all
     end
 
     def programme_launched
