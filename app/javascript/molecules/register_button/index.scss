@@ -5,7 +5,7 @@
   position: relative;
   max-width: 30rem;
   margin: $spacing auto;
-  padding: $padding $padding $padding ($padding * 2 + 6rem);
+  padding: $padding;
   transition: transition(box-shadow);
   border-radius: 0.5rem;
   text-decoration: none;
@@ -34,7 +34,7 @@
 
   &__dial {
     @include elevation(2);
-    display: block;
+    display: none;
     position: absolute;
     top: 50%;
     left: $padding + 3rem;

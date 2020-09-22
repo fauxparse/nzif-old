@@ -13,8 +13,7 @@ const Registration = ({ festival }) => {
     <section className="homepage__panel homepage__register-now homepage__register-now--earlybird">
       <h2 className="section-title">Register now for NZIF {year}</h2>
       <p>
-        Registrations are now open! Some workshops are already full,
-        but you can join the waitlist in case a spot opens up.
+        Registrations are now open!
       </p>
       <RegisterButton to={`/${year}/register`} />
       {cutoff && (
