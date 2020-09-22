@@ -38,6 +38,10 @@ module Types
       object.preferences.sort_by { |preference| [preference.starts_at, preference.position] }
     end
 
+    def prices
+      object.prices.values.sort
+    end
+
     def workshops
       encode_session_ids(object.placements)
     end
