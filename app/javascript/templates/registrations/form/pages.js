@@ -44,12 +44,12 @@ export default [{
   icon: 'activities',
   component: Workshops,
   validations: {},
-}, {
-  name: 'availability',
-  label: 'Availability',
-  icon: 'availability',
-  component: Availability,
-  validations: {},
+// }, {
+//   name: 'availability',
+//   label: 'Availability',
+//   icon: 'availability',
+//   component: Availability,
+//   validations: {},
 }, {
   name: 'payment',
   label: 'Payment',
