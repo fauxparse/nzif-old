@@ -14,7 +14,7 @@ const SelectProvider = ({
   const id = useRef(uuid())
 
   const options = useMemo(() => (
-    optionsProp.map(o => (o.id ? o : {
+    optionsProp.filter(Boolean).map(o => (o.id ? o : {
       id: o,
       label: o,
       divider: /^-+$/.test(o),
