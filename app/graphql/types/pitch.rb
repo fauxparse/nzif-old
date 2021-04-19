@@ -9,6 +9,10 @@ module Types
     field :bio, String, null: true
     field :availability, String, null: true
     field :presented_before, String, null: true
+    field :nz_based, Boolean, null: true
+    field :payment, Boolean, null: true
+    field :transport, Boolean, null: true
+    field :expenses, Boolean, null: true
     field :code_of_conduct, Boolean, null: true
     field :activity_type, String, null: false
     field :workshop_description, String, null: true
@@ -54,6 +58,10 @@ module Types
       :bio,
       :availability,
       :presented_before,
+      :nz_based,
+      :payment,
+      :transport,
+      :expenses,
       :code_of_conduct,
       :activity_type,
       :workshop_description,

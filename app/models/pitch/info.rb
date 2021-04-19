@@ -8,6 +8,10 @@ class Pitch
     property :bio, coerce: String, default: ''
     property :availability, coerce: String, default: ''
     property :presented_before, coerce: String, default: ''
+    property :nz_based, coerce: :to_bool.to_proc, default: false
+    property :payment, coerce: :to_bool.to_proc, default: false
+    property :transport, coerce: :to_bool.to_proc, default: false
+    property :expenses, coerce: :to_bool.to_proc, default: false
     property :code_of_conduct, coerce: :to_bool.to_proc, default: false
     property :activity_type, coerce: String, default: 'workshop'
     property :workshop_description, coerce: String

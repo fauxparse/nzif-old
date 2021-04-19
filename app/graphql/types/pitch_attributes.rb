@@ -10,6 +10,10 @@ module Types
     argument :bio, String, required: false
     argument :availability, String, required: false
     argument :presented_before, String, required: false
+    argument :nz_based, Boolean, required: false
+    argument :payment, Boolean, required: false
+    argument :transport, Boolean, required: false
+    argument :expenses, Boolean, required: false
     argument :code_of_conduct, Boolean, required: false
     argument :activity_type, String, required: false
     argument :workshop_description, String, required: false

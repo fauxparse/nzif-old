@@ -26,6 +26,10 @@ export const PITCH_FRAGMENT = gql`
     bio
     presentedBefore
     availability
+    nzBased
+    payment
+    transport
+    expenses
     codeOfConduct
     activityType
     activityLevels
