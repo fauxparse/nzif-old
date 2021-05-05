@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox, Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
+import { Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
 import ActivityLevels from './levels'
 
 const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
   const {
     name,
     workshopDescription,
+    workshopReason,
     workshopRequirements,
+    workshopTech,
     participantCount,
     taughtBefore,
-    teens,
     accessibility,
     otherInfo,
   } = pitch
@@ -62,6 +63,16 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
         <Errors from={errors} name="workshopDescription" />
       </Field>
       <Field className="pitch__field">
+        <p>Why should this workshop be taught at NZIF?</p>
+        <Textarea
+          value={workshopReason}
+          minRows={3}
+          required
+          onChange={(e) => onChange("workshopReason", e.target.value)}
+        />
+        <Errors from={errors} name="workshopReason" />
+      </Field>
+      <Field className="pitch__field">
         <p>Who is your workshop aimed at? Select as many as are applicable:</p>
         <ActivityLevels pitch={pitch} onChange={onChange} />
         <Errors from={errors} name="activityLevels" />
@@ -102,28 +113,29 @@ const StandaloneWorkshop = ({ pitch, errors, onChange }) => {
       </Field>
       <Field className="pitch__field">
         <p>
-          Will you have taught this workshop prior to the Festival? If so,
-          please give details:
+          Have you taught this workshop before?
+          If not, will you have taught it prior to the Festival?
+          Please give details:
         </p>
         <Textarea
           value={taughtBefore}
           minRows={3}
           onChange={(e) => onChange("taughtBefore", e.target.value)}
         />
-        <Hint>Leave blank if you haven’t taught it before.</Hint>
         <Errors from={errors} name="taughtBefore" />
       </Field>
       <Field className="pitch__field">
-        <p>
-          Would you be able to teach this workshop to teens during 7–9 October?
-        </p>
-        <Checkbox
-          checked={!!teens}
-          onChange={(e) => onChange("teens", e.target.checked)}
-        >
-          <div>Sure, that sounds great!</div>
-          <Errors from={errors} name="teens" />
-        </Checkbox>
+        <p>Does your workshop have any space or equipment requirements?</p>
+        <Textarea
+          value={workshopTech}
+          minRows={3}
+          required
+          onChange={(e) => onChange("workshopTech", e.target.value)}
+        />
+        <Hint>
+          e.g. carpeted floor, sound system
+        </Hint>
+        <Errors from={errors} name="workshopTech" />
       </Field>
       <Field className="pitch__field">
         <p>
@@ -159,11 +171,12 @@ StandaloneWorkshop.propTypes = {
   pitch: PropTypes.shape({
     name: PropTypes.string,
     workshopDescription: PropTypes.string,
+    workshopReason: PropTypes.string,
     workshopRequirements: PropTypes.string,
+    workshopTech: PropTypes.string,
     participantCount: PropTypes.number,
     taughtBefore: PropTypes.string,
     otherInfo: PropTypes.string,
-    teens: PropTypes.bool,
     accessibility: PropTypes.string,
   }).isRequired,
   errors: PropTypes.object,

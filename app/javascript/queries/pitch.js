@@ -34,11 +34,16 @@ export const PITCH_FRAGMENT = gql`
     activityType
     activityLevels
     workshopDescription
+    workshopReason
     workshopRequirements
+    workshopTech
     participantCount
     taughtBefore
     otherInfo
     showDescription
+    showDetails
+    showWhy
+    showTech
     castSize
     casting
     castDetails

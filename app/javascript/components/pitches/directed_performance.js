@@ -1,14 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Errors, Field, Hint, Input, Textarea, WordCount } from '../form'
+import ActivityLevels from './levels'
 
 const DirectedPerformance = ({ pitch, errors, onChange }) => {
   const {
     name,
     showDescription,
+    showDetails,
+    showWhy,
+    showTech,
     castSize,
+    participantCount,
     performedBefore,
     workshopDescription,
+    workshopRequirements,
+    workshopTech,
     taughtBefore,
     accessibility,
     otherInfo,
@@ -46,8 +53,7 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
 
       <Field className="pitch__field">
         <p>
-          Please describe the show you wish to direct. Just describe the show and how it works:
-          this is not the marketing blurb
+          What is the promise of the show? i.e., how would you describe it to an audience?
         </p>
         <WordCount
           value={showDescription}
@@ -58,6 +64,51 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
           onChange={e => onChange('showDescription', e.target.value)}
         />
         <Errors from={errors} name="showDescription" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>
+          Now we’d like a little more behind-the-scenes detail.
+          Describe the show in terms of the genre, the structure,
+          what you’re trying to do, how it works.
+        </p>
+        <Textarea
+          value={showDetails}
+          minRows={3}
+          onChange={e => onChange('showDetails', e.target.value)}
+        />
+        <Errors from={errors} name="showDetails" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>
+          Why should this show be seen at NZIF? 
+        </p>
+        <Textarea
+          value={showWhy}
+          minRows={3}
+          onChange={e => onChange('showWhy', e.target.value)}
+        />
+        <Errors from={errors} name="showWhy" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>Who is your show suitable for in terms of casting? Select as many as are applicable:</p>
+        <ActivityLevels pitch={pitch} onChange={onChange} />
+        <Errors from={errors} name="activityLevels" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>
+          What does this show require in terms of staging? Set, costume, music, lights etc? 
+          Give us as much detail as you can at this stage.
+        </p>
+        <Textarea
+          value={showTech}
+          minRows={3}
+          onChange={e => onChange('showTech', e.target.value)}
+        />
+        <Errors from={errors} name="showTech" />
       </Field>
 
       <Field className="pitch__field">
@@ -109,6 +160,27 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
       </Field>
 
       <Field className="pitch__field">
+        <p>What is the maximum number of participants?</p>
+        <Input
+          type="number"
+          className="form__input--number"
+          value={participantCount}
+          min={6}
+          max={100}
+          required
+          onChange={(e) =>
+            onChange("participantCount", parseInt(e.target.value, 10))
+          }
+        />
+        <Hint>
+          We recommend 16 but are open to smaller or larger class sizes if
+          appropriate for the content. Workshops will have a minimum of 6
+          participants.
+        </Hint>
+        <Errors from={errors} name="participantCount" />
+      </Field>
+
+      <Field className="pitch__field">
         <p>Will you have taught this workshop prior to the Festival? If so, please give details:</p>
         <Textarea
           value={taughtBefore}
@@ -119,6 +191,35 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
           Leave blank if you haven’t taught it before.
         </Hint>
         <Errors from={errors} name="taughtBefore" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>Are there any other prerequisites for your workshop?</p>
+        <Textarea
+          value={workshopRequirements}
+          minRows={3}
+          required
+          onChange={(e) => onChange("workshopRequirements", e.target.value)}
+        />
+        <Hint>
+          Previous skills/training required; specific accessibility notes (e.g.
+          mobility, vision, hearing)
+        </Hint>
+        <Errors from={errors} name="workshopRequirements" />
+      </Field>
+
+      <Field className="pitch__field">
+        <p>Does your workshop have any space or equipment requirements?</p>
+        <Textarea
+          value={workshopTech}
+          minRows={3}
+          required
+          onChange={(e) => onChange("workshopTech", e.target.value)}
+        />
+        <Hint>
+          e.g. carpeted floor, sound system
+        </Hint>
+        <Errors from={errors} name="workshopTech" />
       </Field>
 
       <h2 className="section-title pitch-section__title">Other info</h2>
@@ -161,9 +262,15 @@ DirectedPerformance.propTypes = {
   pitch: PropTypes.shape({
     name: PropTypes.string,
     showDescription: PropTypes.string,
+    showDetails: PropTypes.string,
+    showWhy: PropTypes.string,
+    showTech: PropTypes.string,
     castSize: PropTypes.number,
+    participantCount: PropTypes.number,
     performedBefore: PropTypes.string,
     workshopDescription: PropTypes.string,
+    workshopRequirements: PropTypes.string,
+    workshopTech: PropTypes.string,
     taughtBefore: PropTypes.string,
     accessibility: PropTypes.string,
     otherInfo: PropTypes.string,
