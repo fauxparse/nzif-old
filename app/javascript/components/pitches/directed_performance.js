@@ -30,12 +30,21 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
           BATS) led by one or two directors
         </li>
         <li>
+          This could be: something you’ve directed before at a festival with an ensemble cast,
+          something you’ve presented with a specific company before but can adapt to a casting
+          workshop, or something brand new that has never been presented before and would
+          require more experienced cast members
+        </li>
+        <li>
           Recently developed shows that have not been performed at NZIF previously, that would suit
           intermediate improvisors
         </li>
         <li>
           An accompanying workshop teaching participants the relevant skills and techniques needed
           (from which you will cast the performance)
+        </li>
+        <li>
+          We want to programme shows that provide opportunities for all experience levels.
         </li>
       </ul>
 
@@ -225,7 +234,7 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
       <h2 className="section-title pitch-section__title">Other info</h2>
 
       <Field className="pitch__field">
-        <p>Do you or any of your cast require accessibility assistance to participate at NZIF?</p>
+        <p>Do you require accessibility assistance to participate at NZIF?</p>
         <Textarea
           value={accessibility}
           minRows={3}

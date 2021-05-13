@@ -9,7 +9,7 @@ import { Checkbox, Errors, Field, Hint, Textarea, WordCount } from '../form'
 const AGREEMENTS = [
   {
     id: 'nzBased',
-    label: 'I understand that teachers and directors for NZIF 2021 will be selected from NZ based practitioners and make my submission accordingly',
+    label: 'I understand that teachers and directors for NZIF 2021 will be selected from NZ and Australian practitioners and make my submission accordingly',
   },
   {
     id: 'payment',
@@ -17,7 +17,7 @@ const AGREEMENTS = [
   },
   {
     id: 'transport',
-    label: 'I understand that I am responsible for getting myself to Wellington for the duration of the festival (and that the festival will get from the airport to accommodation!)',
+    label: 'I understand that I am responsible for getting myself to Wellington for the duration of the festival (and that the festival will get me from the airport to accommodation!)',
   },
   {
     id: 'expenses',
