@@ -44,7 +44,6 @@ const Availability = ({ pitch, errors, onChange }) => {
               <Date date={[startsAt, endsAt]} />
               {repeats > 1 && ` (${repeats} shows)`}
             </b>
-            <small><Time time={[startsAt, endsAt]} /></small>
           </Checkbox>
         ))}
       </Field>

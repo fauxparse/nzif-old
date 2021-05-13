@@ -8,16 +8,25 @@ class Pitch
     property :bio, coerce: String, default: ''
     property :availability, coerce: String, default: ''
     property :presented_before, coerce: String, default: ''
+    property :nz_based, coerce: :to_bool.to_proc, default: false
+    property :payment, coerce: :to_bool.to_proc, default: false
+    property :transport, coerce: :to_bool.to_proc, default: false
+    property :expenses, coerce: :to_bool.to_proc, default: false
     property :code_of_conduct, coerce: :to_bool.to_proc, default: false
     property :activity_type, coerce: String, default: 'workshop'
     property :workshop_description, coerce: String
+    property :workshop_reason, coerce: String
     property :workshop_requirements, coerce: String
+    property :workshop_tech, coerce: String
     property :activity_levels, coerce: Array[String], default: []
     property :participant_count, coerce: Integer, default: 16
     property :taught_before, coerce: String
     property :teens, coerce: :to_bool.to_proc, default: false
     property :other_info, coerce: String
     property :show_description, coerce: String
+    property :show_details, coerce: String
+    property :show_why, coerce: String
+    property :show_tech, coerce: String
     property :cast_size, coerce: Integer, default: 6
     property :casting, coerce: String
     property :cast_details, coerce: String

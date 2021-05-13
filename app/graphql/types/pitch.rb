@@ -9,16 +9,25 @@ module Types
     field :bio, String, null: true
     field :availability, String, null: true
     field :presented_before, String, null: true
+    field :nz_based, Boolean, null: true
+    field :payment, Boolean, null: true
+    field :transport, Boolean, null: true
+    field :expenses, Boolean, null: true
     field :code_of_conduct, Boolean, null: true
     field :activity_type, String, null: false
+    field :workshop_reason, String, null: true
     field :workshop_description, String, null: true
     field :workshop_requirements, String, null: true
+    field :workshop_tech, String, null: true
     field :activity_levels, [Types::WorkshopLevel], null: false
     field :participant_count, Integer, null: true
     field :taught_before, String, null: true
     field :teens, Boolean, null: true
     field :other_info, String, null: true
     field :show_description, String, null: true
+    field :show_details, String, null: true
+    field :show_why, String, null: true
+    field :show_tech, String, null: true
     field :cast_size, Integer, null: true
     field :performed_before, String, null: true
     field :casting, String, null: true
@@ -54,16 +63,25 @@ module Types
       :bio,
       :availability,
       :presented_before,
+      :nz_based,
+      :payment,
+      :transport,
+      :expenses,
       :code_of_conduct,
       :activity_type,
       :workshop_description,
+      :workshop_reason,
       :workshop_requirements,
+      :workshop_tech,
       :activity_levels,
       :participant_count,
       :taught_before,
       :teens,
       :other_info,
       :show_description,
+      :show_details,
+      :show_why,
+      :show_tech,
       :cast_size,
       :performed_before,
       :casting,
