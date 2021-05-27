@@ -8,6 +8,10 @@ module Types
       field :country, String, null: true
       field :image, Types::UserImage, null: true
 
+      def id
+        object[:id]
+      end
+
       def image
         real_user&.image&.attached? ? real_user.image : nil
       end
