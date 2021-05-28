@@ -32,19 +32,16 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
         <li>
           This could be: something you’ve directed before at a festival with an ensemble cast,
           something you’ve presented with a specific company before but can adapt to a casting
-          workshop, or something brand new that has never been presented before and would
-          require more experienced cast members
-        </li>
-        <li>
-          Recently developed shows that have not been performed at NZIF previously, that would suit
-          intermediate improvisors
+          workshop, or something brand new that has never been presented before and would require
+          more experienced cast members
         </li>
         <li>
           An accompanying workshop teaching participants the relevant skills and techniques needed
           (from which you will cast the performance)
         </li>
         <li>
-          We want to programme shows that provide opportunities for all experience levels.
+          We want to create a show programme that provides opportunities for improvisers of all
+          experience levels, so please consider who your show can help shine
         </li>
       </ul>
 
@@ -91,7 +88,7 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
 
       <Field className="pitch__field">
         <p>
-          Why should this show be seen at NZIF? 
+          Why should this show be seen at NZIF?
         </p>
         <Textarea
           value={showWhy}
@@ -109,7 +106,7 @@ const DirectedPerformance = ({ pitch, errors, onChange }) => {
 
       <Field className="pitch__field">
         <p>
-          What does this show require in terms of staging? Set, costume, music, lights etc? 
+          What does this show require in terms of staging? Set, costume, music, lights etc?
           Give us as much detail as you can at this stage.
         </p>
         <Textarea
