@@ -14,18 +14,22 @@ const FestivalSidebar = ({ festival, registration, ...props }) => {
 
   const { state, year } = festival || {}
 
+  const registrationsOpen = state === 'earlybird' || state === 'allocating' || state === 'registration'
+
   return (
     <Sidebar {...props}>
       <List>
         <List.Link to={`/${year}`} icon="home" primary="Festival home" />
-        {registered ? (
-          <List.Link
-            to={`/${year}/register/workshops`}
-            icon="registration"
-            primary="Your registration"
-          />
-        ) : (
-          <List.Link to={`/${year}/register`} icon="registration" primary="Register now" />
+        {registrationsOpen && (
+          registered ? (
+            <List.Link
+              to={`/${year}/register/workshops`}
+              icon="registration"
+              primary="Your registration"
+            />
+          ) : (
+            <List.Link to={`/${year}/register`} icon="registration" primary="Register now" />
+          )
         )}
         {user && user.presenter && (
           <List.Link to={`/${year}/teaching`} icon="workshop" primary="Your workshops" />
