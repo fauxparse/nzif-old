@@ -1,4 +1,10 @@
 class AdminMailer < ApplicationMailer
+  ADMIN_EMAILS = %w(
+    fauxparse@gmail.com
+    jen@improvfest.nz
+    j.fishwick@gmail.com
+  ).freeze
+
   def pitch_notification(pitch)
     @pitch = pitch
     @festival = pitch.festival
@@ -9,6 +15,6 @@ class AdminMailer < ApplicationMailer
   private
 
   def admin_recipients
-    User.admin.map { |user| recipient(user) }
+    User.where(email: ADMIN_EMAILS).all.map { |user| recipient(user) }
   end
 end
