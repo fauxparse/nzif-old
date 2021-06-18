@@ -35,6 +35,7 @@ const Print = ({ match, location, history }) => {
             ...match,
             params: { year, id }
           }}
+          anonymise
           onLoad={pitchLoaded}
         />
       ))}

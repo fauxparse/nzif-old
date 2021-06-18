@@ -43,7 +43,7 @@ const Filters = ({ filters, onChange }) => {
         onChange={onPileChanged}
       />
       <Tags
-        tags={['Women', 'Men', 'Mixed']}
+        tags={['Women', 'Men', 'Gender diverse', 'Mixed']}
         selected={gender}
         onChange={onGenderChanged}
       />

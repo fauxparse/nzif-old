@@ -19,7 +19,7 @@ import PITCHES_QUERY from 'queries/pitches'
 import UPDATE_PITCH_MUTATION from 'queries/mutations/update_pitch'
 import Answer from './answer'
 
-const Details = ({ location, match, onLoad }) => {
+const Details = ({ location, match, anonymise = false, onLoad }) => {
   const { year, id } = match.params
 
   const festival = useContext(FestivalContext) || {
@@ -107,18 +107,20 @@ const Details = ({ location, match, onLoad }) => {
           <Breadcrumbs.Link to={back}>Pitches</Breadcrumbs.Link>
         </Breadcrumbs>
         <Header.Title>{pitch.name}</Header.Title>
-        <div className="pitch-details__presenters">
-          {pitch.presenters.map(presenter => (
-            <Chip
-              key={presenter.name}
-              user={presenter}
-              data-email={`${presenter.name} <${presenter.email}>`}
-              onClick={copyEmail}
-            >
-              <Ripple />
-            </Chip>
-          ))}
-        </div>
+        {!anonymise && (
+          <div className="pitch-details__presenters">
+            {pitch.presenters.map(presenter => (
+              <Chip
+                key={presenter.name}
+                user={presenter}
+                data-email={`${presenter.name} <${presenter.email}>`}
+                onClick={copyEmail}
+              >
+                <Ripple />
+              </Chip>
+            ))}
+          </div>
+        )}
         <div className="pitch-details__tags">
           <Tags
             exclusive
@@ -128,7 +130,7 @@ const Details = ({ location, match, onLoad }) => {
           />
           <Tags
             exclusive
-            tags={['Women', 'Men', 'Mixed']}
+            tags={['Women', 'Men', 'Gender diverse', 'Mixed']}
             selected={[pitch.gender].filter(Boolean)}
             onChange={onGenderChanged}
           />
@@ -141,24 +143,27 @@ const Details = ({ location, match, onLoad }) => {
         </div>
       </Header>
 
-      <section className="pitch-details__section">
-        <h2 className="section-title">Presenter details</h2>
+      {!anonymise && (
+        <section className="pitch-details__section">
+          <h2 className="section-title">Presenter details</h2>
 
-        <Answer label="Company name" text={pitch.company} />
-        <Answer label="Bio" text={pitch.bio} />
-        <Answer label="Presented at NZIF before?" text={pitch.presentedBefore} />
-      </section>
+          <Answer label="Company name" text={pitch.company} />
+          <Answer label="Bio" text={pitch.bio} />
+          <Answer label="Presented at NZIF before?" text={pitch.presentedBefore} />
+        </section>
+      )}
       {pitch.activityType === 'workshop' && (
         <section className="pitch-details__section">
           <h2 className="section-title">Standalone workshop</h2>
 
           <Answer label="Workshop name" text={pitch.name} />
           <Answer label="Workshop description" text={pitch.workshopDescription} />
+          <Answer label="Why should this workshop be taught at NZIF?" text={pitch.workshopReason} />
           <Answer label="Workshop levels" text={(pitch.activityLevels || []).join(', ')} />
           <Answer label="Prerequisites" text={pitch.workshopRequirements} />
           <Answer label="Maximum participants" text={pitch.participantCount.toString()} />
           <Answer label="Taught before?" text={pitch.taughtBefore} />
-          <Answer label="Available for teens?" text={pitch.teens ? 'Yes' : 'No'} />
+          <Answer label="Tech requirements" text={pitch.workshopTech} />
           <Answer label="Accessibility" text={pitch.accessibility} />
           <Answer label="Other info" text={pitch.otherInfo} />
         </section>
@@ -169,10 +174,15 @@ const Details = ({ location, match, onLoad }) => {
 
           <Answer label="Show name" text={pitch.name} />
           <Answer label="Show description" text={pitch.showDescription} />
+          <Answer label="Show details" text={pitch.showDetails} />
+          <Answer label="Why should this show be at NZIF?" text={pitch.showWhy} />
           <Answer label="Cast size" text={pitch.castSize.toString()} />
           <Answer label="Performed before?" text={pitch.performedBefore} />
           <Answer label="Workshop description" text={pitch.workshopDescription} />
+          <Answer label="Workshop size" text={pitch.participantCount.toString()} />
           <Answer label="Taught before?" text={pitch.taughtBefore} />
+          <Answer label="Workshop requirements" text={pitch.workshopRequirements} />
+          <Answer label="Workshop tech" text={pitch.workshopTech} />
           <Answer label="Accessibility" text={pitch.accessibility} />
           <Answer label="Other info" text={pitch.otherInfo} />
         </section>
@@ -210,11 +220,8 @@ const Details = ({ location, match, onLoad }) => {
           <ul className="pitch-details__slots">
             {availability.map(({ startsAt, endsAt, repeats }) => (
               <li key={startsAt} className="pitch-details__slot">
-                <b>
-                  <Date date={[startsAt, endsAt]} />
-                  {repeats > 1 && ` (${repeats} shows)`}
-                </b>
-                <small><Time time={[startsAt, endsAt]} /></small>
+                <Date date={[startsAt, endsAt]} />
+                {repeats > 1 && ` (${repeats} shows)`}
               </li>
             ))}
           </ul>
@@ -228,6 +235,7 @@ const Details = ({ location, match, onLoad }) => {
 Details.propTypes = {
   location: ReactRouterPropTypes.location.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
+  anonymise: PropTypes.bool,
   onLoad: PropTypes.func,
 }
 
