@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
     context 'when set with a country code' do
       let(:user) { build(:user, country_code: 'nz') }
 
-      it { is_expected.to eq 'New Zealand' }
+      it { is_expected.to eq 'Aotearoa (New Zealand)' }
     end
 
     context 'with a bad country code' do

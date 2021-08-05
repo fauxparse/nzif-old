@@ -8,7 +8,7 @@ module Nationalisable
   def country
     return nil if country_code.blank?
     country = ISO3166::Country[country_code]
-    country && (country.translations[I18n.locale.to_s] || country.name)
+    country && country.name
   end
 
   def country=(country_name)
@@ -26,6 +26,6 @@ module Nationalisable
   end
 
   def city
-    super&.downcase&.upcase_first
+    super&.titleize
   end
 end

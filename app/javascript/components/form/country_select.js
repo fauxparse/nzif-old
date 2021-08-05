@@ -7,7 +7,7 @@ import Select from 'molecules/select'
 
 const COUNTRIES_QUERY = gql`{ countries }`
 
-const PRIORITY_COUNTRIES = ['New Zealand', 'Australia']
+const PRIORITY_COUNTRIES = ['Aotearoa (New Zealand)', 'Australia']
 
 const sortCountries = (countries) => [
   ...PRIORITY_COUNTRIES,

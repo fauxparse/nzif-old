@@ -7,7 +7,7 @@ class Pitch
     property :name, coerce: String, default: ''
     property :email, coerce: String, default: ''
     property :city, coerce: String, default: ''
-    property :country, coerce: String, default: 'New Zealand'
+    property :country, coerce: String, default: 'Aotearoa (New Zealand)'
 
     def ==(user)
       email.downcase == user.email.downcase
