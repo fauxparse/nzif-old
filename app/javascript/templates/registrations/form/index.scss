@@ -702,3 +702,11 @@
     text-align: left;
   }
 }
+
+.covid-statement {
+  .popover__wrapper {
+    @include autopad;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+}
