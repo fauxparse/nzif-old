@@ -24,8 +24,4 @@ module Nationalisable
     else country
     end
   end
-
-  def city
-    super&.titleize
-  end
 end

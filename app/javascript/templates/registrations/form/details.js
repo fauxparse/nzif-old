@@ -100,6 +100,21 @@ const Details = () => {
           if you don’t know it right now you can fill it in later.
         </Hint>
       </LabelledField>
+
+      <LabelledField
+        type="text"
+        name="city"
+        value={state.city || ''}
+        onChange={changed}
+        label="City you’ll be travelling from"
+        autoComplete="address-level2"
+      >
+        <Icon name="venue" />
+        <Hint>
+          This is to help us manage our communications with you in the event of
+          restricted travel due to COVID-19.
+        </Hint>
+      </LabelledField>
     </section>
   )
 }

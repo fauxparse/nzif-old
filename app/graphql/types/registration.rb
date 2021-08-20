@@ -6,6 +6,7 @@ module Types
     field :name, String, null: true
     field :email, String, null: true
     field :phone, String, null: true
+    field :city, String, null: true
     field :festival, Types::Festival, null: false
     field :code_of_conduct_accepted_at, Types::Time, null: true
     field :preferences, [Preference], null: false
@@ -32,6 +33,10 @@ module Types
 
     def phone
       object.user&.phone
+    end
+
+    def city
+      object.user&.city
     end
 
     def preferences

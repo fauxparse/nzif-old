@@ -28,7 +28,7 @@ class FindRegistrationUser < Interaction
   end
 
   def update_user!
-    user.attributes = attributes.slice(:name, :email, :phone)
+    user.attributes = attributes.slice(:name, :email, :phone, :city)
     if user.new_record? || user.changed?
       user.save!
     end

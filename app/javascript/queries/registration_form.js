@@ -10,6 +10,7 @@ export default gql`
       name
       email
       phone
+      city
       codeOfConductAcceptedAt
       user {
         id

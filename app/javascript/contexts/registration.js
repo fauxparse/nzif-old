@@ -63,6 +63,7 @@ export const DummyLoader = ({ delay = 1000, festival, children }) => {
     name: '',
     email: '',
     phone: '',
+    city: '',
     preferences: [],
     availability: [],
   })
@@ -96,6 +97,7 @@ export const DummyLoader = ({ delay = 1000, festival, children }) => {
           name: faker.name.findName(),
           email: faker.internet.email(),
           phone: faker.phone.phoneNumber(),
+          city: faker.address.city(),
           codeOfConductAcceptedAt: moment().subtract(1, 'week'),
           user: { id: faker.random.uuid() },
           preferences: [

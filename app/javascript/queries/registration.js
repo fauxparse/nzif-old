@@ -13,6 +13,7 @@ export default gql`
       user {
         id
         name
+        city
         image {
           thumbnail
           small

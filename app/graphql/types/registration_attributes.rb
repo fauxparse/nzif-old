@@ -3,6 +3,7 @@ module Types
     description 'Attributes for creating or updating a registration'
     argument :state, String, required: false
     argument :name, String, required: false
+    argument :city, String, required: false
     argument :email, String, required: false
     argument :password, String, required: false
     argument :password_confirmation, String, required: false
