@@ -6,7 +6,6 @@ import FestivalContext from 'contexts/festival'
 import Loader from 'atoms/loader'
 import PAGES from 'templates/registrations/form/pages'
 import Form from './form'
-import Covid from './covid'
 
 const RegistrationPage = ({ match, history }) => {
   const festival = useContext(FestivalContext)
@@ -43,7 +42,6 @@ const RegistrationPage = ({ match, history }) => {
         page={currentPage}
         onPageChange={pageChanged}
       />
-      <Covid />
     </RegistrationProvider>
   ) : (
     <Loader />
