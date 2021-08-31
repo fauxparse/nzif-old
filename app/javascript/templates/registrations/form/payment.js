@@ -11,7 +11,7 @@ import PaymentMethodSelector from './payment_method_selector'
 
 const Payment = () => {
   const {
-    registration: { 
+    registration: {
       preferences,
       workshops,
       paymentMethod,
@@ -101,18 +101,18 @@ const Payment = () => {
           <Divider accent />
           <h3>Financial assistance</h3>
           <p>
-            NZIF 2019 has a financial assistance programme. We have several areas in which we offer
+            NZIF 2021 has a financial assistance programme. We have several areas in which we offer
             support (workshop packages, travel grants, and childcare grants) and we invite
             applications from any New Zealand based improvisors who would otherwise not be able to
-            attend.  We especially encourage applications from improvisors often underrepresented at
+            attend. We especially encourage applications from improvisors often underrepresented at
             NZIF, including Māori and Pasifika, LGBTQI*, and people with disabilities.
           </p>
           <p>
-            Applications close on 20 September with decisions made by 23 September,
+            Applications close on Friday 24 September with decisions made by Monday 27 September.
             so you have time before we lock in your selections to decide what you want to commit to.
           </p>
           <p>
-            <TextLink external to="https://forms.gle/z2PD7gvRxVUBRJFWA">
+            <TextLink external to="https://forms.gle/44eQbVgUGKshH8bt8">
               Read more about what we can offer and apply here
             </TextLink>
           </p>
