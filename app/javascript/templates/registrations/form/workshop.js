@@ -61,6 +61,7 @@ const Workshop = ({
         className="button--icon workshop__position"
         text={position > 0 && position.toString() || ''}
         icon={selected ? 'check' : (waitlisted ? 'waitlist' : undefined)}
+        aria-label={selected ? `Selected${position > 0 ? `, option ${position}` : ''}` : 'Not selected'}
       />
       <Fragment>
         {full && (

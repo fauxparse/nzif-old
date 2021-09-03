@@ -1,4 +1,4 @@
-import React, { cloneElement, useRef } from 'react'
+import React, { cloneElement, useCallback, useRef } from 'react'
 import PropTypes from 'lib/proptypes'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { usePrevious } from 'lib/hooks'
@@ -29,6 +29,14 @@ const Pager = ({ pageIndex, children }) => {
 
   const transition = useRef('left')
 
+  const entered = useCallback(
+    (node) => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+      node.focus()
+    },
+    [],
+  )
+
   return (
     <TransitionGroup
       ref={container}
@@ -40,7 +48,7 @@ const Pager = ({ pageIndex, children }) => {
         return cloneElement(child, { classNames: CLASS_NAMES[transition.current] })
       }}
     >
-      <CSSTransition key={pageIndex} timeout={500}>
+      <CSSTransition key={pageIndex} timeout={500} onEntered={entered}>
         <div className="registration-form__page">
           {children}
         </div>
