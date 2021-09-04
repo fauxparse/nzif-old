@@ -30,8 +30,10 @@ const Pager = ({ pageIndex, children }) => {
   const transition = useRef('left')
 
   const entered = useCallback(
-    (_node) => {
+    (node) => {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+      const heading = node.querySelector('.registration-form__heading')
+      if (heading) heading.focus()
     },
     [],
   )
