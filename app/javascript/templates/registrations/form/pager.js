@@ -30,9 +30,8 @@ const Pager = ({ pageIndex, children }) => {
   const transition = useRef('left')
 
   const entered = useCallback(
-    (node) => {
+    (_node) => {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-      node.focus()
     },
     [],
   )

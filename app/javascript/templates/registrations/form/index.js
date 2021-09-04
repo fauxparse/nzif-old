@@ -80,6 +80,11 @@ const RegistrationForm = ({ festival, page, redirecting, onPageChange }) => {
       </Helmet>
       <h1 className="registration-form__title">Register for NZIF {festival.year}</h1>
       <Header loading={loading} pageIndex={pageIndex} onStepClick={stepClicked} />
+      <Footer
+        pageIndex={pageIndex}
+        onBackClick={previousPage}
+        onNextClick={nextPage}
+      />
       <Pager pageIndex={pageIndex}>
         {redirecting ? (
           <Redirect />
@@ -87,11 +92,6 @@ const RegistrationForm = ({ festival, page, redirecting, onPageChange }) => {
           <Component festival={festival} />
         ))}
       </Pager>
-      <Footer
-        pageIndex={pageIndex}
-        onBackClick={previousPage}
-        onNextClick={nextPage}
-      />
       <IntermittentLoader loading={busy} />
     </section>
   )

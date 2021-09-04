@@ -42,6 +42,8 @@ const Workshop = ({
         ? 'You’re on the waitlist. We’ll contact you if a spot comes up.'
         : 'This workshop is full. Click to join the waitlist.'
 
+  const label = selected ? 'Selected' : (position > 0 ? `Selected, option ${position}` : 'Not selected')
+
   return (
     <Card
       className={classNames(
@@ -61,7 +63,7 @@ const Workshop = ({
         className="button--icon workshop__position"
         text={position > 0 && position.toString() || ''}
         icon={selected ? 'check' : (waitlisted ? 'waitlist' : undefined)}
-        aria-label={selected ? `Selected${position > 0 ? `, option ${position}` : ''}` : 'Not selected'}
+        aria-label={label}
       />
       <Fragment>
         {full && (
