@@ -8,6 +8,7 @@ import Panel from '../panel'
 
 const REPORTS = [
   'money_owed',
+  'workshop_preferences',
 ]
 
 const FORMATS = {
