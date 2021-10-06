@@ -37,7 +37,7 @@ const WorkshopTimeslot = ({
           key={session.id}
           session={session}
           loading={loading}
-          disabled={teachingThisSlot || past}
+          disabled={(teachingThisSlot && !workshops.includes(session.id)) || past}
           position={earlybird ? (
             (ordering[session.startsAt.valueOf()] || []).indexOf(session.id) + 1
           ) : (
