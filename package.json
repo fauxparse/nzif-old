@@ -30,7 +30,7 @@
     "lodash": "^4.17.19",
     "markdown-react-js": "^1.0.2",
     "minisearch": "^1.2.0",
-    "moment": "^2.23.0",
+    "moment": "^2.29.4",
     "moment-range": "^4.0.1",
     "moment-timezone": "^0.5.23",
     "pluralize": "^7.0.0",
